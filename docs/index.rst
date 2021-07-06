@@ -14,7 +14,6 @@ Welcome to test's documentation!
    :hidden:
    :maxdepth: 2
    :caption: test
-   :numbered:
 
    fun1
    fun2
