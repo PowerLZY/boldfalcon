@@ -10,6 +10,14 @@ Welcome to test's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+   :caption: test
+   :numbered:
+
+   fun1
+   fun2
 
 
 Indices and tables
