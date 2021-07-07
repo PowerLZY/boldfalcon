@@ -3,26 +3,6 @@
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
-import os
-import sys
-import time
-import socket
-import string
-import random
-import platform
-import subprocess
-import ConfigParser
-from StringIO import StringIO
-from zipfile import ZipFile
-from SimpleXMLRPCServer import SimpleXMLRPCServer
-
-BIND_IP = "0.0.0.0"
-BIND_PORT = 8000
-
-STATUS_INIT = 0x0001
-STATUS_RUNNING = 0x0002
-STATUS_COMPLETED = 0x0003
-STATUS_FAILED = 0x0004
 
 class Agent(object):
     """Cuckoo agent, it runs inside guest."""
@@ -189,22 +169,3 @@ class Agent(object):
 
         self.results_folder = results
         return True
-
-if __name__ == "__main__":
-    try:
-        if not BIND_IP:
-            BIND_IP = socket.gethostbyname(socket.gethostname())
-
-        print("[+] Starting agent on %s:%s ..." % (BIND_IP, BIND_PORT))
-
-        # Disable DNS lookup, by Scott D.
-        def FakeGetFQDN(name=""):
-            return name
-
-        socket.getfqdn = FakeGetFQDN
-
-        server = SimpleXMLRPCServer((BIND_IP, BIND_PORT), allow_none=True)
-        server.register_instance(Agent())
-        server.serve_forever()
-    except KeyboardInterrupt:
-        server.shutdown()
