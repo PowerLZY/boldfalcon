@@ -1,0 +1,360 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>analyzer package &mdash; test 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> test
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">test</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>analyzer package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/analyzer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="analyzer-package">
+<h1>analyzer package<a class="headerlink" href="#analyzer-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-analyzer.analyzer">
+<span id="analyzer-analyzer-module"></span><h2>analyzer.analyzer module<a class="headerlink" href="#module-analyzer.analyzer" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="analyzer.analyzer.Analyzer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">analyzer.analyzer.</span></span><span class="sig-name descname"><span class="pre">Analyzer</span></span><a class="headerlink" href="#analyzer.analyzer.Analyzer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cuckoo Windows Analyzer.</p>
+<p>This class handles the initialization and execution of the analysis
+procedure, including handling of the pipe server, the auxiliary modules and
+the analysis packages.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.Analyzer.complete">
+<span class="sig-name descname"><span class="pre">complete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.Analyzer.complete" title="Permalink to this definition">¶</a></dt>
+<dd><p>End analysis.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.Analyzer.get_pipe_path">
+<span class="sig-name descname"><span class="pre">get_pipe_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.Analyzer.get_pipe_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return .PIPE on Windows XP and ??PIPE elsewhere.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.Analyzer.prepare">
+<span class="sig-name descname"><span class="pre">prepare</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.Analyzer.prepare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare env for analysis.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.Analyzer.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.Analyzer.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run analysis.
+&#64;return: operation status.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.Analyzer.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.Analyzer.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow an auxiliary module to stop the analysis.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="analyzer.analyzer.CommandPipeHandler">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">analyzer.analyzer.</span></span><span class="sig-name descname"><span class="pre">CommandPipeHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analyzer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.CommandPipeHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Pipe Handler.</p>
+<p>This class handles the notifications received through the Pipe Server and
+decides what to do with them.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.CommandPipeHandler.dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.CommandPipeHandler.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="analyzer.analyzer.CommandPipeHandler.ignore_list">
+<span class="sig-name descname"><span class="pre">ignore_list</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'pid':</span> <span class="pre">[]}</span></em><a class="headerlink" href="#analyzer.analyzer.CommandPipeHandler.ignore_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="analyzer.analyzer.Files">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">analyzer.analyzer.</span></span><span class="sig-name descname"><span class="pre">Files</span></span><a class="headerlink" href="#analyzer.analyzer.Files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="analyzer.analyzer.Files.PROTECTED_NAMES">
+<span class="sig-name descname"><span class="pre">PROTECTED_NAMES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">()</span></em><a class="headerlink" href="#analyzer.analyzer.Files.PROTECTED_NAMES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.Files.add_file">
+<span class="sig-name descname"><span class="pre">add_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.Files.add_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add filepath to the list of files and track the pid.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.Files.add_pid">
+<span class="sig-name descname"><span class="pre">add_pid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.Files.add_pid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Track a process identifier for this file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.Files.delete_file">
+<span class="sig-name descname"><span class="pre">delete_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.Files.delete_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>A file is about to removed and thus should be dumped right away.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.Files.dump_file">
+<span class="sig-name descname"><span class="pre">dump_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.Files.dump_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump a file to the host.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.Files.dump_files">
+<span class="sig-name descname"><span class="pre">dump_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.Files.dump_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump all pending files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.Files.is_protected_filename">
+<span class="sig-name descname"><span class="pre">is_protected_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.Files.is_protected_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether or not to inject into a process with this name.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.Files.move_file">
+<span class="sig-name descname"><span class="pre">move_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oldfilepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfilepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.Files.move_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>A file will be moved - track this change.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="analyzer.analyzer.ProcessList">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">analyzer.analyzer.</span></span><span class="sig-name descname"><span class="pre">ProcessList</span></span><a class="headerlink" href="#analyzer.analyzer.ProcessList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.ProcessList.add_pid">
+<span class="sig-name descname"><span class="pre">add_pid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.ProcessList.add_pid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a process identifier to the process list.</p>
+<p>Track determines whether the analyzer should be monitoring this
+process, i.e., whether Cuckoo should wait for this process to finish.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.ProcessList.add_pids">
+<span class="sig-name descname"><span class="pre">add_pids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pids</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.ProcessList.add_pids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add one or more process identifiers to the process list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.ProcessList.has_pid">
+<span class="sig-name descname"><span class="pre">has_pid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notrack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.ProcessList.has_pid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether or not this process identifier being tracked.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analyzer.analyzer.ProcessList.remove_pid">
+<span class="sig-name descname"><span class="pre">remove_pid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analyzer.analyzer.ProcessList.remove_pid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a process identifier from being tracked.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-analyzer">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-analyzer" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, lzy.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
