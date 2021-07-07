@@ -3,40 +3,7 @@
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
-import datetime
-import hashlib
-import logging
-import os
-import pkgutil
-import socket
-import struct
-import sys
-import threading
-import traceback
-import urllib
-import urllib2
-import xmlrpclib
-import zipfile
 
-from lib.api.process import Process
-from lib.common.abstracts import Package, Auxiliary
-from lib.common.constants import SHUTDOWN_MUTEX
-from lib.common.decide import dump_memory
-from lib.common.defines import KERNEL32
-from lib.common.exceptions import CuckooError, CuckooDisableModule
-from lib.common.hashing import hash_file
-from lib.common.rand import random_string
-from lib.common.results import upload_to_host
-from lib.core.config import Config
-from lib.core.ioctl import zer0m0n
-from lib.core.packages import choose_package
-from lib.core.pipe import PipeServer, PipeForwarder, PipeDispatcher
-from lib.core.pipe import disconnect_pipes
-from lib.core.privileges import grant_privilege
-from lib.core.startup import init_logging, disconnect_logger, set_clock
-from modules import auxiliary
-
-log = logging.getLogger("analyzer")
 
 class Files(object):
     PROTECTED_NAMES = ()
@@ -795,63 +762,3 @@ class Analyzer(object):
         # Hell yeah.
         log.info("Analysis completed.")
         return True
-
-if __name__ == "__main__":
-    success = False
-    error = ""
-
-    try:
-        # Initialize the main analyzer class.
-        analyzer = Analyzer()
-
-        # Run it and wait for the response.
-        success = analyzer.run()
-
-        data = {
-            "status": "complete",
-            "description": success,
-        }
-    # This is not likely to happen.
-    except KeyboardInterrupt:
-        error = "Keyboard Interrupt"
-
-    # If the analysis process encountered a critical error, it will raise a
-    # CuckooError exception, which will force the termination of the analysis.
-    # Notify the agent of the failure. Also catch unexpected exceptions.
-    except Exception as e:
-        # Store the error.
-        error_exc = traceback.format_exc()
-        error = "%s\n%s" % (e, error_exc)
-
-        # Just to be paranoid.
-        if len(log.handlers):
-            log.exception(error_exc)
-        else:
-            sys.stderr.write("{0}\n".format(error_exc))
-
-        data = {
-            "status": "exception",
-            "description": error_exc,
-        }
-    finally:
-        try:
-            # Let's invoke the completion procedure.
-            analyzer.complete()
-        except Exception as e:
-            complete_excp = traceback.format_exc()
-            data["status"] = "exception"
-            if "description" in data:
-                data["description"] += "%s\n%s" % (
-                    data["description"], complete_excp
-                )
-            else:
-                data["description"] = complete_excp
-
-        # Report that we're finished. First try with the XML RPC thing and
-        # if that fails, attempt the new Agent.
-        try:
-            server = xmlrpclib.Server("http://127.0.0.1:8000")
-            server.complete(success, error, "unused_path")
-        except Exception as e:
-            urllib2.urlopen("http://127.0.0.1:8000/status",
-                            urllib.urlencode(data)).read()
