@@ -176,38 +176,6 @@ class BehaviorAnalysis(Processing):
     Typically the analyzer behavior contains some sort of "process" separation as
     we're tracking different processes in most cases.
 
-    So this looks roughly like this:
-    "behavior": {
-        "generic": {
-            "processes": [
-                {
-                    "pid": x,
-                    "ppid": y,
-                    "calls": [
-                        {
-                            "function": "foo",
-                            "arguments": {
-                                "a": 1,
-                                "b": 2,
-                            },
-                        },
-                        ...
-                    ]
-                },
-                ...
-            ]
-        }
-        "summary": {
-            "
-        }
-        "platform": {
-            "name": "windows",
-            "architecture": "x86",
-            "source": ["monitor", "windows"],
-            ...
-        }
-    }
-
     There are several handlers that produce the respective keys / subkeys. Overall
     the platform / analyzer specific ones parse / process the captured data and yield
     both their own output, but also a standard structure that is then captured by the
