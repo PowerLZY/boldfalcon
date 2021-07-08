@@ -265,51 +265,6 @@ that contain generic / abstracted analysis info, available on any platform,
 as well as platform / analyzer specific output.</p>
 <p>Typically the analyzer behavior contains some sort of “process” separation as
 we’re tracking different processes in most cases.</p>
-<p>So this looks roughly like this:
-“behavior”: {</p>
-<blockquote>
-<div><dl>
-<dt>“generic”: {</dt><dd><dl>
-<dt>“processes”: [</dt><dd><dl>
-<dt>{</dt><dd><p>“pid”: x,
-“ppid”: y,
-“calls”: [</p>
-<blockquote>
-<div><dl>
-<dt>{</dt><dd><p>“function”: “foo”,
-“arguments”: {</p>
-<blockquote>
-<div><p>“a”: 1,
-“b”: 2,</p>
-</div></blockquote>
-<p>},</p>
-</dd>
-</dl>
-</div></blockquote>
-<p>]</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p>]</p>
-</dd>
-</dl>
-<p>}
-“summary”: {</p>
-<blockquote>
-<div><p>“</p>
-</div></blockquote>
-<p>}
-“platform”: {</p>
-<blockquote>
-<div><p>“name”: “windows”,
-“architecture”: “x86”,
-“source”: [“monitor”, “windows”],
-…</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
 <p>There are several handlers that produce the respective keys / subkeys. Overall
 the platform / analyzer specific ones parse / process the captured data and yield
 both their own output, but also a standard structure that is then captured by the
@@ -990,8 +945,22 @@ the same connection.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="processing-snort-module">
-<h2>processing.snort module<a class="headerlink" href="#processing-snort-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-processing.snort">
+<span id="processing-snort-module"></span><h2>processing.snort module<a class="headerlink" href="#module-processing.snort" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="processing.snort.Snort">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.snort.</span></span><span class="sig-name descname"><span class="pre">Snort</span></span><a class="headerlink" href="#processing.snort.Snort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
+<p>Snort processing module.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="processing.snort.Snort.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.snort.Snort.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start processing.
+&#64;raise NotImplementedError: this method is abstract.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-processing.static">
 <span id="processing-static-module"></span><h2>processing.static module<a class="headerlink" href="#module-processing.static" title="Permalink to this headline">¶</a></h2>

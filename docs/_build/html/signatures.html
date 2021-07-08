@@ -160,11 +160,129 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="signatures-creates-exe-module">
-<h2>signatures.creates_exe module<a class="headerlink" href="#signatures-creates-exe-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-signatures.creates_exe">
+<span id="signatures-creates-exe-module"></span><h2>signatures.creates_exe module<a class="headerlink" href="#module-signatures.creates_exe" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="signatures.creates_exe.CreatesExe">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">signatures.creates_exe.</span></span><span class="sig-name descname"><span class="pre">CreatesExe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">caller</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#signatures.creates_exe.CreatesExe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature" title="lib.cuckoo.common.abstracts.Signature"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Signature</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.creates_exe.CreatesExe.authors">
+<span class="sig-name descname"><span class="pre">authors</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['Cuckoo</span> <span class="pre">Developers']</span></em><a class="headerlink" href="#signatures.creates_exe.CreatesExe.authors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.creates_exe.CreatesExe.categories">
+<span class="sig-name descname"><span class="pre">categories</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['generic']</span></em><a class="headerlink" href="#signatures.creates_exe.CreatesExe.categories" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.creates_exe.CreatesExe.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Creates</span> <span class="pre">a</span> <span class="pre">Windows</span> <span class="pre">executable</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">filesystem'</span></em><a class="headerlink" href="#signatures.creates_exe.CreatesExe.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.creates_exe.CreatesExe.enabled">
+<span class="sig-name descname"><span class="pre">enabled</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="headerlink" href="#signatures.creates_exe.CreatesExe.enabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.creates_exe.CreatesExe.minimum">
+<span class="sig-name descname"><span class="pre">minimum</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'2.0'</span></em><a class="headerlink" href="#signatures.creates_exe.CreatesExe.minimum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.creates_exe.CreatesExe.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'creates_exe'</span></em><a class="headerlink" href="#signatures.creates_exe.CreatesExe.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="signatures.creates_exe.CreatesExe.on_complete">
+<span class="sig-name descname"><span class="pre">on_complete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#signatures.creates_exe.CreatesExe.on_complete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signature is notified when all API calls have been processed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.creates_exe.CreatesExe.severity">
+<span class="sig-name descname"><span class="pre">severity</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#signatures.creates_exe.CreatesExe.severity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="signatures-generic-metrics-module">
-<h2>signatures.generic_metrics module<a class="headerlink" href="#signatures-generic-metrics-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-signatures.generic_metrics">
+<span id="signatures-generic-metrics-module"></span><h2>signatures.generic_metrics module<a class="headerlink" href="#module-signatures.generic_metrics" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="signatures.generic_metrics.SystemMetrics">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">signatures.generic_metrics.</span></span><span class="sig-name descname"><span class="pre">SystemMetrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">caller</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#signatures.generic_metrics.SystemMetrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature" title="lib.cuckoo.common.abstracts.Signature"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Signature</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.generic_metrics.SystemMetrics.authors">
+<span class="sig-name descname"><span class="pre">authors</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['Cuckoo</span> <span class="pre">Developers']</span></em><a class="headerlink" href="#signatures.generic_metrics.SystemMetrics.authors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.generic_metrics.SystemMetrics.categories">
+<span class="sig-name descname"><span class="pre">categories</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['generic']</span></em><a class="headerlink" href="#signatures.generic_metrics.SystemMetrics.categories" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.generic_metrics.SystemMetrics.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Uses</span> <span class="pre">GetSystemMetrics'</span></em><a class="headerlink" href="#signatures.generic_metrics.SystemMetrics.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.generic_metrics.SystemMetrics.enabled">
+<span class="sig-name descname"><span class="pre">enabled</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="headerlink" href="#signatures.generic_metrics.SystemMetrics.enabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.generic_metrics.SystemMetrics.filter_apinames">
+<span class="sig-name descname"><span class="pre">filter_apinames</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('GetSystemMetrics',)</span></em><a class="headerlink" href="#signatures.generic_metrics.SystemMetrics.filter_apinames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.generic_metrics.SystemMetrics.filter_categories">
+<span class="sig-name descname"><span class="pre">filter_categories</span></span><em class="property"> <span class="pre">=</span> <span class="pre">()</span></em><a class="headerlink" href="#signatures.generic_metrics.SystemMetrics.filter_categories" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.generic_metrics.SystemMetrics.filter_processnames">
+<span class="sig-name descname"><span class="pre">filter_processnames</span></span><em class="property"> <span class="pre">=</span> <span class="pre">()</span></em><a class="headerlink" href="#signatures.generic_metrics.SystemMetrics.filter_processnames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.generic_metrics.SystemMetrics.minimum">
+<span class="sig-name descname"><span class="pre">minimum</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'2.0'</span></em><a class="headerlink" href="#signatures.generic_metrics.SystemMetrics.minimum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.generic_metrics.SystemMetrics.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'generic_metrics'</span></em><a class="headerlink" href="#signatures.generic_metrics.SystemMetrics.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="signatures.generic_metrics.SystemMetrics.on_call">
+<span class="sig-name descname"><span class="pre">on_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">call</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#signatures.generic_metrics.SystemMetrics.on_call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notify signature about API call. Return value determines
+if this signature is done or could still match.</p>
+<p>Only called if signature is “active”.</p>
+<p>&#64;param call: logged API call.
+&#64;param process: proc object.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="signatures.generic_metrics.SystemMetrics.severity">
+<span class="sig-name descname"><span class="pre">severity</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#signatures.generic_metrics.SystemMetrics.severity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="signatures.generic_metrics.SystemMetrics.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#signatures.generic_metrics.SystemMetrics.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-signatures">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-signatures" title="Permalink to this headline">¶</a></h2>

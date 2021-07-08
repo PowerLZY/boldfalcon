@@ -591,6 +591,440 @@ connection string.
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.common.abstracts.</span></span><span class="sig-name descname"><span class="pre">Signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">caller</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for Cuckoo signatures.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.alert">
+<span class="sig-name descname"><span class="pre">alert</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.alert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.authors">
+<span class="sig-name descname"><span class="pre">authors</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.authors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.categories">
+<span class="sig-name descname"><span class="pre">categories</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.categories" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_dll_loaded">
+<span class="sig-name descname"><span class="pre">check_dll_loaded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_dll_loaded" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for DLLs being loaded.
+&#64;param pattern: string or expression to check for.
+&#64;param regex: boolean representing if the pattern is a regular</p>
+<blockquote>
+<div><p>expression or not and therefore should be compiled.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>&#64;param pid: The process id to check. If it is set to None, all</dt><dd><p>processes will be checked.</p>
+</dd>
+</dl>
+<p>&#64;return: boolean with the result of the check.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_domain">
+<span class="sig-name descname"><span class="pre">check_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for a domain being contacted.
+&#64;param pattern: string or expression to check for.
+&#64;param regex: boolean representing if the pattern is a regular</p>
+<blockquote>
+<div><p>expression or not and therefore should be compiled.</p>
+</div></blockquote>
+<p>&#64;return: boolean with the result of the check.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_file">
+<span class="sig-name descname"><span class="pre">check_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for a file being opened.
+&#64;param pattern: string or expression to check for.
+&#64;param regex: boolean representing if the pattern is a regular</p>
+<blockquote>
+<div><p>expression or not and therefore should be compiled.</p>
+</div></blockquote>
+<p>&#64;param actions: a list of key actions to use.
+&#64;param pid: The process id to check. If it is set to None, all</p>
+<blockquote>
+<div><p>processes will be checked.</p>
+</div></blockquote>
+<p>&#64;return: boolean with the result of the check.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_ip">
+<span class="sig-name descname"><span class="pre">check_ip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for an IP address being contacted.
+&#64;param pattern: string or expression to check for.
+&#64;param regex: boolean representing if the pattern is a regular</p>
+<blockquote>
+<div><p>expression or not and therefore should be compiled.</p>
+</div></blockquote>
+<p>&#64;return: boolean with the result of the check.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_key">
+<span class="sig-name descname"><span class="pre">check_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for a registry key being accessed.
+&#64;param pattern: string or expression to check for.
+&#64;param regex: boolean representing if the pattern is a regular</p>
+<blockquote>
+<div><p>expression or not and therefore should be compiled.</p>
+</div></blockquote>
+<p>&#64;param actions: a list of key actions to use.
+&#64;param pid: The process id to check. If it is set to None, all</p>
+<blockquote>
+<div><p>processes will be checked.</p>
+</div></blockquote>
+<p>&#64;return: boolean with the result of the check.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_mutex">
+<span class="sig-name descname"><span class="pre">check_mutex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_mutex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for a mutex being opened.
+&#64;param pattern: string or expression to check for.
+&#64;param regex: boolean representing if the pattern is a regular</p>
+<blockquote>
+<div><p>expression or not and therefore should be compiled.</p>
+</div></blockquote>
+<p>&#64;return: boolean with the result of the check.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_url">
+<span class="sig-name descname"><span class="pre">check_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for a URL being contacted.
+&#64;param pattern: string or expression to check for.
+&#64;param regex: boolean representing if the pattern is a regular</p>
+<blockquote>
+<div><p>expression or not and therefore should be compiled.</p>
+</div></blockquote>
+<p>&#64;return: boolean with the result of the check.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.enabled">
+<span class="sig-name descname"><span class="pre">enabled</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.enabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.families">
+<span class="sig-name descname"><span class="pre">families</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.families" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.filter_apinames">
+<span class="sig-name descname"><span class="pre">filter_apinames</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.filter_apinames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.filter_categories">
+<span class="sig-name descname"><span class="pre">filter_categories</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.filter_categories" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_apkinfo">
+<span class="sig-name descname"><span class="pre">get_apkinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">section</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_apkinfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the apkinfo results for this analysis.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_command_lines">
+<span class="sig-name descname"><span class="pre">get_command_lines</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_command_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves all command lines used.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_dll_loaded">
+<span class="sig-name descname"><span class="pre">get_dll_loaded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_dll_loaded" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get DLLs loaded by a specific process.</p>
+<p>&#64;param pid: the process or None for all
+&#64;return: yields DLLs loaded</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_droidmon">
+<span class="sig-name descname"><span class="pre">get_droidmon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">section</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_droidmon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the droidmon results for this analysis.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_files">
+<span class="sig-name descname"><span class="pre">get_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get files read, queried, or written to optionally by a
+specific process.</p>
+<p>&#64;param pid: the process or None for all
+&#64;param actions: actions to search for. None is all
+&#64;return: yields files</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_googleplay">
+<span class="sig-name descname"><span class="pre">get_googleplay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">section</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_googleplay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Google Play results for this analysis.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_keys">
+<span class="sig-name descname"><span class="pre">get_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get registry keys.</p>
+<p>&#64;param pid: The pid to look in or None for all.
+&#64;param actions: the actions as a list.
+&#64;return: yields registry keys</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_mutexes">
+<span class="sig-name descname"><span class="pre">get_mutexes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_mutexes" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#64;param pid: Pid to filter for
+&#64;return:List of mutexes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_net_domains">
+<span class="sig-name descname"><span class="pre">get_net_domains</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_net_domains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all domains.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_net_generic">
+<span class="sig-name descname"><span class="pre">get_net_generic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subtype</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_net_generic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic getting network data.</p>
+<p>&#64;param subtype: subtype string to search for.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_net_hosts">
+<span class="sig-name descname"><span class="pre">get_net_hosts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_net_hosts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all hosts.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_net_http">
+<span class="sig-name descname"><span class="pre">get_net_http</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_net_http" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all http data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_net_http_ex">
+<span class="sig-name descname"><span class="pre">get_net_http_ex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_net_http_ex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all http data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_net_icmp">
+<span class="sig-name descname"><span class="pre">get_net_icmp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_net_icmp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all icmp data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_net_irc">
+<span class="sig-name descname"><span class="pre">get_net_irc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_net_irc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all irc data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_net_smtp">
+<span class="sig-name descname"><span class="pre">get_net_smtp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_net_smtp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all smtp data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_net_udp">
+<span class="sig-name descname"><span class="pre">get_net_udp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_net_udp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all udp data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_process_by_pid">
+<span class="sig-name descname"><span class="pre">get_process_by_pid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_process_by_pid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a process by its process identifier.</p>
+<p>&#64;param pid: pid to search for.
+&#64;return: process.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_processes">
+<span class="sig-name descname"><span class="pre">get_processes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_processes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of processes.</p>
+<p>&#64;param name: If set only return processes with that name.
+&#64;return: List of processes or empty list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_results">
+<span class="sig-name descname"><span class="pre">get_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_summary">
+<span class="sig-name descname"><span class="pre">get_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get one or all values related to the global summary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_summary_generic">
+<span class="sig-name descname"><span class="pre">get_summary_generic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_summary_generic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get generic info from summary.</p>
+<p>&#64;param pid: pid of the process. None for all
+&#64;param actions: A list of actions to get</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_virustotal">
+<span class="sig-name descname"><span class="pre">get_virustotal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_virustotal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the information retrieved from virustotal.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_volatility">
+<span class="sig-name descname"><span class="pre">get_volatility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_volatility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the data that belongs to the given module.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_wmi_queries">
+<span class="sig-name descname"><span class="pre">get_wmi_queries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_wmi_queries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves all executed WMI queries.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.has_marks">
+<span class="sig-name descname"><span class="pre">has_marks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.has_marks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if this signature has one or more marks.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.init">
+<span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow signatures to initialize themselves.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.mark">
+<span class="sig-name descname"><span class="pre">mark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.mark" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark arbitrary data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.mark_call">
+<span class="sig-name descname"><span class="pre">mark_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.mark_call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the current call as explanation as to why this signature
+matched.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.mark_ioc">
+<span class="sig-name descname"><span class="pre">mark_ioc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ioc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.mark_ioc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark an IOC as explanation as to why the current signature
+matched.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.mark_vol">
+<span class="sig-name descname"><span class="pre">mark_vol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.mark_vol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark output of a Volatility plugin as explanation as to why the
+current signature matched.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.markcount">
+<span class="sig-name descname"><span class="pre">markcount</span></span><em class="property"> <span class="pre">=</span> <span class="pre">50</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.markcount" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.maximum">
+<span class="sig-name descname"><span class="pre">maximum</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.maximum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.minimum">
+<span class="sig-name descname"><span class="pre">minimum</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.minimum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.on_call">
+<span class="sig-name descname"><span class="pre">on_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">call</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.on_call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notify signature about API call. Return value determines
+if this signature is done or could still match.</p>
+<p>Only called if signature is “active”.</p>
+<p>&#64;param call: logged API call.
+&#64;param process: proc object.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.on_call_dispatch">
+<span class="sig-name descname"><span class="pre">on_call_dispatch</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.on_call_dispatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.on_complete">
+<span class="sig-name descname"><span class="pre">on_complete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.on_complete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signature is notified when all API calls have been processed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.on_process">
+<span class="sig-name descname"><span class="pre">on_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.on_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called on process change.</p>
+<p>Can be used for cleanup of flags, re-activation of the signature, etc.</p>
+<p>&#64;param process: dictionary describing this process</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.on_signature">
+<span class="sig-name descname"><span class="pre">on_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.on_signature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event yielded when another signatures has matched. Some signatures
+only take effect when one or more other signatures have matched as
+well.</p>
+<p>&#64;param signature: The signature that just matched</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.order">
+<span class="sig-name descname"><span class="pre">order</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.platform">
+<span class="sig-name descname"><span class="pre">platform</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.platform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.references">
+<span class="sig-name descname"><span class="pre">references</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.references" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.results">
+<span class="sig-name descname"><span class="pre">results</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn this signature into actionable results.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.severity">
+<span class="sig-name descname"><span class="pre">severity</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.severity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-lib.cuckoo.common">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lib.cuckoo.common" title="Permalink to this headline">¶</a></h2>

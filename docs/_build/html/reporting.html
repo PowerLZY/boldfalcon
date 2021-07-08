@@ -181,13 +181,14 @@
 <dt class="sig sig-object py" id="reporting.elasticsearch.ElasticSearch.connect">
 <span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#reporting.elasticsearch.ElasticSearch.connect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Connect to Elasticsearch.
-&#64;raise CuckooReportError: if unable to connect.</p>
+:raise CuckooReportError: if unable to connect.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="reporting.elasticsearch.ElasticSearch.do_index">
 <span class="sig-name descname"><span class="pre">do_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#reporting.elasticsearch.ElasticSearch.do_index" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Save results in ElasticSearch for index-task[‘id’]</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="reporting.elasticsearch.ElasticSearch.process_behavior">
@@ -198,9 +199,15 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="reporting.elasticsearch.ElasticSearch.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#reporting.elasticsearch.ElasticSearch.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Index the Cuckoo report into ElasticSearch.
-&#64;param results: analysis results dictionary.
-&#64;raise CuckooReportError: if the connection or reporting failed.</p>
+<dd><p>Index the Cuckoo report into ElasticSearch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>results</strong> – analysis results dictionary.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>CuckooReportError</strong> – if the connection or reporting failed.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
