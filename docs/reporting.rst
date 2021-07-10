@@ -4,7 +4,7 @@ reporting package
 Submodules
 ----------
 
-reporting.elasticsearch module
+reporting.elasticsearch
 ------------------------------
 
 .. automodule:: reporting.elasticsearch
@@ -12,7 +12,7 @@ reporting.elasticsearch module
    :undoc-members:
    :show-inheritance:
 
-reporting.jsondump module
+reporting.jsondump
 -------------------------
 
 .. automodule:: reporting.jsondump
@@ -20,7 +20,7 @@ reporting.jsondump module
    :undoc-members:
    :show-inheritance:
 
-reporting.moloch module
+reporting.moloch
 -----------------------
 
 .. automodule:: reporting.moloch
@@ -28,7 +28,7 @@ reporting.moloch module
    :undoc-members:
    :show-inheritance:
 
-reporting.mongodb module
+reporting.mongodb
 ------------------------
 
 .. automodule:: reporting.mongodb
@@ -36,7 +36,7 @@ reporting.mongodb module
    :undoc-members:
    :show-inheritance:
 
-reporting.reporthtml module
+reporting.reporthtml
 ---------------------------
 
 .. automodule:: reporting.reporthtml
