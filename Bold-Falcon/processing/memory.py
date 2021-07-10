@@ -11,7 +11,8 @@ class VolatilityAPI(object):
     """ Volatility API interface."""
 
     def __init__(self, memdump, osprofile=None):
-        """@param memdump: the memdump file path
+        """
+        :param memdump: the memdump file path
         @param osprofile: the profile (OS type)
         """
         registry.PluginImporter()

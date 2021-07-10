@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>lib.cuckoo.common package &mdash; test 1.0 documentation</title>
+  <title>lib.cuckoo.common package &mdash; Bold-Falcon 1.0 documentation</title>
   
 
   
@@ -54,7 +54,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> test
+            <a href="index.html" class="icon icon-home"> Bold-Falcon
           
 
           
@@ -85,7 +85,31 @@
               
             
             
-              <p class="caption"><span class="caption-text">report</span></p>
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">machinery:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="machinery.html">machinery package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="reporting.html">reporting package</a></li>
 </ul>
@@ -103,7 +127,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">test</a>
+          <a href="index.html">Bold-Falcon</a>
         
       </nav>
 
@@ -277,14 +301,14 @@ behavior[self.key].</p>
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Detection.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Detection.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start detection.
-&#64;raise NotImplementedError: this method is abstract.</p>
+：raise NotImplementedError: this method is abstract.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Detection.set_path">
 <span class="sig-name descname"><span class="pre">set_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Detection.set_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set paths.
-&#64;param analysis_path: analysis folder path.</p>
+：param analysis_path: analysis folder path.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -332,7 +356,7 @@ change the connection string.</p>
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.LibVirtMachinery.dump_memory">
 <span class="sig-name descname"><span class="pre">dump_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.LibVirtMachinery.dump_memory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Takes a memory dump.
-&#64;param path: path to where to store the memory dump.</p>
+：param path: path to where to store the memory dump.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -340,7 +364,7 @@ change the connection string.</p>
 <span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.LibVirtMachinery.initialize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize machine manager module. Override default to set proper
 connection string.
-&#64;param module:  machine manager module</p>
+：param module:  machine manager module</p>
 </dd></dl>
 
 <dl class="py method">
@@ -353,17 +377,17 @@ connection string.
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.LibVirtMachinery.start">
 <span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.LibVirtMachinery.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts a virtual machine.
-&#64;param label: virtual machine name.
-&#64;param task: task object.
-&#64;raise CuckooMachineError: if unable to start virtual machine.</p>
+：param label: virtual machine name.
+：param task: task object.
+：raise CuckooMachineError: if unable to start virtual machine.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.LibVirtMachinery.stop">
 <span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.LibVirtMachinery.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stops a virtual machine. Kill them all.
-&#64;param label: virtual machine name.
-&#64;raise CuckooMachineError: if unable to stop virtual machine.</p>
+：param label: virtual machine name.
+：raise CuckooMachineError: if unable to stop virtual machine.</p>
 </dd></dl>
 
 </dd></dl>
@@ -382,38 +406,38 @@ connection string.
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Machinery.acquire">
 <span class="sig-name descname"><span class="pre">acquire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">machine_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">platform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Machinery.acquire" title="Permalink to this definition">¶</a></dt>
 <dd><p>Acquire a machine to start analysis.
-&#64;param machine_id: machine ID.
-&#64;param platform: machine platform.
-&#64;param tags: machine tags
-&#64;return: machine or None.</p>
+：param machine_id: machine ID.
+：param platform: machine platform.
+：param tags: machine tags
+：return: machine or None.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Machinery.availables">
 <span class="sig-name descname"><span class="pre">availables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Machinery.availables" title="Permalink to this definition">¶</a></dt>
 <dd><p>How many machines are free.
-&#64;return: free machines count.</p>
+：return: free machines count.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Machinery.dump_memory">
 <span class="sig-name descname"><span class="pre">dump_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Machinery.dump_memory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Takes a memory dump of a machine.
-&#64;param path: path to where to store the memory dump.</p>
+：param path: path to where to store the memory dump.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Machinery.initialize">
 <span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Machinery.initialize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read, load, and verify machines configuration.
-&#64;param module_name: module name.</p>
+：param module_name: module name.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Machinery.machines">
 <span class="sig-name descname"><span class="pre">machines</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Machinery.machines" title="Permalink to this definition">¶</a></dt>
 <dd><p>List virtual machines.
-&#64;return: virtual machines list</p>
+：return: virtual machines list</p>
 </dd></dl>
 
 <dl class="py method">
@@ -426,53 +450,53 @@ connection string.
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Machinery.release">
 <span class="sig-name descname"><span class="pre">release</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Machinery.release" title="Permalink to this definition">¶</a></dt>
 <dd><p>Release a machine.
-&#64;param label: machine name.</p>
+：param label: machine name.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Machinery.running">
 <span class="sig-name descname"><span class="pre">running</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Machinery.running" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns running virtual machines.
-&#64;return: running virtual machines list.</p>
+：return: running virtual machines list.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Machinery.set_options">
 <span class="sig-name descname"><span class="pre">set_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Machinery.set_options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set machine manager options.
-&#64;param options: machine manager options dict.</p>
+：param options: machine manager options dict.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Machinery.set_status">
 <span class="sig-name descname"><span class="pre">set_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Machinery.set_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set status for a virtual machine.
-&#64;param label: virtual machine label
-&#64;param status: new virtual machine status</p>
+：param label: virtual machine label
+：param status: new virtual machine status</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Machinery.shutdown">
 <span class="sig-name descname"><span class="pre">shutdown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Machinery.shutdown" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shutdown the machine manager. Kills all alive machines.
-&#64;raise CuckooMachineError: if unable to stop machine.</p>
+：raise CuckooMachineError: if unable to stop machine.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Machinery.start">
 <span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Machinery.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start a machine.
-&#64;param label: machine name.
-&#64;param task: task object.
-&#64;raise NotImplementedError: this method is abstract.</p>
+：param label: machine name.
+：param task: task object.
+：raise NotImplementedError: this method is abstract.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Machinery.stop">
 <span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Machinery.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stop a machine.
-&#64;param label: machine name.
-&#64;raise NotImplementedError: this method is abstract.</p>
+：param label: machine name.
+：raise NotImplementedError: this method is abstract.</p>
 </dd></dl>
 
 </dd></dl>
@@ -496,7 +520,7 @@ connection string.
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Processing.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Processing.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start processing.
-&#64;raise NotImplementedError: this method is abstract.</p>
+：raise NotImplementedError: this method is abstract.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -509,14 +533,14 @@ connection string.
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Processing.set_options">
 <span class="sig-name descname"><span class="pre">set_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Processing.set_options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set report options.
-&#64;param options: report options dict.</p>
+：param options: report options dict.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Processing.set_path">
 <span class="sig-name descname"><span class="pre">set_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Processing.set_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set paths.
-&#64;param analysis_path: analysis folder path.</p>
+：param analysis_path: analysis folder path.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -529,7 +553,7 @@ connection string.
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Processing.set_task">
 <span class="sig-name descname"><span class="pre">set_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Processing.set_task" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add task information.
-&#64;param task: task dictionary.</p>
+：param task: task dictionary.</p>
 </dd></dl>
 
 </dd></dl>
@@ -565,28 +589,28 @@ connection string.
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Report.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Report.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start report processing.
-&#64;raise NotImplementedError: this method is abstract.</p>
+：raise NotImplementedError: this method is abstract.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Report.set_options">
 <span class="sig-name descname"><span class="pre">set_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Report.set_options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set report options.
-&#64;param options: report options dict.</p>
+：param options: report options dict.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Report.set_path">
 <span class="sig-name descname"><span class="pre">set_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">analysis_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Report.set_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set analysis folder path.
-&#64;param analysis_path: analysis folder path.</p>
+：param analysis_path: analysis folder path.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Report.set_task">
 <span class="sig-name descname"><span class="pre">set_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Report.set_task" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add task information.
-&#64;param task: task dictionary.</p>
+：param task: task dictionary.</p>
 </dd></dl>
 
 </dd></dl>
@@ -615,98 +639,98 @@ connection string.
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_dll_loaded">
 <span class="sig-name descname"><span class="pre">check_dll_loaded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_dll_loaded" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks for DLLs being loaded.
-&#64;param pattern: string or expression to check for.
-&#64;param regex: boolean representing if the pattern is a regular</p>
+：param pattern: string or expression to check for.
+：param regex: boolean representing if the pattern is a regular</p>
 <blockquote>
 <div><p>expression or not and therefore should be compiled.</p>
 </div></blockquote>
 <dl class="simple">
-<dt>&#64;param pid: The process id to check. If it is set to None, all</dt><dd><p>processes will be checked.</p>
+<dt>：param pid: The process id to check. If it is set to None, all</dt><dd><p>processes will be checked.</p>
 </dd>
 </dl>
-<p>&#64;return: boolean with the result of the check.</p>
+<p>：return: boolean with the result of the check.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_domain">
 <span class="sig-name descname"><span class="pre">check_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_domain" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks for a domain being contacted.
-&#64;param pattern: string or expression to check for.
-&#64;param regex: boolean representing if the pattern is a regular</p>
+：param pattern: string or expression to check for.
+：param regex: boolean representing if the pattern is a regular</p>
 <blockquote>
 <div><p>expression or not and therefore should be compiled.</p>
 </div></blockquote>
-<p>&#64;return: boolean with the result of the check.</p>
+<p>：return: boolean with the result of the check.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_file">
 <span class="sig-name descname"><span class="pre">check_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks for a file being opened.
-&#64;param pattern: string or expression to check for.
-&#64;param regex: boolean representing if the pattern is a regular</p>
+：param pattern: string or expression to check for.
+：param regex: boolean representing if the pattern is a regular</p>
 <blockquote>
 <div><p>expression or not and therefore should be compiled.</p>
 </div></blockquote>
-<p>&#64;param actions: a list of key actions to use.
-&#64;param pid: The process id to check. If it is set to None, all</p>
+<p>：param actions: a list of key actions to use.
+：param pid: The process id to check. If it is set to None, all</p>
 <blockquote>
 <div><p>processes will be checked.</p>
 </div></blockquote>
-<p>&#64;return: boolean with the result of the check.</p>
+<p>：return: boolean with the result of the check.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_ip">
 <span class="sig-name descname"><span class="pre">check_ip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_ip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks for an IP address being contacted.
-&#64;param pattern: string or expression to check for.
-&#64;param regex: boolean representing if the pattern is a regular</p>
+：param pattern: string or expression to check for.
+：param regex: boolean representing if the pattern is a regular</p>
 <blockquote>
 <div><p>expression or not and therefore should be compiled.</p>
 </div></blockquote>
-<p>&#64;return: boolean with the result of the check.</p>
+<p>：return: boolean with the result of the check.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_key">
 <span class="sig-name descname"><span class="pre">check_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks for a registry key being accessed.
-&#64;param pattern: string or expression to check for.
-&#64;param regex: boolean representing if the pattern is a regular</p>
+：param pattern: string or expression to check for.
+：param regex: boolean representing if the pattern is a regular</p>
 <blockquote>
 <div><p>expression or not and therefore should be compiled.</p>
 </div></blockquote>
-<p>&#64;param actions: a list of key actions to use.
-&#64;param pid: The process id to check. If it is set to None, all</p>
+<p>：param actions: a list of key actions to use.
+：param pid: The process id to check. If it is set to None, all</p>
 <blockquote>
 <div><p>processes will be checked.</p>
 </div></blockquote>
-<p>&#64;return: boolean with the result of the check.</p>
+<p>：return: boolean with the result of the check.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_mutex">
 <span class="sig-name descname"><span class="pre">check_mutex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_mutex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks for a mutex being opened.
-&#64;param pattern: string or expression to check for.
-&#64;param regex: boolean representing if the pattern is a regular</p>
+：param pattern: string or expression to check for.
+：param regex: boolean representing if the pattern is a regular</p>
 <blockquote>
 <div><p>expression or not and therefore should be compiled.</p>
 </div></blockquote>
-<p>&#64;return: boolean with the result of the check.</p>
+<p>：return: boolean with the result of the check.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.check_url">
 <span class="sig-name descname"><span class="pre">check_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.check_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks for a URL being contacted.
-&#64;param pattern: string or expression to check for.
-&#64;param regex: boolean representing if the pattern is a regular</p>
+：param pattern: string or expression to check for.
+：param regex: boolean representing if the pattern is a regular</p>
 <blockquote>
 <div><p>expression or not and therefore should be compiled.</p>
 </div></blockquote>
-<p>&#64;return: boolean with the result of the check.</p>
+<p>：return: boolean with the result of the check.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -750,8 +774,8 @@ connection string.
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_dll_loaded">
 <span class="sig-name descname"><span class="pre">get_dll_loaded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_dll_loaded" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get DLLs loaded by a specific process.</p>
-<p>&#64;param pid: the process or None for all
-&#64;return: yields DLLs loaded</p>
+<p>：param pid: the process or None for all
+：return: yields DLLs loaded</p>
 </dd></dl>
 
 <dl class="py method">
@@ -765,9 +789,9 @@ connection string.
 <span class="sig-name descname"><span class="pre">get_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_files" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get files read, queried, or written to optionally by a
 specific process.</p>
-<p>&#64;param pid: the process or None for all
-&#64;param actions: actions to search for. None is all
-&#64;return: yields files</p>
+<p>：param pid: the process or None for all
+：param actions: actions to search for. None is all
+：return: yields files</p>
 </dd></dl>
 
 <dl class="py method">
@@ -780,16 +804,16 @@ specific process.</p>
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_keys">
 <span class="sig-name descname"><span class="pre">get_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get registry keys.</p>
-<p>&#64;param pid: The pid to look in or None for all.
-&#64;param actions: the actions as a list.
-&#64;return: yields registry keys</p>
+<p>：param pid: The pid to look in or None for all.
+：param actions: the actions as a list.
+：return: yields registry keys</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_mutexes">
 <span class="sig-name descname"><span class="pre">get_mutexes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_mutexes" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#64;param pid: Pid to filter for
-&#64;return:List of mutexes</p>
+<dd><p>：param pid: Pid to filter for
+：return:List of mutexes</p>
 </dd></dl>
 
 <dl class="py method">
@@ -802,7 +826,7 @@ specific process.</p>
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_net_generic">
 <span class="sig-name descname"><span class="pre">get_net_generic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subtype</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_net_generic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generic getting network data.</p>
-<p>&#64;param subtype: subtype string to search for.</p>
+<p>：param subtype: subtype string to search for.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -851,16 +875,16 @@ specific process.</p>
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_process_by_pid">
 <span class="sig-name descname"><span class="pre">get_process_by_pid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_process_by_pid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a process by its process identifier.</p>
-<p>&#64;param pid: pid to search for.
-&#64;return: process.</p>
+<p>：param pid: pid to search for.
+：return: process.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_processes">
 <span class="sig-name descname"><span class="pre">get_processes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_processes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a list of processes.</p>
-<p>&#64;param name: If set only return processes with that name.
-&#64;return: List of processes or empty list</p>
+<p>：param name: If set only return processes with that name.
+：return: List of processes or empty list</p>
 </dd></dl>
 
 <dl class="py method">
@@ -878,8 +902,8 @@ specific process.</p>
 <dt class="sig sig-object py" id="lib.cuckoo.common.abstracts.Signature.get_summary_generic">
 <span class="sig-name descname"><span class="pre">get_summary_generic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.get_summary_generic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get generic info from summary.</p>
-<p>&#64;param pid: pid of the process. None for all
-&#64;param actions: A list of actions to get</p>
+<p>：param pid: pid of the process. None for all
+：param actions: A list of actions to get</p>
 </dd></dl>
 
 <dl class="py method">
@@ -965,8 +989,8 @@ current signature matched.</p>
 <dd><p>Notify signature about API call. Return value determines
 if this signature is done or could still match.</p>
 <p>Only called if signature is “active”.</p>
-<p>&#64;param call: logged API call.
-&#64;param process: proc object.</p>
+<p>：param call: logged API call.
+：param process: proc object.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -985,7 +1009,7 @@ if this signature is done or could still match.</p>
 <span class="sig-name descname"><span class="pre">on_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.cuckoo.common.abstracts.Signature.on_process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called on process change.</p>
 <p>Can be used for cleanup of flags, re-activation of the signature, etc.</p>
-<p>&#64;param process: dictionary describing this process</p>
+<p>：param process: dictionary describing this process</p>
 </dd></dl>
 
 <dl class="py method">
@@ -994,7 +1018,7 @@ if this signature is done or could still match.</p>
 <dd><p>Event yielded when another signatures has matched. Some signatures
 only take effect when one or more other signatures have matched as
 well.</p>
-<p>&#64;param signature: The signature that just matched</p>
+<p>：param signature: The signature that just matched</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1041,7 +1065,7 @@ well.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, lzy.
+        &#169; Copyright 2021, PowerLZY.
 
     </p>
   </div>

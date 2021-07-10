@@ -28,7 +28,7 @@ class Summary(BehaviorHandler):
 
 class Anomaly(BehaviorHandler):
     """Anomaly detected during analysis.
-    For example: a malware tried to remove Cuckoo's hooks.
+    :For example: a malware tried to remove Cuckoo's hooks.
     """
 
     key = "anomaly"
@@ -40,8 +40,9 @@ class Anomaly(BehaviorHandler):
 
     def handle_event(self, call):
         """Process API calls.
-        @param call: API call object
-        @param process: process object
+
+        :param call: API call object
+        :param process: process object
         """
         category, funcname, message = None, None, None
         for row in call["arguments"]:
@@ -156,7 +157,7 @@ class ApiStats(BehaviorHandler):
 class PlatformInfo(BehaviorHandler):
     """Provides information about the platform for the collected behavior.
 
-    Not sure if this is really needed, as probably all the info is in the results["info"] area.
+    :Note: Not sure if this is really needed, as probably all the info is in the results["info"] area.
     """
     key = "platform"
 
@@ -220,7 +221,7 @@ class BehaviorAnalysis(Processing):
 
     def run(self):
         """Run analysis.
-        @return: results dict.
+        :return: results dict.
         """
         self.cfg = Config()
         self.state = {}

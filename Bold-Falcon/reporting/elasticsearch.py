@@ -72,6 +72,17 @@ class ElasticSearch(Report):
                     },
                 })
 
+    def load_json(self, json_file, name="unknown"):
+        """
+        Load JSON formatted malware report. It can handle both a path to JSON file and a dictionary object.
+        
+        :note: adb
+        :param json_file: json path
+        :param name: default "unknown"
+        :return: byte sequence
+        """
+
+
     def run(self, results):
         '''
         Index the Cuckoo report into ElasticSearch.

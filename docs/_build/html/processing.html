@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>processing package &mdash; test 1.0 documentation</title>
+  <title>processing package &mdash; Bold-Falcon 1.0 documentation</title>
   
 
   
@@ -40,7 +40,9 @@
 
     
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="signatures package" href="signatures.html" />
+    <link rel="prev" title="machinery package" href="machinery.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -54,7 +56,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> test
+            <a href="index.html" class="icon icon-home"> Bold-Falcon
           
 
           
@@ -85,7 +87,52 @@
               
             
             
-              <p class="caption"><span class="caption-text">report</span></p>
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">machinery:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="machinery.html">machinery package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">processing package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.analysisinfo">processing.analysisinfo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.behavior">processing.behavior module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.buffer">processing.buffer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.debug">processing.debug module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.droidmon">processing.droidmon module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.dropped">processing.dropped module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.dumptls">processing.dumptls module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.memory">processing.memory module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.network">processing.network module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.procmemory">processing.procmemory module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.screenshots">processing.screenshots module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.snort">processing.snort module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.static">processing.static module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.strings">processing.strings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.suricata">processing.suricata module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.targetinfo">processing.targetinfo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.virustotal">processing.virustotal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="reporting.html">reporting package</a></li>
 </ul>
@@ -103,7 +150,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">test</a>
+          <a href="index.html">Bold-Falcon</a>
         
       </nav>
 
@@ -198,7 +245,7 @@
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">Anomaly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.Anomaly" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.BehaviorHandler" title="lib.cuckoo.common.abstracts.BehaviorHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.BehaviorHandler</span></code></a></p>
 <p>Anomaly detected during analysis.
-For example: a malware tried to remove Cuckoo’s hooks.</p>
+:For example: a malware tried to remove Cuckoo’s hooks.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="processing.behavior.Anomaly.event_types">
 <span class="sig-name descname"><span class="pre">event_types</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['anomaly']</span></em><a class="headerlink" href="#processing.behavior.Anomaly.event_types" title="Permalink to this definition">¶</a></dt>
@@ -207,9 +254,15 @@ For example: a malware tried to remove Cuckoo’s hooks.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.behavior.Anomaly.handle_event">
 <span class="sig-name descname"><span class="pre">handle_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">call</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.Anomaly.handle_event" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process API calls.
-&#64;param call: API call object
-&#64;param process: process object</p>
+<dd><p>Process API calls.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>call</strong> – API call object</p></li>
+<li><p><strong>process</strong> – process object</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -284,7 +337,7 @@ during reporting (well once for each report type if multiple are enabled).</p>
 <dt class="sig sig-object py" id="processing.behavior.BehaviorAnalysis.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.BehaviorAnalysis.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run analysis.
-&#64;return: results dict.</p>
+:return: results dict.</p>
 </dd></dl>
 
 </dd></dl>
@@ -328,7 +381,11 @@ behavior[self.key].</p>
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">PlatformInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">behavior_analysis</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.PlatformInfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.BehaviorHandler" title="lib.cuckoo.common.abstracts.BehaviorHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.BehaviorHandler</span></code></a></p>
 <p>Provides information about the platform for the collected behavior.</p>
-<p>Not sure if this is really needed, as probably all the info is in the results[“info”] area.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p>Not sure if this is really needed, as probably all the info is in the results[“info”] area.</p>
+</dd>
+</dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="processing.behavior.PlatformInfo.key">
 <span class="sig-name descname"><span class="pre">key</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'platform'</span></em><a class="headerlink" href="#processing.behavior.PlatformInfo.key" title="Permalink to this definition">¶</a></dt>
@@ -503,7 +560,7 @@ compatible with, e.g., Wireshark.</p>
 <dt class="sig sig-object py" id="processing.dumptls.TLSMasterSecrets.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.dumptls.TLSMasterSecrets.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start processing.
-&#64;raise NotImplementedError: this method is abstract.</p>
+：raise NotImplementedError: this method is abstract.</p>
 </dd></dl>
 
 </dd></dl>
@@ -776,7 +833,7 @@ we have obtained through dynamic analysis.</p>
 <dt class="sig sig-object py" id="processing.network.NetworkAnalysis.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.NetworkAnalysis.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start processing.
-&#64;raise NotImplementedError: this method is abstract.</p>
+：raise NotImplementedError: this method is abstract.</p>
 </dd></dl>
 
 </dd></dl>
@@ -956,7 +1013,7 @@ the same connection.</p>
 <dt class="sig sig-object py" id="processing.snort.Snort.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.snort.Snort.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start processing.
-&#64;raise NotImplementedError: this method is abstract.</p>
+：raise NotImplementedError: this method is abstract.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1129,7 +1186,7 @@ couple of performance heavy seconds to set itself up.</p>
 <dt class="sig sig-object py" id="processing.suricata.Suricata.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.suricata.Suricata.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start processing.
-&#64;raise NotImplementedError: this method is abstract.</p>
+：raise NotImplementedError: this method is abstract.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1216,12 +1273,16 @@ files.
            
           </div>
           <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="signatures.html" class="btn btn-neutral float-right" title="signatures package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="machinery.html" class="btn btn-neutral float-left" title="machinery package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, lzy.
+        &#169; Copyright 2021, PowerLZY.
 
     </p>
   </div>
