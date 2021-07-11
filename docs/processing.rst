@@ -1,9 +1,6 @@
 processing package
 ==================
 
-Submodules
-----------
-
 processing.analysisinfo module
 ------------------------------
 

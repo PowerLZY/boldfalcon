@@ -1,10 +1,15 @@
 reporting package
 =================
 
-Submodules
-----------
+reporting.Malconv module
+------------------------
 
-reporting.elasticsearch
+.. automodule:: reporting.Malconv
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+reporting.elasticsearch module
 ------------------------------
 
 .. automodule:: reporting.elasticsearch
@@ -12,7 +17,7 @@ reporting.elasticsearch
    :undoc-members:
    :show-inheritance:
 
-reporting.jsondump
+reporting.jsondump module
 -------------------------
 
 .. automodule:: reporting.jsondump
@@ -20,7 +25,7 @@ reporting.jsondump
    :undoc-members:
    :show-inheritance:
 
-reporting.moloch
+reporting.moloch module
 -----------------------
 
 .. automodule:: reporting.moloch
@@ -28,7 +33,7 @@ reporting.moloch
    :undoc-members:
    :show-inheritance:
 
-reporting.mongodb
+reporting.mongodb module
 ------------------------
 
 .. automodule:: reporting.mongodb
@@ -36,7 +41,7 @@ reporting.mongodb
    :undoc-members:
    :show-inheritance:
 
-reporting.reporthtml
+reporting.reporthtml module
 ---------------------------
 
 .. automodule:: reporting.reporthtml
