@@ -6,6 +6,7 @@
 from lib.cuckoo.common.abstracts import Signature
 
 class SystemMetrics(Signature):
+    
     name = "generic_metrics"
     description = "Uses GetSystemMetrics"
     severity = 2

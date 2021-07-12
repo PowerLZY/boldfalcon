@@ -1,0 +1,1183 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>processing.network &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>processing.network</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for processing.network</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<span class="kn">from</span> <span class="nn">lib.cuckoo.common.abstracts</span> <span class="kn">import</span> <span class="n">Processing</span>
+
+<div class="viewcode-block" id="Pcap"><a class="viewcode-back" href="../../processing.html#processing.network.Pcap">[docs]</a><span class="k">class</span> <span class="nc">Pcap</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reads network data from PCAP file.&quot;&quot;&quot;</span>
+    <span class="n">ssl_ports</span> <span class="o">=</span> <span class="mi">443</span><span class="p">,</span>
+
+    <span class="n">notified_dpkt</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a new instance.</span>
+
+<span class="sd">        :param filepath: path to PCAP file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">filepath</span>
+
+        <span class="c1"># List of all hosts.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># List containing all non-private IP addresses.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unique_hosts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># List of unique domains.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unique_domains</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># List containing all TCP packets.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tcp_connections</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tcp_connections_seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="c1"># Lookup table to identify connection requests to services or IP</span>
+        <span class="c1"># addresses that are no longer available.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tcp_connections_dead</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dead_hosts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># List containing all UDP packets.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">udp_connections</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">udp_connections_seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="c1"># List containing all ICMP requests.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">icmp_requests</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># List containing all HTTP requests.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">http_requests</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># List containing all TLS/SSL3 key combinations.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tls_keys</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># List containing all DNS requests.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dns_requests</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dns_answers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="c1"># List containing all SMTP requests.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">smtp_requests</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Reconstructed SMTP flow.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">smtp_flow</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># List containing all IRC requests.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">irc_requests</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Dictionary containing all the results of this processing.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">_dns_gethostbyname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get host by name wrapper.</span>
+
+<span class="sd">        :param name: hostname.</span>
+<span class="sd">        :return: IP address or blank</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">processing</span><span class="o">.</span><span class="n">resolve_dns</span><span class="p">:</span>
+            <span class="n">ip</span> <span class="o">=</span> <span class="n">resolve</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ip</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ip</span>
+
+    <span class="k">def</span> <span class="nf">_is_private_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check if the IP belongs to private network blocks.</span>
+
+<span class="sd">        :param ip: IP address to verify.</span>
+<span class="sd">        :return: boolean representing whether the IP belongs or not to</span>
+<span class="sd">                 a private network block.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">networks</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;0.0.0.0/8&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;10.0.0.0/8&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;100.64.0.0/10&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;127.0.0.0/8&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;169.254.0.0/16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;172.16.0.0/12&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;192.0.0.0/24&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;192.0.2.0/24&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;192.88.99.0/24&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;192.168.0.0/16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;198.18.0.0/15&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;198.51.100.0/24&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;203.0.113.0/24&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;240.0.0.0/4&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;255.255.255.255/32&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;224.0.0.0/4&quot;</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">network</span> <span class="ow">in</span> <span class="n">networks</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ipaddr</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;I&quot;</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_aton</span><span class="p">(</span><span class="n">ip</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+                <span class="n">netaddr</span><span class="p">,</span> <span class="n">bits</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+
+                <span class="n">network_low</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;I&quot;</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_aton</span><span class="p">(</span><span class="n">netaddr</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">network_high</span> <span class="o">=</span> <span class="n">network_low</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">bits</span><span class="p">)))</span> <span class="o">-</span> <span class="mi">1</span>
+
+                <span class="k">if</span> <span class="n">ipaddr</span> <span class="o">&lt;=</span> <span class="n">network_high</span> <span class="ow">and</span> <span class="n">ipaddr</span> <span class="o">&gt;=</span> <span class="n">network_low</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_add_hosts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add IPs to unique list.</span>
+
+<span class="sd">        :param connection: connection data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># TODO: Perhaps this block should be removed.</span>
+            <span class="c1"># If there is a packet from a non-local IP address, which hasn&#39;t</span>
+            <span class="c1"># been seen before, it means that the connection wasn&#39;t initiated</span>
+            <span class="c1"># during the time of the current analysis.</span>
+            <span class="k">if</span> <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="p">:</span>
+                <span class="n">ip</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">connection</span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">])</span>
+
+                <span class="c1"># We consider the IP only if it hasn&#39;t been seen before.</span>
+                <span class="k">if</span> <span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="p">:</span>
+                    <span class="c1"># If the IP is not a local one, this might be a leftover</span>
+                    <span class="c1"># packet as described in issue #249.</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_private_ip</span><span class="p">(</span><span class="n">ip</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="p">:</span>
+                <span class="n">ip</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">connection</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">])</span>
+
+                <span class="k">if</span> <span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+
+                    <span class="c1"># We add external IPs to the list, only the first time</span>
+                    <span class="c1"># we see them and if they&#39;re the destination of the</span>
+                    <span class="c1"># first packet they appear in.</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_private_ip</span><span class="p">(</span><span class="n">ip</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">unique_hosts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_tcp_dissect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Runs all TCP dissectors.</span>
+
+<span class="sd">        :param conn: connection.</span>
+<span class="sd">        :param data: payload data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_http</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_http</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">conn</span><span class="p">[</span><span class="s2">&quot;dport&quot;</span><span class="p">])</span>
+
+        <span class="c1"># SMTP.</span>
+        <span class="k">if</span> <span class="n">conn</span><span class="p">[</span><span class="s2">&quot;dport&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">25</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reassemble_smtp</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># IRC.</span>
+        <span class="k">if</span> <span class="n">conn</span><span class="p">[</span><span class="s2">&quot;dport&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">21</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_irc</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_irc</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># HTTPS.</span>
+        <span class="k">if</span> <span class="n">conn</span><span class="p">[</span><span class="s2">&quot;dport&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ssl_ports</span> <span class="ow">or</span> <span class="n">conn</span><span class="p">[</span><span class="s2">&quot;sport&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ssl_ports</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_https_identify</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_udp_dissect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Runs all UDP dissectors.</span>
+
+<span class="sd">        :param conn: connection.</span>
+<span class="sd">        :param data: payload data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Select DNS and MDNS traffic.</span>
+        <span class="k">if</span> <span class="n">conn</span><span class="p">[</span><span class="s2">&quot;dport&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">53</span> <span class="ow">or</span> <span class="n">conn</span><span class="p">[</span><span class="s2">&quot;sport&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">53</span> <span class="ow">or</span> <span class="n">conn</span><span class="p">[</span><span class="s2">&quot;dport&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">5353</span> <span class="ow">or</span> <span class="n">conn</span><span class="p">[</span><span class="s2">&quot;sport&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">5353</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_dns</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_add_dns</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_icmp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">icmp_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Checks for ICMP traffic.</span>
+
+<span class="sd">        :param icmp_data: ICMP data flow.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">icmp_data</span><span class="p">,</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">icmp</span><span class="o">.</span><span class="n">ICMP</span><span class="p">)</span> <span class="ow">and</span> \
+                <span class="nb">len</span><span class="p">(</span><span class="n">icmp_data</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_icmp_dissect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Runs all ICMP dissectors.</span>
+
+<span class="sd">        :param conn: connection.</span>
+<span class="sd">        :param data: payload data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_icmp</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="c1"># If ICMP packets are coming from the host, it probably isn&#39;t</span>
+            <span class="c1"># relevant traffic, hence we can skip from reporting it.</span>
+            <span class="k">if</span> <span class="n">conn</span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cfg</span><span class="o">.</span><span class="n">resultserver</span><span class="o">.</span><span class="n">ip</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="n">entry</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conn</span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">]</span>
+            <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conn</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">]</span>
+            <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">type</span>
+
+            <span class="c1"># Extract data from dpkg.icmp.ICMP.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">icmp_requests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_dns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udpdata</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Checks for DNS traffic.</span>
+
+<span class="sd">        :param udpdata: UDP data flow.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS</span><span class="p">(</span><span class="n">udpdata</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_add_dns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udpdata</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds a DNS data flow.</span>
+
+<span class="sd">        :param udpdata: UDP data flow.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dns</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS</span><span class="p">(</span><span class="n">udpdata</span><span class="p">)</span>
+
+        <span class="c1"># DNS query parsing.</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">dns</span><span class="o">.</span><span class="n">rcode</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_RCODE_NOERR</span> <span class="ow">or</span> \
+                <span class="n">dns</span><span class="o">.</span><span class="n">qr</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_R</span> <span class="ow">or</span> \
+                <span class="n">dns</span><span class="o">.</span><span class="n">opcode</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_QUERY</span> <span class="ow">or</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># DNS question.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">q_name</span> <span class="o">=</span> <span class="n">dns</span><span class="o">.</span><span class="n">qd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+                <span class="n">q_type</span> <span class="o">=</span> <span class="n">dns</span><span class="o">.</span><span class="n">qd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="c1"># DNS RR type mapping.</span>
+            <span class="c1"># See: http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4</span>
+            <span class="c1"># See: https://github.com/kbandla/dpkt/blob/master/dpkt/dns.py#L42</span>
+            <span class="n">query</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">q_name</span>
+            <span class="k">if</span> <span class="n">q_type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_A</span><span class="p">:</span>
+                <span class="n">query</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;A&quot;</span>
+            <span class="k">if</span> <span class="n">q_type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_AAAA</span><span class="p">:</span>
+                <span class="n">query</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;AAAA&quot;</span>
+            <span class="k">elif</span> <span class="n">q_type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_CNAME</span><span class="p">:</span>
+                <span class="n">query</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;CNAME&quot;</span>
+            <span class="k">elif</span> <span class="n">q_type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_MX</span><span class="p">:</span>
+                <span class="n">query</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MX&quot;</span>
+            <span class="k">elif</span> <span class="n">q_type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_PTR</span><span class="p">:</span>
+                <span class="n">query</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;PTR&quot;</span>
+            <span class="k">elif</span> <span class="n">q_type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_NS</span><span class="p">:</span>
+                <span class="n">query</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;NS&quot;</span>
+            <span class="k">elif</span> <span class="n">q_type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_SOA</span><span class="p">:</span>
+                <span class="n">query</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;SOA&quot;</span>
+            <span class="k">elif</span> <span class="n">q_type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_HINFO</span><span class="p">:</span>
+                <span class="n">query</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;HINFO&quot;</span>
+            <span class="k">elif</span> <span class="n">q_type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_TXT</span><span class="p">:</span>
+                <span class="n">query</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;TXT&quot;</span>
+            <span class="k">elif</span> <span class="n">q_type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_SRV</span><span class="p">:</span>
+                <span class="n">query</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;SRV&quot;</span>
+            <span class="k">elif</span> <span class="n">q_type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_ANY</span><span class="p">:</span>
+                <span class="c1"># For example MDNS requests have q_type=255.</span>
+                <span class="n">query</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;All&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Some requests are not parsed by dpkt.</span>
+                <span class="n">query</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;None&quot;</span>
+
+            <span class="c1"># DNS answer.</span>
+            <span class="n">query</span><span class="p">[</span><span class="s2">&quot;answers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">answer</span> <span class="ow">in</span> <span class="n">dns</span><span class="o">.</span><span class="n">an</span><span class="p">:</span>
+                <span class="n">ans</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">if</span> <span class="n">answer</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_A</span><span class="p">:</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;A&quot;</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_ntoa</span><span class="p">(</span><span class="n">answer</span><span class="o">.</span><span class="n">rdata</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">answer</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_AAAA</span><span class="p">:</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;AAAA&quot;</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_ntop</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET6</span><span class="p">,</span>
+                                                       <span class="n">answer</span><span class="o">.</span><span class="n">rdata</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+                        <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">answer</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_CNAME</span><span class="p">:</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;CNAME&quot;</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">answer</span><span class="o">.</span><span class="n">cname</span>
+                <span class="k">elif</span> <span class="n">answer</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_MX</span><span class="p">:</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MX&quot;</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">answer</span><span class="o">.</span><span class="n">mxname</span>
+                <span class="k">elif</span> <span class="n">answer</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_PTR</span><span class="p">:</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;PTR&quot;</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">answer</span><span class="o">.</span><span class="n">ptrname</span>
+                <span class="k">elif</span> <span class="n">answer</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_NS</span><span class="p">:</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;NS&quot;</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">answer</span><span class="o">.</span><span class="n">nsname</span>
+                <span class="k">elif</span> <span class="n">answer</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_SOA</span><span class="p">:</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;SOA&quot;</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">answer</span><span class="o">.</span><span class="n">mname</span><span class="p">,</span>
+                                           <span class="n">answer</span><span class="o">.</span><span class="n">rname</span><span class="p">,</span>
+                                           <span class="nb">str</span><span class="p">(</span><span class="n">answer</span><span class="o">.</span><span class="n">serial</span><span class="p">),</span>
+                                           <span class="nb">str</span><span class="p">(</span><span class="n">answer</span><span class="o">.</span><span class="n">refresh</span><span class="p">),</span>
+                                           <span class="nb">str</span><span class="p">(</span><span class="n">answer</span><span class="o">.</span><span class="n">retry</span><span class="p">),</span>
+                                           <span class="nb">str</span><span class="p">(</span><span class="n">answer</span><span class="o">.</span><span class="n">expire</span><span class="p">),</span>
+                                           <span class="nb">str</span><span class="p">(</span><span class="n">answer</span><span class="o">.</span><span class="n">minimum</span><span class="p">)])</span>
+                <span class="k">elif</span> <span class="n">answer</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_HINFO</span><span class="p">:</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;HINFO&quot;</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">answer</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">answer</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dns</span><span class="o">.</span><span class="n">DNS_TXT</span><span class="p">:</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;TXT&quot;</span>
+                    <span class="n">ans</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">answer</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+                <span class="c1"># TODO: add srv handling</span>
+                <span class="n">query</span><span class="p">[</span><span class="s2">&quot;answers&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_domain</span><span class="p">(</span><span class="n">query</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">])</span>
+
+            <span class="n">reqtuple</span> <span class="o">=</span> <span class="n">query</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span> <span class="n">query</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">reqtuple</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dns_requests</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dns_requests</span><span class="p">[</span><span class="n">reqtuple</span><span class="p">]</span> <span class="o">=</span> <span class="n">query</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_answers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">((</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">query</span><span class="p">[</span><span class="s2">&quot;answers&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">dns_answers</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dns_requests</span><span class="p">[</span><span class="n">reqtuple</span><span class="p">][</span><span class="s2">&quot;answers&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">new_answers</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_add_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a domain to unique list.</span>
+
+<span class="sd">        :param domain: domain name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;.*</span><span class="se">\\</span><span class="s2">.windows</span><span class="se">\\</span><span class="s2">.com$&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;.*</span><span class="se">\\</span><span class="s2">.in</span><span class="se">\\</span><span class="s2">-addr</span><span class="se">\\</span><span class="s2">.arpa$&quot;</span>
+        <span class="p">]</span>
+
+        <span class="n">regexps</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="nb">filter</span><span class="p">)</span> <span class="k">for</span> <span class="nb">filter</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">regexp</span> <span class="ow">in</span> <span class="n">regexps</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">regexp</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">domain</span><span class="p">):</span>
+                <span class="k">return</span>
+
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unique_domains</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;domain&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">domain</span><span class="p">:</span>
+                <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">unique_domains</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;domain&quot;</span><span class="p">:</span> <span class="n">domain</span><span class="p">,</span>
+                                    <span class="s2">&quot;ip&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dns_gethostbyname</span><span class="p">(</span><span class="n">domain</span><span class="p">)})</span>
+
+    <span class="k">def</span> <span class="nf">_check_http</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tcpdata</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Checks for HTTP traffic.</span>
+
+<span class="sd">        :param tcpdata: TCP data flow.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">tcpdata</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dpkt</span><span class="o">.</span><span class="n">UnpackError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">r</span><span class="o">.</span><span class="n">version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> \
+                    <span class="n">r</span><span class="o">.</span><span class="n">uri</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_add_http</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tcpdata</span><span class="p">,</span> <span class="n">dport</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds an HTTP flow.</span>
+
+<span class="sd">        :param tcpdata: TCP data flow.</span>
+<span class="sd">        :param dport: destination port.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">tcpdata</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_requests</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">http_requests</span><span class="p">[</span><span class="n">tcpdata</span><span class="p">][</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">http</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+            <span class="n">http</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">tcpdata</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dpkt</span><span class="o">.</span><span class="n">UnpackError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">entry</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+
+            <span class="k">if</span> <span class="s2">&quot;host&quot;</span> <span class="ow">in</span> <span class="n">http</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+                <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;host&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;host&quot;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;host&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;port&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dport</span>
+
+            <span class="c1"># Manually deal with cases when destination port is not the</span>
+            <span class="c1"># default one and it is not included in host header.</span>
+            <span class="n">netloc</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;host&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">dport</span> <span class="o">!=</span> <span class="mi">80</span> <span class="ow">and</span> <span class="s2">&quot;:&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">netloc</span><span class="p">:</span>
+                <span class="n">netloc</span> <span class="o">+=</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s2">&quot;port&quot;</span><span class="p">])</span>
+
+            <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">tcpdata</span><span class="p">)</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">urlparse</span><span class="o">.</span><span class="n">urlunparse</span><span class="p">((</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="n">netloc</span><span class="p">,</span> <span class="n">http</span><span class="o">.</span><span class="n">uri</span><span class="p">,</span>
+                                       <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+            <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;uri&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+            <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="s2">&quot;user-agent&quot;</span> <span class="ow">in</span> <span class="n">http</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+                <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;user-agent&quot;</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;user-agent&quot;</span><span class="p">])</span>
+
+            <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+            <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">method</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">http_requests</span><span class="p">[</span><span class="n">tcpdata</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_https_identify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Extract a combination of the Session ID, Client Random, and Server</span>
+<span class="sd">        Random in order to identify the accompanying master secret later.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">dpkt</span><span class="o">.</span><span class="n">ssl</span><span class="p">,</span> <span class="s2">&quot;TLSRecord&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">Pcap</span><span class="o">.</span><span class="n">notified_dpkt</span><span class="p">:</span>
+                <span class="n">Pcap</span><span class="o">.</span><span class="n">notified_dpkt</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Using an old version of dpkt that does not &quot;</span>
+                            <span class="s2">&quot;support TLS streams (install the latest with &quot;</span>
+                            <span class="s2">&quot;`pip install dpkt`)&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">record</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ssl</span><span class="o">.</span><span class="n">TLSRecord</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">NeedData</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Error reading possible TLS Record&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Is this a valid TLS packet?</span>
+        <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ssl</span><span class="o">.</span><span class="n">RECORD_TYPES</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">record</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ssl</span><span class="o">.</span><span class="n">RECORD_TYPES</span><span class="p">[</span><span class="n">record</span><span class="o">.</span><span class="n">type</span><span class="p">](</span><span class="n">record</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ssl</span><span class="o">.</span><span class="n">SSL3Exception</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">except</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">NeedData</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Incomplete possible TLS Handshake record found&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Is this a TLSv1 Handshake packet?</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ssl</span><span class="o">.</span><span class="n">TLSHandshake</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="c1"># We&#39;re only interested in the TLS Server Hello packets.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ssl</span><span class="o">.</span><span class="n">TLSServerHello</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Extract the server random and the session id.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tls_keys</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;server_random&quot;</span><span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;hex&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;session_id&quot;</span><span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">session_id</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;hex&quot;</span><span class="p">),</span>
+        <span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">_reassemble_smtp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reassemble a SMTP flow.</span>
+
+<span class="sd">        :param conn: connection dict.</span>
+<span class="sd">        :param data: raw data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">conn</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">smtp_flow</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">smtp_flow</span><span class="p">[</span><span class="n">conn</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">smtp_flow</span><span class="p">[</span><span class="n">conn</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="nf">_process_smtp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Process SMTP flow.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">smtp_flow</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="c1"># Detect new SMTP flow.</span>
+            <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;EHLO&quot;</span><span class="p">,</span> <span class="s2">&quot;HELO&quot;</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">smtp_requests</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;dst&quot;</span><span class="p">:</span> <span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">_check_irc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tcpdata</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks for IRC traffic.</span>
+
+<span class="sd">        :param tcpdata: tcp data flow</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">req</span> <span class="o">=</span> <span class="n">ircMessage</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="n">req</span><span class="o">.</span><span class="n">isthereIRC</span><span class="p">(</span><span class="n">tcpdata</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_add_irc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tcpdata</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds an IRC communication.</span>
+
+<span class="sd">        :param tcpdata: TCP data in flow</span>
+<span class="sd">        :param dport: destination port</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">reqc</span> <span class="o">=</span> <span class="n">ircMessage</span><span class="p">()</span>
+            <span class="n">reqs</span> <span class="o">=</span> <span class="n">ircMessage</span><span class="p">()</span>
+            <span class="n">filters_sc</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;266&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">irc_requests</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">irc_requests</span> <span class="o">+</span> \
+                <span class="n">reqc</span><span class="o">.</span><span class="n">getClientMessages</span><span class="p">(</span><span class="n">tcpdata</span><span class="p">)</span> <span class="o">+</span> \
+                <span class="n">reqs</span><span class="o">.</span><span class="n">getServerMessagesFilter</span><span class="p">(</span><span class="n">tcpdata</span><span class="p">,</span> <span class="n">filters_sc</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="Pcap.run"><a class="viewcode-back" href="../../processing.html#processing.network.Pcap.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Process PCAP.</span>
+
+<span class="sd">        :return: dict with network analysis data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to open </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">pcap</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">pcap</span><span class="o">.</span><span class="n">Reader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dpkt</span><span class="o">.</span><span class="n">NeedData</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to read PCAP file at path </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">.&quot;</span><span class="p">,</span>
+                      <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to read PCAP file at path </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">. File is &quot;</span>
+                      <span class="s2">&quot;corrupted or wrong format.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span>
+
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+        <span class="n">first_ts</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">ts</span><span class="p">,</span> <span class="n">buf</span> <span class="ow">in</span> <span class="n">pcap</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">first_ts</span><span class="p">:</span>
+                <span class="n">first_ts</span> <span class="o">=</span> <span class="n">ts</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ip</span> <span class="o">=</span> <span class="n">iplayer_from_raw</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">pcap</span><span class="o">.</span><span class="n">datalink</span><span class="p">())</span>
+
+                <span class="n">connection</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ip</span><span class="o">.</span><span class="n">IP</span><span class="p">):</span>
+                    <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_ntoa</span><span class="p">(</span><span class="n">ip</span><span class="o">.</span><span class="n">src</span><span class="p">)</span>
+                    <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_ntoa</span><span class="p">(</span><span class="n">ip</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ip6</span><span class="o">.</span><span class="n">IP6</span><span class="p">):</span>
+                    <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_ntop</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET6</span><span class="p">,</span>
+                                                         <span class="n">ip</span><span class="o">.</span><span class="n">src</span><span class="p">)</span>
+                    <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_ntop</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET6</span><span class="p">,</span>
+                                                         <span class="n">ip</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">offset</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+                    <span class="k">continue</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_add_hosts</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">ip</span><span class="o">.</span><span class="n">p</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ip</span><span class="o">.</span><span class="n">IP_PROTO_TCP</span><span class="p">:</span>
+                    <span class="n">tcp</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">data</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tcp</span><span class="p">,</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">TCP</span><span class="p">):</span>
+                        <span class="n">tcp</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">TCP</span><span class="p">(</span><span class="n">tcp</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">tcp</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+                        <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;sport&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tcp</span><span class="o">.</span><span class="n">sport</span>
+                        <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;dport&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tcp</span><span class="o">.</span><span class="n">dport</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_tcp_dissect</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">tcp</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+                        <span class="n">src</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">dport</span> <span class="o">=</span> <span class="p">(</span><span class="n">connection</span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">],</span> <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;sport&quot;</span><span class="p">],</span> <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">],</span> <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;dport&quot;</span><span class="p">])</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="p">((</span><span class="n">dst</span><span class="p">,</span> <span class="n">dport</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">sport</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tcp_connections_seen</span> <span class="ow">or</span> <span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">dport</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tcp_connections_seen</span><span class="p">):</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">tcp_connections</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">src</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">dport</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">ts</span><span class="o">-</span><span class="n">first_ts</span><span class="p">))</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">tcp_connections_seen</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">src</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">dport</span><span class="p">))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">ipconn</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">],</span> <span class="n">tcp</span><span class="o">.</span><span class="n">sport</span><span class="p">,</span>
+                            <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">],</span> <span class="n">tcp</span><span class="o">.</span><span class="n">dport</span><span class="p">,</span>
+                        <span class="p">)</span>
+                        <span class="n">seqack</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tcp_connections_dead</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ipconn</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">seqack</span> <span class="o">==</span> <span class="p">(</span><span class="n">tcp</span><span class="o">.</span><span class="n">seq</span><span class="p">,</span> <span class="n">tcp</span><span class="o">.</span><span class="n">ack</span><span class="p">):</span>
+                            <span class="n">host</span> <span class="o">=</span> <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">],</span> <span class="n">tcp</span><span class="o">.</span><span class="n">dport</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">dead_hosts</span><span class="p">[</span><span class="n">host</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dead_hosts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+                        <span class="bp">self</span><span class="o">.</span><span class="n">tcp_connections_dead</span><span class="p">[</span><span class="n">ipconn</span><span class="p">]</span> <span class="o">=</span> <span class="n">tcp</span><span class="o">.</span><span class="n">seq</span><span class="p">,</span> <span class="n">tcp</span><span class="o">.</span><span class="n">ack</span>
+
+                <span class="k">elif</span> <span class="n">ip</span><span class="o">.</span><span class="n">p</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ip</span><span class="o">.</span><span class="n">IP_PROTO_UDP</span><span class="p">:</span>
+                    <span class="n">udp</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">data</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udp</span><span class="p">,</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">udp</span><span class="o">.</span><span class="n">UDP</span><span class="p">):</span>
+                        <span class="n">udp</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">udp</span><span class="o">.</span><span class="n">UDP</span><span class="p">(</span><span class="n">udp</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udp</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;sport&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">udp</span><span class="o">.</span><span class="n">sport</span>
+                        <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;dport&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">udp</span><span class="o">.</span><span class="n">dport</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_udp_dissect</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">udp</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+                        <span class="n">src</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">dport</span> <span class="o">=</span> <span class="p">(</span><span class="n">connection</span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">],</span> <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;sport&quot;</span><span class="p">],</span> <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;dst&quot;</span><span class="p">],</span> <span class="n">connection</span><span class="p">[</span><span class="s2">&quot;dport&quot;</span><span class="p">])</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="p">((</span><span class="n">dst</span><span class="p">,</span> <span class="n">dport</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">sport</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">udp_connections_seen</span> <span class="ow">or</span> <span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">dport</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">udp_connections_seen</span><span class="p">):</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">udp_connections</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">src</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">dport</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">ts</span><span class="o">-</span><span class="n">first_ts</span><span class="p">))</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">udp_connections_seen</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">src</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">dport</span><span class="p">))</span>
+
+                <span class="k">elif</span> <span class="n">ip</span><span class="o">.</span><span class="n">p</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ip</span><span class="o">.</span><span class="n">IP_PROTO_ICMP</span><span class="p">:</span>
+                    <span class="n">icmp</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">data</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">icmp</span><span class="p">,</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">icmp</span><span class="o">.</span><span class="n">ICMP</span><span class="p">):</span>
+                        <span class="n">icmp</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">icmp</span><span class="o">.</span><span class="n">ICMP</span><span class="p">(</span><span class="n">icmp</span><span class="p">)</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_icmp_dissect</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">icmp</span><span class="p">)</span>
+
+                <span class="n">offset</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">except</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">dpkt</span><span class="o">.</span><span class="n">NeedData</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Failed to process packet: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="c1"># Post processors for reconstructed flows.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_smtp</span><span class="p">()</span>
+
+        <span class="c1"># Build results dict.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;hosts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unique_hosts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;domains&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unique_domains</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;tcp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">conn_from_flowtuple</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tcp_connections</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;udp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">conn_from_flowtuple</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">udp_connections</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;icmp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">icmp_requests</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;http&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_requests</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;tls&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tls_keys</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;dns&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dns_requests</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;smtp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">smtp_requests</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;irc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">irc_requests</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;dead_hosts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Report each IP/port combination as a dead host if we&#39;ve had to retry</span>
+        <span class="c1"># at least 3 times to connect to it. TODO We should remove the IP/port</span>
+        <span class="c1"># combination from the list if the connection was successful later on</span>
+        <span class="c1"># during the analysis.</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="p">),</span> <span class="n">count</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dead_hosts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;dead_hosts&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;dead_hosts&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span></div></div>
+
+<div class="viewcode-block" id="Pcap2"><a class="viewcode-back" href="../../processing.html#processing.network.Pcap2">[docs]</a><span class="k">class</span> <span class="nc">Pcap2</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Interprets the PCAP file through the httpreplay library which parses</span>
+<span class="sd">    the various protocols, decrypts and decodes them, and then provides us</span>
+<span class="sd">    with the high level representation of it.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pcap_path</span><span class="p">,</span> <span class="n">tlsmaster</span><span class="p">,</span> <span class="n">network_path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pcap_path</span> <span class="o">=</span> <span class="n">pcap_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">network_path</span> <span class="o">=</span> <span class="n">network_path</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="mi">25</span><span class="p">:</span> <span class="n">httpreplay</span><span class="o">.</span><span class="n">cut</span><span class="o">.</span><span class="n">smtp_handler</span><span class="p">,</span>
+            <span class="mi">80</span><span class="p">:</span> <span class="n">httpreplay</span><span class="o">.</span><span class="n">cut</span><span class="o">.</span><span class="n">http_handler</span><span class="p">,</span>
+            <span class="mi">8000</span><span class="p">:</span> <span class="n">httpreplay</span><span class="o">.</span><span class="n">cut</span><span class="o">.</span><span class="n">http_handler</span><span class="p">,</span>
+            <span class="mi">8080</span><span class="p">:</span> <span class="n">httpreplay</span><span class="o">.</span><span class="n">cut</span><span class="o">.</span><span class="n">http_handler</span><span class="p">,</span>
+            <span class="mi">443</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">httpreplay</span><span class="o">.</span><span class="n">cut</span><span class="o">.</span><span class="n">https_handler</span><span class="p">(</span><span class="n">tlsmaster</span><span class="p">),</span>
+            <span class="mi">4443</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">httpreplay</span><span class="o">.</span><span class="n">cut</span><span class="o">.</span><span class="n">https_handler</span><span class="p">(</span><span class="n">tlsmaster</span><span class="p">),</span>
+        <span class="p">}</span>
+
+<div class="viewcode-block" id="Pcap2.run"><a class="viewcode-back" href="../../processing.html#processing.network.Pcap2.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;http_ex&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;https_ex&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">network_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">network_path</span><span class="p">)</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="n">httpreplay</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">PcapReader</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pcap_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">))</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">tcp</span> <span class="o">=</span> <span class="n">httpreplay</span><span class="o">.</span><span class="n">smegma</span><span class="o">.</span><span class="n">TCPPacketStreamer</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="p">)</span>
+
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">process</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">ts</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">sent</span><span class="p">,</span> <span class="n">recv</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+            <span class="n">srcip</span><span class="p">,</span> <span class="n">srcport</span><span class="p">,</span> <span class="n">dstip</span><span class="p">,</span> <span class="n">dstport</span> <span class="o">=</span> <span class="n">s</span>
+
+            <span class="k">if</span> <span class="n">protocol</span> <span class="o">==</span> <span class="s2">&quot;http&quot;</span> <span class="ow">or</span> <span class="n">protocol</span> <span class="o">==</span> <span class="s2">&quot;https&quot;</span><span class="p">:</span>
+                <span class="n">request</span> <span class="o">=</span> <span class="n">sent</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r\n\r\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">recv</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r\n\r\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+                <span class="n">md5</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">recv</span><span class="o">.</span><span class="n">body</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+                <span class="n">sha1</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">recv</span><span class="o">.</span><span class="n">body</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+                <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">network_path</span><span class="p">,</span> <span class="n">sha1</span><span class="p">)</span>
+                <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">recv</span><span class="o">.</span><span class="n">body</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_ex&quot;</span> <span class="o">%</span> <span class="n">protocol</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="n">srcip</span><span class="p">,</span> <span class="s2">&quot;sport&quot;</span><span class="p">:</span> <span class="n">srcport</span><span class="p">,</span>
+                    <span class="s2">&quot;dst&quot;</span><span class="p">:</span> <span class="n">dstip</span><span class="p">,</span> <span class="s2">&quot;dport&quot;</span><span class="p">:</span> <span class="n">dstport</span><span class="p">,</span>
+                    <span class="s2">&quot;protocol&quot;</span><span class="p">:</span> <span class="n">protocol</span><span class="p">,</span>
+                    <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="n">sent</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+                    <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="n">sent</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;host&quot;</span><span class="p">,</span> <span class="n">dstip</span><span class="p">),</span>
+                    <span class="s2">&quot;uri&quot;</span><span class="p">:</span> <span class="n">sent</span><span class="o">.</span><span class="n">uri</span><span class="p">,</span>
+                    <span class="s2">&quot;request&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;latin-1&quot;</span><span class="p">),</span>
+                    <span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;latin-1&quot;</span><span class="p">),</span>
+                    <span class="s2">&quot;md5&quot;</span><span class="p">:</span> <span class="n">md5</span><span class="p">,</span>
+                    <span class="s2">&quot;sha1&quot;</span><span class="p">:</span> <span class="n">sha1</span><span class="p">,</span>
+                    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">filepath</span><span class="p">,</span>
+                <span class="p">})</span>
+
+        <span class="k">return</span> <span class="n">results</span></div></div>
+
+<div class="viewcode-block" id="NetworkAnalysis"><a class="viewcode-back" href="../../processing.html#processing.network.NetworkAnalysis">[docs]</a><span class="k">class</span> <span class="nc">NetworkAnalysis</span><span class="p">(</span><span class="n">Processing</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Network analysis.&quot;&quot;&quot;</span>
+
+    <span class="n">order</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;network&quot;</span>
+
+<div class="viewcode-block" id="NetworkAnalysis.run"><a class="viewcode-back" href="../../processing.html#processing.network.NetworkAnalysis.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Include any results provided by the mitm script.</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;mitm&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mitmout_path</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mitmout_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;mitm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;mitm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pcap_path</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The PCAP file does not exist at path </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">.&quot;</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">pcap_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">results</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pcap_path</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The PCAP file at path </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> is empty.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">pcap_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">results</span>
+
+        <span class="c1"># PCAP file hash.</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pcap_path</span><span class="p">):</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;pcap_sha256&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pcap_path</span><span class="p">)</span><span class="o">.</span><span class="n">get_sha256</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_DPKT</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">HAVE_HTTPREPLAY</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Both Python HTTPReplay and Python DPKT are not &quot;</span>
+                      <span class="s2">&quot;installed, no PCAP analysis possible.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">results</span>
+
+        <span class="n">sorted_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pcap_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;dump.&quot;</span><span class="p">,</span> <span class="s2">&quot;dump_sorted.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">processing</span><span class="o">.</span><span class="n">sort_pcap</span><span class="p">:</span>
+            <span class="n">sort_pcap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pcap_path</span><span class="p">,</span> <span class="n">sorted_path</span><span class="p">)</span>
+            <span class="n">pcap_path</span> <span class="o">=</span> <span class="n">sorted_path</span>
+
+            <span class="c1"># Sorted PCAP file hash.</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">sorted_path</span><span class="p">):</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;sorted_pcap_sha256&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">sorted_path</span><span class="p">)</span><span class="o">.</span><span class="n">get_sha256</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pcap_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pcap_path</span>
+
+        <span class="k">if</span> <span class="n">HAVE_DPKT</span><span class="p">:</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">Pcap</span><span class="p">(</span><span class="n">pcap_path</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">HAVE_HTTPREPLAY</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">pcap_path</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">p2</span> <span class="o">=</span> <span class="n">Pcap2</span><span class="p">(</span><span class="n">pcap_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_tlsmaster</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">network_path</span><span class="p">)</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">run</span><span class="p">())</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Error running httpreplay-based PCAP analysis&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span></div>
+
+<div class="viewcode-block" id="NetworkAnalysis.get_tlsmaster"><a class="viewcode-back" href="../../processing.html#processing.network.NetworkAnalysis.get_tlsmaster">[docs]</a>    <span class="k">def</span> <span class="nf">get_tlsmaster</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Obtain the client/server random to TLS master secrets mapping that</span>
+<span class="sd">        we have obtained through dynamic analysis.&quot;&quot;&quot;</span>
+        <span class="n">tlsmaster</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;behavior&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;summary&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">summary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tls_master&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="n">client_random</span><span class="p">,</span> <span class="n">server_random</span><span class="p">,</span> <span class="n">master_secret</span> <span class="o">=</span> <span class="n">entry</span>
+            <span class="n">client_random</span> <span class="o">=</span> <span class="n">client_random</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;hex&quot;</span><span class="p">)</span>
+            <span class="n">server_random</span> <span class="o">=</span> <span class="n">server_random</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;hex&quot;</span><span class="p">)</span>
+            <span class="n">master_secret</span> <span class="o">=</span> <span class="n">master_secret</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;hex&quot;</span><span class="p">)</span>
+            <span class="n">tlsmaster</span><span class="p">[</span><span class="n">client_random</span><span class="p">,</span> <span class="n">server_random</span><span class="p">]</span> <span class="o">=</span> <span class="n">master_secret</span>
+        <span class="k">return</span> <span class="n">tlsmaster</span></div></div>
+
+<div class="viewcode-block" id="iplayer_from_raw"><a class="viewcode-back" href="../../processing.html#processing.network.iplayer_from_raw">[docs]</a><span class="k">def</span> <span class="nf">iplayer_from_raw</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">linktype</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Converts a raw packet to a dpkt packet regarding of link type.</span>
+<span class="sd">    :param raw: raw packet</span>
+<span class="sd">    :param linktype: integer describing link type as expected by dpkt</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">linktype</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># ethernet</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">pkt</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ethernet</span><span class="o">.</span><span class="n">Ethernet</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">pkt</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">except</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">NeedData</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="k">elif</span> <span class="n">linktype</span> <span class="o">==</span> <span class="mi">101</span><span class="p">:</span>  <span class="c1"># raw</span>
+        <span class="k">return</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ip</span><span class="o">.</span><span class="n">IP</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">CuckooProcessingError</span><span class="p">(</span><span class="s2">&quot;unknown PCAP linktype&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="conn_from_flowtuple"><a class="viewcode-back" href="../../processing.html#processing.network.conn_from_flowtuple">[docs]</a><span class="k">def</span> <span class="nf">conn_from_flowtuple</span><span class="p">(</span><span class="n">ft</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert the flow tuple into a dictionary (suitable for JSON)&quot;&quot;&quot;</span>
+    <span class="n">sip</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">dip</span><span class="p">,</span> <span class="n">dport</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">relts</span> <span class="o">=</span> <span class="n">ft</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="n">sip</span><span class="p">,</span> <span class="s2">&quot;sport&quot;</span><span class="p">:</span> <span class="n">sport</span><span class="p">,</span>
+            <span class="s2">&quot;dst&quot;</span><span class="p">:</span> <span class="n">dip</span><span class="p">,</span> <span class="s2">&quot;dport&quot;</span><span class="p">:</span> <span class="n">dport</span><span class="p">,</span>
+            <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="n">offset</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">relts</span><span class="p">}</span></div>
+
+<span class="c1"># input_iterator should be a class that also supports writing so we can use</span>
+<span class="c1"># it for the temp files</span>
+<span class="c1"># this code is mostly taken from some SO post, can&#39;t remember the url though</span>
+<div class="viewcode-block" id="batch_sort"><a class="viewcode-back" href="../../processing.html#processing.network.batch_sort">[docs]</a><span class="k">def</span> <span class="nf">batch_sort</span><span class="p">(</span><span class="n">input_iterator</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="mi">32000</span><span class="p">,</span> <span class="n">output_class</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;batch sort helper with temporary files, supports sorting large stuff&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">output_class</span><span class="p">:</span>
+        <span class="n">output_class</span> <span class="o">=</span> <span class="n">input_iterator</span><span class="o">.</span><span class="vm">__class__</span>
+
+    <span class="n">chunks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">current_chunk</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">islice</span><span class="p">(</span><span class="n">input_iterator</span><span class="p">,</span> <span class="n">buffer_size</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">current_chunk</span><span class="p">:</span>
+                <span class="k">break</span>
+
+            <span class="n">current_chunk</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+            <span class="n">fd</span><span class="p">,</span> <span class="n">filepath</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">()</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
+            <span class="n">output_chunk</span> <span class="o">=</span> <span class="n">output_class</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+            <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output_chunk</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">current_chunk</span><span class="p">:</span>
+                <span class="n">output_chunk</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span>
+            <span class="n">output_chunk</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="n">output_file</span> <span class="o">=</span> <span class="n">output_class</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">heapq</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="o">*</span><span class="n">chunks</span><span class="p">):</span>
+            <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span>
+        <span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">chunk</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="SortCap"><a class="viewcode-back" href="../../processing.html#processing.network.SortCap">[docs]</a><span class="k">class</span> <span class="nc">SortCap</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;SortCap is a wrapper around the packet lib (dpkt) that allows us to sort pcaps</span>
+<span class="sd">    together with the batch_sort function above.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">linktype</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linktype</span> <span class="o">=</span> <span class="n">linktype</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fd</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctr</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># counter to pass through packets without flow info (non-IP)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conns</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SortCap.write"><a class="viewcode-back" href="../../processing.html#processing.network.SortCap.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fd</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">pcap</span><span class="o">.</span><span class="n">Writer</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">),</span> <span class="n">linktype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">linktype</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">writepkt</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">ts</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fd</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">pcap</span><span class="o">.</span><span class="n">Reader</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fditer</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">linktype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">datalink</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+<div class="viewcode-block" id="SortCap.close"><a class="viewcode-back" href="../../processing.html#processing.network.SortCap.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fd</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="SortCap.next"><a class="viewcode-back" href="../../processing.html#processing.network.SortCap.next">[docs]</a>    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rp</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fditer</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctr</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">ts</span><span class="p">,</span> <span class="n">raw</span> <span class="o">=</span> <span class="n">rp</span>
+        <span class="n">rpkt</span> <span class="o">=</span> <span class="n">Packet</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>
+
+        <span class="n">sip</span><span class="p">,</span> <span class="n">dip</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">dport</span><span class="p">,</span> <span class="n">proto</span> <span class="o">=</span> <span class="n">flowtuple_from_raw</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">linktype</span><span class="p">)</span>
+
+        <span class="c1"># check other direction of same flow</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">dip</span><span class="p">,</span> <span class="n">sip</span><span class="p">,</span> <span class="n">dport</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">proto</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">conns</span><span class="p">:</span>
+            <span class="n">flowtuple</span> <span class="o">=</span> <span class="p">(</span><span class="n">dip</span><span class="p">,</span> <span class="n">sip</span><span class="p">,</span> <span class="n">dport</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">proto</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">flowtuple</span> <span class="o">=</span> <span class="p">(</span><span class="n">sip</span><span class="p">,</span> <span class="n">dip</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">dport</span><span class="p">,</span> <span class="n">proto</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conns</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">flowtuple</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Keyed</span><span class="p">((</span><span class="n">flowtuple</span><span class="p">,</span> <span class="n">ts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctr</span><span class="p">),</span> <span class="n">rpkt</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="sort_pcap"><a class="viewcode-back" href="../../processing.html#processing.network.sort_pcap">[docs]</a><span class="k">def</span> <span class="nf">sort_pcap</span><span class="p">(</span><span class="n">inpath</span><span class="p">,</span> <span class="n">outpath</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Use SortCap class together with batch_sort to sort a pcap&quot;&quot;&quot;</span>
+    <span class="n">inc</span> <span class="o">=</span> <span class="n">SortCap</span><span class="p">(</span><span class="n">inpath</span><span class="p">)</span>
+    <span class="n">batch_sort</span><span class="p">(</span><span class="n">inc</span><span class="p">,</span> <span class="n">outpath</span><span class="p">,</span> <span class="n">output_class</span><span class="o">=</span><span class="k">lambda</span> <span class="n">path</span><span class="p">:</span> <span class="n">SortCap</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">linktype</span><span class="o">=</span><span class="n">inc</span><span class="o">.</span><span class="n">linktype</span><span class="p">))</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="flowtuple_from_raw"><a class="viewcode-back" href="../../processing.html#processing.network.flowtuple_from_raw">[docs]</a><span class="k">def</span> <span class="nf">flowtuple_from_raw</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">linktype</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Parse a packet from a pcap just enough to gain a flow description tuple&quot;&quot;&quot;</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="n">iplayer_from_raw</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">linktype</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ip</span><span class="o">.</span><span class="n">IP</span><span class="p">):</span>
+        <span class="n">sip</span><span class="p">,</span> <span class="n">dip</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_ntoa</span><span class="p">(</span><span class="n">ip</span><span class="o">.</span><span class="n">src</span><span class="p">),</span> <span class="n">socket</span><span class="o">.</span><span class="n">inet_ntoa</span><span class="p">(</span><span class="n">ip</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span>
+        <span class="n">proto</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">p</span>
+
+        <span class="k">if</span> <span class="n">proto</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ip</span><span class="o">.</span><span class="n">IP_PROTO_TCP</span> <span class="ow">or</span> <span class="n">proto</span> <span class="o">==</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ip</span><span class="o">.</span><span class="n">IP_PROTO_UDP</span><span class="p">:</span>
+            <span class="n">l3</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">sport</span><span class="p">,</span> <span class="n">dport</span> <span class="o">=</span> <span class="n">l3</span><span class="o">.</span><span class="n">sport</span><span class="p">,</span> <span class="n">l3</span><span class="o">.</span><span class="n">dport</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sport</span><span class="p">,</span> <span class="n">dport</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sip</span><span class="p">,</span> <span class="n">dip</span><span class="p">,</span> <span class="n">proto</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">sport</span><span class="p">,</span> <span class="n">dport</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="n">flowtuple</span> <span class="o">=</span> <span class="p">(</span><span class="n">sip</span><span class="p">,</span> <span class="n">dip</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">dport</span><span class="p">,</span> <span class="n">proto</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">flowtuple</span></div>
+
+<div class="viewcode-block" id="payload_from_raw"><a class="viewcode-back" href="../../processing.html#processing.network.payload_from_raw">[docs]</a><span class="k">def</span> <span class="nf">payload_from_raw</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">linktype</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the payload from a packet, the data below TCP/UDP basically&quot;&quot;&quot;</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="n">iplayer_from_raw</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">linktype</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ip</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="next_connection_packets"><a class="viewcode-back" href="../../processing.html#processing.network.next_connection_packets">[docs]</a><span class="k">def</span> <span class="nf">next_connection_packets</span><span class="p">(</span><span class="n">piter</span><span class="p">,</span> <span class="n">linktype</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extract all packets belonging to the same flow from a pcap packet</span>
+<span class="sd">    iterator.&quot;&quot;&quot;</span>
+    <span class="n">first_ft</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">for</span> <span class="n">ts</span><span class="p">,</span> <span class="n">raw</span> <span class="ow">in</span> <span class="n">piter</span><span class="p">:</span>
+        <span class="n">ft</span> <span class="o">=</span> <span class="n">flowtuple_from_raw</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">linktype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">first_ft</span><span class="p">:</span>
+            <span class="n">first_ft</span> <span class="o">=</span> <span class="n">ft</span>
+
+        <span class="n">sip</span><span class="p">,</span> <span class="n">dip</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">dport</span><span class="p">,</span> <span class="n">proto</span> <span class="o">=</span> <span class="n">ft</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">first_ft</span> <span class="o">==</span> <span class="n">ft</span> <span class="ow">or</span> <span class="n">first_ft</span> <span class="o">==</span> <span class="p">(</span><span class="n">dip</span><span class="p">,</span> <span class="n">sip</span><span class="p">,</span> <span class="n">dport</span><span class="p">,</span> <span class="n">sport</span><span class="p">,</span> <span class="n">proto</span><span class="p">)):</span>
+            <span class="k">break</span>
+
+        <span class="k">yield</span> <span class="p">{</span>
+            <span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="n">sip</span><span class="p">,</span> <span class="s2">&quot;dst&quot;</span><span class="p">:</span> <span class="n">dip</span><span class="p">,</span> <span class="s2">&quot;sport&quot;</span><span class="p">:</span> <span class="n">sport</span><span class="p">,</span> <span class="s2">&quot;dport&quot;</span><span class="p">:</span> <span class="n">dport</span><span class="p">,</span>
+            <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">payload_from_raw</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">linktype</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;base64&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;direction&quot;</span><span class="p">:</span> <span class="n">first_ft</span> <span class="o">==</span> <span class="n">ft</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="packets_for_stream"><a class="viewcode-back" href="../../processing.html#processing.network.packets_for_stream">[docs]</a><span class="k">def</span> <span class="nf">packets_for_stream</span><span class="p">(</span><span class="n">fobj</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Open a PCAP, seek to a packet offset, then get all packets belonging to</span>
+<span class="sd">    the same connection.&quot;&quot;&quot;</span>
+    <span class="n">pcap</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">pcap</span><span class="o">.</span><span class="n">Reader</span><span class="p">(</span><span class="n">fobj</span><span class="p">)</span>
+    <span class="n">pcapiter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">pcap</span><span class="p">)</span>
+    <span class="n">ts</span><span class="p">,</span> <span class="n">raw</span> <span class="o">=</span> <span class="n">pcapiter</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+
+    <span class="n">fobj</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">next_connection_packets</span><span class="p">(</span><span class="n">pcapiter</span><span class="p">,</span> <span class="n">linktype</span><span class="o">=</span><span class="n">pcap</span><span class="o">.</span><span class="n">datalink</span><span class="p">()):</span>
+        <span class="k">yield</span> <span class="n">p</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

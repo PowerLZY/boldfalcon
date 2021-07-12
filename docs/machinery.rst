@@ -1,8 +1,6 @@
 machinery package
 =================
 
-Submodules
-----------
 
 machinery.virtualbox module
 ---------------------------
@@ -21,10 +19,4 @@ machinery.vmware module
    :show-inheritance:
 
 
-Module contents
----------------
 
-.. automodule:: machinery
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,0 +1,1250 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>processing.memory &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>processing.memory</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for processing.memory</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<span class="kn">from</span> <span class="nn">lib.cuckoo.common.abstracts</span> <span class="kn">import</span> <span class="n">Processing</span>
+
+<div class="viewcode-block" id="VolatilityAPI"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI">[docs]</a><span class="k">class</span> <span class="nc">VolatilityAPI</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Volatility API interface.</span>
+
+<span class="sd">    :param memdump: the memdump file path</span>
+<span class="sd">    :param osprofile: the profile (OS type)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memdump</span><span class="p">,</span> <span class="n">osprofile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param memdump: the memdump file path</span>
+<span class="sd">        :param osprofile: the profile (OS type)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">registry</span><span class="o">.</span><span class="n">PluginImporter</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memdump</span> <span class="o">=</span> <span class="n">memdump</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osprofile</span> <span class="o">=</span> <span class="n">osprofile</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addr_space</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_config</span><span class="p">()</span>
+
+<div class="viewcode-block" id="VolatilityAPI.get_dtb"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.get_dtb">[docs]</a>    <span class="k">def</span> <span class="nf">get_dtb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Use psscan to get system dtb and apply it.&quot;&quot;&quot;</span>
+        <span class="n">ps</span> <span class="o">=</span> <span class="n">filescan</span><span class="o">.</span><span class="n">PSScan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">ep</span> <span class="ow">in</span> <span class="n">ps</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">ImageFileName</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;System&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;dtb&quot;</span><span class="p">,</span> <span class="n">ep</span><span class="o">.</span><span class="n">Pcb</span><span class="o">.</span><span class="n">DirectoryTableBase</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.init_config"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.init_config">[docs]</a>    <span class="k">def</span> <span class="nf">init_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a volatility configuration.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">addr_space</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">ConfObject</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">optparser</span><span class="o">.</span><span class="n">set_conflict_handler</span><span class="p">(</span><span class="s2">&quot;resolve&quot;</span><span class="p">)</span>
+        <span class="n">registry</span><span class="o">.</span><span class="n">register_global_options</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">commands</span><span class="o">.</span><span class="n">Command</span><span class="p">)</span>
+        <span class="n">base_conf</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;profile&quot;</span><span class="p">:</span> <span class="s2">&quot;WinXPSP2x86&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;use_old_as&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;kdbg&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;help&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;kpcr&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;tz&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;pid&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;output_file&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;physical_offset&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;conf_file&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;dtb&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;info&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="s2">&quot;file://&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">memdump</span><span class="p">,</span>
+            <span class="s2">&quot;plugins&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;debug&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;cache_dtb&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;cache_directory&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;write&quot;</span><span class="p">:</span> <span class="kc">False</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">osprofile</span><span class="p">:</span>
+            <span class="n">base_conf</span><span class="p">[</span><span class="s2">&quot;profile&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">osprofile</span>
+
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">base_conf</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+        <span class="c1"># Deal with Volatility support for KVM/qemu memory dump.</span>
+        <span class="c1"># See: #464.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">addr_space</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_as</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">exc</span><span class="o">.</span><span class="n">AddrSpaceError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dtb</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addr_space</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_as</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span> <span class="o">=</span> \
+            <span class="n">registry</span><span class="o">.</span><span class="n">get_plugin_classes</span><span class="p">(</span><span class="n">commands</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.pslist"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.pslist">[docs]</a>    <span class="k">def</span> <span class="nf">pslist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility pslist plugin.</span>
+
+<span class="sd">        :see volatility/plugins/taskmods.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="n">taskmods</span><span class="o">.</span><span class="n">PSList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;process_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">ImageFileName</span><span class="p">),</span>
+                <span class="s2">&quot;process_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">UniqueProcessId</span><span class="p">),</span>
+                <span class="s2">&quot;parent_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">InheritedFromUniqueProcessId</span><span class="p">),</span>
+                <span class="s2">&quot;num_threads&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">ActiveThreads</span><span class="p">),</span>
+                <span class="s2">&quot;num_handles&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">ObjectTable</span><span class="o">.</span><span class="n">HandleCount</span><span class="p">),</span>
+                <span class="s2">&quot;session_id&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">SessionId</span><span class="p">),</span>
+                <span class="s2">&quot;create_time&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">CreateTime</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;exit_time&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">ExitTime</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="p">}</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.psxview"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.psxview">[docs]</a>    <span class="k">def</span> <span class="nf">psxview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility psxview plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/malware/psxview.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;psxview&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">offset</span><span class="p">,</span> <span class="n">process</span><span class="p">,</span> <span class="n">ps_sources</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;process_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">ImageFileName</span><span class="p">),</span>
+                <span class="s2">&quot;process_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">UniqueProcessId</span><span class="p">),</span>
+                <span class="s2">&quot;pslist&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span> <span class="ow">in</span> <span class="n">ps_sources</span><span class="p">[</span><span class="s2">&quot;pslist&quot;</span><span class="p">]),</span>
+                <span class="s2">&quot;psscan&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span> <span class="ow">in</span> <span class="n">ps_sources</span><span class="p">[</span><span class="s2">&quot;psscan&quot;</span><span class="p">]),</span>
+                <span class="s2">&quot;thrdproc&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span> <span class="ow">in</span> <span class="n">ps_sources</span><span class="p">[</span><span class="s2">&quot;thrdproc&quot;</span><span class="p">]),</span>
+                <span class="s2">&quot;pspcid&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span> <span class="ow">in</span> <span class="n">ps_sources</span><span class="p">[</span><span class="s2">&quot;pspcid&quot;</span><span class="p">]),</span>
+                <span class="s2">&quot;csrss&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span> <span class="ow">in</span> <span class="n">ps_sources</span><span class="p">[</span><span class="s2">&quot;csrss&quot;</span><span class="p">]),</span>
+                <span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span> <span class="ow">in</span> <span class="n">ps_sources</span><span class="p">[</span><span class="s2">&quot;session&quot;</span><span class="p">]),</span>
+                <span class="s2">&quot;deskthrd&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span> <span class="ow">in</span> <span class="n">ps_sources</span><span class="p">[</span><span class="s2">&quot;deskthrd&quot;</span><span class="p">]),</span>
+            <span class="p">}</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.callbacks"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.callbacks">[docs]</a>    <span class="k">def</span> <span class="nf">callbacks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility callbacks plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/malware/callbacks.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;callbacks&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">sym</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">detail</span><span class="p">),</span> <span class="n">mods</span><span class="p">,</span> <span class="n">mod_addrs</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">module</span> <span class="o">=</span> <span class="n">tasks</span><span class="o">.</span><span class="n">find_module</span><span class="p">(</span><span class="n">mods</span><span class="p">,</span> <span class="n">mod_addrs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">addr_space</span><span class="o">.</span><span class="n">address_mask</span><span class="p">(</span><span class="n">cb</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">module</span><span class="p">:</span>
+                <span class="n">module_name</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">BaseDllName</span> <span class="ow">or</span> <span class="n">module</span><span class="o">.</span><span class="n">FullDllName</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">module_name</span> <span class="o">=</span> <span class="s2">&quot;UNKNOWN&quot;</span>
+
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">sym</span><span class="p">),</span>
+                <span class="s2">&quot;callback&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">cb</span><span class="p">)),</span>
+                <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">module_name</span><span class="p">),</span>
+                <span class="s2">&quot;details&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">detail</span> <span class="ow">or</span> <span class="s2">&quot;-&quot;</span><span class="p">),</span>
+            <span class="p">}</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.idt"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.idt">[docs]</a>    <span class="k">def</span> <span class="nf">idt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility idt plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/malware/idt.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;idt&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">entry</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">module</span><span class="p">:</span>
+                <span class="n">module_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">BaseDllName</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">sect_name</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">get_section_name</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">module_name</span> <span class="o">=</span> <span class="s2">&quot;UNKNOWN&quot;</span>
+                <span class="n">sect_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+            <span class="c1"># The parent is IDT. The grand-parent is _KPCR.</span>
+            <span class="n">cpu_number</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">obj_parent</span><span class="o">.</span><span class="n">obj_parent</span><span class="o">.</span><span class="n">ProcessorBlock</span><span class="o">.</span><span class="n">Number</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;cpu_number&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">cpu_number</span><span class="p">),</span>
+                <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">),</span>
+                <span class="s2">&quot;selector&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">Selector</span><span class="p">)),</span>
+                <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">addr</span><span class="p">)),</span>
+                <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="n">module_name</span><span class="p">,</span>
+                <span class="s2">&quot;section&quot;</span><span class="p">:</span> <span class="n">sect_name</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.gdt"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.gdt">[docs]</a>    <span class="k">def</span> <span class="nf">gdt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility gdt plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/malware/idt.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;gdt&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="c1"># Comment: this code is pretty much ripped from render_text in volatility.</span>
+        <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">selector</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">8</span>
+
+            <span class="c1"># Is the entry present? This applies to all types of GDT entries</span>
+            <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">Present</span><span class="p">:</span>
+                <span class="n">present</span> <span class="o">=</span> <span class="s2">&quot;P&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">present</span> <span class="o">=</span> <span class="s2">&quot;Np&quot;</span>
+
+            <span class="c1"># The base, limit, and granularity is calculated differently</span>
+            <span class="c1"># for 32bit call gates than they are for all other types.</span>
+            <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">Type</span> <span class="o">==</span> <span class="s2">&quot;CallGate32&quot;</span><span class="p">:</span>
+                <span class="n">base</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">CallGate</span>
+                <span class="n">limit</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">granularity</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">base</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">Base</span>
+                <span class="n">limit</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">Limit</span>
+                <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">Granularity</span><span class="p">:</span>
+                    <span class="n">granularity</span> <span class="o">=</span> <span class="s2">&quot;Pg&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">granularity</span> <span class="o">=</span> <span class="s2">&quot;By&quot;</span>
+
+            <span class="c1"># The parent is GDT. The grand-parent is _KPCR.</span>
+            <span class="n">cpu_number</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">obj_parent</span><span class="o">.</span><span class="n">obj_parent</span><span class="o">.</span><span class="n">ProcessorBlock</span><span class="o">.</span><span class="n">Number</span>
+
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;cpu_number&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">cpu_number</span><span class="p">),</span>
+                <span class="s2">&quot;selector&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="n">selector</span><span class="p">),</span>
+                <span class="s2">&quot;base&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">base</span><span class="p">)),</span>
+                <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">limit</span><span class="p">)),</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">Type</span><span class="p">),</span>
+                <span class="s2">&quot;dpl&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">Dpl</span><span class="p">),</span>
+                <span class="s2">&quot;granularity&quot;</span><span class="p">:</span> <span class="n">granularity</span><span class="p">,</span>
+                <span class="s2">&quot;present&quot;</span><span class="p">:</span> <span class="n">present</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.ssdt"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.ssdt">[docs]</a>    <span class="k">def</span> <span class="nf">ssdt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility ssdt plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/ssdt.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;ssdt&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+
+        <span class="c1"># Comment: this code is pretty much ripped from render_text in volatility.</span>
+        <span class="n">addr_space</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">addr_space</span>
+        <span class="n">syscalls</span> <span class="o">=</span> <span class="n">addr_space</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">syscalls</span>
+        <span class="n">bits32</span> <span class="o">=</span> <span class="n">addr_space</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;memory_model&quot;</span><span class="p">,</span> <span class="s2">&quot;32bit&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;32bit&quot;</span>
+
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">vm</span><span class="p">,</span> <span class="n">mods</span><span class="p">,</span> <span class="n">mod_addrs</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">bits32</span><span class="p">:</span>
+                    <span class="c1"># These are absolute function addresses in kernel memory.</span>
+                    <span class="n">syscall_addr</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">Object</span><span class="p">(</span><span class="s2">&quot;address&quot;</span><span class="p">,</span> <span class="n">table</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">4</span><span class="p">),</span> <span class="n">vm</span><span class="p">)</span><span class="o">.</span><span class="n">v</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># These must be signed long for x64 because they are RVAs relative</span>
+                    <span class="c1"># to the base of the table and can be negative.</span>
+                    <span class="n">offset</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">Object</span><span class="p">(</span><span class="s2">&quot;long&quot;</span><span class="p">,</span> <span class="n">table</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">4</span><span class="p">),</span> <span class="n">vm</span><span class="p">)</span><span class="o">.</span><span class="n">v</span><span class="p">()</span>
+                    <span class="c1"># The offset is the top 20 bits of the 32 bit number.</span>
+                    <span class="n">syscall_addr</span> <span class="o">=</span> <span class="n">table</span> <span class="o">+</span> <span class="p">(</span><span class="n">offset</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">syscall_name</span> <span class="o">=</span> <span class="n">syscalls</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                    <span class="n">syscall_name</span> <span class="o">=</span> <span class="s2">&quot;UNKNOWN&quot;</span>
+
+                <span class="n">syscall_mod</span> <span class="o">=</span> <span class="n">tasks</span><span class="o">.</span><span class="n">find_module</span><span class="p">(</span><span class="n">mods</span><span class="p">,</span> <span class="n">mod_addrs</span><span class="p">,</span> <span class="n">addr_space</span><span class="o">.</span><span class="n">address_mask</span><span class="p">(</span><span class="n">syscall_addr</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">syscall_mod</span><span class="p">:</span>
+                    <span class="n">syscall_modname</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">syscall_mod</span><span class="o">.</span><span class="n">BaseDllName</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">syscall_modname</span> <span class="o">=</span> <span class="s2">&quot;UNKNOWN&quot;</span>
+
+                <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">idx</span><span class="p">),</span>
+                    <span class="s2">&quot;table&quot;</span><span class="p">:</span> <span class="s2">&quot;0x</span><span class="si">%x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="n">table</span><span class="p">),</span>
+                    <span class="s2">&quot;entry&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0:#06x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span> <span class="o">*</span> <span class="mh">0x1000</span> <span class="o">+</span> <span class="n">i</span><span class="p">),</span>
+                    <span class="s2">&quot;syscall_name&quot;</span><span class="p">:</span> <span class="n">syscall_name</span><span class="p">,</span>
+                    <span class="s2">&quot;syscall_addr&quot;</span><span class="p">:</span> <span class="s2">&quot;0x</span><span class="si">%x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="n">syscall_addr</span><span class="p">),</span>
+                    <span class="s2">&quot;syscall_modname&quot;</span><span class="p">:</span> <span class="n">syscall_modname</span><span class="p">,</span>
+                <span class="p">}</span>
+
+                <span class="k">if</span> <span class="n">bits32</span> <span class="ow">and</span> <span class="n">syscall_mod</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">ret</span> <span class="o">=</span> <span class="n">apihooks</span><span class="o">.</span><span class="n">ApiHooks</span><span class="o">.</span><span class="n">check_inline</span><span class="p">(</span>
+                        <span class="n">va</span><span class="o">=</span><span class="n">syscall_addr</span><span class="p">,</span> <span class="n">addr_space</span><span class="o">=</span><span class="n">vm</span><span class="p">,</span>
+                        <span class="n">mem_start</span><span class="o">=</span><span class="n">syscall_mod</span><span class="o">.</span><span class="n">DllBase</span><span class="p">,</span>
+                        <span class="n">mem_end</span><span class="o">=</span><span class="n">syscall_mod</span><span class="o">.</span><span class="n">DllBase</span> <span class="o">+</span> <span class="n">syscall_mod</span><span class="o">.</span><span class="n">SizeOfImage</span><span class="p">)</span>
+
+                    <span class="c1"># Could not analyze the memory.</span>
+                    <span class="k">if</span> <span class="n">ret</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">hooked</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">dest_addr</span> <span class="o">=</span> <span class="n">ret</span>
+                        <span class="k">if</span> <span class="n">hooked</span><span class="p">:</span>
+                            <span class="c1"># We found a hook, try to resolve the hooker.</span>
+                            <span class="c1"># No mask required because we currently only work</span>
+                            <span class="c1"># on x86 anyway.</span>
+                            <span class="n">hook_mod</span> <span class="o">=</span> <span class="n">tasks</span><span class="o">.</span><span class="n">find_module</span><span class="p">(</span><span class="n">mods</span><span class="p">,</span> <span class="n">mod_addrs</span><span class="p">,</span>
+                                                         <span class="n">dest_addr</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">hook_mod</span><span class="p">:</span>
+                                <span class="n">hook_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hook_mod</span><span class="o">.</span><span class="n">BaseDllName</span><span class="p">)</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">hook_name</span> <span class="o">=</span> <span class="s2">&quot;UNKNOWN&quot;</span>
+
+                            <span class="c1"># Report it now.</span>
+                            <span class="n">new</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                                <span class="s2">&quot;hook_dest_addr&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0:#x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dest_addr</span><span class="p">),</span>
+                                <span class="s2">&quot;hook_name&quot;</span><span class="p">:</span> <span class="n">hook_name</span><span class="p">,</span>
+                            <span class="p">})</span>
+
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.timers"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.timers">[docs]</a>    <span class="k">def</span> <span class="nf">timers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility timers plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/malware/timers.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;timers&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">timer</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">timer</span><span class="o">.</span><span class="n">Header</span><span class="o">.</span><span class="n">SignalState</span><span class="o">.</span><span class="n">v</span><span class="p">():</span>
+                <span class="n">signaled</span> <span class="o">=</span> <span class="s2">&quot;Yes&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">signaled</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span>
+
+            <span class="k">if</span> <span class="n">module</span><span class="p">:</span>
+                <span class="n">module_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">BaseDllName</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">module_name</span> <span class="o">=</span> <span class="s2">&quot;UNKNOWN&quot;</span>
+
+            <span class="n">due_time</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:#010x}</span><span class="s2">:</span><span class="si">{1:#010x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">timer</span><span class="o">.</span><span class="n">DueTime</span><span class="o">.</span><span class="n">HighPart</span><span class="p">,</span> <span class="n">timer</span><span class="o">.</span><span class="n">DueTime</span><span class="o">.</span><span class="n">LowPart</span><span class="p">)</span>
+
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="n">timer</span><span class="o">.</span><span class="n">obj_offset</span><span class="p">),</span>
+                <span class="s2">&quot;due_time&quot;</span><span class="p">:</span> <span class="n">due_time</span><span class="p">,</span>
+                <span class="s2">&quot;period&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">timer</span><span class="o">.</span><span class="n">Period</span><span class="p">),</span>
+                <span class="s2">&quot;signaled&quot;</span><span class="p">:</span> <span class="n">signaled</span><span class="p">,</span>
+                <span class="s2">&quot;routine&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">timer</span><span class="o">.</span><span class="n">Dpc</span><span class="o">.</span><span class="n">DeferredRoutine</span><span class="p">)),</span>
+                <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="n">module_name</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.messagehooks"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.messagehooks">[docs]</a>    <span class="k">def</span> <span class="nf">messagehooks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility messagehooks plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/malware/messagehooks.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;messagehooks&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">winsta</span><span class="p">,</span> <span class="n">atom_tables</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">desk</span> <span class="ow">in</span> <span class="n">winsta</span><span class="o">.</span><span class="n">desktops</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">hook</span> <span class="ow">in</span> <span class="n">desk</span><span class="o">.</span><span class="n">hooks</span><span class="p">():</span>
+                    <span class="n">module</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">translate_hmod</span><span class="p">(</span><span class="n">winsta</span><span class="p">,</span> <span class="n">atom_tables</span><span class="p">,</span> <span class="n">hook</span><span class="o">.</span><span class="n">ihmod</span><span class="p">)</span>
+                    <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">obj_offset</span><span class="p">)),</span>
+                        <span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">winsta</span><span class="o">.</span><span class="n">dwSessionId</span><span class="p">),</span>
+                        <span class="s2">&quot;desktop&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="se">\\</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">winsta</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">desk</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span>
+                        <span class="s2">&quot;thread&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;any&gt;&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
+                        <span class="s2">&quot;flags&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">flags</span><span class="p">),</span>
+                        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">offPfn</span><span class="p">)),</span>
+                        <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">module</span><span class="p">),</span>
+                    <span class="p">}</span>
+                    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">thrd</span> <span class="ow">in</span> <span class="n">desk</span><span class="o">.</span><span class="n">threads</span><span class="p">():</span>
+                    <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> (</span><span class="si">{1}</span><span class="s2"> </span><span class="si">{2}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">thrd</span><span class="o">.</span><span class="n">pEThread</span><span class="o">.</span><span class="n">Cid</span><span class="o">.</span><span class="n">UniqueThread</span><span class="p">,</span>
+                        <span class="n">thrd</span><span class="o">.</span><span class="n">ppi</span><span class="o">.</span><span class="n">Process</span><span class="o">.</span><span class="n">ImageFileName</span><span class="p">,</span>
+                        <span class="n">thrd</span><span class="o">.</span><span class="n">ppi</span><span class="o">.</span><span class="n">Process</span><span class="o">.</span><span class="n">UniqueProcessId</span><span class="p">)</span>
+
+                    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">hook</span> <span class="ow">in</span> <span class="n">thrd</span><span class="o">.</span><span class="n">hooks</span><span class="p">():</span>
+                        <span class="n">module</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">translate_hmod</span><span class="p">(</span><span class="n">winsta</span><span class="p">,</span> <span class="n">atom_tables</span><span class="p">,</span> <span class="n">hook</span><span class="o">.</span><span class="n">ihmod</span><span class="p">)</span>
+
+                        <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                            <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">obj_offset</span><span class="p">)),</span>
+                            <span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">winsta</span><span class="o">.</span><span class="n">dwSessionId</span><span class="p">),</span>
+                            <span class="s2">&quot;desktop&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="se">\\</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">winsta</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">desk</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span>
+                            <span class="s2">&quot;thread&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">info</span><span class="p">),</span>
+                            <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
+                            <span class="s2">&quot;flags&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">flags</span><span class="p">),</span>
+                            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">offPfn</span><span class="p">)),</span>
+                            <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">module</span><span class="p">),</span>
+                        <span class="p">}</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.getsids"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.getsids">[docs]</a>    <span class="k">def</span> <span class="nf">getsids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility getsids plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/malware/getsids.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;getsids&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">get_token</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="k">for</span> <span class="n">sid_string</span> <span class="ow">in</span> <span class="n">token</span><span class="o">.</span><span class="n">get_sids</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">sid_string</span> <span class="ow">in</span> <span class="n">sidm</span><span class="o">.</span><span class="n">well_known_sids</span><span class="p">:</span>
+                    <span class="n">sid_name</span> <span class="o">=</span> <span class="s2">&quot; </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sidm</span><span class="o">.</span><span class="n">well_known_sids</span><span class="p">[</span><span class="n">sid_string</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">sid_name_re</span> <span class="o">=</span> <span class="n">sidm</span><span class="o">.</span><span class="n">find_sid_re</span><span class="p">(</span><span class="n">sid_string</span><span class="p">,</span> <span class="n">sidm</span><span class="o">.</span><span class="n">well_known_sid_re</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">sid_name_re</span><span class="p">:</span>
+                        <span class="n">sid_name</span> <span class="o">=</span> <span class="s2">&quot; </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sid_name_re</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">sid_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+                <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">ImageFileName</span><span class="p">),</span>
+                    <span class="s2">&quot;process_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">UniqueProcessId</span><span class="p">),</span>
+                    <span class="s2">&quot;sid_string&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">sid_string</span><span class="p">),</span>
+                    <span class="s2">&quot;sid_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">sid_name</span><span class="p">),</span>
+                <span class="p">}</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.privs"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.privs">[docs]</a>    <span class="k">def</span> <span class="nf">privs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility privs plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/malware/privs.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;privs&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">value</span><span class="p">,</span> <span class="n">present</span><span class="p">,</span> <span class="n">enabled</span><span class="p">,</span> <span class="n">default</span> <span class="ow">in</span> <span class="n">task</span><span class="o">.</span><span class="n">get_token</span><span class="p">()</span><span class="o">.</span><span class="n">privileges</span><span class="p">():</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">name</span><span class="p">,</span> <span class="n">desc</span> <span class="o">=</span> <span class="n">privm</span><span class="o">.</span><span class="n">PRIVILEGE_INFO</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)]</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">attributes</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">if</span> <span class="n">present</span><span class="p">:</span>
+                    <span class="n">attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Present&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">enabled</span><span class="p">:</span>
+                    <span class="n">attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Enabled&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">default</span><span class="p">:</span>
+                    <span class="n">attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Default&quot;</span><span class="p">)</span>
+
+                <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;process_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">UniqueProcessId</span><span class="p">),</span>
+                    <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">ImageFileName</span><span class="p">),</span>
+                    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">),</span>
+                    <span class="s2">&quot;privilege&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
+                    <span class="s2">&quot;attributes&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">attributes</span><span class="p">),</span>
+                    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">desc</span><span class="p">),</span>
+                <span class="p">}</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.malfind"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.malfind">[docs]</a>    <span class="k">def</span> <span class="nf">malfind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dump_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility malfind plugin.</span>
+
+<span class="sd">        :param dump_dir: optional directory for dumps</span>
+<span class="sd">        :see: volatility/plugins/malware/malfind.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;malfind&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">vad</span><span class="p">,</span> <span class="n">address_space</span> <span class="ow">in</span> <span class="n">task</span><span class="o">.</span><span class="n">get_vads</span><span class="p">(</span><span class="n">vad_filter</span><span class="o">=</span><span class="n">task</span><span class="o">.</span><span class="n">_injection_filter</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">command</span><span class="o">.</span><span class="n">_is_vad_empty</span><span class="p">(</span><span class="n">vad</span><span class="p">,</span> <span class="n">address_space</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+                <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;process_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">ImageFileName</span><span class="p">),</span>
+                    <span class="s2">&quot;process_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">UniqueProcessId</span><span class="p">),</span>
+                    <span class="s2">&quot;vad_start&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0:#x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vad</span><span class="o">.</span><span class="n">Start</span><span class="p">),</span>
+                    <span class="s2">&quot;vad_tag&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">vad</span><span class="o">.</span><span class="n">Tag</span><span class="p">),</span>
+                <span class="p">}</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">dump_dir</span><span class="p">:</span>
+                    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dump_dir</span><span class="p">,</span> <span class="s2">&quot;process.</span><span class="si">{0:#x}</span><span class="s2">.</span><span class="si">{1:#x}</span><span class="s2">.dmp&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">obj_offset</span><span class="p">,</span> <span class="n">vad</span><span class="o">.</span><span class="n">Start</span><span class="p">))</span>
+                    <span class="n">command</span><span class="o">.</span><span class="n">dump_vad</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">vad</span><span class="p">,</span> <span class="n">address_space</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.yarascan"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.yarascan">[docs]</a>    <span class="k">def</span> <span class="nf">yarascan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility yarascan plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/malware/yarascan.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">ypath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;yara&quot;</span><span class="p">,</span> <span class="s2">&quot;index_memory.yar&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ypath</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="p">[])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;YARA_FILE&quot;</span><span class="p">,</span> <span class="n">ypath</span><span class="p">)</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;yarascan&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="c1"># Comment: this code is pretty much ripped from render_text in volatility.</span>
+            <span class="c1"># Find out if the hit is from user or kernel mode</span>
+            <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">owner</span> <span class="o">=</span> <span class="s2">&quot;Unknown Kernel Memory&quot;</span>
+            <span class="k">elif</span> <span class="n">o</span><span class="o">.</span><span class="n">obj_name</span> <span class="o">==</span> <span class="s2">&quot;_EPROCESS&quot;</span><span class="p">:</span>
+                <span class="n">owner</span> <span class="o">=</span> <span class="s2">&quot;Process </span><span class="si">{0}</span><span class="s2"> Pid </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">ImageFileName</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">UniqueProcessId</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">owner</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">BaseDllName</span><span class="p">)</span>
+
+            <span class="n">hexdump</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="si">{0:#010x}</span><span class="s2">  </span><span class="si">{1:&lt;48}</span><span class="s2">  </span><span class="si">{2}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">addr</span> <span class="o">+</span> <span class="n">o</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">Hexdump</span><span class="p">(</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">64</span><span class="p">]))</span>
+
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;rule&quot;</span><span class="p">:</span> <span class="n">hit</span><span class="o">.</span><span class="n">rule</span><span class="p">,</span>
+                <span class="s2">&quot;owner&quot;</span><span class="p">:</span> <span class="n">owner</span><span class="p">,</span>
+                <span class="s2">&quot;hexdump&quot;</span><span class="p">:</span> <span class="n">hexdump</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.apihooks"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.apihooks">[docs]</a>    <span class="k">def</span> <span class="nf">apihooks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility apihooks plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/malware/apihooks.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;apihooks&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">process</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">hook</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">proc_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">ImageFileName</span><span class="p">)</span> <span class="k">if</span> <span class="n">process</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">if</span> <span class="n">command</span><span class="o">.</span><span class="n">whitelist</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">hook_mode</span> <span class="o">|</span> <span class="n">hook</span><span class="o">.</span><span class="n">hook_type</span><span class="p">,</span>
+                                 <span class="n">proc_name</span><span class="p">,</span> <span class="n">hook</span><span class="o">.</span><span class="n">VictimModule</span><span class="p">,</span>
+                                 <span class="n">hook</span><span class="o">.</span><span class="n">HookModule</span><span class="p">,</span> <span class="n">hook</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;hook_mode&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">Mode</span><span class="p">),</span>
+                <span class="s2">&quot;hook_type&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">Type</span><span class="p">),</span>
+                <span class="s2">&quot;victim_module&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">BaseDllName</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;victim_function&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">Detail</span><span class="p">),</span>
+                <span class="s2">&quot;hook_address&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0:#x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">hook_address</span><span class="p">),</span>
+                <span class="s2">&quot;hooking_module&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">HookModule</span><span class="p">)</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="n">process</span><span class="p">:</span>
+                <span class="n">new</span><span class="p">[</span><span class="s2">&quot;process_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">UniqueProcessId</span><span class="p">)</span>
+                <span class="n">new</span><span class="p">[</span><span class="s2">&quot;process_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">ImageFileName</span><span class="p">)</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.dlllist"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.dlllist">[docs]</a>    <span class="k">def</span> <span class="nf">dlllist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility dlllist plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/taskmods.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;dlllist&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;process_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">UniqueProcessId</span><span class="p">),</span>
+                <span class="s2">&quot;process_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">ImageFileName</span><span class="p">),</span>
+                <span class="s2">&quot;commandline&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">Peb</span><span class="o">.</span><span class="n">ProcessParameters</span><span class="o">.</span><span class="n">CommandLine</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;loaded_modules&quot;</span><span class="p">:</span> <span class="p">[]</span>
+            <span class="p">}</span>
+
+            <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">task</span><span class="o">.</span><span class="n">get_load_modules</span><span class="p">():</span>
+                <span class="n">new</span><span class="p">[</span><span class="s2">&quot;loaded_modules&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;dll_base&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">DllBase</span><span class="p">),</span>
+                    <span class="s2">&quot;dll_size&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">SizeOfImage</span><span class="p">),</span>
+                    <span class="s2">&quot;dll_full_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">FullDllName</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                    <span class="s2">&quot;dll_load_count&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">LoadCount</span><span class="p">),</span>
+                <span class="p">})</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.handles"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.handles">[docs]</a>    <span class="k">def</span> <span class="nf">handles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility handles plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/handles.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;handles&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">pid</span><span class="p">,</span> <span class="n">handle</span><span class="p">,</span> <span class="n">object_type</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;process_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">),</span>
+                <span class="s2">&quot;handle_value&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">handle</span><span class="o">.</span><span class="n">HandleValue</span><span class="p">),</span>
+                <span class="s2">&quot;handle_granted_access&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">handle</span><span class="o">.</span><span class="n">GrantedAccess</span><span class="p">),</span>
+                <span class="s2">&quot;handle_type&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">object_type</span><span class="p">),</span>
+                <span class="s2">&quot;handle_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="p">}</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.ldrmodules"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.ldrmodules">[docs]</a>    <span class="k">def</span> <span class="nf">ldrmodules</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility ldrmodules plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/malware/malfind.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;ldrmodules&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="c1"># Build a dictionary for all three PEB lists where the</span>
+            <span class="c1"># keys are base address and module objects are the values.</span>
+            <span class="n">inloadorder</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">mod</span><span class="o">.</span><span class="n">DllBase</span><span class="o">.</span><span class="n">v</span><span class="p">(),</span> <span class="n">mod</span><span class="p">)</span> <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">task</span><span class="o">.</span><span class="n">get_load_modules</span><span class="p">())</span>
+            <span class="n">ininitorder</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">mod</span><span class="o">.</span><span class="n">DllBase</span><span class="o">.</span><span class="n">v</span><span class="p">(),</span> <span class="n">mod</span><span class="p">)</span> <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">task</span><span class="o">.</span><span class="n">get_init_modules</span><span class="p">())</span>
+            <span class="n">inmemorder</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">mod</span><span class="o">.</span><span class="n">DllBase</span><span class="o">.</span><span class="n">v</span><span class="p">(),</span> <span class="n">mod</span><span class="p">)</span> <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">task</span><span class="o">.</span><span class="n">get_mem_modules</span><span class="p">())</span>
+
+            <span class="c1"># Build a similar dictionary for the mapped files.</span>
+            <span class="n">mapped_files</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">vad</span><span class="p">,</span> <span class="n">address_space</span> <span class="ow">in</span> <span class="n">task</span><span class="o">.</span><span class="n">get_vads</span><span class="p">(</span><span class="n">vad_filter</span><span class="o">=</span><span class="n">task</span><span class="o">.</span><span class="n">_mapped_file_filter</span><span class="p">):</span>
+                <span class="c1"># Note this is a lot faster than acquiring the full</span>
+                <span class="c1"># vad region and then checking the first two bytes.</span>
+                <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">Object</span><span class="p">(</span><span class="s2">&quot;_IMAGE_DOS_HEADER&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">vad</span><span class="o">.</span><span class="n">Start</span><span class="p">,</span> <span class="n">vm</span><span class="o">=</span><span class="n">address_space</span><span class="p">)</span><span class="o">.</span><span class="n">e_magic</span> <span class="o">!=</span> <span class="mh">0x5A4D</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">mapped_files</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">vad</span><span class="o">.</span><span class="n">Start</span><span class="p">)]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">vad</span><span class="o">.</span><span class="n">FileObject</span><span class="o">.</span><span class="n">FileName</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+            <span class="c1"># For each base address with a mapped file, print info on</span>
+            <span class="c1"># the other PEB lists to spot discrepancies.</span>
+            <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">mapped_files</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="c1"># Does the base address exist in the PEB DLL lists?</span>
+                <span class="n">load_mod</span> <span class="o">=</span> <span class="n">inloadorder</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="n">init_mod</span> <span class="o">=</span> <span class="n">ininitorder</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="n">mem_mod</span> <span class="o">=</span> <span class="n">inmemorder</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+                <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;process_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">UniqueProcessId</span><span class="p">),</span>
+                    <span class="s2">&quot;process_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">ImageFileName</span><span class="p">),</span>
+                    <span class="s2">&quot;dll_base&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0:#x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base</span><span class="p">),</span>
+                    <span class="s2">&quot;dll_in_load&quot;</span><span class="p">:</span> <span class="n">load_mod</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="s2">&quot;dll_in_init&quot;</span><span class="p">:</span> <span class="n">init_mod</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="s2">&quot;dll_in_mem&quot;</span><span class="p">:</span> <span class="n">mem_mod</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="s2">&quot;dll_mapped_path&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">mapped_files</span><span class="p">[</span><span class="n">base</span><span class="p">]),</span>
+                    <span class="s2">&quot;load_full_dll_name&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;init_full_dll_name&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;mem_full_dll_name&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">}</span>
+
+                <span class="k">if</span> <span class="n">load_mod</span><span class="p">:</span>
+                    <span class="n">new</span><span class="p">[</span><span class="s2">&quot;load_full_dll_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">load_mod</span><span class="o">.</span><span class="n">FullDllName</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">init_mod</span><span class="p">:</span>
+                    <span class="n">new</span><span class="p">[</span><span class="s2">&quot;init_full_dll_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">init_mod</span><span class="o">.</span><span class="n">FullDllName</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">mem_mod</span><span class="p">:</span>
+                    <span class="n">new</span><span class="p">[</span><span class="s2">&quot;mem_full_dll_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">mem_mod</span><span class="o">.</span><span class="n">FullDllName</span><span class="p">)</span>
+
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.mutantscan"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.mutantscan">[docs]</a>    <span class="k">def</span> <span class="nf">mutantscan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility mutantscan plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/filescan.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;mutantscan&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">mutant</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="n">mutant</span><span class="o">.</span><span class="n">get_object_header</span><span class="p">()</span>
+            <span class="n">tid</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">pid</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">mutant</span><span class="o">.</span><span class="n">OwnerThread</span> <span class="o">&gt;</span> <span class="mh">0x80000000</span><span class="p">:</span>
+                <span class="n">thread</span> <span class="o">=</span> <span class="n">mutant</span><span class="o">.</span><span class="n">OwnerThread</span><span class="o">.</span><span class="n">dereference_as</span><span class="p">(</span><span class="s2">&quot;_ETHREAD&quot;</span><span class="p">)</span>
+                <span class="n">tid</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">Cid</span><span class="o">.</span><span class="n">UniqueThread</span>
+                <span class="n">pid</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">Cid</span><span class="o">.</span><span class="n">UniqueProcess</span>
+
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;mutant_offset&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0:#x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mutant</span><span class="o">.</span><span class="n">obj_offset</span><span class="p">),</span>
+                <span class="s2">&quot;num_pointer&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">PointerCount</span><span class="p">),</span>
+                <span class="s2">&quot;num_handles&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">HandleCount</span><span class="p">),</span>
+                <span class="s2">&quot;mutant_signal_state&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">mutant</span><span class="o">.</span><span class="n">Header</span><span class="o">.</span><span class="n">SignalState</span><span class="p">),</span>
+                <span class="s2">&quot;mutant_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">NameInfo</span><span class="o">.</span><span class="n">Name</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;process_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">),</span>
+                <span class="s2">&quot;thread_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">tid</span><span class="p">)</span>
+            <span class="p">}</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.devicetree"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.devicetree">[docs]</a>    <span class="k">def</span> <span class="nf">devicetree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility devicetree plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/malware/devicetree.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;devicetree&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">driver_obj</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;driver_offset&quot;</span><span class="p">:</span> <span class="s2">&quot;0x</span><span class="si">{0:08x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">driver_obj</span><span class="o">.</span><span class="n">obj_offset</span><span class="p">),</span>
+                <span class="s2">&quot;driver_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">driver_obj</span><span class="o">.</span><span class="n">DriverName</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;devices&quot;</span><span class="p">:</span> <span class="p">[]</span>
+            <span class="p">}</span>
+
+            <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">driver_obj</span><span class="o">.</span><span class="n">devices</span><span class="p">():</span>
+                <span class="n">device_header</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">Object</span><span class="p">(</span>
+                    <span class="s2">&quot;_OBJECT_HEADER&quot;</span><span class="p">,</span>
+                    <span class="n">offset</span><span class="o">=</span><span class="n">device</span><span class="o">.</span><span class="n">obj_offset</span> <span class="o">-</span> <span class="n">device</span><span class="o">.</span><span class="n">obj_vm</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">get_obj_offset</span><span class="p">(</span><span class="s2">&quot;_OBJECT_HEADER&quot;</span><span class="p">,</span> <span class="s2">&quot;Body&quot;</span><span class="p">),</span>
+                    <span class="n">vm</span><span class="o">=</span><span class="n">device</span><span class="o">.</span><span class="n">obj_vm</span><span class="p">,</span>
+                    <span class="n">native_vm</span><span class="o">=</span><span class="n">device</span><span class="o">.</span><span class="n">obj_native_vm</span>
+                <span class="p">)</span>
+
+                <span class="n">device_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">device_header</span><span class="o">.</span><span class="n">NameInfo</span><span class="o">.</span><span class="n">Name</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+                <span class="n">new_device</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;device_offset&quot;</span><span class="p">:</span> <span class="s2">&quot;0x</span><span class="si">{0:08x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">obj_offset</span><span class="p">),</span>
+                    <span class="s2">&quot;device_name&quot;</span><span class="p">:</span> <span class="n">device_name</span><span class="p">,</span>
+                    <span class="s2">&quot;device_type&quot;</span><span class="p">:</span> <span class="n">devicetree</span><span class="o">.</span><span class="n">DEVICE_CODES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">DeviceType</span><span class="o">.</span><span class="n">v</span><span class="p">(),</span> <span class="s2">&quot;UNKNOWN&quot;</span><span class="p">),</span>
+                    <span class="s2">&quot;devices_attached&quot;</span><span class="p">:</span> <span class="p">[]</span>
+                <span class="p">}</span>
+
+                <span class="n">new</span><span class="p">[</span><span class="s2">&quot;devices&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_device</span><span class="p">)</span>
+
+                <span class="n">level</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="k">for</span> <span class="n">att_device</span> <span class="ow">in</span> <span class="n">device</span><span class="o">.</span><span class="n">attached_devices</span><span class="p">():</span>
+                    <span class="n">device_header</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">Object</span><span class="p">(</span>
+                        <span class="s2">&quot;_OBJECT_HEADER&quot;</span><span class="p">,</span>
+                        <span class="n">offset</span><span class="o">=</span><span class="n">att_device</span><span class="o">.</span><span class="n">obj_offset</span> <span class="o">-</span> <span class="n">att_device</span><span class="o">.</span><span class="n">obj_vm</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">get_obj_offset</span><span class="p">(</span><span class="s2">&quot;_OBJECT_HEADER&quot;</span><span class="p">,</span> <span class="s2">&quot;Body&quot;</span><span class="p">),</span>
+                        <span class="n">vm</span><span class="o">=</span><span class="n">att_device</span><span class="o">.</span><span class="n">obj_vm</span><span class="p">,</span>
+                        <span class="n">native_vm</span><span class="o">=</span><span class="n">att_device</span><span class="o">.</span><span class="n">obj_native_vm</span>
+                    <span class="p">)</span>
+
+                    <span class="n">device_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">device_header</span><span class="o">.</span><span class="n">NameInfo</span><span class="o">.</span><span class="n">Name</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="p">(</span><span class="n">device_name</span> <span class="o">+</span> <span class="s2">&quot; - &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">att_device</span><span class="o">.</span><span class="n">DriverObject</span><span class="o">.</span><span class="n">DriverName</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+
+                    <span class="n">new_device</span><span class="p">[</span><span class="s2">&quot;devices_attached&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                        <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">level</span><span class="p">,</span>
+                        <span class="s2">&quot;attached_device_offset&quot;</span><span class="p">:</span> <span class="s2">&quot;0x</span><span class="si">{0:08x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">att_device</span><span class="o">.</span><span class="n">obj_offset</span><span class="p">),</span>
+                        <span class="s2">&quot;attached_device_name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                        <span class="s2">&quot;attached_device_type&quot;</span><span class="p">:</span> <span class="n">devicetree</span><span class="o">.</span><span class="n">DEVICE_CODES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">att_device</span><span class="o">.</span><span class="n">DeviceType</span><span class="o">.</span><span class="n">v</span><span class="p">(),</span> <span class="s2">&quot;UNKNOWN&quot;</span><span class="p">)</span>
+                    <span class="p">})</span>
+
+                    <span class="n">level</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.svcscan"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.svcscan">[docs]</a>    <span class="k">def</span> <span class="nf">svcscan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility svcscan plugin - scans for services.</span>
+
+<span class="sd">        :see: volatility/plugins/malware/svcscan.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;svcscan&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;service_offset&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0:#x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rec</span><span class="o">.</span><span class="n">obj_offset</span><span class="p">),</span>
+                <span class="s2">&quot;service_order&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">rec</span><span class="o">.</span><span class="n">Order</span><span class="p">),</span>
+                <span class="s2">&quot;process_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">rec</span><span class="o">.</span><span class="n">Pid</span><span class="p">),</span>
+                <span class="s2">&quot;service_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">rec</span><span class="o">.</span><span class="n">ServiceName</span><span class="o">.</span><span class="n">dereference</span><span class="p">()),</span>
+                <span class="s2">&quot;service_display_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">rec</span><span class="o">.</span><span class="n">DisplayName</span><span class="o">.</span><span class="n">dereference</span><span class="p">()),</span>
+                <span class="s2">&quot;service_type&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">rec</span><span class="o">.</span><span class="n">Type</span><span class="p">),</span>
+                <span class="s2">&quot;service_binary_path&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">rec</span><span class="o">.</span><span class="n">Binary</span><span class="p">),</span>
+                <span class="s2">&quot;service_state&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">rec</span><span class="o">.</span><span class="n">State</span><span class="p">)</span>
+            <span class="p">}</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.modscan"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.modscan">[docs]</a>    <span class="k">def</span> <span class="nf">modscan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility modscan plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/modscan.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;modscan&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ldr_entry</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;kernel_module_offset&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0:#x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ldr_entry</span><span class="o">.</span><span class="n">obj_offset</span><span class="p">),</span>
+                <span class="s2">&quot;kernel_module_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">ldr_entry</span><span class="o">.</span><span class="n">BaseDllName</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;kernel_module_file&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">ldr_entry</span><span class="o">.</span><span class="n">FullDllName</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;kernel_module_base&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0:#x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ldr_entry</span><span class="o">.</span><span class="n">DllBase</span><span class="p">),</span>
+                <span class="s2">&quot;kernel_module_size&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">ldr_entry</span><span class="o">.</span><span class="n">SizeOfImage</span><span class="p">),</span>
+            <span class="p">}</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.imageinfo"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.imageinfo">[docs]</a>    <span class="k">def</span> <span class="nf">imageinfo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility imageinfo plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/imageinfo.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;imageinfo&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">new</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="n">osp</span> <span class="o">=</span> <span class="n">new</span><span class="p">[</span><span class="s2">&quot;Suggested Profile(s)&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">new</span><span class="p">[</span><span class="s2">&quot;osprofile&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">osp</span>
+
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.sockscan"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.sockscan">[docs]</a>    <span class="k">def</span> <span class="nf">sockscan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility sockscan plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/sockscan.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;sockscan&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">sock</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0:#010x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">obj_offset</span><span class="p">),</span>
+                <span class="s2">&quot;process_id&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">Pid</span><span class="p">),</span>
+                <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">LocalIpAddress</span><span class="p">),</span>
+                <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">LocalPort</span><span class="p">),</span>
+                <span class="s2">&quot;protocol&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> (</span><span class="si">{1}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">Protocol</span><span class="p">,</span> <span class="n">protos</span><span class="o">.</span><span class="n">protos</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">Protocol</span><span class="o">.</span><span class="n">v</span><span class="p">(),</span> <span class="s2">&quot;-&quot;</span><span class="p">)),</span>
+                <span class="s2">&quot;create_time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">gmtime</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">CreateTime</span><span class="p">))),</span>
+            <span class="p">}</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityAPI.netscan"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityAPI.netscan">[docs]</a>    <span class="k">def</span> <span class="nf">netscan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Volatility sockscan plugin.</span>
+
+<span class="sd">        :see: volatility/plugins/netscan.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="s2">&quot;netscan&quot;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">net_obj</span><span class="p">,</span> <span class="n">proto</span><span class="p">,</span> <span class="n">laddr</span><span class="p">,</span> <span class="n">lport</span><span class="p">,</span> <span class="n">raddr</span><span class="p">,</span> <span class="n">rport</span><span class="p">,</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">command</span><span class="o">.</span><span class="n">calculate</span><span class="p">():</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{0:#010x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">net_obj</span><span class="o">.</span><span class="n">obj_offset</span><span class="p">),</span>
+                <span class="s2">&quot;process_id&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">net_obj</span><span class="o">.</span><span class="n">Owner</span><span class="o">.</span><span class="n">UniqueProcessId</span><span class="p">),</span>
+                <span class="s2">&quot;local_address&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">laddr</span><span class="p">),</span>
+                <span class="s2">&quot;local_port&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">lport</span><span class="p">),</span>
+                <span class="s2">&quot;remote_address&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">raddr</span><span class="p">),</span>
+                <span class="s2">&quot;remote_port&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">rport</span><span class="p">),</span>
+                <span class="s2">&quot;protocol&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">proto</span><span class="p">),</span>
+            <span class="p">}</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="VolatilityManager"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityManager">[docs]</a><span class="k">class</span> <span class="nc">VolatilityManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Handle several volatility results.&quot;&quot;&quot;</span>
+    <span class="n">PLUGINS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;pslist&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;psxview&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;callbacks&quot;</span><span class="p">,</span>
+        <span class="p">[</span><span class="s2">&quot;idt&quot;</span><span class="p">,</span> <span class="s2">&quot;x86&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;ssdt&quot;</span><span class="p">,</span>
+        <span class="p">[</span><span class="s2">&quot;gdt&quot;</span><span class="p">,</span> <span class="s2">&quot;x86&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;timers&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;messagehooks&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;getsids&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;privs&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;malfind&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;apihooks&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dlllist&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;handles&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ldrmodules&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mutantscan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;devicetree&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;svcscan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;modscan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;yarascan&quot;</span><span class="p">,</span>
+        <span class="p">[</span><span class="s2">&quot;sockscan&quot;</span><span class="p">,</span> <span class="s2">&quot;winxp&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;netscan&quot;</span><span class="p">,</span> <span class="s2">&quot;vista&quot;</span><span class="p">,</span> <span class="s2">&quot;win7&quot;</span><span class="p">],</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memfile</span><span class="p">,</span> <span class="n">osprofile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_pid</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">taint_pid</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memfile</span> <span class="o">=</span> <span class="n">memfile</span>
+
+        <span class="n">conf_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;conf&quot;</span><span class="p">,</span> <span class="s2">&quot;memory.conf&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">conf_path</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Configuration file </span><span class="si">{0}</span><span class="s2"> not found&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">conf_path</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">voptions</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">voptions</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="s2">&quot;memory&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">voptions</span><span class="o">.</span><span class="n">mask</span><span class="o">.</span><span class="n">pid_generic</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
+            <span class="n">pid</span> <span class="o">=</span> <span class="n">pid</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">pid</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mask_pid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">no_filter</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">voptions</span><span class="o">.</span><span class="n">mask</span><span class="o">.</span><span class="n">enabled</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">voptions</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">guest_profile</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">osprofile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">voptions</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">guest_profile</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">osprofile</span> <span class="o">=</span> <span class="n">osprofile</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_osprofile</span><span class="p">()</span>
+
+<div class="viewcode-block" id="VolatilityManager.get_osprofile"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityManager.get_osprofile">[docs]</a>    <span class="k">def</span> <span class="nf">get_osprofile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the OS profile&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">VolatilityAPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memfile</span><span class="p">)</span><span class="o">.</span><span class="n">imageinfo</span><span class="p">()[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;osprofile&quot;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="VolatilityManager.run"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityManager.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Exit if options were not loaded.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">voptions</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">vol</span> <span class="o">=</span> <span class="n">VolatilityAPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memfile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">osprofile</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">plugin_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">PLUGINS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">plugin_name</span><span class="p">,</span> <span class="n">profiles</span> <span class="o">=</span> <span class="n">plugin_name</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">plugin_name</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">profiles</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="c1"># Some plugins can only run in certain profiles (i.e., only in</span>
+            <span class="c1"># Windows XP/Vista/7, or only in x86 or x64).</span>
+            <span class="n">osp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">osprofile</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">profile</span> <span class="ow">in</span> <span class="n">profiles</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">osp</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span> <span class="ow">or</span> <span class="n">osp</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">profile</span><span class="p">):</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">profiles</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+            <span class="n">plugin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">voptions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">plugin</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">plugin</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Skipping &#39;</span><span class="si">%s</span><span class="s2">&#39; volatility module&quot;</span><span class="p">,</span> <span class="n">plugin_name</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">plugin_name</span> <span class="ow">in</span> <span class="n">vol</span><span class="o">.</span><span class="n">plugins</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing volatility &#39;</span><span class="si">%s</span><span class="s2">&#39; module.&quot;</span><span class="p">,</span> <span class="n">plugin_name</span><span class="p">)</span>
+                <span class="n">results</span><span class="p">[</span><span class="n">plugin_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">vol</span><span class="p">,</span> <span class="n">plugin_name</span><span class="p">)()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">find_taint</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask_filter</span><span class="p">(</span><span class="n">results</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VolatilityManager.mask_filter"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityManager.mask_filter">[docs]</a>    <span class="k">def</span> <span class="nf">mask_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Filter out masked stuff. Keep tainted stuff.&quot;&quot;&quot;</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">akey</span> <span class="ow">in</span> <span class="n">old</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">new</span><span class="p">[</span><span class="n">akey</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="n">old</span><span class="p">[</span><span class="n">akey</span><span class="p">][</span><span class="s2">&quot;config&quot;</span><span class="p">],</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+            <span class="n">conf</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">voptions</span><span class="p">,</span> <span class="n">akey</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">new</span><span class="p">[</span><span class="n">akey</span><span class="p">][</span><span class="s2">&quot;config&quot;</span><span class="p">][</span><span class="s2">&quot;filter&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">filter</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">old</span><span class="p">[</span><span class="n">akey</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">]:</span>
+                <span class="c1"># TODO: need to improve this logic.</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">conf</span><span class="o">.</span><span class="n">filter</span><span class="p">:</span>
+                    <span class="n">new</span><span class="p">[</span><span class="n">akey</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="s2">&quot;process_id&quot;</span> <span class="ow">in</span> <span class="n">item</span> <span class="ow">and</span> \
+                        <span class="n">item</span><span class="p">[</span><span class="s2">&quot;process_id&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask_pid</span> <span class="ow">and</span> \
+                        <span class="n">item</span><span class="p">[</span><span class="s2">&quot;process_id&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">taint_pid</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">new</span><span class="p">[</span><span class="n">akey</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span></div>
+
+<div class="viewcode-block" id="VolatilityManager.find_taint"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityManager.find_taint">[docs]</a>    <span class="k">def</span> <span class="nf">find_taint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Find tainted items.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;malfind&quot;</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;malfind&quot;</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">taint_pid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;process_id&quot;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="VolatilityManager.cleanup"><a class="viewcode-back" href="../../processing.html#processing.memory.VolatilityManager.cleanup">[docs]</a>    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete the memory dump (if configured to do so).&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">voptions</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">delete_memdump</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memfile</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to delete memory dump file at path </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">memfile</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="Memory"><a class="viewcode-back" href="../../processing.html#processing.memory.Memory">[docs]</a><span class="k">class</span> <span class="nc">Memory</span><span class="p">(</span><span class="n">Processing</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Volatility Analyzer.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Memory.run"><a class="viewcode-back" href="../../processing.html#processing.memory.Memory.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run analysis.</span>
+
+<span class="sd">        :return: volatility results dict.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;memory&quot;</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">HAVE_VOLATILITY</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory_path</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory_path</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">results</span> <span class="o">=</span> <span class="n">VolatilityManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory_path</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Generic error executing volatility&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Memory dump not found: to run volatility you have to enable memory_dump&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Cannot run volatility module: volatility library not available&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

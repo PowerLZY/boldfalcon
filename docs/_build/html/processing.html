@@ -41,7 +41,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="signatures package" href="signatures.html" />
+    <link rel="next" title="detection package" href="detection.html" />
     <link rel="prev" title="machinery package" href="machinery.html" /> 
 </head>
 
@@ -95,6 +95,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="analyzer.html">analyzer package</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Common:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib.cuckoo.common.html">lib.cuckoo.common package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Core:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib.cuckoo.core.html">lib.cuckoo.core package</a></li>
+</ul>
 <p class="caption"><span class="caption-text">auxiliary:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="auxiliary.html">auxiliary package</a></li>
@@ -106,12 +114,11 @@
 <p class="caption"><span class="caption-text">processing:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">processing package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-processing.analysisinfo">processing.analysisinfo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing.baseline">processing.baseline module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-processing.behavior">processing.behavior module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-processing.buffer">processing.buffer module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-processing.debug">processing.debug module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-processing.droidmon">processing.droidmon module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-processing.dropped">processing.dropped module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-processing.dumptls">processing.dumptls module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-processing.memory">processing.memory module</a></li>
@@ -121,16 +128,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-processing.snort">processing.snort module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-processing.static">processing.static module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-processing.strings">processing.strings module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-processing.suricata">processing.suricata module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-processing.targetinfo">processing.targetinfo module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-processing.virustotal">processing.virustotal module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-processing">Module contents</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">signatures:</span></p>
+<p class="caption"><span class="caption-text">detection:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="signatures.html">signatures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detection.html">detection package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">report</span></p>
 <ul>
@@ -204,35 +209,90 @@
             
   <div class="section" id="processing-package">
 <h1>processing package<a class="headerlink" href="#processing-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-processing.analysisinfo">
 <span id="processing-analysisinfo-module"></span><h2>processing.analysisinfo module<a class="headerlink" href="#module-processing.analysisinfo" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.analysisinfo.AnalysisInfo">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.analysisinfo.</span></span><span class="sig-name descname"><span class="pre">AnalysisInfo</span></span><a class="headerlink" href="#processing.analysisinfo.AnalysisInfo" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.analysisinfo.</span></span><span class="sig-name descname"><span class="pre">AnalysisInfo</span></span><a class="reference internal" href="_modules/processing/analysisinfo.html#AnalysisInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.analysisinfo.AnalysisInfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>General information about analysis session.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.analysisinfo.AnalysisInfo.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.analysisinfo.AnalysisInfo.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run information gathering.
-&#64;return: information dict.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/analysisinfo.html#AnalysisInfo.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.analysisinfo.AnalysisInfo.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run information gathering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>information dict.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.analysisinfo.MetaInfo">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.analysisinfo.</span></span><span class="sig-name descname"><span class="pre">MetaInfo</span></span><a class="headerlink" href="#processing.analysisinfo.MetaInfo" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.analysisinfo.</span></span><span class="sig-name descname"><span class="pre">MetaInfo</span></span><a class="reference internal" href="_modules/processing/analysisinfo.html#MetaInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.analysisinfo.MetaInfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>General information about the task and output files (memory dumps, etc).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.analysisinfo.MetaInfo.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.analysisinfo.MetaInfo.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run information gathering.
-&#64;return: information dict.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/analysisinfo.html#MetaInfo.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.analysisinfo.MetaInfo.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run information gathering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>information dict.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-processing.baseline">
+<span id="processing-baseline-module"></span><h2>processing.baseline module<a class="headerlink" href="#module-processing.baseline" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="processing.baseline.Baseline">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.baseline.</span></span><span class="sig-name descname"><span class="pre">Baseline</span></span><a class="reference internal" href="_modules/processing/baseline.html#Baseline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.baseline.Baseline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
+<p>Reduces Baseline results from gathered information.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="processing.baseline.Baseline.deep_tuple">
+<span class="sig-name descname"><span class="pre">deep_tuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/baseline.html#Baseline.deep_tuple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.baseline.Baseline.deep_tuple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing.baseline.Baseline.memory">
+<span class="sig-name descname"><span class="pre">memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baseline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/baseline.html#Baseline.memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.baseline.Baseline.memory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the differences between the analysis report and the baseline
+report. Puts the differences into the baseline part of the report and
+also marks the existing rows with a <cite>class_</cite> attribute.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing.baseline.Baseline.normalize">
+<span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/baseline.html#Baseline.normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.baseline.Baseline.normalize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="processing.baseline.Baseline.order">
+<span class="sig-name descname"><span class="pre">order</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#processing.baseline.Baseline.order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing.baseline.Baseline.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/baseline.html#Baseline.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.baseline.Baseline.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start processing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – this method is abstract.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="processing.baseline.Baseline.store_baseline">
+<span class="sig-name descname"><span class="pre">store_baseline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">machine</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/baseline.html#Baseline.store_baseline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.baseline.Baseline.store_baseline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store a new baseline report for a particular VM.</p>
 </dd></dl>
 
 </dd></dl>
@@ -242,10 +302,14 @@
 <span id="processing-behavior-module"></span><h2>processing.behavior module<a class="headerlink" href="#module-processing.behavior" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.behavior.Anomaly">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">Anomaly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.Anomaly" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">Anomaly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#Anomaly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.Anomaly" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.BehaviorHandler" title="lib.cuckoo.common.abstracts.BehaviorHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.BehaviorHandler</span></code></a></p>
-<p>Anomaly detected during analysis.
-:For example: a malware tried to remove Cuckoo’s hooks.</p>
+<p>Anomaly detected during analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p>For example: a malware tried to remove Cuckoo’s hooks.</p>
+</dd>
+</dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="processing.behavior.Anomaly.event_types">
 <span class="sig-name descname"><span class="pre">event_types</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['anomaly']</span></em><a class="headerlink" href="#processing.behavior.Anomaly.event_types" title="Permalink to this definition">¶</a></dt>
@@ -253,7 +317,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.behavior.Anomaly.handle_event">
-<span class="sig-name descname"><span class="pre">handle_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">call</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.Anomaly.handle_event" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">handle_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">call</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#Anomaly.handle_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.Anomaly.handle_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process API calls.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -272,7 +336,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.behavior.Anomaly.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.Anomaly.run" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#Anomaly.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.Anomaly.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch all anomalies.</p>
 </dd></dl>
 
@@ -280,7 +344,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.behavior.ApiStats">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">ApiStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.ApiStats" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">ApiStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#ApiStats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.ApiStats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.BehaviorHandler" title="lib.cuckoo.common.abstracts.BehaviorHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.BehaviorHandler</span></code></a></p>
 <p>Counts API calls.</p>
 <dl class="py attribute">
@@ -290,7 +354,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.behavior.ApiStats.handle_event">
-<span class="sig-name descname"><span class="pre">handle_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.ApiStats.handle_event" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">handle_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#ApiStats.handle_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.ApiStats.handle_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle an event that gets passed down the stack.</p>
 </dd></dl>
 
@@ -301,7 +365,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.behavior.ApiStats.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.ApiStats.run" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#ApiStats.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.ApiStats.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the handler specific structure, gets placed into
 behavior[self.key].</p>
 </dd></dl>
@@ -310,24 +374,9 @@ behavior[self.key].</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.behavior.BehaviorAnalysis">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">BehaviorAnalysis</span></span><a class="headerlink" href="#processing.behavior.BehaviorAnalysis" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">BehaviorAnalysis</span></span><a class="reference internal" href="_modules/processing/behavior.html#BehaviorAnalysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.BehaviorAnalysis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>Behavior Analyzer.</p>
-<p>The behavior key in the results dict will contain both default content keys
-that contain generic / abstracted analysis info, available on any platform,
-as well as platform / analyzer specific output.</p>
-<p>Typically the analyzer behavior contains some sort of “process” separation as
-we’re tracking different processes in most cases.</p>
-<p>There are several handlers that produce the respective keys / subkeys. Overall
-the platform / analyzer specific ones parse / process the captured data and yield
-both their own output, but also a standard structure that is then captured by the
-“generic” handlers so they can generate the standard result structures.</p>
-<p>The resulting structure contains some iterator onions for the monitored function calls
-that stream the content when some sink (reporting, signatures) needs it, thereby
-reducing memory footprint.</p>
-<p>So hopefully in the end each analysis should be fine with 2 passes over the results,
-once during processing (creating the generic output, summaries, etc) and once
-during reporting (well once for each report type if multiple are enabled).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="processing.behavior.BehaviorAnalysis.key">
 <span class="sig-name descname"><span class="pre">key</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'behavior'</span></em><a class="headerlink" href="#processing.behavior.BehaviorAnalysis.key" title="Permalink to this definition">¶</a></dt>
@@ -335,16 +384,20 @@ during reporting (well once for each report type if multiple are enabled).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.behavior.BehaviorAnalysis.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.BehaviorAnalysis.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run analysis.
-:return: results dict.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#BehaviorAnalysis.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.BehaviorAnalysis.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>results dict.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.behavior.GenericBehavior">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">GenericBehavior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.GenericBehavior" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">GenericBehavior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#GenericBehavior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.GenericBehavior" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.BehaviorHandler" title="lib.cuckoo.common.abstracts.BehaviorHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.BehaviorHandler</span></code></a></p>
 <p>Generates summary information.</p>
 <dl class="py attribute">
@@ -354,12 +407,12 @@ during reporting (well once for each report type if multiple are enabled).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.behavior.GenericBehavior.handle_generic_event">
-<span class="sig-name descname"><span class="pre">handle_generic_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.GenericBehavior.handle_generic_event" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">handle_generic_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#GenericBehavior.handle_generic_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.GenericBehavior.handle_generic_event" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.behavior.GenericBehavior.handle_process_event">
-<span class="sig-name descname"><span class="pre">handle_process_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.GenericBehavior.handle_process_event" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">handle_process_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#GenericBehavior.handle_process_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.GenericBehavior.handle_process_event" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -369,7 +422,7 @@ during reporting (well once for each report type if multiple are enabled).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.behavior.GenericBehavior.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.GenericBehavior.run" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#GenericBehavior.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.GenericBehavior.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the handler specific structure, gets placed into
 behavior[self.key].</p>
 </dd></dl>
@@ -378,7 +431,7 @@ behavior[self.key].</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.behavior.PlatformInfo">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">PlatformInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">behavior_analysis</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.PlatformInfo" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">PlatformInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">behavior_analysis</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#PlatformInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.PlatformInfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.BehaviorHandler" title="lib.cuckoo.common.abstracts.BehaviorHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.BehaviorHandler</span></code></a></p>
 <p>Provides information about the platform for the collected behavior.</p>
 <dl class="field-list simple">
@@ -395,7 +448,7 @@ behavior[self.key].</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.behavior.ProcessTree">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">ProcessTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.ProcessTree" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">ProcessTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#ProcessTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.ProcessTree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.BehaviorHandler" title="lib.cuckoo.common.abstracts.BehaviorHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.BehaviorHandler</span></code></a></p>
 <p>Generates process tree.</p>
 <dl class="py attribute">
@@ -405,7 +458,7 @@ behavior[self.key].</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.behavior.ProcessTree.handle_event">
-<span class="sig-name descname"><span class="pre">handle_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.ProcessTree.handle_event" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">handle_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#ProcessTree.handle_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.ProcessTree.handle_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle an event that gets passed down the stack.</p>
 </dd></dl>
 
@@ -416,7 +469,7 @@ behavior[self.key].</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.behavior.ProcessTree.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.ProcessTree.run" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#ProcessTree.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.ProcessTree.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the handler specific structure, gets placed into
 behavior[self.key].</p>
 </dd></dl>
@@ -425,7 +478,7 @@ behavior[self.key].</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.behavior.Summary">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">Summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.Summary" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.behavior.</span></span><span class="sig-name descname"><span class="pre">Summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#Summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.Summary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.BehaviorHandler" title="lib.cuckoo.common.abstracts.BehaviorHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.BehaviorHandler</span></code></a></p>
 <p>Generates overview summary information (not split by process).</p>
 <dl class="py attribute">
@@ -435,7 +488,7 @@ behavior[self.key].</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.behavior.Summary.handle_event">
-<span class="sig-name descname"><span class="pre">handle_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.Summary.handle_event" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">handle_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#Summary.handle_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.Summary.handle_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle an event that gets passed down the stack.</p>
 </dd></dl>
 
@@ -446,7 +499,7 @@ behavior[self.key].</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.behavior.Summary.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.behavior.Summary.run" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/behavior.html#Summary.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.behavior.Summary.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the handler specific structure, gets placed into
 behavior[self.key].</p>
 </dd></dl>
@@ -458,14 +511,14 @@ behavior[self.key].</p>
 <span id="processing-buffer-module"></span><h2>processing.buffer module<a class="headerlink" href="#module-processing.buffer" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.buffer.DroppedBuffer">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.buffer.</span></span><span class="sig-name descname"><span class="pre">DroppedBuffer</span></span><a class="headerlink" href="#processing.buffer.DroppedBuffer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.buffer.</span></span><span class="sig-name descname"><span class="pre">DroppedBuffer</span></span><a class="reference internal" href="_modules/processing/buffer.html#DroppedBuffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.buffer.DroppedBuffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>Dropped buffer analysis.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.buffer.DroppedBuffer.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.buffer.DroppedBuffer.run" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/buffer.html#DroppedBuffer.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.buffer.DroppedBuffer.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run analysis.
-&#64;return: list of dropped files with related information.</p>
+:return: list of dropped files with related information.</p>
 </dd></dl>
 
 </dd></dl>
@@ -475,46 +528,18 @@ behavior[self.key].</p>
 <span id="processing-debug-module"></span><h2>processing.debug module<a class="headerlink" href="#module-processing.debug" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.debug.Debug">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.debug.</span></span><span class="sig-name descname"><span class="pre">Debug</span></span><a class="headerlink" href="#processing.debug.Debug" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.debug.</span></span><span class="sig-name descname"><span class="pre">Debug</span></span><a class="reference internal" href="_modules/processing/debug.html#Debug"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.debug.Debug" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>Analysis debug information.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.debug.Debug.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.debug.Debug.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run debug analysis.
-&#64;return: debug information dict.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-processing.droidmon">
-<span id="processing-droidmon-module"></span><h2>processing.droidmon module<a class="headerlink" href="#module-processing.droidmon" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="processing.droidmon.Droidmon">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.droidmon.</span></span><span class="sig-name descname"><span class="pre">Droidmon</span></span><a class="headerlink" href="#processing.droidmon.Droidmon" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
-<p>Extract Dynamic API calls Info From Droidmon logs.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="processing.droidmon.Droidmon.get_pair">
-<span class="sig-name descname"><span class="pre">get_pair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_call</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.droidmon.Droidmon.get_pair" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="processing.droidmon.Droidmon.keyCleaner">
-<span class="sig-name descname"><span class="pre">keyCleaner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.droidmon.Droidmon.keyCleaner" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="processing.droidmon.Droidmon.lib_pairs">
-<span class="sig-name descname"><span class="pre">lib_pairs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_call</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.droidmon.Droidmon.lib_pairs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="processing.droidmon.Droidmon.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.droidmon.Droidmon.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run extract of printable strings.
-&#64;return: list of printable strings.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/debug.html#Debug.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.debug.Debug.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run debug analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>debug information dict.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -524,14 +549,18 @@ behavior[self.key].</p>
 <span id="processing-dropped-module"></span><h2>processing.dropped module<a class="headerlink" href="#module-processing.dropped" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.dropped.Dropped">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.dropped.</span></span><span class="sig-name descname"><span class="pre">Dropped</span></span><a class="headerlink" href="#processing.dropped.Dropped" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.dropped.</span></span><span class="sig-name descname"><span class="pre">Dropped</span></span><a class="reference internal" href="_modules/processing/dropped.html#Dropped"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.dropped.Dropped" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>Dropped files analysis.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.dropped.Dropped.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.dropped.Dropped.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run analysis.
-&#64;return: list of dropped files with related information.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/dropped.html#Dropped.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.dropped.Dropped.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of dropped files with related information.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -541,7 +570,7 @@ behavior[self.key].</p>
 <span id="processing-dumptls-module"></span><h2>processing.dumptls module<a class="headerlink" href="#module-processing.dumptls" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.dumptls.TLSMasterSecrets">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.dumptls.</span></span><span class="sig-name descname"><span class="pre">TLSMasterSecrets</span></span><a class="headerlink" href="#processing.dumptls.TLSMasterSecrets" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.dumptls.</span></span><span class="sig-name descname"><span class="pre">TLSMasterSecrets</span></span><a class="reference internal" href="_modules/processing/dumptls.html#TLSMasterSecrets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.dumptls.TLSMasterSecrets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>Cross-references TLS master secrets extracted from the monitor and key
 information extracted from the PCAP to dump a master secrets file
@@ -558,9 +587,13 @@ compatible with, e.g., Wireshark.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.dumptls.TLSMasterSecrets.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.dumptls.TLSMasterSecrets.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start processing.
-：raise NotImplementedError: this method is abstract.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/dumptls.html#TLSMasterSecrets.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.dumptls.TLSMasterSecrets.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start processing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – this method is abstract.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -570,202 +603,304 @@ compatible with, e.g., Wireshark.</p>
 <span id="processing-memory-module"></span><h2>processing.memory module<a class="headerlink" href="#module-processing.memory" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.memory.Memory">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.memory.</span></span><span class="sig-name descname"><span class="pre">Memory</span></span><a class="headerlink" href="#processing.memory.Memory" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.memory.</span></span><span class="sig-name descname"><span class="pre">Memory</span></span><a class="reference internal" href="_modules/processing/memory.html#Memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.Memory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>Volatility Analyzer.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.Memory.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.Memory.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run analysis.
-&#64;return: volatility results dict.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#Memory.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.Memory.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>volatility results dict.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.memory.</span></span><span class="sig-name descname"><span class="pre">VolatilityAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memdump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">osprofile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.memory.</span></span><span class="sig-name descname"><span class="pre">VolatilityAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memdump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">osprofile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Volatility API interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>memdump</strong> – the memdump file path</p></li>
+<li><p><strong>osprofile</strong> – the profile (OS type)</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.apihooks">
-<span class="sig-name descname"><span class="pre">apihooks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.apihooks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility apihooks plugin.
-&#64;see volatility/plugins/malware/apihooks.py</p>
+<span class="sig-name descname"><span class="pre">apihooks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.apihooks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.apihooks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility apihooks plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/malware/apihooks.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.callbacks">
-<span class="sig-name descname"><span class="pre">callbacks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.callbacks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility callbacks plugin.
-&#64;see volatility/plugins/malware/callbacks.py</p>
+<span class="sig-name descname"><span class="pre">callbacks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.callbacks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.callbacks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility callbacks plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/malware/callbacks.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.devicetree">
-<span class="sig-name descname"><span class="pre">devicetree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.devicetree" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility devicetree plugin.
-&#64;see volatility/plugins/malware/devicetree.py</p>
+<span class="sig-name descname"><span class="pre">devicetree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.devicetree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.devicetree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility devicetree plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/malware/devicetree.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.dlllist">
-<span class="sig-name descname"><span class="pre">dlllist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.dlllist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility dlllist plugin.
-&#64;see volatility/plugins/taskmods.py</p>
+<span class="sig-name descname"><span class="pre">dlllist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.dlllist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.dlllist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility dlllist plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/taskmods.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.gdt">
-<span class="sig-name descname"><span class="pre">gdt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.gdt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility gdt plugin.
-&#64;see volatility/plugins/malware/idt.py</p>
+<span class="sig-name descname"><span class="pre">gdt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.gdt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.gdt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility gdt plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/malware/idt.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.get_dtb">
-<span class="sig-name descname"><span class="pre">get_dtb</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.get_dtb" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_dtb</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.get_dtb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.get_dtb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use psscan to get system dtb and apply it.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.getsids">
-<span class="sig-name descname"><span class="pre">getsids</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.getsids" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility getsids plugin.
-&#64;see volatility/plugins/malware/getsids.py</p>
+<span class="sig-name descname"><span class="pre">getsids</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.getsids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.getsids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility getsids plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/malware/getsids.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.handles">
-<span class="sig-name descname"><span class="pre">handles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.handles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility handles plugin.
-&#64;see volatility/plugins/handles.py</p>
+<span class="sig-name descname"><span class="pre">handles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.handles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.handles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility handles plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/handles.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.idt">
-<span class="sig-name descname"><span class="pre">idt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.idt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility idt plugin.
-&#64;see volatility/plugins/malware/idt.py</p>
+<span class="sig-name descname"><span class="pre">idt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.idt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.idt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility idt plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/malware/idt.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.imageinfo">
-<span class="sig-name descname"><span class="pre">imageinfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.imageinfo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility imageinfo plugin.
-&#64;see volatility/plugins/imageinfo.py</p>
+<span class="sig-name descname"><span class="pre">imageinfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.imageinfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.imageinfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility imageinfo plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/imageinfo.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.init_config">
-<span class="sig-name descname"><span class="pre">init_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.init_config" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">init_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.init_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.init_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a volatility configuration.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.ldrmodules">
-<span class="sig-name descname"><span class="pre">ldrmodules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.ldrmodules" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility ldrmodules plugin.
-&#64;see volatility/plugins/malware/malfind.py</p>
+<span class="sig-name descname"><span class="pre">ldrmodules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.ldrmodules"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.ldrmodules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility ldrmodules plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/malware/malfind.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.malfind">
-<span class="sig-name descname"><span class="pre">malfind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dump_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.malfind" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility malfind plugin.
-&#64;param dump_dir: optional directory for dumps
-&#64;see volatility/plugins/malware/malfind.py</p>
+<span class="sig-name descname"><span class="pre">malfind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dump_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.malfind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.malfind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility malfind plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dump_dir</strong> – optional directory for dumps</p>
+</dd>
+<dt class="field-even">See</dt>
+<dd class="field-even"><p>volatility/plugins/malware/malfind.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.messagehooks">
-<span class="sig-name descname"><span class="pre">messagehooks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.messagehooks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility messagehooks plugin.
-&#64;see volatility/plugins/malware/messagehooks.py</p>
+<span class="sig-name descname"><span class="pre">messagehooks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.messagehooks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.messagehooks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility messagehooks plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/malware/messagehooks.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.modscan">
-<span class="sig-name descname"><span class="pre">modscan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.modscan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility modscan plugin.
-&#64;see volatility/plugins/modscan.py</p>
+<span class="sig-name descname"><span class="pre">modscan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.modscan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.modscan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility modscan plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/modscan.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.mutantscan">
-<span class="sig-name descname"><span class="pre">mutantscan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.mutantscan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility mutantscan plugin.
-&#64;see volatility/plugins/filescan.py</p>
+<span class="sig-name descname"><span class="pre">mutantscan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.mutantscan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.mutantscan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility mutantscan plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/filescan.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.netscan">
-<span class="sig-name descname"><span class="pre">netscan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.netscan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility sockscan plugin.
-&#64;see volatility/plugins/netscan.py</p>
+<span class="sig-name descname"><span class="pre">netscan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.netscan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.netscan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility sockscan plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/netscan.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.privs">
-<span class="sig-name descname"><span class="pre">privs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.privs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility privs plugin.
-&#64;see volatility/plugins/malware/privs.py</p>
+<span class="sig-name descname"><span class="pre">privs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.privs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.privs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility privs plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/malware/privs.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.pslist">
-<span class="sig-name descname"><span class="pre">pslist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.pslist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility pslist plugin.
-&#64;see volatility/plugins/taskmods.py</p>
+<span class="sig-name descname"><span class="pre">pslist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.pslist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.pslist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility pslist plugin.</p>
+<p>:see volatility/plugins/taskmods.py</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.psxview">
-<span class="sig-name descname"><span class="pre">psxview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.psxview" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility psxview plugin.
-&#64;see volatility/plugins/malware/psxview.py</p>
+<span class="sig-name descname"><span class="pre">psxview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.psxview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.psxview" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility psxview plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/malware/psxview.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.sockscan">
-<span class="sig-name descname"><span class="pre">sockscan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.sockscan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility sockscan plugin.
-&#64;see volatility/plugins/sockscan.py</p>
+<span class="sig-name descname"><span class="pre">sockscan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.sockscan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.sockscan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility sockscan plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/sockscan.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.ssdt">
-<span class="sig-name descname"><span class="pre">ssdt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.ssdt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility ssdt plugin.
-&#64;see volatility/plugins/ssdt.py</p>
+<span class="sig-name descname"><span class="pre">ssdt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.ssdt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.ssdt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility ssdt plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/ssdt.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.svcscan">
-<span class="sig-name descname"><span class="pre">svcscan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.svcscan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility svcscan plugin - scans for services.
-&#64;see volatility/plugins/malware/svcscan.py</p>
+<span class="sig-name descname"><span class="pre">svcscan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.svcscan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.svcscan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility svcscan plugin - scans for services.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/malware/svcscan.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.timers">
-<span class="sig-name descname"><span class="pre">timers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.timers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility timers plugin.
-&#64;see volatility/plugins/malware/timers.py</p>
+<span class="sig-name descname"><span class="pre">timers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.timers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.timers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility timers plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/malware/timers.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityAPI.yarascan">
-<span class="sig-name descname"><span class="pre">yarascan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityAPI.yarascan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volatility yarascan plugin.
-&#64;see volatility/plugins/malware/yarascan.py</p>
+<span class="sig-name descname"><span class="pre">yarascan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityAPI.yarascan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityAPI.yarascan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volatility yarascan plugin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>volatility/plugins/malware/yarascan.py</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.memory.VolatilityManager">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.memory.</span></span><span class="sig-name descname"><span class="pre">VolatilityManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">osprofile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityManager" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.memory.</span></span><span class="sig-name descname"><span class="pre">VolatilityManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">osprofile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Handle several volatility results.</p>
 <dl class="py attribute">
@@ -775,31 +910,31 @@ compatible with, e.g., Wireshark.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityManager.cleanup">
-<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityManager.cleanup" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityManager.cleanup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityManager.cleanup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete the memory dump (if configured to do so).</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityManager.find_taint">
-<span class="sig-name descname"><span class="pre">find_taint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityManager.find_taint" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">find_taint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityManager.find_taint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityManager.find_taint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find tainted items.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityManager.get_osprofile">
-<span class="sig-name descname"><span class="pre">get_osprofile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityManager.get_osprofile" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_osprofile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityManager.get_osprofile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityManager.get_osprofile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the OS profile</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityManager.mask_filter">
-<span class="sig-name descname"><span class="pre">mask_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityManager.mask_filter" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">mask_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityManager.mask_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityManager.mask_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filter out masked stuff. Keep tainted stuff.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.memory.VolatilityManager.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.memory.VolatilityManager.run" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/memory.html#VolatilityManager.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.memory.VolatilityManager.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -809,12 +944,12 @@ compatible with, e.g., Wireshark.</p>
 <span id="processing-network-module"></span><h2>processing.network module<a class="headerlink" href="#module-processing.network" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.network.NetworkAnalysis">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">NetworkAnalysis</span></span><a class="headerlink" href="#processing.network.NetworkAnalysis" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">NetworkAnalysis</span></span><a class="reference internal" href="_modules/processing/network.html#NetworkAnalysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.NetworkAnalysis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>Network analysis.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.network.NetworkAnalysis.get_tlsmaster">
-<span class="sig-name descname"><span class="pre">get_tlsmaster</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.NetworkAnalysis.get_tlsmaster" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_tlsmaster</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#NetworkAnalysis.get_tlsmaster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.NetworkAnalysis.get_tlsmaster" title="Permalink to this definition">¶</a></dt>
 <dd><p>Obtain the client/server random to TLS master secrets mapping that
 we have obtained through dynamic analysis.</p>
 </dd></dl>
@@ -831,16 +966,20 @@ we have obtained through dynamic analysis.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.network.NetworkAnalysis.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.NetworkAnalysis.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start processing.
-：raise NotImplementedError: this method is abstract.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#NetworkAnalysis.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.NetworkAnalysis.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start processing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – this method is abstract.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.network.Pcap">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">Pcap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.Pcap" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">Pcap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#Pcap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.Pcap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Reads network data from PCAP file.</p>
 <dl class="py attribute">
@@ -850,9 +989,13 @@ we have obtained through dynamic analysis.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.network.Pcap.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.Pcap.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process PCAP.
-&#64;return: dict with network analysis data.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#Pcap.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.Pcap.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process PCAP.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dict with network analysis data.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -864,90 +1007,90 @@ we have obtained through dynamic analysis.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.network.Pcap2">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">Pcap2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pcap_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tlsmaster</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.Pcap2" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">Pcap2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pcap_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tlsmaster</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#Pcap2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.Pcap2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Interprets the PCAP file through the httpreplay library which parses
 the various protocols, decrypts and decodes them, and then provides us
 with the high level representation of it.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.network.Pcap2.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.Pcap2.run" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#Pcap2.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.Pcap2.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.network.SortCap">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">SortCap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.SortCap" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">SortCap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#SortCap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.SortCap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>SortCap is a wrapper around the packet lib (dpkt) that allows us to sort pcaps
 together with the batch_sort function above.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.network.SortCap.close">
-<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.SortCap.close" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#SortCap.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.SortCap.close" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.network.SortCap.next">
-<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.SortCap.next" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#SortCap.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.SortCap.next" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.network.SortCap.write">
-<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.SortCap.write" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#SortCap.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.SortCap.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="processing.network.batch_sort">
-<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">batch_sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_iterator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.batch_sort" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">batch_sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_iterator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#batch_sort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.batch_sort" title="Permalink to this definition">¶</a></dt>
 <dd><p>batch sort helper with temporary files, supports sorting large stuff</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="processing.network.conn_from_flowtuple">
-<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">conn_from_flowtuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ft</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.conn_from_flowtuple" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">conn_from_flowtuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ft</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#conn_from_flowtuple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.conn_from_flowtuple" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the flow tuple into a dictionary (suitable for JSON)</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="processing.network.flowtuple_from_raw">
-<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">flowtuple_from_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.flowtuple_from_raw" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">flowtuple_from_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#flowtuple_from_raw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.flowtuple_from_raw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse a packet from a pcap just enough to gain a flow description tuple</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="processing.network.iplayer_from_raw">
-<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">iplayer_from_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.iplayer_from_raw" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">iplayer_from_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#iplayer_from_raw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.iplayer_from_raw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a raw packet to a dpkt packet regarding of link type.
-&#64;param raw: raw packet
-&#64;param linktype: integer describing link type as expected by dpkt</p>
+:param raw: raw packet
+:param linktype: integer describing link type as expected by dpkt</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="processing.network.next_connection_packets">
-<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">next_connection_packets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">piter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.next_connection_packets" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">next_connection_packets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">piter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#next_connection_packets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.next_connection_packets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract all packets belonging to the same flow from a pcap packet
 iterator.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="processing.network.packets_for_stream">
-<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">packets_for_stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fobj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.packets_for_stream" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">packets_for_stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fobj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#packets_for_stream"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.packets_for_stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open a PCAP, seek to a packet offset, then get all packets belonging to
 the same connection.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="processing.network.payload_from_raw">
-<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">payload_from_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.payload_from_raw" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">payload_from_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linktype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#payload_from_raw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.payload_from_raw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the payload from a packet, the data below TCP/UDP basically</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="processing.network.sort_pcap">
-<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">sort_pcap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.network.sort_pcap" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">processing.network.</span></span><span class="sig-name descname"><span class="pre">sort_pcap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/network.html#sort_pcap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.network.sort_pcap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use SortCap class together with batch_sort to sort a pcap</p>
 </dd></dl>
 
@@ -956,30 +1099,34 @@ the same connection.</p>
 <span id="processing-procmemory-module"></span><h2>processing.procmemory module<a class="headerlink" href="#module-processing.procmemory" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.procmemory.ProcessMemory">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.procmemory.</span></span><span class="sig-name descname"><span class="pre">ProcessMemory</span></span><a class="headerlink" href="#processing.procmemory.ProcessMemory" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.procmemory.</span></span><span class="sig-name descname"><span class="pre">ProcessMemory</span></span><a class="reference internal" href="_modules/processing/procmemory.html#ProcessMemory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.procmemory.ProcessMemory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>Analyze process memory dumps.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.procmemory.ProcessMemory.create_idapy">
-<span class="sig-name descname"><span class="pre">create_idapy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.procmemory.ProcessMemory.create_idapy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_idapy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/procmemory.html#ProcessMemory.create_idapy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.procmemory.ProcessMemory.create_idapy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.procmemory.ProcessMemory.dump_images">
-<span class="sig-name descname"><span class="pre">dump_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_dlls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.procmemory.ProcessMemory.dump_images" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dump_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_dlls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/procmemory.html#ProcessMemory.dump_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.procmemory.ProcessMemory.dump_images" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump executable images from this process memory dump.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.procmemory.ProcessMemory.read_dump">
-<span class="sig-name descname"><span class="pre">read_dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.procmemory.ProcessMemory.read_dump" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read_dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/procmemory.html#ProcessMemory.read_dump"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.procmemory.ProcessMemory.read_dump" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.procmemory.ProcessMemory.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.procmemory.ProcessMemory.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run analysis.
-&#64;return: structured results.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/procmemory.html#ProcessMemory.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.procmemory.ProcessMemory.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>structured results.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -989,14 +1136,18 @@ the same connection.</p>
 <span id="processing-screenshots-module"></span><h2>processing.screenshots module<a class="headerlink" href="#module-processing.screenshots" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.screenshots.Screenshots">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.screenshots.</span></span><span class="sig-name descname"><span class="pre">Screenshots</span></span><a class="headerlink" href="#processing.screenshots.Screenshots" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.screenshots.</span></span><span class="sig-name descname"><span class="pre">Screenshots</span></span><a class="reference internal" href="_modules/processing/screenshots.html#Screenshots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.screenshots.Screenshots" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>Screenshot file OCR analysis.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.screenshots.Screenshots.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.screenshots.Screenshots.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run analysis.
-&#64;return: list of screenshots with OCR content.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/screenshots.html#Screenshots.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.screenshots.Screenshots.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of screenshots with OCR content.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -1006,14 +1157,18 @@ the same connection.</p>
 <span id="processing-snort-module"></span><h2>processing.snort module<a class="headerlink" href="#module-processing.snort" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.snort.Snort">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.snort.</span></span><span class="sig-name descname"><span class="pre">Snort</span></span><a class="headerlink" href="#processing.snort.Snort" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.snort.</span></span><span class="sig-name descname"><span class="pre">Snort</span></span><a class="reference internal" href="_modules/processing/snort.html#Snort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.snort.Snort" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>Snort processing module.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.snort.Snort.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.snort.Snort.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start processing.
-：raise NotImplementedError: this method is abstract.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/snort.html#Snort.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.snort.Snort.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start processing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – this method is abstract.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -1023,7 +1178,7 @@ the same connection.</p>
 <span id="processing-static-module"></span><h2>processing.static module<a class="headerlink" href="#module-processing.static" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.static.OfficeDocument">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.static.</span></span><span class="sig-name descname"><span class="pre">OfficeDocument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.static.OfficeDocument" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.static.</span></span><span class="sig-name descname"><span class="pre">OfficeDocument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/static.html#OfficeDocument"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.static.OfficeDocument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Static analysis of Microsoft Office documents.</p>
 <dl class="py attribute">
@@ -1033,40 +1188,44 @@ the same connection.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.static.OfficeDocument.deobfuscate">
-<span class="sig-name descname"><span class="pre">deobfuscate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.static.OfficeDocument.deobfuscate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">deobfuscate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/static.html#OfficeDocument.deobfuscate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.static.OfficeDocument.deobfuscate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bruteforce approach of regex-based deobfuscation.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.static.OfficeDocument.get_macros">
-<span class="sig-name descname"><span class="pre">get_macros</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.static.OfficeDocument.get_macros" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_macros</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/static.html#OfficeDocument.get_macros"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.static.OfficeDocument.get_macros" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get embedded Macros if this is an Office document.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.static.OfficeDocument.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.static.OfficeDocument.run" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/static.html#OfficeDocument.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.static.OfficeDocument.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.static.PortableExecutable">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.static.</span></span><span class="sig-name descname"><span class="pre">PortableExecutable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.static.PortableExecutable" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.static.</span></span><span class="sig-name descname"><span class="pre">PortableExecutable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/static.html#PortableExecutable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.static.PortableExecutable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>PE analysis.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.static.PortableExecutable.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.static.PortableExecutable.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run analysis.
-&#64;return: analysis results dict or None.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/static.html#PortableExecutable.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.static.PortableExecutable.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>analysis results dict or None.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.static.Static">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.static.</span></span><span class="sig-name descname"><span class="pre">Static</span></span><a class="headerlink" href="#processing.static.Static" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.static.</span></span><span class="sig-name descname"><span class="pre">Static</span></span><a class="reference internal" href="_modules/processing/static.html#Static"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.static.Static" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>Static analysis.</p>
 <dl class="py attribute">
@@ -1086,21 +1245,25 @@ the same connection.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.static.Static.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.static.Static.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run analysis.
-&#64;return: results dict.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/static.html#Static.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.static.Static.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>results dict.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.static.WindowsScriptFile">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.static.</span></span><span class="sig-name descname"><span class="pre">WindowsScriptFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.static.WindowsScriptFile" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.static.</span></span><span class="sig-name descname"><span class="pre">WindowsScriptFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/static.html#WindowsScriptFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.static.WindowsScriptFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Deobfuscates and interprets Windows Script Files.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.static.WindowsScriptFile.decode">
-<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#&#64;~^'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'^#~&#64;'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.static.WindowsScriptFile.decode" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#:~^'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'^#~:'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/static.html#WindowsScriptFile.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.static.WindowsScriptFile.decode" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1115,7 +1278,7 @@ the same connection.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.static.WindowsScriptFile.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.static.WindowsScriptFile.run" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/static.html#WindowsScriptFile.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.static.WindowsScriptFile.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1125,7 +1288,7 @@ the same connection.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="processing.static.WindowsScriptFile.unescape">
-<span class="sig-name descname"><span class="pre">unescape</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'!':</span> <span class="pre">'&lt;',</span> <span class="pre">'#':</span> <span class="pre">'\r',</span> <span class="pre">'$':</span> <span class="pre">'&#64;',</span> <span class="pre">'&amp;':</span> <span class="pre">'\n',</span> <span class="pre">'*':</span> <span class="pre">'&gt;'}</span></em><a class="headerlink" href="#processing.static.WindowsScriptFile.unescape" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">unescape</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'!':</span> <span class="pre">'&lt;',</span> <span class="pre">'#':</span> <span class="pre">'\r',</span> <span class="pre">'$':</span> <span class="pre">':',</span> <span class="pre">'&amp;':</span> <span class="pre">'\n',</span> <span class="pre">'*':</span> <span class="pre">'&gt;'}</span></em><a class="headerlink" href="#processing.static.WindowsScriptFile.unescape" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1135,64 +1298,19 @@ the same connection.</p>
 <span id="processing-strings-module"></span><h2>processing.strings module<a class="headerlink" href="#module-processing.strings" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.strings.Strings">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.strings.</span></span><span class="sig-name descname"><span class="pre">Strings</span></span><a class="headerlink" href="#processing.strings.Strings" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.strings.</span></span><span class="sig-name descname"><span class="pre">Strings</span></span><a class="reference internal" href="_modules/processing/strings.html#Strings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.strings.Strings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>Extract strings from analyzed file.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.strings.Strings.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.strings.Strings.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run extract of printable strings.
-&#64;return: list of printable strings.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/strings.html#Strings.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.strings.Strings.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run extract of printable strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of printable strings.</p>
+</dd>
+</dl>
 </dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-processing.suricata">
-<span id="processing-suricata-module"></span><h2>processing.suricata module<a class="headerlink" href="#module-processing.suricata" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="processing.suricata.Suricata">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.suricata.</span></span><span class="sig-name descname"><span class="pre">Suricata</span></span><a class="headerlink" href="#processing.suricata.Suricata" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
-<p>Suricata processing module.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="processing.suricata.Suricata.parse_eve_json">
-<span class="sig-name descname"><span class="pre">parse_eve_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.suricata.Suricata.parse_eve_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parse the eve.json file.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="processing.suricata.Suricata.parse_files">
-<span class="sig-name descname"><span class="pre">parse_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.suricata.Suricata.parse_files" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parse the files-json.log file and its associated files.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="processing.suricata.Suricata.process_pcap_binary">
-<span class="sig-name descname"><span class="pre">process_pcap_binary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.suricata.Suricata.process_pcap_binary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process a PCAP file with Suricata by running Suricata.</p>
-<p>Using the socket mode is preferred as the plain binary mode requires
-Suricata to load all its rules for every PCAP file and thus takes a
-couple of performance heavy seconds to set itself up.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="processing.suricata.Suricata.process_pcap_socket">
-<span class="sig-name descname"><span class="pre">process_pcap_socket</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.suricata.Suricata.process_pcap_socket" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process a PCAP file with Suricata in socket mode.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="processing.suricata.Suricata.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.suricata.Suricata.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start processing.
-：raise NotImplementedError: this method is abstract.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="processing.suricata.Suricata.sid_blacklist">
-<span class="sig-name descname"><span class="pre">sid_blacklist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[2200074,</span> <span class="pre">2017363,</span> <span class="pre">2200075]</span></em><a class="headerlink" href="#processing.suricata.Suricata.sid_blacklist" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -1201,14 +1319,18 @@ couple of performance heavy seconds to set itself up.</p>
 <span id="processing-targetinfo-module"></span><h2>processing.targetinfo module<a class="headerlink" href="#module-processing.targetinfo" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.targetinfo.TargetInfo">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.targetinfo.</span></span><span class="sig-name descname"><span class="pre">TargetInfo</span></span><a class="headerlink" href="#processing.targetinfo.TargetInfo" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.targetinfo.</span></span><span class="sig-name descname"><span class="pre">TargetInfo</span></span><a class="reference internal" href="_modules/processing/targetinfo.html#TargetInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.targetinfo.TargetInfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>General information about a file.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.targetinfo.TargetInfo.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.targetinfo.TargetInfo.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run file information gathering.
-&#64;return: information dict.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/targetinfo.html#TargetInfo.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.targetinfo.TargetInfo.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run file information gathering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>information dict.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -1218,11 +1340,15 @@ couple of performance heavy seconds to set itself up.</p>
 <span id="processing-virustotal-module"></span><h2>processing.virustotal module<a class="headerlink" href="#module-processing.virustotal" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="processing.virustotal.VirusTotal">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.virustotal.</span></span><span class="sig-name descname"><span class="pre">VirusTotal</span></span><a class="headerlink" href="#processing.virustotal.VirusTotal" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">processing.virustotal.</span></span><span class="sig-name descname"><span class="pre">VirusTotal</span></span><a class="reference internal" href="_modules/processing/virustotal.html#VirusTotal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.virustotal.VirusTotal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing" title="lib.cuckoo.common.abstracts.Processing"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Processing</span></code></a></p>
 <p>Gets antivirus signatures from VirusTotal.com for various results.</p>
-<p>Currently obtains VirusTotal results for the target sample or URL and the
-dropped files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p>Currently obtains VirusTotal results for the target sample or URL and the</p>
+</dd>
+</dl>
+<p>dropped files.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="processing.virustotal.VirusTotal.order">
 <span class="sig-name descname"><span class="pre">order</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#processing.virustotal.VirusTotal.order" title="Permalink to this definition">¶</a></dt>
@@ -1230,41 +1356,58 @@ dropped files.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.virustotal.VirusTotal.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#processing.virustotal.VirusTotal.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Runs VirusTotal processing
-&#64;return: full VirusTotal report.</p>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/virustotal.html#VirusTotal.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.virustotal.VirusTotal.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs VirusTotal processing</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>full VirusTotal report.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.virustotal.VirusTotal.scan_file">
-<span class="sig-name descname"><span class="pre">scan_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.virustotal.VirusTotal.scan_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve VirusTotal results for a file.
-&#64;param filepath: file path
-&#64;param summary: if you want a summary report</p>
+<span class="sig-name descname"><span class="pre">scan_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/virustotal.html#VirusTotal.scan_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.virustotal.VirusTotal.scan_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve VirusTotal results for a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filepath</strong> – file path</p></li>
+<li><p><strong>summary</strong> – if you want a summary report</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.virustotal.VirusTotal.scan_url">
-<span class="sig-name descname"><span class="pre">scan_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.virustotal.VirusTotal.scan_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve VirusTotal results for a URL.
-&#64;param url: URL
-&#64;param summary: if you want a summary report</p>
+<span class="sig-name descname"><span class="pre">scan_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/virustotal.html#VirusTotal.scan_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.virustotal.VirusTotal.scan_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve VirusTotal results for a URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – URL</p></li>
+<li><p><strong>summary</strong> – if you want a summary report</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="processing.virustotal.VirusTotal.should_scan_file">
-<span class="sig-name descname"><span class="pre">should_scan_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filetype</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.virustotal.VirusTotal.should_scan_file" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">should_scan_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filetype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processing/virustotal.html#VirusTotal.should_scan_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#processing.virustotal.VirusTotal.should_scan_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines whether a certain filetype should be scanned on
 VirusTotal. For example, we’re not interested in scanning text
-files.
-&#64;param filetype: file type</p>
+files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filetype</strong> – file type</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-processing">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-processing" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -1274,7 +1417,7 @@ files.
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="signatures.html" class="btn btn-neutral float-right" title="signatures package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="detection.html" class="btn btn-neutral float-right" title="detection package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="machinery.html" class="btn btn-neutral float-left" title="machinery package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

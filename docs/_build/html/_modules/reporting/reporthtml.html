@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>reporting.reporthtml &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>reporting.reporthtml</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for reporting.reporthtml</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+<span class="kn">from</span> <span class="nn">lib.cuckoo.common.abstracts</span> <span class="kn">import</span> <span class="n">Report</span>
+
+
+<div class="viewcode-block" id="ReportHTML"><a class="viewcode-back" href="../../reporting.html#reporting.reporthtml.ReportHTML">[docs]</a><span class="k">class</span> <span class="nc">ReportHTML</span><span class="p">(</span><span class="n">Report</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Stores report in HTML format.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ReportHTML.run"><a class="viewcode-back" href="../../reporting.html#reporting.reporthtml.ReportHTML.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Writes report.</span>
+
+<span class="sd">        :param results: Cuckoo results dict.</span>
+<span class="sd">        :raise CuckooReportError: if fails to write report.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_JINJA2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooReportError</span><span class="p">(</span>
+                <span class="s2">&quot;Failed to generate HTML report: Jinja2 library is not &quot;</span>
+                <span class="s2">&quot;installed (install `pip install jinja2`)&quot;</span><span class="p">)</span>
+
+        <span class="n">shots_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span><span class="p">,</span> <span class="s2">&quot;shots&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">shots_path</span><span class="p">):</span>
+            <span class="n">shots</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">shot_name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">shots_path</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">shot_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.jpg&quot;</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+                <span class="n">shot_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">shots_path</span><span class="p">,</span> <span class="n">shot_name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">shot_path</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+                <span class="n">shot</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">shot</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="n">shot_path</span><span class="p">)</span><span class="o">.</span><span class="n">get_name</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">shot</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">shot_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+                <span class="n">shots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shot</span><span class="p">)</span>
+
+                <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="n">shots</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">shot</span><span class="p">:</span> <span class="n">shot</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;screenshots&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shots</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;screenshots&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">autoescape</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">loader</span> <span class="o">=</span> <span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span>
+                                                   <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;html&quot;</span><span class="p">))</span>
+
+        <span class="n">processed</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">mapping</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;file_read&quot;</span><span class="p">,</span> <span class="s2">&quot;File&quot;</span><span class="p">,</span> <span class="s2">&quot;Read&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;file_written&quot;</span><span class="p">,</span> <span class="s2">&quot;File&quot;</span><span class="p">,</span> <span class="s2">&quot;Written&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;file_deleted&quot;</span><span class="p">,</span> <span class="s2">&quot;File&quot;</span><span class="p">,</span> <span class="s2">&quot;Deleted&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;file_opened&quot;</span><span class="p">,</span> <span class="s2">&quot;File&quot;</span><span class="p">,</span> <span class="s2">&quot;Opened&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;file_copied&quot;</span><span class="p">,</span> <span class="s2">&quot;File&quot;</span><span class="p">,</span> <span class="s2">&quot;Copied&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;file_moved&quot;</span><span class="p">,</span> <span class="s2">&quot;File&quot;</span><span class="p">,</span> <span class="s2">&quot;Moved&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;connects_ip&quot;</span><span class="p">,</span> <span class="s2">&quot;Network&quot;</span><span class="p">,</span> <span class="s2">&quot;Connects IP&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;resolves_url&quot;</span><span class="p">,</span> <span class="s2">&quot;Network&quot;</span><span class="p">,</span> <span class="s2">&quot;Resolves URL&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;fetches_url&quot;</span><span class="p">,</span> <span class="s2">&quot;Network&quot;</span><span class="p">,</span> <span class="s2">&quot;Fetches URL&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;connects_host&quot;</span><span class="p">,</span> <span class="s2">&quot;Network&quot;</span><span class="p">,</span> <span class="s2">&quot;Connects Host&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;downloads_file_url&quot;</span><span class="p">,</span> <span class="s2">&quot;Network&quot;</span><span class="p">,</span> <span class="s2">&quot;Downloads File URL&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;directory_created&quot;</span><span class="p">,</span> <span class="s2">&quot;Directory&quot;</span><span class="p">,</span> <span class="s2">&quot;Created&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;directory_removed&quot;</span><span class="p">,</span> <span class="s2">&quot;Directory&quot;</span><span class="p">,</span> <span class="s2">&quot;Removed&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;directory_enumerated&quot;</span><span class="p">,</span> <span class="s2">&quot;Directory&quot;</span><span class="p">,</span> <span class="s2">&quot;Enumerated&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;regkey_opened&quot;</span><span class="p">,</span> <span class="s2">&quot;Registry Key&quot;</span><span class="p">,</span> <span class="s2">&quot;Opened&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;regkey_deleted&quot;</span><span class="p">,</span> <span class="s2">&quot;Registry Key&quot;</span><span class="p">,</span> <span class="s2">&quot;Deleted&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;regkey_read&quot;</span><span class="p">,</span> <span class="s2">&quot;Registry Key&quot;</span><span class="p">,</span> <span class="s2">&quot;Read&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;regkey_written&quot;</span><span class="p">,</span> <span class="s2">&quot;Registry Key&quot;</span><span class="p">,</span> <span class="s2">&quot;Written&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;mutex&quot;</span><span class="p">,</span> <span class="s2">&quot;Mutex&quot;</span><span class="p">,</span> <span class="s2">&quot;Accessed&quot;</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="n">processed</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">proc</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;behavior&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;generic&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="k">for</span> <span class="n">orig</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="n">subcat</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">cat</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">processed</span><span class="p">:</span>
+                    <span class="n">processed</span><span class="p">[</span><span class="n">cat</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+                <span class="k">if</span> <span class="n">subcat</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">processed</span><span class="p">[</span><span class="n">cat</span><span class="p">]:</span>
+                    <span class="n">processed</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="n">subcat</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+                <span class="c1"># Special handling required for file moved/copied.</span>
+                <span class="k">if</span> <span class="n">orig</span> <span class="o">==</span> <span class="s2">&quot;file_moved&quot;</span> <span class="ow">or</span> <span class="n">orig</span> <span class="o">==</span> <span class="s2">&quot;file_copied&quot;</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">dst</span> <span class="ow">in</span> <span class="n">proc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;summary&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="p">[]):</span>
+                        <span class="n">entry</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> -&gt; </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
+                        <span class="n">processed</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="n">subcat</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="s2">&quot;summary&quot;</span> <span class="ow">in</span> <span class="n">proc</span> <span class="ow">and</span> <span class="n">orig</span> <span class="ow">in</span> <span class="n">proc</span><span class="p">[</span><span class="s2">&quot;summary&quot;</span><span class="p">]:</span>
+                    <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">proc</span><span class="p">[</span><span class="s2">&quot;summary&quot;</span><span class="p">][</span><span class="n">orig</span><span class="p">]:</span>
+                        <span class="n">processed</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="n">subcat</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tpl</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s2">&quot;report.html&quot;</span><span class="p">)</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="n">tpl</span><span class="o">.</span><span class="n">render</span><span class="p">({</span><span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="n">results</span><span class="p">,</span>
+                               <span class="s2">&quot;processed&quot;</span><span class="p">:</span> <span class="n">processed</span><span class="p">,</span>
+                               <span class="s2">&quot;mapping&quot;</span><span class="p">:</span> <span class="n">mapping</span><span class="p">})</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooReportError</span><span class="p">(</span><span class="s2">&quot;Failed to generate HTML report: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">report_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reports_path</span><span class="p">,</span> <span class="s2">&quot;report.html&quot;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">report_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">report</span><span class="p">:</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooReportError</span><span class="p">(</span><span class="s2">&quot;Failed to write HTML report: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,18 +1,24 @@
 # Copyright (C) 2010-2013 Claudio Guarnieri.
 # Copyright (C) 2014-2016 Cuckoo Foundation.
+# Copyright (C) 2020-2021 PowerLZY.
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
 
 from lib.cuckoo.common.abstracts import Auxiliary
 
-
 class Sniffer(Auxiliary):
+    """
+    Sniffer use tcpdump tools
+    """
     def __init__(self):
         Auxiliary.__init__(self)
         self.proc = None
 
     def start(self):
+        '''
+        Start tcpdump tools
+        '''
         if not self.machine.interface:
             log.error("Network interface not defined, network capture aborted")
             return
@@ -94,8 +100,10 @@ class Sniffer(Auxiliary):
         )
 
     def stop(self):
-        """Stop sniffing.
-        @return: operation status.
+        """
+        Stop sniffing.
+
+        :return: operation status.
         """
         if self.proc and not self.proc.poll():
             try:

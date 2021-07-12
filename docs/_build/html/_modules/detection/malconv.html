@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>detection.malconv &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>detection.malconv</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for detection.malconv</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding=utf-8</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Bold-Falcon - https://github.com/PowerLZY/Bold-Falcon</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<span class="kn">from</span> <span class="nn">lib.cuckoo.common.abstracts</span> <span class="kn">import</span> <span class="n">Detection</span>
+
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+
+
+<div class="viewcode-block" id="MalConv"><a class="viewcode-back" href="../../detection.html#detection.malconv.MalConv">[docs]</a><span class="k">class</span> <span class="nc">MalConv</span><span class="p">(</span><span class="n">Detection</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Providing the raw bytes from a file as input to a convolutional neural network</span>
+<span class="sd">    which then classifies the given binary as either malicious or benign</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="MalConv.load_model"><a class="viewcode-back" href="../../detection.html#detection.malconv.MalConv.load_model">[docs]</a>    <span class="k">def</span> <span class="nf">load_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        load model with pretrained_malconv.pth</span>
+
+<span class="sd">        :return: MalConv model</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">madel_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span> <span class="s2">&quot;MalConv&quot;</span><span class="p">,</span> <span class="s2">&quot;pretrained_malconv.pth&quot;</span><span class="p">)</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">PreMalConv</span><span class="p">()</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">madel_path</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooDetectionError</span><span class="p">(</span><span class="s2">&quot;The Detection module malconv has missing load_model!&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">model</span></div>
+
+<div class="viewcode-block" id="MalConv.run"><a class="viewcode-back" href="../../detection.html#detection.malconv.MalConv.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run extract of printable strings with Ngram into XGBoost model.</span>
+
+<span class="sd">        :return: predict 结果.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;MalConv&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">features_type</span> <span class="o">=</span> <span class="s2">&quot;static&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+        <span class="c1">#if self.task[&quot;category&quot;] == &quot;file&quot;:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            features not in json </span>
+<span class="sd">            if not os.path.exists(self.file_path):</span>
+<span class="sd">                raise CuckooDetectionError(&quot;Sample file doesn&#39;t exist: \&quot;%s\&quot;&quot; % self.file_path)</span>
+
+<span class="sd">            try:</span>
+<span class="sd">                data = open(self.file_path, &quot;r&quot;).read()</span>
+<span class="sd">            except (IOError, OSError) as e:</span>
+<span class="sd">                raise CuckooDetectionError(&quot;Error opening file %s&quot; % e)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># 导入报告内的特征</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaries</span><span class="o">.</span><span class="n">load_binaries</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="n">exe_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">exe_input</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">exe_input</span><span class="o">.</span><span class="n">long</span><span class="p">(),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># 导入模型（特征工程+预测模型）</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_model</span><span class="p">()</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        <span class="c1"># 模型预测</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">exe_input</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span></div></div>
+
+
+<div class="viewcode-block" id="PreMalConv"><a class="viewcode-back" href="../../detection.html#detection.malconv.PreMalConv">[docs]</a><span class="k">class</span> <span class="nc">PreMalConv</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Architecture implementation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_length</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">20</span><span class="p">,</span> <span class="n">window_size</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PreMalConv</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedding_1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="mi">257</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">padding_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1d_1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">window_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">window_size</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1d_2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">window_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">window_size</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pooling</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool1d</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">input_length</span> <span class="o">/</span> <span class="n">window_size</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dense_1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dense_2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">()</span>
+
+<div class="viewcode-block" id="PreMalConv.forward"><a class="viewcode-back" href="../../detection.html#detection.malconv.PreMalConv.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding_1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># Channel first</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">cnn_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1d_1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">cnn_value</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">cnn_value</span><span class="p">)</span>
+        <span class="n">gating_weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1d_2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">cnn_value</span> <span class="o">*</span> <span class="n">gating_weight</span>
+
+        <span class="n">global_max_pooling1d_1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool1d</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">2</span><span class="p">:])</span>
+        <span class="n">global_max_pooling1d_1_flatten</span> <span class="o">=</span> <span class="n">global_max_pooling1d_1</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">global_max_pooling1d_1</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dense_1</span><span class="p">(</span><span class="n">global_max_pooling1d_1_flatten</span><span class="p">))</span>
+        <span class="n">dense_1_activation</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">dense_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense_2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">dense_2_activation</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">dense_2</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">dense_2_activation</span></div></div>
+
+
+<div class="viewcode-block" id="ExeDataset"><a class="viewcode-back" href="../../detection.html#detection.malconv.ExeDataset">[docs]</a><span class="k">class</span> <span class="nc">ExeDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Dataset preparation</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fp_list</span><span class="p">,</span> <span class="n">data_path</span><span class="p">,</span> <span class="n">label_list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">first_n_byte</span><span class="o">=</span><span class="mi">2000000</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Dataset preparation</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            fp_list : list</span>
+<span class="sd">                file name list</span>
+<span class="sd">            data_path : str</span>
+<span class="sd">                dataset path</span>
+<span class="sd">            label_list : list</span>
+<span class="sd">                label list</span>
+<span class="sd">            first_n_byte : int, optional, default 2000000</span>
+<span class="sd">                the max raw bytes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fp_list</span> <span class="o">=</span> <span class="n">fp_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_path</span> <span class="o">=</span> <span class="n">data_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_list</span> <span class="o">=</span> <span class="n">label_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">first_n_byte</span> <span class="o">=</span> <span class="n">first_n_byte</span>
+        <span class="c1"># ToDo: 自动载入数据</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回数据集item数</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fp_list</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回一条训练数据，并将其转换成tensor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_path</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fp_list</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()[:</span><span class="bp">self</span><span class="o">.</span><span class="n">first_n_byte</span><span class="p">]]</span> <span class="c1"># index 0 will be special padding index 每个值加一</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">+</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">first_n_byte</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_path</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fp_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()[:</span><span class="bp">self</span><span class="o">.</span><span class="n">first_n_byte</span><span class="p">]]</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">+</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">first_n_byte</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tmp</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">label_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]])</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

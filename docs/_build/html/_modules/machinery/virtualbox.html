@@ -1,0 +1,511 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>machinery.virtualbox &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Common &amp; Core:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../lib.cuckoo.html">lib.cuckoo package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">machinery:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../machinery.html">machinery package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">detection:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../detection.html">detection package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>machinery.virtualbox</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for machinery.virtualbox</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<span class="kn">from</span> <span class="nn">lib.cuckoo.common.abstracts</span> <span class="kn">import</span> <span class="n">Machinery</span>
+
+<div class="viewcode-block" id="VirtualBox"><a class="viewcode-back" href="../../machinery.html#machinery.virtualbox.VirtualBox">[docs]</a><span class="k">class</span> <span class="nc">VirtualBox</span><span class="p">(</span><span class="n">Machinery</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Virtualization layer for VirtualBox.&quot;&quot;&quot;</span>
+
+    <span class="c1"># VM states.</span>
+    <span class="n">SAVED</span> <span class="o">=</span> <span class="s2">&quot;saved&quot;</span>
+    <span class="n">RUNNING</span> <span class="o">=</span> <span class="s2">&quot;running&quot;</span>
+    <span class="n">POWEROFF</span> <span class="o">=</span> <span class="s2">&quot;poweroff&quot;</span>
+    <span class="n">ABORTED</span> <span class="o">=</span> <span class="s2">&quot;aborted&quot;</span>
+    <span class="n">ERROR</span> <span class="o">=</span> <span class="s2">&quot;machete&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_initialize_check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Runs all checks when a machine manager is initialized.</span>
+
+<span class="sd">        :raise CuckooMachineError: if VBoxManage is not found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># VirtualBox specific checks.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooCriticalError</span><span class="p">(</span><span class="s2">&quot;VirtualBox VBoxManage path missing, &quot;</span>
+                                      <span class="s2">&quot;please add it to the config file&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooCriticalError</span><span class="p">(</span><span class="s2">&quot;VirtualBox VBoxManage not found at &quot;</span>
+                                      <span class="s2">&quot;specified path </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">&quot;</span> <span class="o">%</span>
+                                      <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># Base checks.</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">VirtualBox</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_initialize_check</span><span class="p">()</span>
+
+<div class="viewcode-block" id="VirtualBox.start"><a class="viewcode-back" href="../../machinery.html#machinery.virtualbox.VirtualBox.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">task</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start a virtual machine.</span>
+
+<span class="sd">        :param label: virtual machine name.</span>
+<span class="sd">        :param task: task object.</span>
+<span class="sd">        :raise CuckooMachineError: if unable to start.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Starting vm </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">label</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Trying to start an already &quot;</span>
+                                     <span class="s2">&quot;started vm </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">label</span><span class="p">)</span>
+
+        <span class="n">machine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">view_machine_by_label</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="n">virtualbox_args</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;snapshot&quot;</span><span class="p">,</span> <span class="n">label</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">machine</span><span class="o">.</span><span class="n">snapshot</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Using snapshot </span><span class="si">{0}</span><span class="s2"> for virtual machine &quot;</span>
+                      <span class="s2">&quot;</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">machine</span><span class="o">.</span><span class="n">snapshot</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+            <span class="n">virtualbox_args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;restore&quot;</span><span class="p">,</span> <span class="n">machine</span><span class="o">.</span><span class="n">snapshot</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Using current snapshot for virtual machine &quot;</span>
+                      <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+            <span class="n">virtualbox_args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;restorecurrent&quot;</span><span class="p">])</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">virtualbox_args</span><span class="p">,</span>
+                               <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                               <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                               <span class="n">close_fds</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;VBoxManage exited with error &quot;</span>
+                                         <span class="s2">&quot;restoring the machine&#39;s snapshot&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;VBoxManage failed restoring the &quot;</span>
+                                     <span class="s2">&quot;machine: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wait_status</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SAVED</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                                     <span class="s2">&quot;startvm&quot;</span><span class="p">,</span>
+                                     <span class="n">label</span><span class="p">,</span>
+                                     <span class="s2">&quot;--type&quot;</span><span class="p">,</span>
+                                     <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">mode</span><span class="p">],</span>
+                                    <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                    <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                    <span class="n">close_fds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">output</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">err</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;VBoxManage failed starting the machine &quot;</span>
+                                     <span class="s2">&quot;in </span><span class="si">%s</span><span class="s2"> mode: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">e</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wait_status</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">)</span>
+
+        <span class="c1"># Handle network dumping through the internal VirtualBox functionality.</span>
+        <span class="k">if</span> <span class="s2">&quot;nictrace&quot;</span> <span class="ow">in</span> <span class="n">machine</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dump_pcap</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VirtualBox.dump_pcap"><a class="viewcode-back" href="../../machinery.html#machinery.virtualbox.VirtualBox.dump_pcap">[docs]</a>    <span class="k">def</span> <span class="nf">dump_pcap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">task</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Dump the pcap for this analysis through the VirtualBox integrated</span>
+<span class="sd">        nictrace functionality. This is useful in scenarios where multiple</span>
+<span class="sd">        Virtual Machines are talking with each other in the same subnet (which</span>
+<span class="sd">        you normally don&#39;t see when tcpdump&#39;ing on the gatway).&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                <span class="s2">&quot;controlvm&quot;</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span>
+                <span class="s2">&quot;nictracefile1&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pcap_path</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+            <span class="p">]</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Unable to set NIC tracefile (pcap file): </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                <span class="s2">&quot;controlvm&quot;</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span>
+                <span class="s2">&quot;nictrace1&quot;</span><span class="p">,</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Unable to enable NIC tracing (pcap file): </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">return</span></div>
+
+<div class="viewcode-block" id="VirtualBox.stop"><a class="viewcode-back" href="../../machinery.html#machinery.virtualbox.VirtualBox.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Stops a virtual machine.</span>
+
+<span class="sd">        :param label: virtual machine name.</span>
+<span class="sd">        :raise CuckooMachineError: if unable to stop.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Stopping vm </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">label</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">POWEROFF</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ABORTED</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Trying to stop an already stopped &quot;</span>
+                                     <span class="s2">&quot;vm </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">label</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                                     <span class="s2">&quot;controlvm&quot;</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="s2">&quot;poweroff&quot;</span><span class="p">],</span>
+                                    <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                    <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                    <span class="n">close_fds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># Sometimes VBoxManage stucks when stopping vm so we needed</span>
+            <span class="c1"># to add a timeout and kill it after that.</span>
+            <span class="n">stop_me</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">proc</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">stop_me</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options_globals</span><span class="o">.</span><span class="n">timeouts</span><span class="o">.</span><span class="n">vm_state</span><span class="p">):</span>
+                    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">stop_me</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Stopping vm </span><span class="si">%s</span><span class="s2"> timeouted. Killing&quot;</span> <span class="o">%</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="n">proc</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> \
+                    <span class="n">stop_me</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options_globals</span><span class="o">.</span><span class="n">timeouts</span><span class="o">.</span><span class="n">vm_state</span><span class="p">):</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;VBoxManage exited with error &quot;</span>
+                          <span class="s2">&quot;powering off the machine&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;VBoxManage failed powering off the &quot;</span>
+                                     <span class="s2">&quot;machine: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wait_status</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">POWEROFF</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ABORTED</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SAVED</span><span class="p">])</span></div>
+
+    <span class="k">def</span> <span class="nf">_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Lists virtual machines installed.</span>
+
+<span class="sd">        :return: virtual machine names list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                                     <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;vms&quot;</span><span class="p">],</span>
+                                    <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                    <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                    <span class="n">close_fds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">output</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;VBoxManage error listing &quot;</span>
+                                     <span class="s2">&quot;installed machines: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="n">machines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;&lt;inaccessible&gt;&quot;</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Found an inaccessible virtual machine, &quot;</span>
+                                <span class="s2">&quot;please check its state.&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">machines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+        <span class="k">return</span> <span class="n">machines</span>
+
+    <span class="k">def</span> <span class="nf">_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets current status of a vm.</span>
+
+<span class="sd">        :param label: virtual machine name.</span>
+<span class="sd">        :return: status string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting status for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">label</span><span class="p">)</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                                     <span class="s2">&quot;showvminfo&quot;</span><span class="p">,</span>
+                                     <span class="n">label</span><span class="p">,</span>
+                                     <span class="s2">&quot;--machinereadable&quot;</span><span class="p">],</span>
+                                    <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                    <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                    <span class="n">close_fds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">output</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># It&#39;s quite common for virtualbox crap utility to exit with:</span>
+                <span class="c1"># VBoxManage: error: Details: code E_ACCESSDENIED (0x80070005)</span>
+                <span class="c1"># So we just log to debug this.</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;VBoxManage returns error checking status for &quot;</span>
+                          <span class="s2">&quot;machine </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ERROR</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;VBoxManage failed to check status for machine </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="n">label</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ERROR</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">status</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;VMState=&quot;(\w+)&quot;&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">M</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">state</span><span class="p">:</span>
+                    <span class="n">status</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Machine </span><span class="si">%s</span><span class="s2"> status </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">status</span><span class="p">))</span>
+                    <span class="n">status</span> <span class="o">=</span> <span class="n">status</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="c1"># Report back status.</span>
+        <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">status</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Unable to get status for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">label</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VirtualBox.dump_memory"><a class="viewcode-back" href="../../machinery.html#machinery.virtualbox.VirtualBox.dump_memory">[docs]</a>    <span class="k">def</span> <span class="nf">dump_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Takes a memory dump.</span>
+
+<span class="sd">        :param path: path to where to store the memory dump.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;-v&quot;</span><span class="p">],</span>
+                                    <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                    <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                    <span class="n">close_fds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">output</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># It&#39;s quite common for virtualbox crap utility to exit with:</span>
+                <span class="c1"># VBoxManage: error: Details: code E_ACCESSDENIED (0x80070005)</span>
+                <span class="c1"># So we just log to debug this.</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;VBoxManage returns error checking status for &quot;</span>
+                          <span class="s2">&quot;machine </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;VBoxManage failed return it&#39;s version: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">output</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+            <span class="c1"># VirtualBox version 5.x</span>
+            <span class="n">dumpcmd</span> <span class="o">=</span> <span class="s2">&quot;dumpvmcore&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># VirtualBox version 4.x</span>
+            <span class="n">dumpcmd</span> <span class="o">=</span> <span class="s2">&quot;dumpguestcore&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">virtualbox</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;debugvm&quot;</span><span class="p">,</span>
+                             <span class="n">label</span><span class="p">,</span> <span class="n">dumpcmd</span><span class="p">,</span> <span class="s2">&quot;--filename&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">],</span>
+                            <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                            <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                            <span class="n">close_fds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Successfully generated memory dump for virtual machine &quot;</span>
+                     <span class="s2">&quot;with label </span><span class="si">%s</span><span class="s2"> to path </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;VBoxManage failed to take a memory &quot;</span>
+                                     <span class="s2">&quot;dump of the machine with label </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                                     <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

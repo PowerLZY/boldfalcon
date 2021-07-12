@@ -9,6 +9,14 @@ processing.analysisinfo module
    :undoc-members:
    :show-inheritance:
 
+processing.baseline module
+--------------------------
+
+.. automodule:: processing.baseline
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 processing.behavior module
 --------------------------
 
@@ -29,14 +37,6 @@ processing.debug module
 -----------------------
 
 .. automodule:: processing.debug
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-processing.droidmon module
---------------------------
-
-.. automodule:: processing.droidmon
    :members:
    :undoc-members:
    :show-inheritance:
@@ -113,14 +113,6 @@ processing.strings module
    :undoc-members:
    :show-inheritance:
 
-processing.suricata module
---------------------------
-
-.. automodule:: processing.suricata
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 processing.targetinfo module
 ----------------------------
 
@@ -138,10 +130,4 @@ processing.virustotal module
    :show-inheritance:
 
 
-Module contents
----------------
 
-.. automodule:: processing
-   :members:
-   :undoc-members:
-   :show-inheritance:

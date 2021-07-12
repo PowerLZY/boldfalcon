@@ -1,0 +1,1596 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>lib.cuckoo.core package &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="auxiliary package" href="auxiliary.html" />
+    <link rel="prev" title="lib.cuckoo.common package" href="lib.cuckoo.common.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Common:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib.cuckoo.common.html">lib.cuckoo.common package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Core:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">lib.cuckoo.core package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-lib.cuckoo.core.cuckoo">lib.cuckoo.core.cuckoo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-lib.cuckoo.core.database">lib.cuckoo.core.database module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-lib.cuckoo.core.guest">lib.cuckoo.core.guest module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-lib.cuckoo.core.plugins">lib.cuckoo.core.plugins module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-lib.cuckoo.core.resultserver">lib.cuckoo.core.resultserver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-lib.cuckoo.core.scheduler">lib.cuckoo.core.scheduler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-lib.cuckoo.core.startup">lib.cuckoo.core.startup module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">machinery:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="machinery.html">machinery package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">detection:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="detection.html">detection package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>lib.cuckoo.core package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/lib.cuckoo.core.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lib-cuckoo-core-package">
+<h1>lib.cuckoo.core package<a class="headerlink" href="#lib-cuckoo-core-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-lib.cuckoo.core.cuckoo">
+<span id="lib-cuckoo-core-cuckoo-module"></span><h2>lib.cuckoo.core.cuckoo module<a class="headerlink" href="#module-lib.cuckoo.core.cuckoo" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.cuckoo.cuckoo_init">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.cuckoo.</span></span><span class="sig-name descname"><span class="pre">cuckoo_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artwork</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/cuckoo.html#cuckoo_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.cuckoo.cuckoo_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cuckoo initialization workflow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>quiet</strong> – if set enable silent mode, it doesn’t print anything except warnings</p></li>
+<li><p><strong>debug</strong> – if set enable debug mode, it print all debug messages</p></li>
+<li><p><strong>artwork</strong> – if set it will print only artworks, forever</p></li>
+<li><p><strong>test</strong> – enable integration test mode, used only for testing</p></li>
+<li><p><strong>ml</strong> – do CuckooML analysis of locally stored samples</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.cuckoo.cuckoo_main">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.cuckoo.</span></span><span class="sig-name descname"><span class="pre">cuckoo_main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_analysis_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/cuckoo.html#cuckoo_main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.cuckoo.cuckoo_main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cuckoo main loop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>max_analysis_count</strong> – kill cuckoo after this number of analyses</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-lib.cuckoo.core.database">
+<span id="lib-cuckoo-core-database-module"></span><h2>lib.cuckoo.core.database module<a class="headerlink" href="#module-lib.cuckoo.core.database" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.database.</span></span><span class="sig-name descname"><span class="pre">Database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dsn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">echo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Analysis queue database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p>This class handles the creation of the database user for internal queue</p>
+</dd>
+</dl>
+<p>management. It also provides some functions for interacting with it.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">platform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enforce_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a task to database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> – object to add (File or URL).</p></li>
+<li><p><strong>timeout</strong> – selected timeout.</p></li>
+<li><p><strong>options</strong> – analysis options.</p></li>
+<li><p><strong>priority</strong> – analysis priority.</p></li>
+<li><p><strong>custom</strong> – custom options.</p></li>
+<li><p><strong>owner</strong> – task owner.</p></li>
+<li><p><strong>machine</strong> – selected machine.</p></li>
+<li><p><strong>platform</strong> – platform.</p></li>
+<li><p><strong>tags</strong> – optional tags that must be set for machine selection</p></li>
+<li><p><strong>memory</strong> – toggle full memory dump.</p></li>
+<li><p><strong>enforce_timeout</strong> – toggle full timeout execution.</p></li>
+<li><p><strong>clock</strong> – virtual machine clock time</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cursor or None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.add_baseline">
+<span class="sig-name descname"><span class="pre">add_baseline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.add_baseline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.add_baseline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a baseline task to database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeout</strong> – selected timeout.</p></li>
+<li><p><strong>owner</strong> – task owner.</p></li>
+<li><p><strong>machine</strong> – selected machine.</p></li>
+<li><p><strong>memory</strong> – toggle full memory dump.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cursor or None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.add_error">
+<span class="sig-name descname"><span class="pre">add_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.add_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.add_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an error related to a task.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> – error message</p></li>
+<li><p><strong>task_id</strong> – ID of the related task</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.add_machine">
+<span class="sig-name descname"><span class="pre">add_machine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">platform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resultserver_ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resultserver_port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.add_machine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.add_machine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a guest machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – machine id</p></li>
+<li><p><strong>label</strong> – machine label</p></li>
+<li><p><strong>ip</strong> – machine IP address</p></li>
+<li><p><strong>platform</strong> – machine supported platform</p></li>
+<li><p><strong>tags</strong> – list of comma separated tags</p></li>
+<li><p><strong>interface</strong> – sniffing interface for this machine</p></li>
+<li><p><strong>snapshot</strong> – snapshot name to use instead of the current one, if configured</p></li>
+<li><p><strong>resultserver_ip</strong> – IP address of the Result Server</p></li>
+<li><p><strong>resultserver_port</strong> – port of the Result Server</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.add_path">
+<span class="sig-name descname"><span class="pre">add_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">platform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enforce_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.add_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.add_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a task to database from file path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> – sample path.</p></li>
+<li><p><strong>timeout</strong> – selected timeout.</p></li>
+<li><p><strong>options</strong> – analysis options.</p></li>
+<li><p><strong>priority</strong> – analysis priority.</p></li>
+<li><p><strong>custom</strong> – custom options.</p></li>
+<li><p><strong>owner</strong> – task owner.</p></li>
+<li><p><strong>machine</strong> – selected machine.</p></li>
+<li><p><strong>platform</strong> – platform.</p></li>
+<li><p><strong>tags</strong> – Tags required in machine selection</p></li>
+<li><p><strong>memory</strong> – toggle full memory dump.</p></li>
+<li><p><strong>enforce_timeout</strong> – toggle full timeout execution.</p></li>
+<li><p><strong>clock</strong> – virtual machine clock time</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cursor or None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.add_service">
+<span class="sig-name descname"><span class="pre">add_service</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.add_service"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.add_service" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a service task to database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeout</strong> – selected timeout.</p></li>
+<li><p><strong>owner</strong> – task owner.</p></li>
+<li><p><strong>tags</strong> – task tags.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cursor or None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.add_url">
+<span class="sig-name descname"><span class="pre">add_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">platform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enforce_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.add_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.add_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a task to database from url.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – url.</p></li>
+<li><p><strong>timeout</strong> – selected timeout.</p></li>
+<li><p><strong>options</strong> – analysis options.</p></li>
+<li><p><strong>priority</strong> – analysis priority.</p></li>
+<li><p><strong>custom</strong> – custom options.</p></li>
+<li><p><strong>owner</strong> – task owner.</p></li>
+<li><p><strong>machine</strong> – selected machine.</p></li>
+<li><p><strong>platform</strong> – platform.</p></li>
+<li><p><strong>tags</strong> – tags for machine selection</p></li>
+<li><p><strong>memory</strong> – toggle full memory dump.</p></li>
+<li><p><strong>enforce_timeout</strong> – toggle full timeout execution.</p></li>
+<li><p><strong>clock</strong> – virtual machine clock time</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cursor or None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.clean_machines">
+<span class="sig-name descname"><span class="pre">clean_machines</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.clean_machines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.clean_machines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean old stored machines and related tables.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.count_machines_available">
+<span class="sig-name descname"><span class="pre">count_machines_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.count_machines_available"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.count_machines_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>How many virtual machines are ready for analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>free virtual machines count</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.count_samples">
+<span class="sig-name descname"><span class="pre">count_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.count_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.count_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the amount of samples in the database.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.count_tasks">
+<span class="sig-name descname"><span class="pre">count_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.count_tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.count_tasks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Count tasks in the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>status</strong> – apply a filter according to the task status</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>number of tasks found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.delete_task">
+<span class="sig-name descname"><span class="pre">delete_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.delete_task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.delete_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete information on a task.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>task_id</strong> – ID of the task to query.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>operation status.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.drop">
+<span class="sig-name descname"><span class="pre">drop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.drop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.drop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop all tables.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.fetch">
+<span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">machine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches a task waiting to be processed and locks it for running.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None or task</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.find_sample">
+<span class="sig-name descname"><span class="pre">find_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">md5</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sha256</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.find_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.find_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search samples by MD5.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>md5</strong> – md5 string</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>matches list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.get_available_machines">
+<span class="sig-name descname"><span class="pre">get_available_machines</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.get_available_machines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.get_available_machines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Which machines are available</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>free virtual machines</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.guest_get_status">
+<span class="sig-name descname"><span class="pre">guest_get_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.guest_get_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.guest_get_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs guest start.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>task_id</strong> – task id</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>guest status</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.guest_remove">
+<span class="sig-name descname"><span class="pre">guest_remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">guest_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.guest_remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.guest_remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a guest start entry.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.guest_set_status">
+<span class="sig-name descname"><span class="pre">guest_set_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.guest_set_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.guest_set_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs guest start.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task_id</strong> – task identifier</p></li>
+<li><p><strong>status</strong> – status</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.guest_start">
+<span class="sig-name descname"><span class="pre">guest_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manager</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.guest_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.guest_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs guest start.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task_id</strong> – task identifier</p></li>
+<li><p><strong>name</strong> – vm name</p></li>
+<li><p><strong>label</strong> – vm label</p></li>
+<li><p><strong>manager</strong> – vm manager</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>guest row id</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.guest_stop">
+<span class="sig-name descname"><span class="pre">guest_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">guest_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.guest_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.guest_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs guest stop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>guest_id</strong> – guest log entry id</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.list_machines">
+<span class="sig-name descname"><span class="pre">list_machines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locked</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.list_machines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.list_machines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists virtual machines.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of virtual machines</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.list_tasks">
+<span class="sig-name descname"><span class="pre">list_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">completed_after</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.list_tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.list_tasks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve list of task.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>limit</strong> – specify a limit of entries.</p></li>
+<li><p><strong>details</strong> – if details about must be included</p></li>
+<li><p><strong>category</strong> – filter by category</p></li>
+<li><p><strong>owner</strong> – task owner</p></li>
+<li><p><strong>offset</strong> – list offset</p></li>
+<li><p><strong>status</strong> – filter by task status</p></li>
+<li><p><strong>sample_id</strong> – filter tasks for a sample</p></li>
+<li><p><strong>not_status</strong> – exclude this task status from filter</p></li>
+<li><p><strong>completed_after</strong> – only list tasks completed after this timestamp</p></li>
+<li><p><strong>order_by</strong> – definition which field to sort by</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of tasks.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.lock_machine">
+<span class="sig-name descname"><span class="pre">lock_machine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">platform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.lock_machine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.lock_machine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Places a lock on a free virtual machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>label</strong> – optional virtual machine label</p></li>
+<li><p><strong>platform</strong> – optional virtual machine platform</p></li>
+<li><p><strong>tags</strong> – optional tags required (list)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>locked machine</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.processing_get_task">
+<span class="sig-name descname"><span class="pre">processing_get_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.processing_get_task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.processing_get_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an available task for processing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.reschedule">
+<span class="sig-name descname"><span class="pre">reschedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.reschedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.reschedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reschedule a task.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>task_id</strong> – ID of the task to reschedule.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>ID of the newly created task.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.set_machine_status">
+<span class="sig-name descname"><span class="pre">set_machine_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.set_machine_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.set_machine_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set status for a virtual machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>label</strong> – virtual machine label</p></li>
+<li><p><strong>status</strong> – new virtual machine status</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.set_route">
+<span class="sig-name descname"><span class="pre">set_route</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">route</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.set_route"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.set_route" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the taken route of this task.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task_id</strong> – task identifier</p></li>
+<li><p><strong>route</strong> – route string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>operation status</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.set_status">
+<span class="sig-name descname"><span class="pre">set_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.set_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.set_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set task status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task_id</strong> – task identifier</p></li>
+<li><p><strong>status</strong> – status string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>operation status</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.unlock_machine">
+<span class="sig-name descname"><span class="pre">unlock_machine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.unlock_machine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.unlock_machine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove lock form a virtual machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>label</strong> – virtual machine label</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>unlocked machine</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.view_errors">
+<span class="sig-name descname"><span class="pre">view_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.view_errors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.view_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all errors related to a task.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>task_id</strong> – ID of task associated to the errors</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of errors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.view_machine">
+<span class="sig-name descname"><span class="pre">view_machine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.view_machine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.view_machine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show virtual machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params name</dt>
+<dd class="field-odd"><p>virtual machine name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>virtual machine’s details</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.view_machine_by_label">
+<span class="sig-name descname"><span class="pre">view_machine_by_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.view_machine_by_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.view_machine_by_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show virtual machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params label</dt>
+<dd class="field-odd"><p>virtual machine label</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>virtual machine’s details</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.view_sample">
+<span class="sig-name descname"><span class="pre">view_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.view_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.view_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve information on a sample given a sample id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sample_id</strong> – ID of the sample to query.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>details on the sample used in sample: sample_id.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.database.Database.view_task">
+<span class="sig-name descname"><span class="pre">view_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/database.html#Database.view_task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.database.Database.view_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve information on a task.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>task_id</strong> – ID of the task to query.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>details on the task.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lib.cuckoo.core.guest">
+<span id="lib-cuckoo-core-guest-module"></span><h2>lib.cuckoo.core.guest module<a class="headerlink" href="#module-lib.cuckoo.core.guest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.GuestManager">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.guest.</span></span><span class="sig-name descname"><span class="pre">GuestManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vmid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipaddr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">platform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#GuestManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.GuestManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class represents the new Guest Manager. It operates on the new
+Cuckoo Agent which features a more abstract but more feature-rich API.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.GuestManager.add_config">
+<span class="sig-name descname"><span class="pre">add_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#GuestManager.add_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.GuestManager.add_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload the analysis.conf for this task to the Virtual Machine.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.GuestManager.determine_analyzer_path">
+<span class="sig-name descname"><span class="pre">determine_analyzer_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#GuestManager.determine_analyzer_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.GuestManager.determine_analyzer_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine the path of the analyzer. Basically creating a temporary
+directory in the systemdrive, i.e., C:.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.GuestManager.determine_system_drive">
+<span class="sig-name descname"><span class="pre">determine_system_drive</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#GuestManager.determine_system_drive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.GuestManager.determine_system_drive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.GuestManager.determine_temp_path">
+<span class="sig-name descname"><span class="pre">determine_temp_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#GuestManager.determine_temp_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.GuestManager.determine_temp_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.GuestManager.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#GuestManager.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.GuestManager.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple wrapper around requests.get().</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.GuestManager.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#GuestManager.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.GuestManager.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple wrapper around requests.post().</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.GuestManager.query_environ">
+<span class="sig-name descname"><span class="pre">query_environ</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#GuestManager.query_environ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.GuestManager.query_environ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query the environment of the Agent in the Virtual Machine.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.GuestManager.server">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">server</span></span><a class="headerlink" href="#lib.cuckoo.core.guest.GuestManager.server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Currently the Physical machine manager is using GuestManager in
+an incorrect way. This should be fixed up later but for now this
+workaround will do.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.GuestManager.start_analysis">
+<span class="sig-name descname"><span class="pre">start_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#GuestManager.start_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.GuestManager.start_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the analysis by uploading all required files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>options</strong> – the task options</p></li>
+<li><p><strong>monitor</strong> – identifier of the monitor to be used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.GuestManager.upload_analyzer">
+<span class="sig-name descname"><span class="pre">upload_analyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monitor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#GuestManager.upload_analyzer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.GuestManager.upload_analyzer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload the analyzer to the Virtual Machine.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.GuestManager.wait_available">
+<span class="sig-name descname"><span class="pre">wait_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#GuestManager.wait_available"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.GuestManager.wait_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait until the Virtual Machine is available for usage.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.GuestManager.wait_for_completion">
+<span class="sig-name descname"><span class="pre">wait_for_completion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#GuestManager.wait_for_completion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.GuestManager.wait_for_completion" title="Permalink to this definition">¶</a></dt>
+<dd><p>waite for the anaylzer from agent</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.OldGuestManager">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.guest.</span></span><span class="sig-name descname"><span class="pre">OldGuestManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vm_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">platform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#OldGuestManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.OldGuestManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Old and deprecated Guest Manager.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p>This class handles the communications with the old agent running in the</p>
+</dd>
+</dl>
+<p>virtual machine.
+:param ip: guest’s IP address.
+:param platform: guest’s operating system type.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.OldGuestManager.start_analysis">
+<span class="sig-name descname"><span class="pre">start_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#OldGuestManager.start_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.OldGuestManager.start_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>options</strong> – options.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>operation status.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.OldGuestManager.upload_analyzer">
+<span class="sig-name descname"><span class="pre">upload_analyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monitor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#OldGuestManager.upload_analyzer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.OldGuestManager.upload_analyzer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload analyzer to guest.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>operation status.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.OldGuestManager.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#OldGuestManager.wait"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.OldGuestManager.wait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waiting for status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>status</strong> – status.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>always True.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.OldGuestManager.wait_for_completion">
+<span class="sig-name descname"><span class="pre">wait_for_completion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#OldGuestManager.wait_for_completion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.OldGuestManager.wait_for_completion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait for analysis completion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>operation status.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.guest.analyzer_zipfile">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.guest.</span></span><span class="sig-name descname"><span class="pre">analyzer_zipfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">platform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/guest.html#analyzer_zipfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.guest.analyzer_zipfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the Zip file that is sent to the Guest.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-lib.cuckoo.core.plugins">
+<span id="lib-cuckoo-core-plugins-module"></span><h2>lib.cuckoo.core.plugins module<a class="headerlink" href="#module-lib.cuckoo.core.plugins" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunAuxiliary">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.plugins.</span></span><span class="sig-name descname"><span class="pre">RunAuxiliary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machine</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunAuxiliary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunAuxiliary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Auxiliary modules manager.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunAuxiliary.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunAuxiliary.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunAuxiliary.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunAuxiliary.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunAuxiliary.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunAuxiliary.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunDetection">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.plugins.</span></span><span class="sig-name descname"><span class="pre">RunDetection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunDetection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunDetection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Analysis Results Detection Engine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task</strong> – task dictionary of the analysis to detection.</p></li>
+<li><p><strong>results</strong> – results dict</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunDetection.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunDetection.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunDetection.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a detection module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> – detection module to run.</p></li>
+<li><p><strong>results</strong> – results dict.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>results generated by module.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunDetection.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunDetection.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunDetection.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run all detection modules.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>detection results.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunProcessing">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.plugins.</span></span><span class="sig-name descname"><span class="pre">RunProcessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunProcessing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunProcessing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Analysis Results Processing Engine.</p>
+<p>This class handles the loading and execution of the processing modules.
+It executes the enabled ones sequentially and generates a dictionary which
+is then passed over the reporting engine.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunProcessing.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunProcessing.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunProcessing.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a processing module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> – processing module to run.</p></li>
+<li><p><strong>results</strong> – results dict.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>results generated by module.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunProcessing.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunProcessing.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunProcessing.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run all processing modules and all signatures.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>processing results.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunReporting">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.plugins.</span></span><span class="sig-name descname"><span class="pre">RunReporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunReporting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunReporting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Reporting Engine.</p>
+<p>This class handles the loading and execution of the enabled reporting
+modules. It receives the analysis results dictionary from the Processing
+Engine and pass it over to the reporting modules before executing them.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunReporting.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunReporting.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunReporting.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a single reporting module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module</strong> – reporting module.</p></li>
+<li><p><strong>results</strong> – results results from analysis.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunReporting.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunReporting.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunReporting.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates all reports.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooReportError" title="lib.cuckoo.common.exceptions.CuckooReportError"><strong>CuckooReportError</strong></a> – if a report module fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunSignatures">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.plugins.</span></span><span class="sig-name descname"><span class="pre">RunSignatures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunSignatures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunSignatures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Run Signatures.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunSignatures.call_signature">
+<span class="sig-name descname"><span class="pre">call_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunSignatures.call_signature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunSignatures.call_signature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper to call into 3rd party signatures. This wrapper yields the
+event to the signature and handles matched signatures recursively.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunSignatures.check_signature_version">
+<span class="sig-name descname"><span class="pre">check_signature_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunSignatures.check_signature_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunSignatures.check_signature_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check signature version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>current</strong> – signature class/instance to check.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>check result.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunSignatures.init_api_sigs">
+<span class="sig-name descname"><span class="pre">init_api_sigs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">apiname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunSignatures.init_api_sigs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunSignatures.init_api_sigs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a list of signatures for which we should trigger its
+on_call method for this particular API name and category.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunSignatures.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunSignatures.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunSignatures.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run signatures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.RunSignatures.yield_calls">
+<span class="sig-name descname"><span class="pre">yield_calls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#RunSignatures.yield_calls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.RunSignatures.yield_calls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yield calls of interest to each interested signature.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.enumerate_plugins">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.plugins.</span></span><span class="sig-name descname"><span class="pre">enumerate_plugins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#enumerate_plugins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.enumerate_plugins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import plugins of type <cite>class</cite> located at <cite>dirpath</cite> into the
+<cite>namespace</cite> that starts with <cite>module_prefix</cite>. If <cite>dirpath</cite> represents a
+filepath then it is converted into its containing directory. The
+<cite>attributes</cite> dictionary allows one to set extra fields for all imported
+plugins.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.import_package">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.plugins.</span></span><span class="sig-name descname"><span class="pre">import_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#import_package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.import_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.import_plugin">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.plugins.</span></span><span class="sig-name descname"><span class="pre">import_plugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#import_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.import_plugin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.list_plugins">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.plugins.</span></span><span class="sig-name descname"><span class="pre">list_plugins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#list_plugins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.list_plugins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.load_plugins">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.plugins.</span></span><span class="sig-name descname"><span class="pre">load_plugins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#load_plugins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.load_plugins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.plugins.register_plugin">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.plugins.</span></span><span class="sig-name descname"><span class="pre">register_plugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/plugins.html#register_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.plugins.register_plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>register gobal modules</p>
+<dl class="field-list simple">
+<dt class="field-odd">Garam group</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-lib.cuckoo.core.resultserver">
+<span id="lib-cuckoo-core-resultserver-module"></span><h2>lib.cuckoo.core.resultserver module<a class="headerlink" href="#module-lib.cuckoo.core.resultserver" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.FileUpload">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.resultserver.</span></span><span class="sig-name descname"><span class="pre">FileUpload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#FileUpload"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.FileUpload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.ProtocolHandler" title="lib.cuckoo.common.abstracts.ProtocolHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.ProtocolHandler</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.FileUpload.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#FileUpload.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.FileUpload.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.FileUpload.init">
+<span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#FileUpload.init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.FileUpload.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.LogHandler">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.resultserver.</span></span><span class="sig-name descname"><span class="pre">LogHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#LogHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.LogHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.ProtocolHandler" title="lib.cuckoo.common.abstracts.ProtocolHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.ProtocolHandler</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.LogHandler.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#LogHandler.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.LogHandler.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.LogHandler.init">
+<span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#LogHandler.init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.LogHandler.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultHandler">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.resultserver.</span></span><span class="sig-name descname"><span class="pre">ResultHandler</span></span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Result handler.</p>
+<p>This handler speaks our analysis log network protocol.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultHandler.create_folders">
+<span class="sig-name descname"><span class="pre">create_folders</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultHandler.create_folders"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultHandler.create_folders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultHandler.finish">
+<span class="sig-name descname"><span class="pre">finish</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultHandler.finish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultHandler.finish" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultHandler.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultHandler.handle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultHandler.handle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultHandler.negotiate_protocol">
+<span class="sig-name descname"><span class="pre">negotiate_protocol</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultHandler.negotiate_protocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultHandler.negotiate_protocol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultHandler.open_process_log">
+<span class="sig-name descname"><span class="pre">open_process_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultHandler.open_process_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultHandler.open_process_log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultHandler.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">length</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultHandler.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultHandler.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultHandler.read_any">
+<span class="sig-name descname"><span class="pre">read_any</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultHandler.read_any"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultHandler.read_any" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultHandler.read_newline">
+<span class="sig-name descname"><span class="pre">read_newline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultHandler.read_newline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultHandler.read_newline" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultHandler.seek">
+<span class="sig-name descname"><span class="pre">seek</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultHandler.seek"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultHandler.seek" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultHandler.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultHandler.setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultHandler.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultHandler.wait_sock_or_end">
+<span class="sig-name descname"><span class="pre">wait_sock_or_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultHandler.wait_sock_or_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultHandler.wait_sock_or_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultServer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.resultserver.</span></span><span class="sig-name descname"><span class="pre">ResultServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultServer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Result server. Singleton!</p>
+<p>This class handles results coming back from the analysis machines.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultServer.add_task">
+<span class="sig-name descname"><span class="pre">add_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machine</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultServer.add_task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultServer.add_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a task/machine with the ResultServer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultServer.build_storage_path">
+<span class="sig-name descname"><span class="pre">build_storage_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultServer.build_storage_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultServer.build_storage_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize analysis storage folder.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultServer.del_task">
+<span class="sig-name descname"><span class="pre">del_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machine</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultServer.del_task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultServer.del_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete ResultServer state and wait for pending RequestHandlers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultServer.get_ctx_for_ip">
+<span class="sig-name descname"><span class="pre">get_ctx_for_ip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultServer.get_ctx_for_ip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultServer.get_ctx_for_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return state for this IP’s task.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.resultserver.ResultServer.register_handler">
+<span class="sig-name descname"><span class="pre">register_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/resultserver.html#ResultServer.register_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.resultserver.ResultServer.register_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a RequestHandler so that we can later wait for it.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lib.cuckoo.core.scheduler">
+<span id="lib-cuckoo-core-scheduler-module"></span><h2>lib.cuckoo.core.scheduler module<a class="headerlink" href="#module-lib.cuckoo.core.scheduler" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.scheduler.</span></span><span class="sig-name descname"><span class="pre">AnalysisManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_queue</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Thread</span></code></p>
+<p>Analysis Manager.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p>This class handles the full analysis process for a given task. It takes</p>
+</dd>
+</dl>
+<p>care of selecting the analysis machine, preparing the configuration and
+interacting with the guest agent and analyzer components to launch and
+complete the analysis and store, process and report its results.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager.acquire_machine">
+<span class="sig-name descname"><span class="pre">acquire_machine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager.acquire_machine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager.acquire_machine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Acquire an analysis machine from the pool of available ones.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager.build_options">
+<span class="sig-name descname"><span class="pre">build_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager.build_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager.build_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate analysis options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>options dict.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager.check_file">
+<span class="sig-name descname"><span class="pre">check_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager.check_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager.check_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks the integrity of the file to be analyzed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager.guest_manage">
+<span class="sig-name descname"><span class="pre">guest_manage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager.guest_manage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager.guest_manage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager.init_storage">
+<span class="sig-name descname"><span class="pre">init_storage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager.init_storage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager.init_storage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize analysis storage folder.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager.launch_analysis">
+<span class="sig-name descname"><span class="pre">launch_analysis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager.launch_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager.launch_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start analysis.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager.process_results">
+<span class="sig-name descname"><span class="pre">process_results</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager.process_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager.process_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process the analysis results and generate the enabled reports.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager.route_network">
+<span class="sig-name descname"><span class="pre">route_network</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager.route_network"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager.route_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable network routing if desired.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run manager thread.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager.store_file">
+<span class="sig-name descname"><span class="pre">store_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager.store_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager.store_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store a copy of the file being analyzed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager.store_task_info">
+<span class="sig-name descname"><span class="pre">store_task_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager.store_task_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager.store_task_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>grab latest task from db (if available) and update self.task</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager.unroute_network">
+<span class="sig-name descname"><span class="pre">unroute_network</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager.unroute_network"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager.unroute_network" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.AnalysisManager.wait_finish">
+<span class="sig-name descname"><span class="pre">wait_finish</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#AnalysisManager.wait_finish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.AnalysisManager.wait_finish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Some VMs don’t have an actual agent. Mainly those that are used as
+assistance for an analysis through the services auxiliary module. This
+method just waits until the analysis is finished rather than actively
+trying to engage with the Cuckoo Agent.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.Scheduler">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.scheduler.</span></span><span class="sig-name descname"><span class="pre">Scheduler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maxcount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#Scheduler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.Scheduler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Tasks Scheduler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Note</dt>
+<dd class="field-odd"><p>This class is responsible for the main execution loop of the tool. It</p>
+</dd>
+</dl>
+<p>prepares the analysis machines and keep waiting and loading for new
+analysis tasks.Whenever a new task is available, it launches AnalysisManager which will
+take care of running the full analysis process and operating with the
+assigned analysis machine.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.Scheduler.initialize">
+<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#Scheduler.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.Scheduler.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the machine manager.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.Scheduler.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#Scheduler.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.Scheduler.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start scheduler.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lib.cuckoo.core.scheduler.Scheduler.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/scheduler.html#Scheduler.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.scheduler.Scheduler.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop scheduler.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lib.cuckoo.core.startup">
+<span id="lib-cuckoo-core-startup-module"></span><h2>lib.cuckoo.core.startup module<a class="headerlink" href="#module-lib.cuckoo.core.startup" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.check_configs">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">check_configs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#check_configs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.check_configs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if config files exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooStartupError" title="lib.cuckoo.common.exceptions.CuckooStartupError"><strong>CuckooStartupError</strong></a> – if config files do not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.check_python_version">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">check_python_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#check_python_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.check_python_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if Python version is supported by Cuckoo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooStartupError" title="lib.cuckoo.common.exceptions.CuckooStartupError"><strong>CuckooStartupError</strong></a> – if version is not supported.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.check_version">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">check_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#check_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.check_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks version of Cuckoo.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.check_working_directory">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">check_working_directory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#check_working_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.check_working_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if working directories are ready.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooStartupError" title="lib.cuckoo.common.exceptions.CuckooStartupError"><strong>CuckooStartupError</strong></a> – if directories are not properly configured.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.create_structure">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">create_structure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#create_structure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.create_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Cuckoo directories.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.cuckoo_clean">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">cuckoo_clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#cuckoo_clean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.cuckoo_clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean up cuckoo setup.
+It deletes logs, all stored data from file system and configured
+databases (SQL and MongoDB).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.delete_file">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">delete_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">rel_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#delete_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.delete_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.drop_privileges">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">drop_privileges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#drop_privileges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.drop_privileges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drops privileges to selected user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>username</strong> – drop privileges to this username</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.init_binaries">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">init_binaries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#init_binaries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.init_binaries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inform the user about the need to periodically look for new analyzer
+binaries. These include the Windows monitor etc.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.init_console_logging">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">init_console_logging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#init_console_logging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.init_console_logging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes logging only to console.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.init_logging">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">init_logging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#init_logging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.init_logging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes logging.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.init_modules">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">init_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">machinery</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#init_modules"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.init_modules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes plugins.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.init_rooter">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">init_rooter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#init_rooter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.init_rooter" title="Permalink to this definition">¶</a></dt>
+<dd><p>If required, check whether the rooter is running and whether we can
+connect to it.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.init_routing">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">init_routing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#init_routing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.init_routing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize and check whether the routing information is correct.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.init_tasks">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">init_tasks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#init_tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.init_tasks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check tasks and reschedule uncompleted ones.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.cuckoo.core.startup.init_yara">
+<span class="sig-prename descclassname"><span class="pre">lib.cuckoo.core.startup.</span></span><span class="sig-name descname"><span class="pre">init_yara</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/cuckoo/core/startup.html#init_yara"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lib.cuckoo.core.startup.init_yara" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates index for yara signatures.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="auxiliary.html" class="btn btn-neutral float-right" title="auxiliary package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="lib.cuckoo.common.html" class="btn btn-neutral float-left" title="lib.cuckoo.common package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

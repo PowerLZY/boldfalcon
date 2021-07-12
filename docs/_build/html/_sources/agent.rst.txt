@@ -1,8 +1,6 @@
 agent package
 =============
 
-Submodules
-----------
 
 agent.agent module
 ------------------
@@ -13,10 +11,6 @@ agent.agent module
    :show-inheritance:
 
 
-Module contents
----------------
 
-.. automodule:: agent
-   :members:
-   :undoc-members:
-   :show-inheritance:
+
+

@@ -1,0 +1,839 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>lib.cuckoo.common.virustotal &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lib.cuckoo.common.virustotal</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lib.cuckoo.common.virustotal</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<span class="kn">from</span> <span class="nn">lib.cuckoo.common.exceptions</span> <span class="kn">import</span> <span class="n">CuckooOperationalError</span>
+
+
+<div class="viewcode-block" id="VirusTotalResourceNotScanned"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalResourceNotScanned">[docs]</a><span class="k">class</span> <span class="nc">VirusTotalResourceNotScanned</span><span class="p">(</span><span class="n">CuckooOperationalError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This resource has not been scanned yet.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="VirusTotalAPI"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI">[docs]</a><span class="k">class</span> <span class="nc">VirusTotalAPI</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Wrapper to VirusTotal API.&quot;&quot;&quot;</span>
+
+    <span class="n">FILE_REPORT</span> <span class="o">=</span> <span class="s2">&quot;https://www.virustotal.com/vtapi/v2/file/report&quot;</span>
+    <span class="n">URL_REPORT</span> <span class="o">=</span> <span class="s2">&quot;https://www.virustotal.com/vtapi/v2/url/report&quot;</span>
+    <span class="n">FILE_SCAN</span> <span class="o">=</span> <span class="s2">&quot;https://www.virustotal.com/vtapi/v2/file/scan&quot;</span>
+    <span class="n">URL_SCAN</span> <span class="o">=</span> <span class="s2">&quot;https://www.virustotal.com/vtapi/v2/url/scan&quot;</span>
+
+    <span class="n">VARIANT_BLACKLIST</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;variant&quot;</span><span class="p">,</span> <span class="s2">&quot;of&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;generic&quot;</span><span class="p">,</span> <span class="s2">&quot;not&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;other&quot;</span><span class="p">,</span> <span class="s2">&quot;potentially&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;optional&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;agent&quot;</span><span class="p">,</span> <span class="s2">&quot;susp&quot;</span><span class="p">,</span> <span class="s2">&quot;dangerousobject&quot;</span><span class="p">,</span> <span class="s2">&quot;dangerous&quot;</span><span class="p">,</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="s2">&quot;corrupt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lookslike&quot;</span><span class="p">,</span> <span class="s2">&quot;looks&quot;</span><span class="p">,</span> <span class="s2">&quot;like&quot;</span><span class="p">,</span> <span class="s2">&quot;unclassifiedmalware&quot;</span><span class="p">,</span> <span class="s2">&quot;unclassified&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;malware&quot;</span><span class="p">,</span> <span class="s2">&quot;horse&quot;</span><span class="p">,</span> <span class="s2">&quot;application&quot;</span><span class="p">,</span> <span class="s2">&quot;program&quot;</span><span class="p">,</span> <span class="s2">&quot;malicious&quot;</span><span class="p">,</span> <span class="s2">&quot;small&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;behaveslike&quot;</span><span class="p">,</span> <span class="s2">&quot;behaves&quot;</span><span class="p">,</span> <span class="s2">&quot;behave&quot;</span><span class="p">,</span> <span class="s2">&quot;heuristic&quot;</span><span class="p">,</span> <span class="s2">&quot;reputation&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;suspected&quot;</span><span class="p">,</span> <span class="s2">&quot;undef&quot;</span><span class="p">,</span> <span class="s2">&quot;unknown&quot;</span><span class="p">,</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="s2">&quot;damaged&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;malagent&quot;</span><span class="p">,</span> <span class="s2">&quot;packer&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="s2">&quot;patched&quot;</span><span class="p">,</span> <span class="s2">&quot;patchfile&quot;</span><span class="p">,</span> <span class="s2">&quot;pepatch&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;servstart&quot;</span><span class="p">,</span> <span class="s2">&quot;gen&quot;</span><span class="p">,</span> <span class="s2">&quot;generikcd&quot;</span><span class="p">,</span> <span class="s2">&quot;genmalicious&quot;</span><span class="p">,</span> <span class="s2">&quot;heur&quot;</span><span class="p">,</span> <span class="s2">&quot;heur2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;applicunwnt&quot;</span><span class="p">,</span> <span class="s2">&quot;autorun&quot;</span><span class="p">,</span> <span class="s2">&quot;avkill&quot;</span><span class="p">,</span> <span class="s2">&quot;generik&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;encodefeature&quot;</span><span class="p">,</span> <span class="s2">&quot;encoder&quot;</span><span class="p">,</span> <span class="s2">&quot;infostealer&quot;</span><span class="p">,</span> <span class="s2">&quot;keylogger&quot;</span><span class="p">,</span> <span class="s2">&quot;obfus&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;website&quot;</span><span class="p">,</span> <span class="s2">&quot;plugin&quot;</span><span class="p">,</span> <span class="s2">&quot;webtoolbar&quot;</span><span class="p">,</span> <span class="s2">&quot;packed&quot;</span><span class="p">,</span> <span class="s2">&quot;toolbar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;obfuscator&quot;</span><span class="p">,</span> <span class="s2">&quot;stealer&quot;</span><span class="p">,</span> <span class="s2">&quot;suspectcrc&quot;</span>
+    <span class="p">]</span>
+
+    <span class="n">FIX_BLACKLIST</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># prefixes&amp;suffixes</span>
+        <span class="s2">&quot;apt&quot;</span><span class="p">,</span> <span class="s2">&quot;ms&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;vb&quot;</span><span class="p">,</span> <span class="s2">&quot;mal&quot;</span><span class="p">,</span> <span class="s2">&quot;pack&quot;</span><span class="p">,</span> <span class="s2">&quot;exe&quot;</span><span class="p">,</span> <span class="s2">&quot;enz&quot;</span>  <span class="c1"># &quot;doc&quot;</span>
+    <span class="p">]</span>
+
+    <span class="n">PLATFORMS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># Operating systems</span>
+        <span class="s2">&quot;androidos&quot;</span><span class="p">:</span> <span class="s2">&quot;Android operating system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dos&quot;</span><span class="p">:</span> <span class="s2">&quot;MS-DOS platform&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;epoc&quot;</span><span class="p">:</span> <span class="s2">&quot;Psion devices&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;freebsd&quot;</span><span class="p">:</span> <span class="s2">&quot;FreeBSD platform&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;iphoneos&quot;</span><span class="p">:</span> <span class="s2">&quot;iPhone operating system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;linux&quot;</span><span class="p">:</span> <span class="s2">&quot;Linux platform&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;macos&quot;</span><span class="p">:</span> <span class="s2">&quot;MAC 9.x platform or earlier&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;macos_x&quot;</span><span class="p">:</span> <span class="s2">&quot;MacOS X or later&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;os2&quot;</span><span class="p">:</span> <span class="s2">&quot;OS2 platform&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;palm&quot;</span><span class="p">:</span> <span class="s2">&quot;Palm operating system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;solaris&quot;</span><span class="p">:</span> <span class="s2">&quot;System V-based Unix platforms&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sunos&quot;</span><span class="p">:</span> <span class="s2">&quot;Unix platforms 4.1.3 or lower&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;symbos&quot;</span><span class="p">:</span> <span class="s2">&quot;Symbian operating system&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;unix&quot;</span><span class="p">:</span> <span class="s2">&quot;general Unix platforms&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;win16&quot;</span><span class="p">:</span> <span class="s2">&quot;Win16 (3.1) platform&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;win2k&quot;</span><span class="p">:</span> <span class="s2">&quot;Windows 2000 platform&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;win32&quot;</span><span class="p">:</span> <span class="s2">&quot;Windows 32-bit platform&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;win64&quot;</span><span class="p">:</span> <span class="s2">&quot;Windows 64-bit platform&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;win95&quot;</span><span class="p">:</span> <span class="s2">&quot;Windows 95, 98 and ME platforms&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;win98&quot;</span><span class="p">:</span> <span class="s2">&quot;Windows 98 platform only&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wince&quot;</span><span class="p">:</span> <span class="s2">&quot;Windows CE platform&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;winnt&quot;</span><span class="p">:</span> <span class="s2">&quot;WinNT&quot;</span><span class="p">,</span>
+        <span class="c1"># Scripting languages</span>
+        <span class="s2">&quot;abap&quot;</span><span class="p">:</span> <span class="s2">&quot;Advanced Business Application Programming scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;alisp&quot;</span><span class="p">:</span> <span class="s2">&quot;ALisp scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;amipro&quot;</span><span class="p">:</span> <span class="s2">&quot;AmiPro script&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ansi&quot;</span><span class="p">:</span> <span class="s2">&quot;American National Standards Institute scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;applescript&quot;</span><span class="p">:</span> <span class="s2">&quot;compiled Apple scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;asp&quot;</span><span class="p">:</span> <span class="s2">&quot;Active Server Pages scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;autoit&quot;</span><span class="p">:</span> <span class="s2">&quot;AutoIT scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bas&quot;</span><span class="p">:</span> <span class="s2">&quot;Basic scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bat&quot;</span><span class="p">:</span> <span class="s2">&quot;Basic scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;corelscript&quot;</span><span class="p">:</span> <span class="s2">&quot;Corelscript scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hta&quot;</span><span class="p">:</span> <span class="s2">&quot;HTML Application scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;HTML Application scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;inf&quot;</span><span class="p">:</span> <span class="s2">&quot;Install scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;irc&quot;</span><span class="p">:</span> <span class="s2">&quot;mIRC/pIRC scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;java&quot;</span><span class="p">:</span> <span class="s2">&quot;Java binaries (classes)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;js&quot;</span><span class="p">:</span> <span class="s2">&quot;Javascript scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;logo&quot;</span><span class="p">:</span> <span class="s2">&quot;LOGO scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mpb&quot;</span><span class="p">:</span> <span class="s2">&quot;MapBasic scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;msh&quot;</span><span class="p">:</span> <span class="s2">&quot;Monad shell scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;msil&quot;</span><span class="p">:</span> <span class="s2">&quot;.Net intermediate language scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;perl&quot;</span><span class="p">:</span> <span class="s2">&quot;Perl scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;php&quot;</span><span class="p">:</span> <span class="s2">&quot;Hypertext Preprocessor scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;python&quot;</span><span class="p">:</span> <span class="s2">&quot;Python scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sap&quot;</span><span class="p">:</span> <span class="s2">&quot;SAP platform scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sh&quot;</span><span class="p">:</span> <span class="s2">&quot;Shell scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;vba&quot;</span><span class="p">:</span> <span class="s2">&quot;Visual Basic for Applications scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;vbs&quot;</span><span class="p">:</span> <span class="s2">&quot;Visual Basic scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;winbat&quot;</span><span class="p">:</span> <span class="s2">&quot;Winbatch scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;winhlp&quot;</span><span class="p">:</span> <span class="s2">&quot;Windows Help scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;winreg&quot;</span><span class="p">:</span> <span class="s2">&quot;Windows registry scripts&quot;</span><span class="p">,</span>
+        <span class="c1"># Macros</span>
+        <span class="s2">&quot;a97m&quot;</span><span class="p">:</span> <span class="s2">&quot;Access 97, 2000, XP, 2003, 2007, and 2010 macros&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;he&quot;</span><span class="p">:</span> <span class="s2">&quot;macro scripting&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;o97m&quot;</span><span class="p">:</span> <span class="s2">&quot;Office 97, 2000, XP, 2003, 2007, and 2010 macros - those that </span><span class="se">\</span>
+<span class="s2">            affect Word, Excel, and Powerpoint&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pp97m&quot;</span><span class="p">:</span> <span class="s2">&quot;PowerPoint 97, 2000, XP, 2003, 2007, and 2010 macros&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;v5m&quot;</span><span class="p">:</span> <span class="s2">&quot;Visio5 macros&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;w1m&quot;</span><span class="p">:</span> <span class="s2">&quot;Word1Macro&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;w2m&quot;</span><span class="p">:</span> <span class="s2">&quot;Word2Macro&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;w97m&quot;</span><span class="p">:</span> <span class="s2">&quot;Word 97, 2000, XP, 2003, 2007, and 2010 macros&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wm&quot;</span><span class="p">:</span> <span class="s2">&quot;Word 95 macros&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;x97m&quot;</span><span class="p">:</span> <span class="s2">&quot;Excel 97, 2000, XP, 2003, 2007, and 2010 macros&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;xf&quot;</span><span class="p">:</span> <span class="s2">&quot;Excel formulas&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;xm&quot;</span><span class="p">:</span> <span class="s2">&quot;Excel 95 macros&quot;</span><span class="p">,</span>
+        <span class="c1"># Other file types</span>
+        <span class="s2">&quot;asx&quot;</span><span class="p">:</span> <span class="s2">&quot;XML metafile of Windows Media .asf files&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hc&quot;</span><span class="p">:</span> <span class="s2">&quot;HyperCard Apple scripts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;MIME packets&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;netware&quot;</span><span class="p">:</span> <span class="s2">&quot;Novell Netware files&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;qt&quot;</span><span class="p">:</span> <span class="s2">&quot;Quicktime files&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sb&quot;</span><span class="p">:</span> <span class="s2">&quot;StarBasic (Staroffice XML) files&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;swf&quot;</span><span class="p">:</span> <span class="s2">&quot;Shockwave Flash files&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tsql&quot;</span><span class="p">:</span> <span class="s2">&quot;MS SQL server files&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;xml&quot;</span><span class="p">:</span> <span class="s2">&quot;XML files&quot;</span>
+    <span class="p">}</span>
+
+    <span class="n">ALTERNATIVE_PLATFORMS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;multi&quot;</span><span class="p">:</span> <span class="s2">&quot;multi&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;macro&quot;</span><span class="p">:</span> <span class="s2">&quot;o97m&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;office&quot;</span><span class="p">:</span> <span class="s2">&quot;o97m&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;excel&quot;</span><span class="p">:</span> <span class="s2">&quot;x97m&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;word&quot;</span><span class="p">:</span> <span class="s2">&quot;w97m&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;powerpoint&quot;</span><span class="p">:</span> <span class="s2">&quot;pp97m&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;access&quot;</span><span class="p">:</span> <span class="s2">&quot;a97m&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;msil&quot;</span><span class="p">:</span> <span class="s2">&quot;msil&quot;</span>
+    <span class="p">}</span>
+
+    <span class="n">TYPES</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;adware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;behavior&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;browsermodifier&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;constructor&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ddos&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dialer&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dos&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;exploit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hacktool&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;joke&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;misleading&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;monitoringtool&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;program&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pws&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ransom&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;remoteaccess&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;riskware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rogue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rootkit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;settingsmodifier&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;softwarebundler&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;spammer&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;spoofer&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tool&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;trojan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;clicker&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dropper&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;notifier&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;proxy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;spyware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;backdoor&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;virtool&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;virus&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;worm&quot;</span>
+    <span class="p">]</span>
+
+    <span class="n">TROJANS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;clicker&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dropper&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;notifier&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;proxy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;spyware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;backdoor&quot;</span>
+    <span class="p">]</span>
+
+    <span class="n">RISKWARE</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;adware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;softwarebundler&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hacktool&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rogue&quot;</span>
+    <span class="p">]</span>
+
+    <span class="n">MAPPING</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;click&quot;</span><span class="p">:</span> <span class="s2">&quot;clicker&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;spy&quot;</span><span class="p">:</span> <span class="s2">&quot;spyware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;adware&quot;</span><span class="p">:</span> <span class="s2">&quot;adware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ad&quot;</span><span class="p">:</span> <span class="s2">&quot;adware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bundler&quot;</span><span class="p">:</span> <span class="s2">&quot;softwarebundler&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hack&quot;</span><span class="p">:</span> <span class="s2">&quot;hacktool&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hackkms&quot;</span><span class="p">:</span> <span class="s2">&quot;hacktool&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;kms&quot;</span><span class="p">:</span> <span class="s2">&quot;hacktool&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hacktool&quot;</span><span class="p">:</span> <span class="s2">&quot;hacktool&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rogue&quot;</span><span class="p">:</span> <span class="s2">&quot;rogue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rogueware&quot;</span><span class="p">:</span> <span class="s2">&quot;rogue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;riskware&quot;</span><span class="p">:</span> <span class="s2">&quot;riskware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;risk&quot;</span><span class="p">:</span> <span class="s2">&quot;riskware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;grayware&quot;</span><span class="p">:</span> <span class="s2">&quot;riskware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hktl&quot;</span><span class="p">:</span> <span class="s2">&quot;riskware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;keygen&quot;</span><span class="p">:</span> <span class="s2">&quot;riskware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;onlinegames&quot;</span><span class="p">:</span> <span class="s2">&quot;riskware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;scareware&quot;</span><span class="p">:</span> <span class="s2">&quot;riskware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;startpage&quot;</span><span class="p">:</span> <span class="s2">&quot;riskware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;suspicious&quot;</span><span class="p">:</span> <span class="s2">&quot;riskware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;unwanted&quot;</span><span class="p">:</span> <span class="s2">&quot;riskware&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;backdoor&quot;</span><span class="p">:</span> <span class="s2">&quot;backdoor&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bkdr&quot;</span><span class="p">:</span> <span class="s2">&quot;backdoor&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;genericbackdoor&quot;</span><span class="p">:</span> <span class="s2">&quot;backdoor&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;trojbackdoor&quot;</span><span class="p">:</span> <span class="s2">&quot;backdoor&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;trojan&quot;</span><span class="p">:</span> <span class="s2">&quot;trojan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;banker&quot;</span><span class="p">:</span> <span class="s2">&quot;trojan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;injector&quot;</span><span class="p">:</span> <span class="s2">&quot;trojan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;inject&quot;</span><span class="p">:</span> <span class="s2">&quot;trojan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;inj&quot;</span><span class="p">:</span> <span class="s2">&quot;trojan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tr&quot;</span><span class="p">:</span> <span class="s2">&quot;trojan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;trj&quot;</span><span class="p">:</span> <span class="s2">&quot;trojan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;trjn&quot;</span><span class="p">:</span> <span class="s2">&quot;trojan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;troj&quot;</span><span class="p">:</span> <span class="s2">&quot;trojan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;trojware&quot;</span><span class="p">:</span> <span class="s2">&quot;trojan&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;downloader&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;loader&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;exedown&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dldr&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dloader&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dloadr&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;downldexe&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;downldr&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;down&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dload&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dloade&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dl&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;download&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;downagent&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;downware&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dwnldr&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dwnlder&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;load&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;muldown&quot;</span><span class="p">:</span> <span class="s2">&quot;downloader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ransom&quot;</span><span class="p">:</span> <span class="s2">&quot;ransom&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;crypt&quot;</span><span class="p">:</span> <span class="s2">&quot;ransom&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;crypter&quot;</span><span class="p">:</span> <span class="s2">&quot;ransom&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cryptor&quot;</span><span class="p">:</span> <span class="s2">&quot;ransom&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;krypt&quot;</span><span class="p">:</span> <span class="s2">&quot;ransom&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;kryptik&quot;</span><span class="p">:</span> <span class="s2">&quot;ransom&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lock&quot;</span><span class="p">:</span> <span class="s2">&quot;ransom&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ransom&quot;</span><span class="p">:</span> <span class="s2">&quot;ransom&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ransomcrypt&quot;</span><span class="p">:</span> <span class="s2">&quot;ransom&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ransomlock&quot;</span><span class="p">:</span> <span class="s2">&quot;ransom&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rootkit&quot;</span><span class="p">:</span> <span class="s2">&quot;rootkit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rkit&quot;</span><span class="p">:</span> <span class="s2">&quot;rootkit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rtk&quot;</span><span class="p">:</span> <span class="s2">&quot;rootkit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sys&quot;</span><span class="p">:</span> <span class="s2">&quot;rootkit&quot;</span><span class="p">,</span>
+        <span class="c1"># extension</span>
+        <span class="s2">&quot;expl&quot;</span><span class="p">:</span> <span class="s2">&quot;exploit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dropper&quot;</span><span class="p">:</span> <span class="s2">&quot;dropper&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mdropper&quot;</span><span class="p">:</span> <span class="s2">&quot;dropper&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dropped&quot;</span><span class="p">:</span> <span class="s2">&quot;dropper&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drop&quot;</span><span class="p">:</span> <span class="s2">&quot;dropper&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drp&quot;</span><span class="p">:</span> <span class="s2">&quot;dropper&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mailer&quot;</span><span class="p">:</span> <span class="s2">&quot;mailer&quot;</span>
+    <span class="p">}</span>
+
+    <span class="n">TEMPLATE</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{type}</span><span class="s2">:</span><span class="si">{platform}</span><span class="s2">/</span><span class="si">{family}</span><span class="s2">.</span><span class="si">{variant}</span><span class="s2">!</span><span class="si">{information}</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">apikey</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">scan</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize VirusTotal API with the API key and timeout.</span>
+
+<span class="sd">        :param api_key: virustotal api key</span>
+<span class="sd">        :param timeout: request and response timeout</span>
+<span class="sd">        :param scan: send file to scan or just get report</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apikey</span> <span class="o">=</span> <span class="n">apikey</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scan</span> <span class="o">=</span> <span class="n">scan</span>
+
+    <span class="k">def</span> <span class="nf">_request_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Wrapper around doing a request and parsing its JSON output.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_REQUESTS</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooOperationalError</span><span class="p">(</span>
+                <span class="s2">&quot;The VirusTotal processing module requires the requests &quot;</span>
+                <span class="s2">&quot;library (install with `pip install requests`)&quot;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">ConnectionError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooOperationalError</span><span class="p">(</span><span class="s2">&quot;Unable to fetch VirusTotal &quot;</span>
+                                         <span class="s2">&quot;results: </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">resource</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetch the report of a file or URL.&quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">resource</span><span class="o">=</span><span class="n">resource</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">apikey</span><span class="p">)</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_json</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># This URL has not been analyzed yet - send a request to analyze it</span>
+        <span class="c1"># and return with the permalink.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;response_code&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">VirusTotalResourceNotScanned</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="s2">&quot;summary&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;resource has not been scanned yet&quot;</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;summary&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;positives&quot;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;positives&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="s2">&quot;permalink&quot;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;permalink&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;scan_date&quot;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;scan_date&quot;</span><span class="p">),</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+
+        <span class="c1"># For backwards compatibility.</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">summary</span><span class="p">:</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;scans&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;normalized&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;cve&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;platform&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;metatype&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;family&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">}</span>
+
+            <span class="c1"># Embed all VirusTotal results into the report.</span>
+            <span class="k">for</span> <span class="n">engine</span><span class="p">,</span> <span class="n">signature</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;scans&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">signature</span><span class="p">[</span><span class="s2">&quot;normalized&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">signature</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">])</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;scans&quot;</span><span class="p">][</span><span class="n">engine</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">signature</span>
+
+            <span class="c1"># Normalize each detected variant in order to try to find the</span>
+            <span class="c1"># exact malware family.</span>
+            <span class="n">norm_lower</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;cve&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">&quot;platform&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">&quot;metatype&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">&quot;family&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="p">}</span>
+            <span class="k">for</span> <span class="n">signature</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;scans&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">label_type</span> <span class="ow">in</span> <span class="n">signature</span><span class="p">[</span><span class="s2">&quot;normalized&quot;</span><span class="p">]:</span>
+                    <span class="n">norm_lower</span><span class="p">[</span><span class="n">label_type</span><span class="p">]</span> <span class="o">+=</span> <span class="n">signature</span><span class="p">[</span><span class="s2">&quot;normalized&quot;</span><span class="p">][</span><span class="n">label_type</span><span class="p">]</span>
+
+            <span class="n">labeller</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">label_type</span> <span class="ow">in</span> <span class="n">norm_lower</span><span class="p">:</span>
+                <span class="n">labeller</span><span class="o">.</span><span class="n">label_sample</span><span class="p">(</span><span class="n">norm_lower</span><span class="p">[</span><span class="n">label_type</span><span class="p">])</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;normalized&quot;</span><span class="p">][</span><span class="n">label_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">labeller</span><span class="o">.</span><span class="n">label</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+<div class="viewcode-block" id="VirusTotalAPI.url_report"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.url_report">[docs]</a>    <span class="k">def</span> <span class="nf">url_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the report of an existing URL scan.</span>
+
+<span class="sd">        :param url: URL</span>
+<span class="sd">        :param summary: if you want a summary report&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_report</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">URL_REPORT</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">summary</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VirusTotalAPI.file_report"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.file_report">[docs]</a>    <span class="k">def</span> <span class="nf">file_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the report of an existing file scan.</span>
+
+<span class="sd">        :param filepath: file path</span>
+<span class="sd">        :param summary: if you want a summary report&quot;&quot;&quot;</span>
+        <span class="n">resource</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">get_md5</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_report</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FILE_REPORT</span><span class="p">,</span> <span class="n">resource</span><span class="p">,</span> <span class="n">summary</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VirusTotalAPI.url_scan"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.url_scan">[docs]</a>    <span class="k">def</span> <span class="nf">url_scan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Submit a URL to be scanned.</span>
+
+<span class="sd">        :param url: URL</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">apikey</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">apikey</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">URL_SCAN</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">summary</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">permalink</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;permalink&quot;</span><span class="p">)))</span></div>
+
+<div class="viewcode-block" id="VirusTotalAPI.file_scan"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.file_scan">[docs]</a>    <span class="k">def</span> <span class="nf">file_scan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Submit a file to be scanned.</span>
+
+<span class="sd">        :param filepath: file path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">apikey</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">apikey</span><span class="p">)</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)}</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FILE_SCAN</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">summary</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">permalink</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;permalink&quot;</span><span class="p">)))</span></div>
+
+<div class="viewcode-block" id="VirusTotalAPI.detect_platform"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.detect_platform">[docs]</a>    <span class="k">def</span> <span class="nf">detect_platform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokens</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Guess platform affected by malware based on tokenised VT name.&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">compare_platforms</span><span class="p">(</span><span class="n">platform_list</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Check whether token is one of predefined platforms.&quot;&quot;&quot;</span>
+            <span class="n">platform</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">os</span> <span class="ow">in</span> <span class="n">platform_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">os</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">os</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">token</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">os</span>
+            <span class="k">for</span> <span class="n">os</span> <span class="ow">in</span> <span class="n">platform_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">os</span> <span class="ow">in</span> <span class="n">token</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">os</span>
+            <span class="k">return</span> <span class="n">platform</span>
+
+        <span class="n">platform</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">remaining_tokens</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">while</span> <span class="n">tokens</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+            <span class="c1"># Check for alternative platforms</span>
+            <span class="n">cp</span> <span class="o">=</span> <span class="n">compare_platforms</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ALTERNATIVE_PLATFORMS</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cp</span><span class="p">:</span>
+                <span class="n">platform</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ALTERNATIVE_PLATFORMS</span><span class="p">[</span><span class="n">cp</span><span class="p">])</span>
+                <span class="n">remaining_tokens</span> <span class="o">+=</span> <span class="n">token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">cp</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Check for OS</span>
+            <span class="n">cp</span> <span class="o">=</span> <span class="n">compare_platforms</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PLATFORMS</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cp</span><span class="p">:</span>
+                <span class="n">platform</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cp</span><span class="p">)</span>
+                <span class="n">remaining_tokens</span> <span class="o">+=</span> <span class="n">token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">cp</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Check for MS Windows name variants: &quot;win&quot; and &quot;w&quot; instead of &quot;win&quot;</span>
+            <span class="k">if</span> <span class="s2">&quot;win&quot;</span> <span class="ow">in</span> <span class="n">token</span><span class="p">:</span>
+                <span class="n">platform</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;win&quot;</span><span class="p">)</span>
+                <span class="n">remaining_tokens</span> <span class="o">+=</span> <span class="n">token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;win&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># find windows edition encoded as &quot;w..&quot;; if the string is followed</span>
+            <span class="c1"># by &quot;m&quot; it&#39;s a macro and not an OS</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;w(16|32|64|95|98|2k|ce|nt|bat|hlp|reg)(?!m)&quot;</span><span class="p">,</span>
+                               <span class="n">token</span><span class="p">)</span>
+            <span class="c1"># WARNING: only works for the first match</span>
+            <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+                <span class="n">platform</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;win&quot;</span> <span class="o">+</span> <span class="n">found</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">remaining_tokens</span> <span class="o">+=</span> <span class="n">token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="o">+</span><span class="n">found</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Handle MS Office macros # x w pp a</span>
+            <span class="c1"># Office 2K</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([a-zA-Z])2km&quot;</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+                <span class="n">platform</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">found</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;97m&quot;</span><span class="p">)</span>
+                <span class="n">remaining_tokens</span> <span class="o">+=</span> <span class="n">token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">found</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;2km&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Office 97 with missing &quot;m&quot;</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([a-zA-Z]97)&quot;</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+                <span class="n">platform</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">found</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span>
+                <span class="n">remaining_tokens</span> <span class="o">+=</span> <span class="n">token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">found</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># If none of the above apply transfer the token</span>
+            <span class="n">remaining_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+        <span class="c1"># Remove empty strings tokens</span>
+        <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">remaining_tokens</span> <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+
+        <span class="k">return</span> <span class="n">platform</span><span class="p">,</span> <span class="n">tokens</span></div>
+
+<div class="viewcode-block" id="VirusTotalAPI.clean_tokens"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.clean_tokens">[docs]</a>    <span class="k">def</span> <span class="nf">clean_tokens</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tokens</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Cleans tokenised malware name based on VARIANT_BLACKLIST.</span>
+<span class="sd">        The conditions for removing a substring are: exact match, prefix, and</span>
+<span class="sd">        suffix.&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">resolve_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Find possible tokens mappings from longest to the shortest</span>
+<span class="sd">            string according to predefined MAPPING lookup table.&quot;&quot;&quot;</span>
+            <span class="c1"># TODO: pick the most probable abbreviation combination i.e. the one</span>
+            <span class="c1">#       that uses all of the sub-tokens and not only a few</span>
+            <span class="c1">#       e.g. &quot;adload&quot;</span>
+            <span class="n">new_token</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">old_tokens</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
+                <span class="c1"># if the token is constructed from multiple tokens</span>
+                <span class="c1"># startswith and endswith should be separated here</span>
+                <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+                    <span class="n">new_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAPPING</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="n">old_tokens</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                    <span class="k">break</span>
+                <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+                    <span class="n">new_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAPPING</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="n">old_tokens</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                    <span class="k">break</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">token</span><span class="p">:</span>
+                    <span class="n">tokens_iter3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MAPPING</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+                    <span class="n">old_tokens</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                    <span class="k">break</span>
+
+            <span class="c1"># clean old_tokens from empty strings</span>
+            <span class="n">old_tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">old_tokens</span> <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+
+            <span class="k">return</span> <span class="n">new_token</span><span class="p">,</span> <span class="n">old_tokens</span>
+
+        <span class="c1"># Check 1:1 mappings</span>
+        <span class="n">tokens_iter0</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">token</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAPPING</span><span class="p">:</span>
+                <span class="n">tokens_iter0</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MAPPING</span><span class="p">[</span><span class="n">token</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tokens_iter0</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+        <span class="c1"># Handle blacklisted tokens and random (hex) hashes</span>
+        <span class="n">tokens_iter1</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens_iter0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">token</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">VARIANT_BLACKLIST</span> <span class="ow">and</span> \
+                    <span class="n">token</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">FIX_BLACKLIST</span> <span class="ow">and</span> \
+                    <span class="ow">not</span> <span class="n">token</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> \
+                    <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;[a-fA-F0-9]+$&quot;</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span> <span class="ow">and</span> \
+                    <span class="nb">len</span><span class="p">(</span><span class="n">token</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">tokens_iter1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+        <span class="n">tokens_iter2</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens_iter1</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">variant</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">FIX_BLACKLIST</span><span class="p">:</span>
+                <span class="n">new_token</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">variant</span><span class="p">):</span>
+                    <span class="n">new_token</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">variant</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">tokens_iter2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_token</span><span class="p">)</span>
+                    <span class="k">break</span>
+                <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">variant</span><span class="p">):</span>
+                    <span class="n">new_token</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">variant</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">tokens_iter2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_token</span><span class="p">)</span>
+                    <span class="k">break</span>
+
+            <span class="c1"># When none of the above apply keep the token</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">new_token</span><span class="p">:</span>
+                <span class="n">tokens_iter2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+        <span class="c1"># Get proper names according to predefined mapping</span>
+        <span class="n">sorted_mapping</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MAPPING</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">tokens_iter3</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="n">tokens_iter2</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">tokens_iter2</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">token</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAPPING</span><span class="p">:</span>
+                <span class="n">tokens_iter3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MAPPING</span><span class="p">[</span><span class="n">token</span><span class="p">])</span>
+                <span class="k">continue</span>
+
+            <span class="n">new_token</span><span class="p">,</span> <span class="n">old_tokens</span> <span class="o">=</span> <span class="n">resolve_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sorted_mapping</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+            <span class="n">tokens_iter2</span> <span class="o">+=</span> <span class="n">old_tokens</span>
+            <span class="k">if</span> <span class="n">new_token</span><span class="p">:</span>
+                <span class="n">tokens_iter3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_token</span><span class="p">)</span>
+            <span class="c1"># If no new token found leave the token untouched</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tokens_iter3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+        <span class="c1"># Remove tokens up to 2 letters and the blacklisted ones</span>
+        <span class="n">tokens_iter4</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tokens_iter3</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span>
+                        <span class="n">t</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">VARIANT_BLACKLIST</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">tokens_iter4</span></div>
+
+<div class="viewcode-block" id="VirusTotalAPI.normalize"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variant</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Normalize the variant name provided by an Anti Virus engine. This</span>
+<span class="sd">        attempts to extract the useful parts of a variant name by stripping</span>
+<span class="sd">        all the boilerplate stuff from it.&quot;&quot;&quot;</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;cve&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;platform&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;metatype&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;family&quot;</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">variant</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ret</span>
+
+        <span class="c1"># Handles &quot;CVE-2012-1234&quot;, &quot;CVE2012-1234&quot;.</span>
+        <span class="n">cve</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;CVE[-_]?(</span><span class="se">\\</span><span class="s2">d</span><span class="si">{4}</span><span class="s2">)[-_](</span><span class="se">\\</span><span class="s2">d</span><span class="si">{4}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">variant</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cve</span><span class="p">:</span>
+            <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;cve&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;CVE-</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cve</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">cve</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
+
+        <span class="c1"># Handles &quot;CVE121234&quot;.</span>
+        <span class="n">cve</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;CVE(</span><span class="se">\\</span><span class="s2">d</span><span class="si">{2}</span><span class="s2">)(</span><span class="se">\\</span><span class="s2">d</span><span class="si">{4}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">variant</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cve</span><span class="p">:</span>
+            <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;cve&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;CVE-20</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cve</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">cve</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
+
+        <span class="c1"># Split variant into tokens based on any punctuation symbol including _</span>
+        <span class="n">vt_name</span> <span class="o">=</span> <span class="n">variant</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">tokens</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[a-zA-Z0-9]+&quot;</span><span class="p">,</span> <span class="n">vt_name</span><span class="p">)</span>
+
+        <span class="n">tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clean_tokens</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+        <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;platform&quot;</span><span class="p">],</span> <span class="n">tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_platform</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+
+        <span class="c1"># Discard too short tokens which are not recognised</span>
+        <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+            <span class="c1"># Get metatype: trojan &amp; riskware</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;trojan&quot;</span> <span class="ow">or</span> <span class="n">token</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">TROJANS</span><span class="p">)</span> <span class="ow">and</span>\
+                    <span class="s2">&quot;trojan&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;metatype&quot;</span><span class="p">]:</span>
+                <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;metatype&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;trojan&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;riskware&quot;</span> <span class="ow">or</span> <span class="n">token</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">RISKWARE</span><span class="p">)</span> <span class="ow">and</span>\
+                    <span class="s2">&quot;riskware&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;metatype&quot;</span><span class="p">]:</span>
+                <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;metatype&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;riskware&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Get type</span>
+            <span class="k">if</span> <span class="n">token</span> <span class="o">!=</span> <span class="s2">&quot;trojan&quot;</span> <span class="ow">and</span> <span class="n">token</span> <span class="o">!=</span> <span class="s2">&quot;riskware&quot;</span> <span class="ow">and</span> \
+                    <span class="n">token</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">TYPES</span><span class="p">:</span>
+                <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+            <span class="c1"># Get family</span>
+            <span class="k">if</span> <span class="n">token</span> <span class="o">!=</span> <span class="s2">&quot;trojan&quot;</span> <span class="ow">and</span> <span class="n">token</span> <span class="o">!=</span> <span class="s2">&quot;riskware&quot;</span> <span class="ow">and</span> \
+                    <span class="n">token</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">TYPES</span><span class="p">:</span>
+                <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;family&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ret</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

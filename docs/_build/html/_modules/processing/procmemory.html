@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>processing.procmemory &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>processing.procmemory</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for processing.procmemory</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<span class="kn">from</span> <span class="nn">lib.cuckoo.common.abstracts</span> <span class="kn">import</span> <span class="n">Processing</span>
+
+<div class="viewcode-block" id="ProcessMemory"><a class="viewcode-back" href="../../processing.html#processing.procmemory.ProcessMemory">[docs]</a><span class="k">class</span> <span class="nc">ProcessMemory</span><span class="p">(</span><span class="n">Processing</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Analyze process memory dumps.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ProcessMemory.read_dump"><a class="viewcode-back" href="../../processing.html#processing.procmemory.ProcessMemory.read_dump">[docs]</a>    <span class="k">def</span> <span class="nf">read_dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">buf</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">buf</span><span class="p">:</span>
+                <span class="k">break</span>
+
+            <span class="n">row</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;QIIII&quot;</span><span class="p">,</span> <span class="n">buf</span><span class="p">)</span>
+            <span class="n">addr</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">typ</span><span class="p">,</span> <span class="n">protect</span> <span class="o">=</span> <span class="n">row</span>
+
+            <span class="k">yield</span> <span class="p">{</span>
+                <span class="s2">&quot;addr&quot;</span><span class="p">:</span> <span class="s2">&quot;0x</span><span class="si">%08x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">addr</span><span class="p">,</span>
+                <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;0x</span><span class="si">%08x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">addr</span> <span class="o">+</span> <span class="n">size</span><span class="p">),</span>
+                <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">size</span><span class="p">,</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">typ</span><span class="p">,</span>
+                <span class="s2">&quot;protect&quot;</span><span class="p">:</span> <span class="n">page_access</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">protect</span><span class="p">),</span>
+                <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">tell</span><span class="p">(),</span>
+            <span class="p">}</span>
+
+            <span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ProcessMemory.create_idapy"><a class="viewcode-back" href="../../processing.html#processing.procmemory.ProcessMemory.create_idapy">[docs]</a>    <span class="k">def</span> <span class="nf">create_idapy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">process</span><span class="p">):</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">process</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">],</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">process</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.dmp&quot;</span><span class="p">,</span> <span class="s2">&quot;.py&quot;</span><span class="p">),</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="o">&gt;&gt;</span><span class="n">o</span><span class="p">,</span> <span class="s2">&quot;from idaapi import add_segm, mem2base, autoMark, AU_CODE&quot;</span>
+        <span class="nb">print</span><span class="o">&gt;&gt;</span><span class="n">o</span><span class="p">,</span> <span class="s2">&quot;from idaapi import set_processor_type, SETPROC_ALL&quot;</span>
+        <span class="nb">print</span><span class="o">&gt;&gt;</span><span class="n">o</span><span class="p">,</span> <span class="s2">&quot;set_processor_type(&#39;80386r&#39;, SETPROC_ALL)&quot;</span>
+
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">region</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">process</span><span class="p">[</span><span class="s2">&quot;regions&quot;</span><span class="p">]):</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="s2">&quot;offset&quot;</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">region</span><span class="p">[</span><span class="s2">&quot;protect&quot;</span><span class="p">]:</span>
+                <span class="n">section</span> <span class="o">=</span> <span class="s2">&quot;unk_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">idx</span>
+                <span class="n">type_</span> <span class="o">=</span> <span class="s2">&quot;DATA&quot;</span>
+            <span class="k">elif</span> <span class="s2">&quot;x&quot;</span> <span class="ow">in</span> <span class="n">region</span><span class="p">[</span><span class="s2">&quot;protect&quot;</span><span class="p">]:</span>
+                <span class="n">section</span> <span class="o">=</span> <span class="s2">&quot;text_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">idx</span>
+                <span class="n">type_</span> <span class="o">=</span> <span class="s2">&quot;CODE&quot;</span>
+            <span class="k">elif</span> <span class="s2">&quot;w&quot;</span> <span class="ow">in</span> <span class="n">region</span><span class="p">[</span><span class="s2">&quot;protect&quot;</span><span class="p">]:</span>
+                <span class="n">section</span> <span class="o">=</span> <span class="s2">&quot;data_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">idx</span>
+                <span class="n">type_</span> <span class="o">=</span> <span class="s2">&quot;DATA&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">section</span> <span class="o">=</span> <span class="s2">&quot;rdata_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">idx</span>
+                <span class="n">type_</span> <span class="o">=</span> <span class="s2">&quot;DATA&quot;</span>
+
+            <span class="nb">print</span><span class="o">&gt;&gt;</span><span class="n">o</span><span class="p">,</span> <span class="s2">&quot;add_segm(0, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, &#39;</span><span class="si">%s</span><span class="s2">&#39;, &#39;</span><span class="si">%s</span><span class="s2">&#39;)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="n">region</span><span class="p">[</span><span class="s2">&quot;addr&quot;</span><span class="p">],</span> <span class="n">region</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">],</span> <span class="n">section</span><span class="p">,</span> <span class="n">type_</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="o">&gt;&gt;</span><span class="n">o</span><span class="p">,</span> <span class="s2">&quot;mem2base(&#39;</span><span class="si">%s</span><span class="s2">&#39;.decode(&#39;base64&#39;), </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="n">i</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;base64&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                <span class="n">region</span><span class="p">[</span><span class="s2">&quot;addr&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">type_</span> <span class="o">==</span> <span class="s2">&quot;CODE&quot;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="o">&gt;&gt;</span><span class="n">o</span><span class="p">,</span> <span class="s2">&quot;autoMark(</span><span class="si">%s</span><span class="s2">, AU_CODE)&quot;</span> <span class="o">%</span> <span class="n">region</span><span class="p">[</span><span class="s2">&quot;addr&quot;</span><span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="nf">_fixup_pe_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pe</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fixes the PE header from an in-memory representation to an</span>
+<span class="sd">        on-disk representation.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">pe</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
+            <span class="n">section</span><span class="o">.</span><span class="n">PointerToRawData</span> <span class="o">=</span> <span class="n">section</span><span class="o">.</span><span class="n">VirtualAddress</span>
+            <span class="n">section</span><span class="o">.</span><span class="n">SizeOfRawData</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+                <span class="n">section</span><span class="o">.</span><span class="n">Misc_VirtualSize</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">SizeOfRawData</span>
+            <span class="p">)</span>
+
+        <span class="n">reloc</span> <span class="o">=</span> <span class="n">pefile</span><span class="o">.</span><span class="n">DIRECTORY_ENTRY</span><span class="p">[</span><span class="s2">&quot;IMAGE_DIRECTORY_ENTRY_BASERELOC&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pe</span><span class="o">.</span><span class="n">OPTIONAL_HEADER</span><span class="o">.</span><span class="n">DATA_DIRECTORY</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">reloc</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">reloc</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">OPTIONAL_HEADER</span><span class="o">.</span><span class="n">DATA_DIRECTORY</span><span class="p">[</span><span class="n">reloc</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">reloc</span><span class="o">.</span><span class="n">VirtualAddress</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">reloc</span><span class="o">.</span><span class="n">Size</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Disable relocations as those have already been applied.</span>
+        <span class="n">reloc</span><span class="o">.</span><span class="n">VirtualAddress</span> <span class="o">=</span> <span class="n">reloc</span><span class="o">.</span><span class="n">Size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">pe</span><span class="o">.</span><span class="n">FILE_HEADER</span><span class="o">.</span><span class="n">Characteristics</span> <span class="o">|=</span> \
+            <span class="n">pefile</span><span class="o">.</span><span class="n">IMAGE_CHARACTERISTICS</span><span class="p">[</span><span class="s2">&quot;IMAGE_FILE_RELOCS_STRIPPED&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="ProcessMemory.dump_images"><a class="viewcode-back" href="../../processing.html#processing.procmemory.ProcessMemory.dump_images">[docs]</a>    <span class="k">def</span> <span class="nf">dump_images</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">process</span><span class="p">,</span> <span class="n">drop_dlls</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Dump executable images from this process memory dump.&quot;&quot;&quot;</span>
+        <span class="n">buf</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">process</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">],</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">images</span><span class="p">,</span> <span class="n">capture</span><span class="p">,</span> <span class="n">regions</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">pe</span> <span class="o">=</span> <span class="p">[],</span> <span class="kc">False</span><span class="p">,</span> <span class="p">[],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">process</span><span class="p">[</span><span class="s2">&quot;regions&quot;</span><span class="p">]:</span>
+            <span class="n">off</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;offset&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">capture</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">end</span><span class="p">:</span>
+                    <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pe</span><span class="p">,</span> <span class="n">regions</span><span class="p">))</span>
+                    <span class="n">capture</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">regions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># We&#39;re going to take a couple of assumptions for granted here.</span>
+            <span class="c1"># Namely, the PE header is fully intact, has not been tampered</span>
+            <span class="c1"># with, and the DOS header, the NT header, and the Optional header</span>
+            <span class="c1"># all remain in the first page/chunk of this PE file.</span>
+            <span class="k">if</span> <span class="n">buf</span><span class="p">[</span><span class="n">off</span><span class="p">:</span><span class="n">off</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;MZ&quot;</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">pe</span> <span class="o">=</span> <span class="n">pefile</span><span class="o">.</span><span class="n">PE</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">buf</span><span class="p">[</span><span class="n">off</span><span class="p">:</span><span class="n">off</span><span class="o">+</span><span class="n">size</span><span class="p">],</span> <span class="n">fast_load</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="c1"># Enable the capture of memory regions.</span>
+            <span class="n">capture</span><span class="p">,</span> <span class="n">regions</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="p">[</span><span class="n">r</span><span class="p">]</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;addr&quot;</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span> <span class="o">+</span> <span class="n">pe</span><span class="o">.</span><span class="n">OPTIONAL_HEADER</span><span class="o">.</span><span class="n">SizeOfImage</span>
+
+        <span class="c1"># If present, also process the last loaded executable.</span>
+        <span class="k">if</span> <span class="n">capture</span> <span class="ow">and</span> <span class="n">regions</span><span class="p">:</span>
+            <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pe</span><span class="p">,</span> <span class="n">regions</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">pe</span><span class="p">,</span> <span class="n">regions</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="c1"># Skip DLLs if requested to do so (the default).</span>
+            <span class="k">if</span> <span class="n">pe</span><span class="o">.</span><span class="n">is_dll</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">drop_dlls</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fixup_pe_header</span><span class="p">(</span><span class="n">pe</span><span class="p">)</span>
+
+            <span class="n">img</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pe</span><span class="o">.</span><span class="n">write</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">regions</span><span class="p">:</span>
+                <span class="n">img</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;offset&quot;</span><span class="p">]:</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;offset&quot;</span><span class="p">]</span><span class="o">+</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]])</span>
+
+            <span class="n">sha1</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">img</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">pe</span><span class="o">.</span><span class="n">is_dll</span><span class="p">():</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">.dll_&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">process</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">],</span> <span class="n">sha1</span><span class="p">[:</span><span class="mi">16</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="n">pe</span><span class="o">.</span><span class="n">is_exe</span><span class="p">():</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">.exe_&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">process</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">],</span> <span class="n">sha1</span><span class="p">[:</span><span class="mi">16</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s2">&quot;Unknown injected executable for pid=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">process</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pmemory_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+            <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">img</span><span class="p">))</span>
+
+            <span class="k">yield</span> <span class="n">File</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">get_all</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ProcessMemory.run"><a class="viewcode-back" href="../../processing.html#processing.procmemory.ProcessMemory.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run analysis.</span>
+
+<span class="sd">        :return: structured results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;procmemory&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;extract_img&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">HAVE_PEFILE</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;In order to extract PE files from memory dumps it is &quot;</span>
+                <span class="s2">&quot;required to have pefile installed (`pip install pefile`).&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pmemory_path</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">dmp</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pmemory_path</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">dmp</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.dmp&quot;</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+                <span class="n">dump_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pmemory_path</span><span class="p">,</span> <span class="n">dmp</span><span class="p">)</span>
+                <span class="n">dump_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">dump_path</span><span class="p">)</span>
+
+                <span class="n">pid</span><span class="p">,</span> <span class="n">num</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;(</span><span class="se">\\</span><span class="s2">d+)&quot;</span><span class="p">,</span> <span class="n">dmp</span><span class="p">))</span>
+
+                <span class="n">proc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                    <span class="n">file</span><span class="o">=</span><span class="n">dump_path</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="n">pid</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">num</span><span class="p">,</span>
+                    <span class="n">yara</span><span class="o">=</span><span class="n">dump_file</span><span class="o">.</span><span class="n">get_yara</span><span class="p">(</span><span class="s2">&quot;memory&quot;</span><span class="p">),</span>
+                    <span class="n">urls</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">dump_file</span><span class="o">.</span><span class="n">get_urls</span><span class="p">()),</span>
+                    <span class="n">regions</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">read_dump</span><span class="p">(</span><span class="n">dump_path</span><span class="p">)),</span>
+                <span class="p">)</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;idapro&quot;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">create_idapy</span><span class="p">(</span><span class="n">proc</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;extract_img&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">HAVE_PEFILE</span><span class="p">:</span>
+                    <span class="n">proc</span><span class="p">[</span><span class="s2">&quot;extracted&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dump_images</span><span class="p">(</span><span class="n">proc</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dump_delete&quot;</span><span class="p">):</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dump_path</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to delete memory dump file at path </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dump_path</span><span class="p">)</span>
+
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">proc</span><span class="p">)</span>
+
+        <span class="n">results</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;num&quot;</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">results</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

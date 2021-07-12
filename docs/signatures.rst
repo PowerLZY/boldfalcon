@@ -1,8 +1,7 @@
 signatures package
 ==================
 
-Submodules
-----------
+
 
 signatures.creates\_exe module
 ------------------------------
@@ -21,10 +20,3 @@ signatures.generic\_metrics module
    :show-inheritance:
 
 
-Module contents
----------------
-
-.. automodule:: signatures
-   :members:
-   :undoc-members:
-   :show-inheritance:

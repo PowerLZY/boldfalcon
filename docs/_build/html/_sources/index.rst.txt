@@ -18,12 +18,23 @@ Welcome to Bold-Falcon's documentation!
 
    agent
 
-
 .. toctree::
    :maxdepth: 2
    :caption: analyzer:
 
    analyzer
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Common:
+
+   lib.cuckoo.common
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Core:
+
+   lib.cuckoo.core
 
 .. toctree::
    :maxdepth: 2
@@ -33,15 +44,10 @@ Welcome to Bold-Falcon's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: lib.common.abstracts:
-
-   lib.common.abstracts
-
-.. toctree::
-   :maxdepth: 2
    :caption: machinery:
 
    machinery
+
 
 .. toctree::
    :maxdepth: 2
@@ -51,10 +57,10 @@ Welcome to Bold-Falcon's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: signatures:
+   :caption: detection:
 
-   signatures
-   
+   detection
+
 .. toctree::
    :maxdepth: 2
    :caption: report
@@ -62,9 +68,10 @@ Welcome to Bold-Falcon's documentation!
    reporting
 
 
+
+
 Indices and tables
 ==================
 
-.. * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`

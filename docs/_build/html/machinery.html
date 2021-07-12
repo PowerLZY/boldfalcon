@@ -95,6 +95,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="analyzer.html">analyzer package</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Common:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib.cuckoo.common.html">lib.cuckoo.common package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Core:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib.cuckoo.core.html">lib.cuckoo.core package</a></li>
+</ul>
 <p class="caption"><span class="caption-text">auxiliary:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="auxiliary.html">auxiliary package</a></li>
@@ -102,10 +110,8 @@
 <p class="caption"><span class="caption-text">machinery:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">machinery package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-machinery.virtualbox">machinery.virtualbox module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-machinery.vmware">machinery.vmware module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-machinery">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -113,9 +119,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="processing.html">processing package</a></li>
 </ul>
-<p class="caption"><span class="caption-text">signatures:</span></p>
+<p class="caption"><span class="caption-text">detection:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="signatures.html">signatures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detection.html">detection package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">report</span></p>
 <ul>
@@ -189,14 +195,11 @@
             
   <div class="section" id="machinery-package">
 <h1>machinery package<a class="headerlink" href="#machinery-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-machinery.virtualbox">
 <span id="machinery-virtualbox-module"></span><h2>machinery.virtualbox module<a class="headerlink" href="#module-machinery.virtualbox" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="machinery.virtualbox.VirtualBox">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">machinery.virtualbox.</span></span><span class="sig-name descname"><span class="pre">VirtualBox</span></span><a class="headerlink" href="#machinery.virtualbox.VirtualBox" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">machinery.virtualbox.</span></span><span class="sig-name descname"><span class="pre">VirtualBox</span></span><a class="reference internal" href="_modules/machinery/virtualbox.html#VirtualBox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#machinery.virtualbox.VirtualBox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery" title="lib.cuckoo.common.abstracts.Machinery"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Machinery</span></code></a></p>
 <p>Virtualization layer for VirtualBox.</p>
 <dl class="py attribute">
@@ -226,14 +229,18 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="machinery.virtualbox.VirtualBox.dump_memory">
-<span class="sig-name descname"><span class="pre">dump_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#machinery.virtualbox.VirtualBox.dump_memory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes a memory dump.
-&#64;param path: path to where to store the memory dump.</p>
+<span class="sig-name descname"><span class="pre">dump_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/machinery/virtualbox.html#VirtualBox.dump_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#machinery.virtualbox.VirtualBox.dump_memory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes a memory dump.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – path to where to store the memory dump.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="machinery.virtualbox.VirtualBox.dump_pcap">
-<span class="sig-name descname"><span class="pre">dump_pcap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#machinery.virtualbox.VirtualBox.dump_pcap" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dump_pcap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/machinery/virtualbox.html#VirtualBox.dump_pcap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#machinery.virtualbox.VirtualBox.dump_pcap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump the pcap for this analysis through the VirtualBox integrated
 nictrace functionality. This is useful in scenarios where multiple
 Virtual Machines are talking with each other in the same subnet (which
@@ -242,19 +249,33 @@ you normally don’t see when tcpdump’ing on the gatway).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="machinery.virtualbox.VirtualBox.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#machinery.virtualbox.VirtualBox.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start a virtual machine.
-&#64;param label: virtual machine name.
-&#64;param task: task object.
-&#64;raise CuckooMachineError: if unable to start.</p>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/machinery/virtualbox.html#VirtualBox.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#machinery.virtualbox.VirtualBox.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start a virtual machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>label</strong> – virtual machine name.</p></li>
+<li><p><strong>task</strong> – task object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooMachineError" title="lib.cuckoo.common.exceptions.CuckooMachineError"><strong>CuckooMachineError</strong></a> – if unable to start.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="machinery.virtualbox.VirtualBox.stop">
-<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#machinery.virtualbox.VirtualBox.stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stops a virtual machine.
-&#64;param label: virtual machine name.
-&#64;raise CuckooMachineError: if unable to stop.</p>
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/machinery/virtualbox.html#VirtualBox.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#machinery.virtualbox.VirtualBox.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops a virtual machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>label</strong> – virtual machine name.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooMachineError" title="lib.cuckoo.common.exceptions.CuckooMachineError"><strong>CuckooMachineError</strong></a> – if unable to stop.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -264,7 +285,7 @@ you normally don’t see when tcpdump’ing on the gatway).</p>
 <span id="machinery-vmware-module"></span><h2>machinery.vmware module<a class="headerlink" href="#module-machinery.vmware" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="machinery.vmware.VMware">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">machinery.vmware.</span></span><span class="sig-name descname"><span class="pre">VMware</span></span><a class="headerlink" href="#machinery.vmware.VMware" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">machinery.vmware.</span></span><span class="sig-name descname"><span class="pre">VMware</span></span><a class="reference internal" href="_modules/machinery/vmware.html#VMware"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#machinery.vmware.VMware" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery" title="lib.cuckoo.common.abstracts.Machinery"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Machinery</span></code></a></p>
 <p>Virtualization layer for VMware Workstation using vmrun utility.</p>
 <dl class="py attribute">
@@ -274,32 +295,43 @@ you normally don’t see when tcpdump’ing on the gatway).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="machinery.vmware.VMware.dump_memory">
-<span class="sig-name descname"><span class="pre">dump_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vmx_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#machinery.vmware.VMware.dump_memory" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dump_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vmx_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/machinery/vmware.html#VMware.dump_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#machinery.vmware.VMware.dump_memory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Take a memory dump of the machine.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="machinery.vmware.VMware.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vmx_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#machinery.vmware.VMware.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start a virtual machine.
-&#64;param vmx_path: path to vmx file.
-&#64;param task: task object.
-&#64;raise CuckooMachineError: if unable to start.</p>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vmx_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/machinery/vmware.html#VMware.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#machinery.vmware.VMware.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start a virtual machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vmx_path</strong> – path to vmx file.</p></li>
+<li><p><strong>task</strong> – task object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooMachineError" title="lib.cuckoo.common.exceptions.CuckooMachineError"><strong>CuckooMachineError</strong></a> – if unable to start.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="machinery.vmware.VMware.stop">
-<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vmx_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#machinery.vmware.VMware.stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stops a virtual machine.
-&#64;param vmx_path: path to vmx file
-&#64;raise CuckooMachineError: if unable to stop.</p>
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vmx_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/machinery/vmware.html#VMware.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#machinery.vmware.VMware.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops a virtual machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vmx_path</strong> – path to vmx file</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooMachineError" title="lib.cuckoo.common.exceptions.CuckooMachineError"><strong>CuckooMachineError</strong></a> – if unable to stop.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-machinery">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-machinery" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

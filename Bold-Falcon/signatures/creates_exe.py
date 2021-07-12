@@ -6,6 +6,7 @@
 from lib.cuckoo.common.abstracts import Signature
 
 class CreatesExe(Signature):
+    
     name = "creates_exe"
     description = "Creates a Windows executable on the filesystem"
     severity = 2

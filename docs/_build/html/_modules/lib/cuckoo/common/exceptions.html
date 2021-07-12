@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>lib.cuckoo.common.exceptions &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lib.cuckoo.common.exceptions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lib.cuckoo.common.exceptions</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+<div class="viewcode-block" id="CuckooCriticalError"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooCriticalError">[docs]</a><span class="k">class</span> <span class="nc">CuckooCriticalError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cuckoo struggle in a critical error.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="CuckooStartupError"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooStartupError">[docs]</a><span class="k">class</span> <span class="nc">CuckooStartupError</span><span class="p">(</span><span class="n">CuckooCriticalError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Error starting up Cuckoo.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="CuckooDatabaseError"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooDatabaseError">[docs]</a><span class="k">class</span> <span class="nc">CuckooDatabaseError</span><span class="p">(</span><span class="n">CuckooCriticalError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cuckoo database error.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="CuckooDependencyError"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooDependencyError">[docs]</a><span class="k">class</span> <span class="nc">CuckooDependencyError</span><span class="p">(</span><span class="n">CuckooCriticalError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Missing dependency error.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="CuckooOperationalError"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooOperationalError">[docs]</a><span class="k">class</span> <span class="nc">CuckooOperationalError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cuckoo operation error.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="CuckooMachineError"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooMachineError">[docs]</a><span class="k">class</span> <span class="nc">CuckooMachineError</span><span class="p">(</span><span class="n">CuckooOperationalError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Error managing analysis machine.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="CuckooAnalysisError"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooAnalysisError">[docs]</a><span class="k">class</span> <span class="nc">CuckooAnalysisError</span><span class="p">(</span><span class="n">CuckooOperationalError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Error during analysis.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="CuckooProcessingError"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooProcessingError">[docs]</a><span class="k">class</span> <span class="nc">CuckooProcessingError</span><span class="p">(</span><span class="n">CuckooOperationalError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Error in processor module.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="CuckooDetectionError"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooDetectionError">[docs]</a><span class="k">class</span> <span class="nc">CuckooDetectionError</span><span class="p">(</span><span class="n">CuckooOperationalError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Error in processor module.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="CuckooReportError"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooReportError">[docs]</a><span class="k">class</span> <span class="nc">CuckooReportError</span><span class="p">(</span><span class="n">CuckooOperationalError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Error in reporting module.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="CuckooGuestError"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooGuestError">[docs]</a><span class="k">class</span> <span class="nc">CuckooGuestError</span><span class="p">(</span><span class="n">CuckooOperationalError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cuckoo guest agent error.&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="CuckooResultError"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooResultError">[docs]</a><span class="k">class</span> <span class="nc">CuckooResultError</span><span class="p">(</span><span class="n">CuckooOperationalError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cuckoo result server error.&quot;&quot;&quot;</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

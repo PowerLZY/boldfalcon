@@ -7,8 +7,8 @@ Bold-Falcon
    agent
    analyzer
    auxiliary
+   detection
    lib
-   machinery
    processing
    reporting
    signatures

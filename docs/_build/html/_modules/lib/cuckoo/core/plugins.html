@@ -1,0 +1,873 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>lib.cuckoo.core.plugins &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lib.cuckoo.core.plugins</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lib.cuckoo.core.plugins</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding=utf-8</span>
+<span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<div class="viewcode-block" id="enumerate_plugins"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.enumerate_plugins">[docs]</a><span class="k">def</span> <span class="nf">enumerate_plugins</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">module_prefix</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="n">class_</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Import plugins of type `class` located at `dirpath` into the</span>
+<span class="sd">    `namespace` that starts with `module_prefix`. If `dirpath` represents a</span>
+<span class="sd">    filepath then it is converted into its containing directory. The</span>
+<span class="sd">    `attributes` dictionary allows one to set extra fields for all imported</span>
+<span class="sd">    plugins.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>
+        <span class="n">dirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">fname</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.py&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">fname</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__init__&quot;</span><span class="p">):</span>
+            <span class="n">module_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+            <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">module_prefix</span><span class="p">,</span> <span class="n">module_name</span><span class="p">))</span>
+
+    <span class="n">plugins</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">subclass</span> <span class="ow">in</span> <span class="n">class_</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">():</span>
+        <span class="c1"># Check whether this subclass belongs to the module namespace that</span>
+        <span class="c1"># we&#39;re currently importing. It should be noted that parent and child</span>
+        <span class="c1"># namespaces should fail the following if-statement.</span>
+        <span class="k">if</span> <span class="n">module_prefix</span> <span class="o">!=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subclass</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="k">continue</span>
+
+        <span class="n">namespace</span><span class="p">[</span><span class="n">subclass</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">subclass</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">attributes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">subclass</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="n">plugins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subclass</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">plugins</span></div>
+
+<div class="viewcode-block" id="import_package"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.import_package">[docs]</a><span class="k">def</span> <span class="nf">import_package</span><span class="p">(</span><span class="n">package</span><span class="p">):</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="n">package</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span>
+    <span class="k">for</span> <span class="n">loader</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ispkg</span> <span class="ow">in</span> <span class="n">pkgutil</span><span class="o">.</span><span class="n">iter_modules</span><span class="p">(</span><span class="n">package</span><span class="o">.</span><span class="n">__path__</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
+        <span class="n">import_plugin</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="import_plugin"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.import_plugin">[docs]</a><span class="k">def</span> <span class="nf">import_plugin</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">globals</span><span class="p">(),</span> <span class="nb">locals</span><span class="p">(),</span> <span class="p">[</span><span class="s2">&quot;dummy&quot;</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">CuckooCriticalError</span><span class="p">(</span><span class="s2">&quot;Unable to import plugin &quot;</span>
+                                  <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">{0}</span><span class="se">\&quot;</span><span class="s2">: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">load_plugins</span><span class="p">(</span><span class="n">module</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="load_plugins"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.load_plugins">[docs]</a><span class="k">def</span> <span class="nf">load_plugins</span><span class="p">(</span><span class="n">module</span><span class="p">):</span> <span class="c1"># 导入插件</span>
+
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Auxiliary</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Auxiliary</span><span class="p">:</span>
+                <span class="n">register_plugin</span><span class="p">(</span><span class="s2">&quot;auxiliary&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Machinery</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Machinery</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">LibVirtMachinery</span><span class="p">:</span>
+                <span class="n">register_plugin</span><span class="p">(</span><span class="s2">&quot;machinery&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Processing</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Processing</span><span class="p">:</span>
+                <span class="n">register_plugin</span><span class="p">(</span><span class="s2">&quot;processing&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Detection</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Detection</span><span class="p">:</span>
+                <span class="n">register_plugin</span><span class="p">(</span><span class="s2">&quot;detection&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Report</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Report</span><span class="p">:</span>
+                <span class="n">register_plugin</span><span class="p">(</span><span class="s2">&quot;reporting&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Signature</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Signature</span><span class="p">:</span>
+                <span class="n">register_plugin</span><span class="p">(</span><span class="s2">&quot;signatures&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+<span class="c1"># 全局注册_modules</span>
+<div class="viewcode-block" id="register_plugin"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.register_plugin">[docs]</a><span class="k">def</span> <span class="nf">register_plugin</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    register gobal modules</span>
+
+<span class="sd">    :garam group:</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">_modules</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">_modules</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+<span class="c1"># _modules[group]</span>
+<div class="viewcode-block" id="list_plugins"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.list_plugins">[docs]</a><span class="k">def</span> <span class="nf">list_plugins</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">group</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_modules</span><span class="p">[</span><span class="n">group</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_modules</span></div>
+
+<div class="viewcode-block" id="RunAuxiliary"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunAuxiliary">[docs]</a><span class="k">class</span> <span class="nc">RunAuxiliary</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Auxiliary modules manager.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">machine</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">task</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">machine</span> <span class="o">=</span> <span class="n">machine</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="s2">&quot;auxiliary&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="RunAuxiliary.start"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunAuxiliary.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">list_plugins</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s2">&quot;auxiliary&quot;</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">module</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Failed to load the auxiliary module &quot;</span>
+                              <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">{0}</span><span class="se">\&quot;</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">module</span><span class="p">))</span>
+                <span class="k">return</span>
+
+            <span class="n">module_name</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmodule</span><span class="p">(</span><span class="n">current</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">module_name</span><span class="p">:</span>
+                <span class="n">module_name</span> <span class="o">=</span> <span class="n">module_name</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">CuckooOperationalError</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Auxiliary module </span><span class="si">%s</span><span class="s2"> not found in &quot;</span>
+                          <span class="s2">&quot;configuration file&quot;</span><span class="p">,</span> <span class="n">module_name</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">current</span><span class="o">.</span><span class="n">set_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">)</span>
+            <span class="n">current</span><span class="o">.</span><span class="n">set_machine</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="p">)</span>
+            <span class="n">current</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">current</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unable to start auxiliary module </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">module_name</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Started auxiliary module: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                          <span class="n">current</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RunAuxiliary.stop"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunAuxiliary.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">module</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unable to stop auxiliary module: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Stopped auxiliary module: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                          <span class="n">module</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="RunProcessing"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunProcessing">[docs]</a><span class="k">class</span> <span class="nc">RunProcessing</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Analysis Results Processing Engine.</span>
+
+<span class="sd">    This class handles the loading and execution of the processing modules.</span>
+<span class="sd">    It executes the enabled ones sequentially and generates a dictionary which</span>
+<span class="sd">    is then passed over the reporting engine.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param task: task dictionary of the analysis to process.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">task</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;analyses&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">baseline_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;baseline&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="s2">&quot;processing&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RunProcessing.process"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunProcessing.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run a processing module.</span>
+
+<span class="sd">        :param module: processing module to run.</span>
+<span class="sd">        :param results: results dict.</span>
+<span class="sd">        :return: results generated by module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initialize the specified processing module.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">module</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Failed to load the processing module &quot;</span>
+                          <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">{0}</span><span class="se">\&quot;</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">module</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="c1"># Extract the module name.</span>
+        <span class="n">module_name</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmodule</span><span class="p">(</span><span class="n">current</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">module_name</span><span class="p">:</span>
+            <span class="n">module_name</span> <span class="o">=</span> <span class="n">module_name</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">CuckooOperationalError</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Processing module </span><span class="si">%s</span><span class="s2"> not found in configuration file&quot;</span><span class="p">,</span>
+                      <span class="n">module_name</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="c1"># If the processing module is disabled in the config, skip it.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="c1"># Give it the path to the baseline directory.</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">set_baseline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">baseline_path</span><span class="p">)</span>
+        <span class="c1"># Give it the path to the analysis results.</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">set_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span><span class="p">)</span>
+        <span class="c1"># Give it the analysis task object.</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">set_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">)</span>
+        <span class="c1"># Give it the options from the relevant processing.conf section.</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="c1"># Give the results that we have obtained so far.</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">set_results</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Run the processing module and retrieve the generated data to be</span>
+            <span class="c1"># appended to the general results container.</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executed processing module </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> on analysis at &quot;</span>
+                      <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span><span class="p">)</span>
+
+            <span class="c1"># If succeeded, return they module&#39;s key name and the data.</span>
+            <span class="k">return</span> <span class="n">current</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">data</span>
+        <span class="k">except</span> <span class="n">CuckooDependencyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The processing module </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> has missing dependencies: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">CuckooProcessingError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The processing module </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> returned the following &quot;</span>
+                        <span class="s2">&quot;error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Failed to run the processing module </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> for task #</span><span class="si">%d</span><span class="s2">:&quot;</span><span class="p">,</span>
+                          <span class="n">current</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="RunProcessing.run"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunProcessing.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run all processing modules and all signatures.</span>
+
+<span class="sd">        :return: processing results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># This is the results container. It&#39;s what will be used by all the</span>
+        <span class="c1"># reporting modules to make it consumable by humans and machines.</span>
+        <span class="c1"># It will contain all the results generated by every processing</span>
+        <span class="c1"># module available. Its structure can be observed through the JSON</span>
+        <span class="c1"># dump in the analysis&#39; reports folder. (If jsondump is enabled.)</span>
+        <span class="c1"># We friendly call this &quot;fat dict&quot;.</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;_temp&quot;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Order modules using the user-defined sequence number.</span>
+        <span class="c1"># If none is specified for the modules, they are selected in</span>
+        <span class="c1"># alphabetical order.</span>
+        <span class="n">processing_list</span> <span class="o">=</span> <span class="n">list_plugins</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s2">&quot;processing&quot;</span><span class="p">)</span>
+        <span class="c1"># [&lt;class &#39;modules.processing.analysisinfo.AnalysisInfo&#39;&gt;, ... &lt;class &#39;modules.processing.virustotal.VirusTotal&#39;&gt;]</span>
+        <span class="c1"># If no modules are loaded, return an empty dictionary.</span>
+        <span class="k">if</span> <span class="n">processing_list</span><span class="p">:</span>
+            <span class="n">processing_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">module</span><span class="p">:</span> <span class="n">module</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
+
+            <span class="c1"># Run every loaded processing module.</span>
+            <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">processing_list</span><span class="p">:</span>
+                <span class="n">key</span><span class="p">,</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+
+                <span class="c1"># If the module provided results, append it to the fat dict.</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">and</span> <span class="n">result</span><span class="p">:</span>
+                    <span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No processing modules loaded&quot;</span><span class="p">)</span>
+
+        <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_temp&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Return the fat dict.</span>
+        <span class="k">return</span> <span class="n">results</span></div></div>
+
+<div class="viewcode-block" id="RunDetection"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunDetection">[docs]</a><span class="k">class</span> <span class="nc">RunDetection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Analysis Results Detection Engine.</span>
+
+<span class="sd">    :param task: task dictionary of the analysis to detection.</span>
+<span class="sd">    :param results: results dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">task</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;analyses&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">baseline_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;baseline&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="s2">&quot;detection&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">predict</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="RunDetection.process"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunDetection.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run a detection module.</span>
+
+<span class="sd">        :param module: detection module to run.</span>
+<span class="sd">        :param results: results dict.</span>
+<span class="sd">        :return: results generated by module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initialize the specified detection module.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">module</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Failed to load the detection module &quot;</span>
+                          <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">{0}</span><span class="se">\&quot;</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">module</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="c1"># Extract the module name.</span>
+        <span class="n">module_name</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmodule</span><span class="p">(</span><span class="n">current</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">module_name</span><span class="p">:</span>
+            <span class="n">module_name</span> <span class="o">=</span> <span class="n">module_name</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">CuckooOperationalError</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Detection module </span><span class="si">%s</span><span class="s2"> not found in configuration file&quot;</span><span class="p">,</span> <span class="n">module_name</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="c1"># If the Detection module is disabled in the config, skip it.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="c1"># ---- Detection module 需要的配置 ----</span>
+        <span class="c1"># Give it the path to the baseline directory.</span>
+        <span class="c1">#current.set_baseline(self.baseline_path)</span>
+        <span class="c1"># Give it the path to the analysis results.</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">set_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span><span class="p">)</span>
+        <span class="c1"># Give it the analysis task object.</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">set_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">)</span>
+        <span class="c1"># Give it the options from the relevant Detection.conf section.</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="c1"># Give the results that we have obtained so far.</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">load_instance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
+        <span class="c1"># ---- Detection module 需要的配置 ----</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Run the Detection module and retrieve the generated data to be</span>
+            <span class="c1"># appended to the general results container.</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executed Detection module </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> on analysis at &quot;</span>
+                      <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span><span class="p">)</span>
+
+            <span class="c1"># If succeeded, return they module&#39;s key name and the data.</span>
+            <span class="k">return</span> <span class="n">current</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">data</span>
+        <span class="k">except</span> <span class="n">CuckooDependencyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The Detection module </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> has missing dependencies: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">CuckooProcessingError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The Detection module </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> returned the following &quot;</span>
+                        <span class="s2">&quot;error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Failed to run the Detection module </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> for task #</span><span class="si">%d</span><span class="s2">:&quot;</span><span class="p">,</span>
+                          <span class="n">current</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="RunDetection.run"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunDetection.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run all detection modules.</span>
+
+<span class="sd">        :return: detection results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># This is the results container. It&#39;s what will be used by all the</span>
+        <span class="c1"># reporting modules to make it consumable by humans and machines.</span>
+        <span class="c1"># It will contain all the results generated by every processing</span>
+        <span class="c1"># module available. Its structure can be observed through the JSON</span>
+        <span class="c1"># dump in the analysis&#39; reports folder. (If jsondump is enabled.)</span>
+        <span class="c1"># We friendly call this &quot;fat dict&quot;.</span>
+
+
+        <span class="c1"># Order modules using the user-defined sequence number.</span>
+        <span class="c1"># If none is specified for the modules, they are selected in</span>
+        <span class="c1"># alphabetical order.</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">detection_list</span> <span class="o">=</span> <span class="n">list_plugins</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s2">&quot;detection&quot;</span><span class="p">)</span>
+
+        <span class="c1"># If no modules are loaded, return an empty dictionary.</span>
+        <span class="k">if</span> <span class="n">detection_list</span><span class="p">:</span>
+            <span class="n">detection_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">module</span><span class="p">:</span> <span class="n">module</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
+            <span class="c1"># Run every loaded detection module.</span>
+            <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">detection_list</span><span class="p">:</span>
+                <span class="n">key</span><span class="p">,</span> <span class="n">predict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">and</span> <span class="n">predict</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="n">key</span><span class="p">:</span><span class="n">predict</span><span class="p">})</span>
+                    <span class="n">score</span> <span class="o">=</span> <span class="n">predict</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No detection modules loaded&quot;</span><span class="p">)</span>
+
+        <span class="c1"># If the module provided results, append it to the ’info‘ dict.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;detection&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span>
+        <span class="k">if</span> <span class="s2">&quot;info&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">][</span><span class="s2">&quot;threaten&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span></div></div>
+
+
+<div class="viewcode-block" id="RunSignatures"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunSignatures">[docs]</a><span class="k">class</span> <span class="nc">RunSignatures</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Run Signatures.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">matched</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># While developing our version is generally something along the lines</span>
+        <span class="c1"># of &quot;2.0-dev&quot; whereas StrictVersion() does not handle &quot;-dev&quot;, so we</span>
+        <span class="c1"># strip that part off.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">CUCKOO_VERSION</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Gather all enabled, up-to-date, and applicable signatures.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">signatures</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">signature</span> <span class="ow">in</span> <span class="n">list_plugins</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s2">&quot;signatures&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_enable_signature</span><span class="p">(</span><span class="n">signature</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">signatures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">signature</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+        <span class="c1"># Signatures to call per API name.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_sigs</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">_should_enable_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signature</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Should the given signature be enabled for this analysis?&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">signature</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_signature_version</span><span class="p">(</span><span class="n">signature</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Network and/or cross-platform signatures.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">signature</span><span class="o">.</span><span class="n">platform</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="n">task_platform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;platform&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Windows is implied when a platform has not been specified during the</span>
+        <span class="c1"># submission of a sample, but for other platforms the platform has to</span>
+        <span class="c1"># be explicitly stated.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">task_platform</span> <span class="ow">and</span> <span class="n">signature</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;windows&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="n">task_platform</span> <span class="o">==</span> <span class="n">signature</span><span class="o">.</span><span class="n">platform</span>
+
+<div class="viewcode-block" id="RunSignatures.check_signature_version"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunSignatures.check_signature_version">[docs]</a>    <span class="k">def</span> <span class="nf">check_signature_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signature</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check signature version.</span>
+
+<span class="sd">        :param current: signature class/instance to check.</span>
+<span class="sd">        :return: check result.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check the minimum Cuckoo version for this signature, if provided.</span>
+        <span class="k">if</span> <span class="n">signature</span><span class="o">.</span><span class="n">minimum</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># If the running Cuckoo is older than the required minimum</span>
+                <span class="c1"># version, skip this signature.</span>
+                <span class="k">if</span> <span class="n">StrictVersion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">StrictVersion</span><span class="p">(</span><span class="n">signature</span><span class="o">.</span><span class="n">minimum</span><span class="p">):</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;You are running an older incompatible version &quot;</span>
+                              <span class="s2">&quot;of Cuckoo, the signature </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> requires &quot;</span>
+                              <span class="s2">&quot;minimum version </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span>
+                              <span class="n">signature</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">signature</span><span class="o">.</span><span class="n">minimum</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+                <span class="k">if</span> <span class="n">StrictVersion</span><span class="p">(</span><span class="s2">&quot;1.2&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">StrictVersion</span><span class="p">(</span><span class="n">signature</span><span class="o">.</span><span class="n">minimum</span><span class="p">):</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Cuckoo signature style has been redesigned in &quot;</span>
+                             <span class="s2">&quot;cuckoo 1.2. This signature is not &quot;</span>
+                             <span class="s2">&quot;compatible: </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+                <span class="k">if</span> <span class="n">StrictVersion</span><span class="p">(</span><span class="s2">&quot;2.0&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">StrictVersion</span><span class="p">(</span><span class="n">signature</span><span class="o">.</span><span class="n">minimum</span><span class="p">):</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Cuckoo version 2.0 features a lot of changes that &quot;</span>
+                             <span class="s2">&quot;render old signatures ineffective as they are not &quot;</span>
+                             <span class="s2">&quot;backwards-compatible. Please upgrade this &quot;</span>
+                             <span class="s2">&quot;signature: </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">):</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;This signatures features one or more deprecated &quot;</span>
+                             <span class="s2">&quot;functions which indicates that it is very likely &quot;</span>
+                             <span class="s2">&quot;an old-style signature. Please upgrade this &quot;</span>
+                             <span class="s2">&quot;signature: </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Wrong minor version number in signature </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                          <span class="n">signature</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Check the maximum version of Cuckoo for this signature, if provided.</span>
+        <span class="k">if</span> <span class="n">signature</span><span class="o">.</span><span class="n">maximum</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># If the running Cuckoo is newer than the required maximum</span>
+                <span class="c1"># version, skip this signature.</span>
+                <span class="k">if</span> <span class="n">StrictVersion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">StrictVersion</span><span class="p">(</span><span class="n">signature</span><span class="o">.</span><span class="n">maximum</span><span class="p">):</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;You are running a newer incompatible version &quot;</span>
+                              <span class="s2">&quot;of Cuckoo, the signature </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> requires &quot;</span>
+                              <span class="s2">&quot;maximum version </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span>
+                              <span class="n">signature</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">signature</span><span class="o">.</span><span class="n">maximum</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Wrong major version number in signature </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                          <span class="n">signature</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="RunSignatures.call_signature"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunSignatures.call_signature">[docs]</a>    <span class="k">def</span> <span class="nf">call_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">handler</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Wrapper to call into 3rd party signatures. This wrapper yields the</span>
+<span class="sd">        event to the signature and handles matched signatures recursively.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">handler</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                <span class="n">signature</span><span class="o">.</span><span class="n">matched</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">for</span> <span class="n">sig</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signatures</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">call_signature</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">sig</span><span class="o">.</span><span class="n">on_signature</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Failed to run &#39;</span><span class="si">%s</span><span class="s2">&#39; of the </span><span class="si">%s</span><span class="s2"> signature&quot;</span><span class="p">,</span>
+                          <span class="n">handler</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">signature</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="RunSignatures.init_api_sigs"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunSignatures.init_api_sigs">[docs]</a>    <span class="k">def</span> <span class="nf">init_api_sigs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">apiname</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a list of signatures for which we should trigger its</span>
+<span class="sd">        on_call method for this particular API name and category.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_sigs</span><span class="p">[</span><span class="n">apiname</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">sig</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signatures</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sig</span><span class="o">.</span><span class="n">filter_apinames</span> <span class="ow">and</span> <span class="n">apiname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">filter_apinames</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">sig</span><span class="o">.</span><span class="n">filter_categories</span> <span class="ow">and</span> <span class="n">category</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">filter_categories</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">api_sigs</span><span class="p">[</span><span class="n">apiname</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RunSignatures.yield_calls"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunSignatures.yield_calls">[docs]</a>    <span class="k">def</span> <span class="nf">yield_calls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proc</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Yield calls of interest to each interested signature.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">call</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;calls&quot;</span><span class="p">,</span> <span class="p">[])):</span>
+
+            <span class="c1"># Initialize a list of signatures to call for this API call.</span>
+            <span class="k">if</span> <span class="n">call</span><span class="p">[</span><span class="s2">&quot;api&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_sigs</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">init_api_sigs</span><span class="p">(</span><span class="n">call</span><span class="p">[</span><span class="s2">&quot;api&quot;</span><span class="p">],</span> <span class="n">call</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">))</span>
+
+            <span class="c1"># See the following SO answer on why we&#39;re using reversed() here.</span>
+            <span class="c1"># http://stackoverflow.com/a/10665800</span>
+            <span class="k">for</span> <span class="n">sig</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_sigs</span><span class="p">[</span><span class="n">call</span><span class="p">[</span><span class="s2">&quot;api&quot;</span><span class="p">]]):</span>
+                <span class="n">sig</span><span class="o">.</span><span class="n">cid</span><span class="p">,</span> <span class="n">sig</span><span class="o">.</span><span class="n">call</span> <span class="o">=</span> <span class="n">idx</span><span class="p">,</span> <span class="n">call</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_signature</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">sig</span><span class="o">.</span><span class="n">on_call</span><span class="p">,</span> <span class="n">call</span><span class="p">,</span> <span class="n">proc</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">api_sigs</span><span class="p">[</span><span class="n">call</span><span class="p">[</span><span class="s2">&quot;api&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RunSignatures.run"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunSignatures.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run signatures.&quot;&quot;&quot;</span>
+        <span class="c1"># Allow signatures to initialize themselves.</span>
+        <span class="k">for</span> <span class="n">signature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signatures</span><span class="p">:</span>
+            <span class="n">signature</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Running </span><span class="si">%d</span><span class="s2"> signatures&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signatures</span><span class="p">))</span>
+
+        <span class="c1"># Iterate calls and tell interested signatures about them.</span>
+        <span class="k">for</span> <span class="n">proc</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;behavior&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;processes&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+
+            <span class="c1"># Yield the new process event.</span>
+            <span class="k">for</span> <span class="n">sig</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signatures</span><span class="p">:</span>
+                <span class="n">sig</span><span class="o">.</span><span class="n">pid</span> <span class="o">=</span> <span class="n">proc</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">call_signature</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">sig</span><span class="o">.</span><span class="n">on_process</span><span class="p">,</span> <span class="n">proc</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">yield_calls</span><span class="p">(</span><span class="n">proc</span><span class="p">)</span>
+
+        <span class="c1"># Yield completion events to each signature.</span>
+        <span class="k">for</span> <span class="n">sig</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signatures</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">call_signature</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">sig</span><span class="o">.</span><span class="n">on_complete</span><span class="p">)</span>
+
+        <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">signature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signatures</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">signature</span><span class="o">.</span><span class="n">matched</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Analysis matched signature: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">signature</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">matched</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">signature</span><span class="o">.</span><span class="n">results</span><span class="p">())</span>
+                <span class="n">score</span> <span class="o">+=</span> <span class="n">signature</span><span class="o">.</span><span class="n">severity</span>
+
+        <span class="c1"># Sort the matched signatures by their severity level and put them</span>
+        <span class="c1"># into the results dictionary.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">matched</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">key</span><span class="p">:</span> <span class="n">key</span><span class="p">[</span><span class="s2">&quot;severity&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;signatures&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matched</span>
+        <span class="k">if</span> <span class="s2">&quot;info&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">][</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">score</span> <span class="o">/</span> <span class="mf">5.0</span></div></div>
+
+<div class="viewcode-block" id="RunReporting"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunReporting">[docs]</a><span class="k">class</span> <span class="nc">RunReporting</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reporting Engine.</span>
+
+<span class="sd">    This class handles the loading and execution of the enabled reporting</span>
+<span class="sd">    modules. It receives the analysis results dictionary from the Processing</span>
+<span class="sd">    Engine and pass it over to the reporting modules before executing them.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param analysis_path: analysis folder path.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">task</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;analyses&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="s2">&quot;reporting&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RunReporting.process"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunReporting.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run a single reporting module.</span>
+
+<span class="sd">        :param module: reporting module.</span>
+<span class="sd">        :param results: results results from analysis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initialize current reporting module.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">module</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Failed to load the reporting module </span><span class="se">\&quot;</span><span class="si">{0}</span><span class="se">\&quot;</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">module</span><span class="p">))</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Extract the module name.</span>
+        <span class="n">module_name</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmodule</span><span class="p">(</span><span class="n">current</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">module_name</span><span class="p">:</span>
+            <span class="n">module_name</span> <span class="o">=</span> <span class="n">module_name</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">CuckooOperationalError</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Reporting module </span><span class="si">%s</span><span class="s2"> not found in configuration file&quot;</span><span class="p">,</span> <span class="n">module_name</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># If the reporting module is disabled in the config, skip it.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Give it the path to the analysis results folder.</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">set_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span><span class="p">)</span>
+        <span class="c1"># Give it the analysis task object.</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">set_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">)</span>
+        <span class="c1"># Give it the the relevant reporting.conf section.</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="c1"># Load the content of the analysis.conf file.</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="n">cfg</span><span class="o">=</span><span class="n">current</span><span class="o">.</span><span class="n">conf_path</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">current</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executed reporting module </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">CuckooDependencyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The reporting module </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> has missing dependencies: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">CuckooReportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The reporting module </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> returned the following error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Failed to run the reporting module </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RunReporting.run"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunReporting.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generates all reports.</span>
+
+<span class="sd">        :raise CuckooReportError: if a report module fails.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># In every reporting module you can specify a numeric value that</span>
+        <span class="c1"># represents at which position that module should be executed among</span>
+        <span class="c1"># all the available ones. It can be used in the case where a</span>
+        <span class="c1"># module requires another one to be already executed beforehand.</span>
+        <span class="n">reporting_list</span> <span class="o">=</span> <span class="n">list_plugins</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s2">&quot;reporting&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Return if no reporting modules are loaded.</span>
+        <span class="k">if</span> <span class="n">reporting_list</span><span class="p">:</span>
+            <span class="n">reporting_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">module</span><span class="p">:</span> <span class="n">module</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
+
+            <span class="c1"># Run every loaded reporting module.</span>
+            <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">reporting_list</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No reporting modules loaded&quot;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

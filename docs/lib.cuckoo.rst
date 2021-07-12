@@ -1,17 +1,10 @@
 lib.cuckoo package
 ==================
 
-Subpackages
------------
+
 
 .. toctree::
 
    lib.cuckoo.common
+   lib.cuckoo.core
 
-Module contents
----------------
-
-.. automodule:: lib.cuckoo
-   :members:
-   :undoc-members:
-   :show-inheritance:

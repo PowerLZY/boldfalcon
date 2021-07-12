@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="machinery package" href="machinery.html" />
-    <link rel="prev" title="analyzer package" href="analyzer.html" /> 
+    <link rel="prev" title="lib.cuckoo.core package" href="lib.cuckoo.core.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,14 +95,19 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="analyzer.html">analyzer package</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Common:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib.cuckoo.common.html">lib.cuckoo.common package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Core:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib.cuckoo.core.html">lib.cuckoo.core package</a></li>
+</ul>
 <p class="caption"><span class="caption-text">auxiliary:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">auxiliary package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-auxiliary.mitm">auxiliary.mitm module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-auxiliary.services">auxiliary.services module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-auxiliary.sniffer">auxiliary.sniffer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-auxiliary">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -114,9 +119,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="processing.html">processing package</a></li>
 </ul>
-<p class="caption"><span class="caption-text">signatures:</span></p>
+<p class="caption"><span class="caption-text">detection:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="signatures.html">signatures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detection.html">detection package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">report</span></p>
 <ul>
@@ -190,57 +195,23 @@
             
   <div class="section" id="auxiliary-package">
 <h1>auxiliary package<a class="headerlink" href="#auxiliary-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-auxiliary.mitm">
 <span id="auxiliary-mitm-module"></span><h2>auxiliary.mitm module<a class="headerlink" href="#module-auxiliary.mitm" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="auxiliary.mitm.MITM">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">auxiliary.mitm.</span></span><span class="sig-name descname"><span class="pre">MITM</span></span><a class="headerlink" href="#auxiliary.mitm.MITM" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">auxiliary.mitm.</span></span><span class="sig-name descname"><span class="pre">MITM</span></span><a class="reference internal" href="_modules/auxiliary/mitm.html#MITM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#auxiliary.mitm.MITM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Auxiliary" title="lib.cuckoo.common.abstracts.Auxiliary"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Auxiliary</span></code></a></p>
+<p>Use mitmproxy Tools</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="auxiliary.mitm.MITM.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auxiliary.mitm.MITM.start" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/auxiliary/mitm.html#MITM.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#auxiliary.mitm.MITM.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start mitmdump tools</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="auxiliary.mitm.MITM.stop">
-<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auxiliary.mitm.MITM.stop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-auxiliary.services">
-<span id="auxiliary-services-module"></span><h2>auxiliary.services module<a class="headerlink" href="#module-auxiliary.services" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="auxiliary.services.Services">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">auxiliary.services.</span></span><span class="sig-name descname"><span class="pre">Services</span></span><a class="headerlink" href="#auxiliary.services.Services" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Auxiliary" title="lib.cuckoo.common.abstracts.Auxiliary"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Auxiliary</span></code></a></p>
-<p>Allows one or more additional VMs to be run next to an analysis. Either
-as global services (which are generally never rebooted) or on a
-per-analysis basis.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="auxiliary.services.Services.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auxiliary.services.Services.start" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="auxiliary.services.Services.start_service">
-<span class="sig-name descname"><span class="pre">start_service</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auxiliary.services.Services.start_service" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start a VM containing one or more services.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="auxiliary.services.Services.stop">
-<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auxiliary.services.Services.stop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="auxiliary.services.Services.stop_service">
-<span class="sig-name descname"><span class="pre">stop_service</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auxiliary.services.Services.stop_service" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stop a VM containing one or more services.</p>
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/auxiliary/mitm.html#MITM.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#auxiliary.mitm.MITM.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>stop mitmdump tools</p>
 </dd></dl>
 
 </dd></dl>
@@ -250,25 +221,28 @@ per-analysis basis.</p>
 <span id="auxiliary-sniffer-module"></span><h2>auxiliary.sniffer module<a class="headerlink" href="#module-auxiliary.sniffer" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="auxiliary.sniffer.Sniffer">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">auxiliary.sniffer.</span></span><span class="sig-name descname"><span class="pre">Sniffer</span></span><a class="headerlink" href="#auxiliary.sniffer.Sniffer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">auxiliary.sniffer.</span></span><span class="sig-name descname"><span class="pre">Sniffer</span></span><a class="reference internal" href="_modules/auxiliary/sniffer.html#Sniffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#auxiliary.sniffer.Sniffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Auxiliary" title="lib.cuckoo.common.abstracts.Auxiliary"><code class="xref py py-class docutils literal notranslate"><span class="pre">lib.cuckoo.common.abstracts.Auxiliary</span></code></a></p>
+<p>Sniffer use tcpdump tools</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="auxiliary.sniffer.Sniffer.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auxiliary.sniffer.Sniffer.start" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/auxiliary/sniffer.html#Sniffer.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#auxiliary.sniffer.Sniffer.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start tcpdump tools</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="auxiliary.sniffer.Sniffer.stop">
-<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auxiliary.sniffer.Sniffer.stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stop sniffing.
-&#64;return: operation status.</p>
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/auxiliary/sniffer.html#Sniffer.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#auxiliary.sniffer.Sniffer.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop sniffing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>operation status.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-auxiliary">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-auxiliary" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -279,7 +253,7 @@ per-analysis basis.</p>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="machinery.html" class="btn btn-neutral float-right" title="machinery package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="analyzer.html" class="btn btn-neutral float-left" title="analyzer package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lib.cuckoo.core.html" class="btn btn-neutral float-left" title="lib.cuckoo.core package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

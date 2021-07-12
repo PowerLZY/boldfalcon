@@ -1,0 +1,769 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>processing.static &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>processing.static</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for processing.static</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<span class="kn">from</span> <span class="nn">lib.cuckoo.common.abstracts</span> <span class="kn">import</span> <span class="n">Processing</span>
+
+
+<div class="viewcode-block" id="PortableExecutable"><a class="viewcode-back" href="../../processing.html#processing.static.PortableExecutable">[docs]</a><span class="k">class</span> <span class="nc">PortableExecutable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;PE analysis.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:param file_path: file path.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pe</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_get_filetype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets filetype, uses libmagic if available.</span>
+
+<span class="sd">        :param data: data to be analyzed.</span>
+<span class="sd">        :return: file type or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_MAGIC</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ms</span> <span class="o">=</span> <span class="n">magic</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">magic</span><span class="o">.</span><span class="n">MAGIC_NONE</span><span class="p">)</span>
+            <span class="n">ms</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+            <span class="n">file_type</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">file_type</span> <span class="o">=</span> <span class="n">magic</span><span class="o">.</span><span class="n">from_buffer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ms</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="k">return</span> <span class="n">file_type</span>
+
+    <span class="k">def</span> <span class="nf">_get_peid_signatures</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets PEID signatures.</span>
+
+<span class="sd">        :return: matched signatures or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sig_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;peutils&quot;</span><span class="p">,</span> <span class="s2">&quot;UserDB.TXT&quot;</span><span class="p">)</span>
+            <span class="n">signatures</span> <span class="o">=</span> <span class="n">peutils</span><span class="o">.</span><span class="n">SignatureDatabase</span><span class="p">(</span><span class="n">sig_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">signatures</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="p">,</span> <span class="n">ep_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_get_imported_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets imported symbols.</span>
+
+<span class="sd">        :return: imported symbols dict or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">imports</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="p">,</span> <span class="s2">&quot;DIRECTORY_ENTRY_IMPORT&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">symbols</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">imported_symbol</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">imports</span><span class="p">:</span>
+                    <span class="n">symbols</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                        <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="n">imported_symbol</span><span class="o">.</span><span class="n">address</span><span class="p">),</span>
+                        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">imported_symbol</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="p">})</span>
+
+                <span class="n">imports</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;dll&quot;</span><span class="p">:</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">dll</span><span class="p">),</span>
+                    <span class="s2">&quot;imports&quot;</span><span class="p">:</span> <span class="n">symbols</span><span class="p">,</span>
+                <span class="p">})</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Unable to parse imported symbols.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">imports</span>
+
+    <span class="k">def</span> <span class="nf">_get_exported_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets exported symbols.</span>
+
+<span class="sd">        :return: exported symbols dict or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">exports</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="p">,</span> <span class="s2">&quot;DIRECTORY_ENTRY_EXPORT&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">exported_symbol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="o">.</span><span class="n">DIRECTORY_ENTRY_EXPORT</span><span class="o">.</span><span class="n">symbols</span><span class="p">:</span>
+                <span class="n">exports</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="o">.</span><span class="n">OPTIONAL_HEADER</span><span class="o">.</span><span class="n">ImageBase</span> <span class="o">+</span>
+                                   <span class="n">exported_symbol</span><span class="o">.</span><span class="n">address</span><span class="p">),</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">exported_symbol</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="s2">&quot;ordinal&quot;</span><span class="p">:</span> <span class="n">exported_symbol</span><span class="o">.</span><span class="n">ordinal</span><span class="p">,</span>
+                <span class="p">})</span>
+
+        <span class="k">return</span> <span class="n">exports</span>
+
+    <span class="k">def</span> <span class="nf">_get_sections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets sections.</span>
+
+<span class="sd">        :return: sections dict or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sections</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">section</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">section</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">))</span>
+                <span class="n">section</span><span class="p">[</span><span class="s2">&quot;virtual_address&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;0x</span><span class="si">{0:08x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">VirtualAddress</span><span class="p">)</span>
+                <span class="n">section</span><span class="p">[</span><span class="s2">&quot;virtual_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;0x</span><span class="si">{0:08x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">Misc_VirtualSize</span><span class="p">)</span>
+                <span class="n">section</span><span class="p">[</span><span class="s2">&quot;size_of_data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;0x</span><span class="si">{0:08x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">SizeOfRawData</span><span class="p">)</span>
+                <span class="n">section</span><span class="p">[</span><span class="s2">&quot;entropy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">get_entropy</span><span class="p">()</span>
+                <span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+        <span class="k">return</span> <span class="n">sections</span>
+
+    <span class="k">def</span> <span class="nf">_get_resources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get resources.</span>
+
+<span class="sd">        :return: resources dict or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resources</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="p">,</span> <span class="s2">&quot;DIRECTORY_ENTRY_RESOURCE&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">resource_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="o">.</span><span class="n">DIRECTORY_ENTRY_RESOURCE</span><span class="o">.</span><span class="n">entries</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">resource</span> <span class="o">=</span> <span class="p">{}</span>
+
+                    <span class="k">if</span> <span class="n">resource_type</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">resource_type</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">pefile</span><span class="o">.</span><span class="n">RESOURCE_TYPE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">resource_type</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">Id</span><span class="p">))</span>
+
+                    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">resource_type</span><span class="p">,</span> <span class="s2">&quot;directory&quot;</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">resource_id</span> <span class="ow">in</span> <span class="n">resource_type</span><span class="o">.</span><span class="n">directory</span><span class="o">.</span><span class="n">entries</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="s2">&quot;directory&quot;</span><span class="p">):</span>
+                                <span class="k">for</span> <span class="n">resource_lang</span> <span class="ow">in</span> <span class="n">resource_id</span><span class="o">.</span><span class="n">directory</span><span class="o">.</span><span class="n">entries</span><span class="p">:</span>
+                                    <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">resource_lang</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">OffsetToData</span><span class="p">,</span> <span class="n">resource_lang</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">Size</span><span class="p">)</span>
+                                    <span class="n">filetype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_filetype</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                                    <span class="n">language</span> <span class="o">=</span> <span class="n">pefile</span><span class="o">.</span><span class="n">LANG</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">resource_lang</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lang</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                                    <span class="n">sublanguage</span> <span class="o">=</span> <span class="n">pefile</span><span class="o">.</span><span class="n">get_sublang_name_for_lang</span><span class="p">(</span><span class="n">resource_lang</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lang</span><span class="p">,</span> <span class="n">resource_lang</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">sublang</span><span class="p">)</span>
+
+                                    <span class="n">resource</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+                                    <span class="n">resource</span><span class="p">[</span><span class="s2">&quot;offset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;0x</span><span class="si">{0:08x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resource_lang</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">OffsetToData</span><span class="p">)</span>
+                                    <span class="n">resource</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;0x</span><span class="si">{0:08x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resource_lang</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">Size</span><span class="p">)</span>
+                                    <span class="n">resource</span><span class="p">[</span><span class="s2">&quot;filetype&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filetype</span>
+                                    <span class="n">resource</span><span class="p">[</span><span class="s2">&quot;language&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">language</span>
+                                    <span class="n">resource</span><span class="p">[</span><span class="s2">&quot;sublanguage&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sublanguage</span>
+                                    <span class="n">resources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">resource</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+        <span class="k">return</span> <span class="n">resources</span>
+
+    <span class="k">def</span> <span class="nf">_get_versioninfo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get version info.</span>
+
+<span class="sd">        :return: info dict or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">infos</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="p">,</span> <span class="s2">&quot;VS_VERSIONINFO&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="p">,</span> <span class="s2">&quot;FileInfo&quot;</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="o">.</span><span class="n">FileInfo</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="s2">&quot;StringTable&quot;</span><span class="p">):</span>
+                            <span class="k">for</span> <span class="n">st_entry</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">StringTable</span><span class="p">:</span>
+                                <span class="k">for</span> <span class="n">str_entry</span> <span class="ow">in</span> <span class="n">st_entry</span><span class="o">.</span><span class="n">entries</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                                    <span class="n">entry</span> <span class="o">=</span> <span class="p">{}</span>
+                                    <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">str_entry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                                    <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">str_entry</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                                    <span class="n">infos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+                        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="s2">&quot;Var&quot;</span><span class="p">):</span>
+                            <span class="k">for</span> <span class="n">var_entry</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">Var</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">var_entry</span><span class="p">,</span> <span class="s2">&quot;entry&quot;</span><span class="p">):</span>
+                                    <span class="n">entry</span> <span class="o">=</span> <span class="p">{}</span>
+                                    <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">var_entry</span><span class="o">.</span><span class="n">entry</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+                                    <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_printable</span><span class="p">(</span><span class="n">var_entry</span><span class="o">.</span><span class="n">entry</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+                                    <span class="n">infos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="k">continue</span>
+
+        <span class="k">return</span> <span class="n">infos</span>
+
+    <span class="k">def</span> <span class="nf">_get_imphash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets imphash.</span>
+
+<span class="sd">        :return: imphash string or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="o">.</span><span class="n">get_imphash</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_get_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get compilation timestamp.</span>
+
+<span class="sd">        :return: timestamp or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">pe_timestamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="o">.</span><span class="n">FILE_HEADER</span><span class="o">.</span><span class="n">TimeDateStamp</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">pe_timestamp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_pdb_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the path to any available debugging symbols.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="p">,</span> <span class="s2">&quot;DIRECTORY_ENTRY_DEBUG&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+                <span class="n">raw_offset</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">PointerToRawData</span>
+                <span class="n">size_data</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">SizeOfData</span>
+                <span class="n">debug_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="o">.</span><span class="n">__data__</span><span class="p">[</span><span class="n">raw_offset</span><span class="p">:</span><span class="n">raw_offset</span><span class="o">+</span><span class="n">size_data</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">debug_data</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;RSDS&quot;</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">debug_data</span><span class="p">[</span><span class="mi">24</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Exception parsing PDB path&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;If this executable is signed, get its signature(s).&quot;&quot;&quot;</span>
+        <span class="n">dir_index</span> <span class="o">=</span> <span class="n">pefile</span><span class="o">.</span><span class="n">DIRECTORY_ENTRY</span><span class="p">[</span><span class="s2">&quot;IMAGE_DIRECTORY_ENTRY_SECURITY&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="o">.</span><span class="n">OPTIONAL_HEADER</span><span class="o">.</span><span class="n">DATA_DIRECTORY</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">dir_index</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">dir_entry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="o">.</span><span class="n">OPTIONAL_HEADER</span><span class="o">.</span><span class="n">DATA_DIRECTORY</span><span class="p">[</span><span class="n">dir_index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">dir_entry</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">dir_entry</span><span class="o">.</span><span class="n">VirtualAddress</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">dir_entry</span><span class="o">.</span><span class="n">Size</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_MCRYPTO</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;You do not have the m2crypto library installed &quot;</span>
+                         <span class="s2">&quot;preventing certificate extraction: &quot;</span>
+                         <span class="s2">&quot;pip install m2crypto&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">signatures</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pe</span><span class="o">.</span><span class="n">write</span><span class="p">()[</span><span class="n">dir_entry</span><span class="o">.</span><span class="n">VirtualAddress</span><span class="o">+</span><span class="mi">8</span><span class="p">:]</span>
+        <span class="n">bio</span> <span class="o">=</span> <span class="n">M2Crypto</span><span class="o">.</span><span class="n">BIO</span><span class="o">.</span><span class="n">MemoryBuffer</span><span class="p">(</span><span class="n">signatures</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bio</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">pkcs7_obj</span> <span class="o">=</span> <span class="n">M2Crypto</span><span class="o">.</span><span class="n">m2</span><span class="o">.</span><span class="n">pkcs7_read_bio_der</span><span class="p">(</span><span class="n">bio</span><span class="o">.</span><span class="n">bio_ptr</span><span class="p">())</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pkcs7_obj</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">p7</span> <span class="o">=</span> <span class="n">M2Crypto</span><span class="o">.</span><span class="n">SMIME</span><span class="o">.</span><span class="n">PKCS7</span><span class="p">(</span><span class="n">pkcs7_obj</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">cert</span> <span class="ow">in</span> <span class="n">p7</span><span class="o">.</span><span class="n">get0_signers</span><span class="p">(</span><span class="n">M2Crypto</span><span class="o">.</span><span class="n">X509</span><span class="o">.</span><span class="n">X509_Stack</span><span class="p">())</span> <span class="ow">or</span> <span class="p">[]:</span>
+            <span class="n">subject</span> <span class="o">=</span> <span class="n">cert</span><span class="o">.</span><span class="n">get_subject</span><span class="p">()</span>
+            <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;serial_number&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%032x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">cert</span><span class="o">.</span><span class="n">get_serial_number</span><span class="p">(),</span>
+                <span class="s2">&quot;common_name&quot;</span><span class="p">:</span> <span class="n">subject</span><span class="o">.</span><span class="n">CN</span><span class="p">,</span>
+                <span class="s2">&quot;country&quot;</span><span class="p">:</span> <span class="n">subject</span><span class="o">.</span><span class="n">C</span><span class="p">,</span>
+                <span class="s2">&quot;locality&quot;</span><span class="p">:</span> <span class="n">subject</span><span class="o">.</span><span class="n">L</span><span class="p">,</span>
+                <span class="s2">&quot;organization&quot;</span><span class="p">:</span> <span class="n">subject</span><span class="o">.</span><span class="n">O</span><span class="p">,</span>
+                <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">subject</span><span class="o">.</span><span class="n">Email</span><span class="p">,</span>
+                <span class="s2">&quot;sha1&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%040x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="n">cert</span><span class="o">.</span><span class="n">get_fingerprint</span><span class="p">(</span><span class="s2">&quot;sha1&quot;</span><span class="p">),</span> <span class="mi">16</span><span class="p">),</span>
+                <span class="s2">&quot;md5&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%032x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="n">cert</span><span class="o">.</span><span class="n">get_fingerprint</span><span class="p">(</span><span class="s2">&quot;md5&quot;</span><span class="p">),</span> <span class="mi">16</span><span class="p">),</span>
+            <span class="p">})</span>
+
+            <span class="k">if</span> <span class="n">subject</span><span class="o">.</span><span class="n">GN</span> <span class="ow">and</span> <span class="n">subject</span><span class="o">.</span><span class="n">SN</span><span class="p">:</span>
+                <span class="n">ret</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;full_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="o">.</span><span class="n">GN</span><span class="p">,</span> <span class="n">subject</span><span class="o">.</span><span class="n">SN</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">subject</span><span class="o">.</span><span class="n">GN</span><span class="p">:</span>
+                <span class="n">ret</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;full_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subject</span><span class="o">.</span><span class="n">GN</span>
+            <span class="k">elif</span> <span class="n">subject</span><span class="o">.</span><span class="n">SN</span><span class="p">:</span>
+                <span class="n">ret</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;full_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subject</span><span class="o">.</span><span class="n">SN</span>
+
+        <span class="k">return</span> <span class="n">ret</span>
+
+<div class="viewcode-block" id="PortableExecutable.run"><a class="viewcode-back" href="../../processing.html#processing.static.PortableExecutable.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run analysis.</span>
+
+<span class="sd">        :return: analysis results dict or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pe</span> <span class="o">=</span> <span class="n">pefile</span><span class="o">.</span><span class="n">PE</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">pefile</span><span class="o">.</span><span class="n">PEFormatError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;peid_signatures&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_peid_signatures</span><span class="p">()</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;pe_imports&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_imported_symbols</span><span class="p">()</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;pe_exports&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_exported_symbols</span><span class="p">()</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;pe_sections&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_sections</span><span class="p">()</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;pe_resources&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_resources</span><span class="p">()</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;pe_versioninfo&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_versioninfo</span><span class="p">()</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;pe_imphash&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_imphash</span><span class="p">()</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;pe_timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_timestamp</span><span class="p">()</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;pdb_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_pdb_path</span><span class="p">()</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;signature&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_signature</span><span class="p">()</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;imported_dll_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;pe_imports&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dll&quot;</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="n">results</span></div></div>
+
+<div class="viewcode-block" id="WindowsScriptFile"><a class="viewcode-back" href="../../processing.html#processing.static.WindowsScriptFile">[docs]</a><span class="k">class</span> <span class="nc">WindowsScriptFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Deobfuscates and interprets Windows Script Files.&quot;&quot;&quot;</span>
+    <span class="n">encoding</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="n">lookup</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x06</span><span class="p">,</span> <span class="mh">0x07</span><span class="p">,</span>
+         <span class="mh">0x08</span><span class="p">,</span> <span class="mh">0x7b</span><span class="p">,</span> <span class="mh">0x0a</span><span class="p">,</span> <span class="mh">0x0b</span><span class="p">,</span> <span class="mh">0x0c</span><span class="p">,</span> <span class="mh">0x0d</span><span class="p">,</span> <span class="mh">0x0e</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span>
+         <span class="mh">0x10</span><span class="p">,</span> <span class="mh">0x11</span><span class="p">,</span> <span class="mh">0x12</span><span class="p">,</span> <span class="mh">0x13</span><span class="p">,</span> <span class="mh">0x14</span><span class="p">,</span> <span class="mh">0x15</span><span class="p">,</span> <span class="mh">0x16</span><span class="p">,</span> <span class="mh">0x17</span><span class="p">,</span>
+         <span class="mh">0x18</span><span class="p">,</span> <span class="mh">0x19</span><span class="p">,</span> <span class="mh">0x1a</span><span class="p">,</span> <span class="mh">0x1b</span><span class="p">,</span> <span class="mh">0x1c</span><span class="p">,</span> <span class="mh">0x1d</span><span class="p">,</span> <span class="mh">0x1e</span><span class="p">,</span> <span class="mh">0x1f</span><span class="p">,</span>
+         <span class="mh">0x32</span><span class="p">,</span> <span class="mh">0x30</span><span class="p">,</span> <span class="mh">0x21</span><span class="p">,</span> <span class="mh">0x29</span><span class="p">,</span> <span class="mh">0x5b</span><span class="p">,</span> <span class="mh">0x38</span><span class="p">,</span> <span class="mh">0x33</span><span class="p">,</span> <span class="mh">0x3d</span><span class="p">,</span>
+         <span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x3a</span><span class="p">,</span> <span class="mh">0x35</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x39</span><span class="p">,</span> <span class="mh">0x5c</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x73</span><span class="p">,</span>
+         <span class="mh">0x66</span><span class="p">,</span> <span class="mh">0x4e</span><span class="p">,</span> <span class="mh">0x45</span><span class="p">,</span> <span class="mh">0x6b</span><span class="p">,</span> <span class="mh">0x62</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x78</span><span class="p">,</span> <span class="mh">0x5e</span><span class="p">,</span>
+         <span class="mh">0x7d</span><span class="p">,</span> <span class="mh">0x4a</span><span class="p">,</span> <span class="mh">0x6d</span><span class="p">,</span> <span class="mh">0x71</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x60</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x53</span><span class="p">,</span>
+         <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x42</span><span class="p">,</span> <span class="mh">0x27</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x72</span><span class="p">,</span> <span class="mh">0x75</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0x37</span><span class="p">,</span>
+         <span class="mh">0x4d</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x22</span><span class="p">,</span> <span class="mh">0x54</span><span class="p">,</span> <span class="mh">0x6a</span><span class="p">,</span> <span class="mh">0x47</span><span class="p">,</span> <span class="mh">0x64</span><span class="p">,</span> <span class="mh">0x2d</span><span class="p">,</span>
+         <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x7f</span><span class="p">,</span> <span class="mh">0x2e</span><span class="p">,</span> <span class="mh">0x4c</span><span class="p">,</span> <span class="mh">0x5d</span><span class="p">,</span> <span class="mh">0x7e</span><span class="p">,</span> <span class="mh">0x6c</span><span class="p">,</span> <span class="mh">0x6f</span><span class="p">,</span>
+         <span class="mh">0x79</span><span class="p">,</span> <span class="mh">0x74</span><span class="p">,</span> <span class="mh">0x43</span><span class="p">,</span> <span class="mh">0x26</span><span class="p">,</span> <span class="mh">0x76</span><span class="p">,</span> <span class="mh">0x25</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x2b</span><span class="p">,</span>
+         <span class="mh">0x28</span><span class="p">,</span> <span class="mh">0x23</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x34</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x2a</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x3f</span><span class="p">,</span>
+         <span class="mh">0x77</span><span class="p">,</span> <span class="mh">0x3b</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x69</span><span class="p">,</span> <span class="mh">0x61</span><span class="p">,</span> <span class="mh">0x63</span><span class="p">,</span> <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x67</span><span class="p">,</span>
+         <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x49</span><span class="p">,</span> <span class="mh">0x4f</span><span class="p">,</span> <span class="mh">0x46</span><span class="p">,</span> <span class="mh">0x68</span><span class="p">,</span> <span class="mh">0x7c</span><span class="p">,</span> <span class="mh">0x36</span><span class="p">,</span> <span class="mh">0x70</span><span class="p">,</span>
+         <span class="mh">0x6e</span><span class="p">,</span> <span class="mh">0x7a</span><span class="p">,</span> <span class="mh">0x2f</span><span class="p">,</span> <span class="mh">0x5f</span><span class="p">,</span> <span class="mh">0x4b</span><span class="p">,</span> <span class="mh">0x5a</span><span class="p">,</span> <span class="mh">0x2c</span><span class="p">,</span> <span class="mh">0x57</span><span class="p">],</span>
+        <span class="p">[</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x06</span><span class="p">,</span> <span class="mh">0x07</span><span class="p">,</span>
+         <span class="mh">0x08</span><span class="p">,</span> <span class="mh">0x57</span><span class="p">,</span> <span class="mh">0x0a</span><span class="p">,</span> <span class="mh">0x0b</span><span class="p">,</span> <span class="mh">0x0c</span><span class="p">,</span> <span class="mh">0x0d</span><span class="p">,</span> <span class="mh">0x0e</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span>
+         <span class="mh">0x10</span><span class="p">,</span> <span class="mh">0x11</span><span class="p">,</span> <span class="mh">0x12</span><span class="p">,</span> <span class="mh">0x13</span><span class="p">,</span> <span class="mh">0x14</span><span class="p">,</span> <span class="mh">0x15</span><span class="p">,</span> <span class="mh">0x16</span><span class="p">,</span> <span class="mh">0x17</span><span class="p">,</span>
+         <span class="mh">0x18</span><span class="p">,</span> <span class="mh">0x19</span><span class="p">,</span> <span class="mh">0x1a</span><span class="p">,</span> <span class="mh">0x1b</span><span class="p">,</span> <span class="mh">0x1c</span><span class="p">,</span> <span class="mh">0x1d</span><span class="p">,</span> <span class="mh">0x1e</span><span class="p">,</span> <span class="mh">0x1f</span><span class="p">,</span>
+         <span class="mh">0x2e</span><span class="p">,</span> <span class="mh">0x47</span><span class="p">,</span> <span class="mh">0x7a</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x42</span><span class="p">,</span> <span class="mh">0x6a</span><span class="p">,</span> <span class="mh">0x2f</span><span class="p">,</span> <span class="mh">0x26</span><span class="p">,</span>
+         <span class="mh">0x49</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x34</span><span class="p">,</span> <span class="mh">0x32</span><span class="p">,</span> <span class="mh">0x5b</span><span class="p">,</span> <span class="mh">0x76</span><span class="p">,</span> <span class="mh">0x72</span><span class="p">,</span> <span class="mh">0x43</span><span class="p">,</span>
+         <span class="mh">0x38</span><span class="p">,</span> <span class="mh">0x39</span><span class="p">,</span> <span class="mh">0x70</span><span class="p">,</span> <span class="mh">0x45</span><span class="p">,</span> <span class="mh">0x68</span><span class="p">,</span> <span class="mh">0x71</span><span class="p">,</span> <span class="mh">0x4f</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span>
+         <span class="mh">0x62</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x23</span><span class="p">,</span> <span class="mh">0x75</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x7e</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x5e</span><span class="p">,</span>
+         <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x77</span><span class="p">,</span> <span class="mh">0x4a</span><span class="p">,</span> <span class="mh">0x61</span><span class="p">,</span> <span class="mh">0x5d</span><span class="p">,</span> <span class="mh">0x22</span><span class="p">,</span> <span class="mh">0x4b</span><span class="p">,</span> <span class="mh">0x6f</span><span class="p">,</span>
+         <span class="mh">0x4e</span><span class="p">,</span> <span class="mh">0x3b</span><span class="p">,</span> <span class="mh">0x4c</span><span class="p">,</span> <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x67</span><span class="p">,</span> <span class="mh">0x2a</span><span class="p">,</span> <span class="mh">0x7d</span><span class="p">,</span> <span class="mh">0x74</span><span class="p">,</span>
+         <span class="mh">0x54</span><span class="p">,</span> <span class="mh">0x2b</span><span class="p">,</span> <span class="mh">0x2d</span><span class="p">,</span> <span class="mh">0x2c</span><span class="p">,</span> <span class="mh">0x30</span><span class="p">,</span> <span class="mh">0x6e</span><span class="p">,</span> <span class="mh">0x6b</span><span class="p">,</span> <span class="mh">0x66</span><span class="p">,</span>
+         <span class="mh">0x35</span><span class="p">,</span> <span class="mh">0x25</span><span class="p">,</span> <span class="mh">0x21</span><span class="p">,</span> <span class="mh">0x64</span><span class="p">,</span> <span class="mh">0x4d</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x63</span><span class="p">,</span> <span class="mh">0x3f</span><span class="p">,</span>
+         <span class="mh">0x7b</span><span class="p">,</span> <span class="mh">0x78</span><span class="p">,</span> <span class="mh">0x29</span><span class="p">,</span> <span class="mh">0x28</span><span class="p">,</span> <span class="mh">0x73</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x33</span><span class="p">,</span> <span class="mh">0x7f</span><span class="p">,</span>
+         <span class="mh">0x6d</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x53</span><span class="p">,</span> <span class="mh">0x7c</span><span class="p">,</span> <span class="mh">0x3a</span><span class="p">,</span> <span class="mh">0x5f</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x46</span><span class="p">,</span>
+         <span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0x69</span><span class="p">,</span> <span class="mh">0x6c</span><span class="p">,</span> <span class="mh">0x5a</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span> <span class="mh">0x27</span><span class="p">,</span> <span class="mh">0x5c</span><span class="p">,</span>
+         <span class="mh">0x3d</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x79</span><span class="p">,</span> <span class="mh">0x37</span><span class="p">,</span> <span class="mh">0x60</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x36</span><span class="p">],</span>
+        <span class="p">[</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x06</span><span class="p">,</span> <span class="mh">0x07</span><span class="p">,</span>
+         <span class="mh">0x08</span><span class="p">,</span> <span class="mh">0x6e</span><span class="p">,</span> <span class="mh">0x0a</span><span class="p">,</span> <span class="mh">0x0b</span><span class="p">,</span> <span class="mh">0x0c</span><span class="p">,</span> <span class="mh">0x0d</span><span class="p">,</span> <span class="mh">0x0e</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span>
+         <span class="mh">0x10</span><span class="p">,</span> <span class="mh">0x11</span><span class="p">,</span> <span class="mh">0x12</span><span class="p">,</span> <span class="mh">0x13</span><span class="p">,</span> <span class="mh">0x14</span><span class="p">,</span> <span class="mh">0x15</span><span class="p">,</span> <span class="mh">0x16</span><span class="p">,</span> <span class="mh">0x17</span><span class="p">,</span>
+         <span class="mh">0x18</span><span class="p">,</span> <span class="mh">0x19</span><span class="p">,</span> <span class="mh">0x1a</span><span class="p">,</span> <span class="mh">0x1b</span><span class="p">,</span> <span class="mh">0x1c</span><span class="p">,</span> <span class="mh">0x1d</span><span class="p">,</span> <span class="mh">0x1e</span><span class="p">,</span> <span class="mh">0x1f</span><span class="p">,</span>
+         <span class="mh">0x2d</span><span class="p">,</span> <span class="mh">0x75</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x60</span><span class="p">,</span> <span class="mh">0x71</span><span class="p">,</span> <span class="mh">0x5e</span><span class="p">,</span> <span class="mh">0x49</span><span class="p">,</span> <span class="mh">0x5c</span><span class="p">,</span>
+         <span class="mh">0x62</span><span class="p">,</span> <span class="mh">0x7d</span><span class="p">,</span> <span class="mh">0x29</span><span class="p">,</span> <span class="mh">0x36</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x7c</span><span class="p">,</span> <span class="mh">0x7a</span><span class="p">,</span> <span class="mh">0x7f</span><span class="p">,</span>
+         <span class="mh">0x6b</span><span class="p">,</span> <span class="mh">0x63</span><span class="p">,</span> <span class="mh">0x33</span><span class="p">,</span> <span class="mh">0x2b</span><span class="p">,</span> <span class="mh">0x68</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x66</span><span class="p">,</span> <span class="mh">0x76</span><span class="p">,</span>
+         <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0x64</span><span class="p">,</span> <span class="mh">0x54</span><span class="p">,</span> <span class="mh">0x43</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x3a</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x7e</span><span class="p">,</span>
+         <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x45</span><span class="p">,</span> <span class="mh">0x2c</span><span class="p">,</span> <span class="mh">0x2a</span><span class="p">,</span> <span class="mh">0x74</span><span class="p">,</span> <span class="mh">0x27</span><span class="p">,</span> <span class="mh">0x37</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span>
+         <span class="mh">0x79</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x2f</span><span class="p">,</span> <span class="mh">0x6f</span><span class="p">,</span> <span class="mh">0x26</span><span class="p">,</span> <span class="mh">0x72</span><span class="p">,</span> <span class="mh">0x6a</span><span class="p">,</span> <span class="mh">0x39</span><span class="p">,</span>
+         <span class="mh">0x7b</span><span class="p">,</span> <span class="mh">0x3f</span><span class="p">,</span> <span class="mh">0x38</span><span class="p">,</span> <span class="mh">0x77</span><span class="p">,</span> <span class="mh">0x67</span><span class="p">,</span> <span class="mh">0x53</span><span class="p">,</span> <span class="mh">0x47</span><span class="p">,</span> <span class="mh">0x34</span><span class="p">,</span>
+         <span class="mh">0x78</span><span class="p">,</span> <span class="mh">0x5d</span><span class="p">,</span> <span class="mh">0x30</span><span class="p">,</span> <span class="mh">0x23</span><span class="p">,</span> <span class="mh">0x5a</span><span class="p">,</span> <span class="mh">0x5b</span><span class="p">,</span> <span class="mh">0x6c</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">,</span>
+         <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x70</span><span class="p">,</span> <span class="mh">0x69</span><span class="p">,</span> <span class="mh">0x2e</span><span class="p">,</span> <span class="mh">0x4c</span><span class="p">,</span> <span class="mh">0x21</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x4e</span><span class="p">,</span>
+         <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x73</span><span class="p">,</span> <span class="mh">0x35</span><span class="p">,</span> <span class="mh">0x61</span><span class="p">,</span> <span class="mh">0x4b</span><span class="p">,</span> <span class="mh">0x58</span><span class="p">,</span>
+         <span class="mh">0x3b</span><span class="p">,</span> <span class="mh">0x57</span><span class="p">,</span> <span class="mh">0x22</span><span class="p">,</span> <span class="mh">0x6d</span><span class="p">,</span> <span class="mh">0x4d</span><span class="p">,</span> <span class="mh">0x25</span><span class="p">,</span> <span class="mh">0x28</span><span class="p">,</span> <span class="mh">0x46</span><span class="p">,</span>
+         <span class="mh">0x4a</span><span class="p">,</span> <span class="mh">0x32</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x3d</span><span class="p">,</span> <span class="mh">0x5f</span><span class="p">,</span> <span class="mh">0x4f</span><span class="p">,</span> <span class="mh">0x42</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">],</span>
+    <span class="p">]</span>
+
+    <span class="n">unescape</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;#&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;!&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;$&quot;</span><span class="p">:</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">script_re</span> <span class="o">=</span> <span class="s2">&quot;&lt;</span><span class="se">\\</span><span class="s2">s*script</span><span class="se">\\</span><span class="s2">s*.*&gt;.*?&lt;</span><span class="se">\\</span><span class="s2">s*/</span><span class="se">\\</span><span class="s2">s*script</span><span class="se">\\</span><span class="s2">s*&gt;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">filepath</span>
+
+<div class="viewcode-block" id="WindowsScriptFile.decode"><a class="viewcode-back" href="../../processing.html#processing.static.WindowsScriptFile.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;#:~^&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;^#~:&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">source</span> <span class="ow">or</span> <span class="n">end</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">source</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">o</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> <span class="o">+</span> <span class="mi">8</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">end</span><span class="p">)</span> <span class="o">-</span> <span class="mi">8</span>
+
+        <span class="n">c</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[]</span>
+
+        <span class="k">while</span> <span class="n">o</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">:</span>
+            <span class="n">ch</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">source</span><span class="p">[</span><span class="n">o</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">source</span><span class="p">[</span><span class="n">o</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;:&quot;</span><span class="p">:</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unescape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">source</span><span class="p">[</span><span class="n">o</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;?&quot;</span><span class="p">)))</span>
+                <span class="n">c</span> <span class="o">+=</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">o</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">o</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">ch</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">:</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">[</span><span class="n">m</span> <span class="o">%</span> <span class="mi">64</span><span class="p">]][</span><span class="n">ch</span><span class="p">])</span>
+                <span class="n">c</span> <span class="o">+=</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+
+            <span class="n">o</span> <span class="o">=</span> <span class="n">o</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">%</span> <span class="mi">2</span><span class="o">**</span><span class="mi">32</span><span class="p">)</span> <span class="o">!=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="n">source</span><span class="p">[</span><span class="n">o</span><span class="p">:</span><span class="n">o</span><span class="o">+</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;base64&quot;</span><span class="p">))[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Invalid checksum for JScript.Encoded WSF file!&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">r</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WindowsScriptFile.run"><a class="viewcode-back" href="../../processing.html#processing.static.WindowsScriptFile.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="c1"># Get rid of superfluous comments.</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;/</span><span class="se">\\</span><span class="s2">*.*?</span><span class="se">\\</span><span class="s2">*/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">S</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">script</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">script_re</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">S</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">bs4</span><span class="o">.</span><span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+                <span class="n">language</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;language&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">language</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1"># We can&#39;t rely on bs4 or any other HTML/XML parser to provide us</span>
+            <span class="c1"># with the raw content of the xml tag as they decode html entities</span>
+            <span class="c1"># and all that, leaving us with a corrupted string.</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;&lt;.*&gt;(.*)&lt;/.*&gt;$&quot;</span><span class="p">,</span> <span class="n">script</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">S</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="c1"># Decode JScript.Encode encoding.</span>
+            <span class="k">if</span> <span class="n">language</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;jscript.encode&quot;</span><span class="p">,</span> <span class="s2">&quot;vbscript.encode&quot;</span><span class="p">):</span>
+                <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+
+            <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">to_unicode</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">ret</span></div></div>
+
+<div class="viewcode-block" id="OfficeDocument"><a class="viewcode-back" href="../../processing.html#processing.static.OfficeDocument">[docs]</a><span class="k">class</span> <span class="nc">OfficeDocument</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Static analysis of Microsoft Office documents.&quot;&quot;&quot;</span>
+    <span class="n">deobf</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="c1"># [</span>
+        <span class="c1">#    # Chr(65) -&gt; &quot;A&quot;</span>
+        <span class="c1">#    &quot;Chr\\(\\s*(?P&lt;chr&gt;[0-9]+)\\s*\\)&quot;,</span>
+        <span class="c1">#    lambda x: &#39;&quot;%c&quot;&#39; % int(x.group(&quot;chr&quot;)),</span>
+        <span class="c1">#    0,</span>
+        <span class="c1"># ],</span>
+        <span class="p">[</span>
+            <span class="c1"># &quot;A&quot; &amp; &quot;B&quot; -&gt; &quot;AB&quot;</span>
+            <span class="s2">&quot;</span><span class="se">\\\&quot;</span><span class="s2">(?P&lt;a&gt;.*?)</span><span class="se">\\\&quot;\\</span><span class="s2">s+</span><span class="se">\\</span><span class="s2">&amp;</span><span class="se">\\</span><span class="s2">s+</span><span class="se">\\\&quot;</span><span class="s2">(?P&lt;b&gt;.*?)</span><span class="se">\\\&quot;</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;&quot;</span><span class="si">%s%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">),</span> <span class="n">x</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)),</span>
+            <span class="mi">0</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">filepath</span>
+
+<div class="viewcode-block" id="OfficeDocument.get_macros"><a class="viewcode-back" href="../../processing.html#processing.static.OfficeDocument.get_macros">[docs]</a>    <span class="k">def</span> <span class="nf">get_macros</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get embedded Macros if this is an Office document.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">oletools</span><span class="o">.</span><span class="n">olevba</span><span class="o">.</span><span class="n">VBA_Parser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># We&#39;re not interested in plaintext.</span>
+        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;Text&quot;</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">extract_macros</span><span class="p">():</span>
+                <span class="k">yield</span> <span class="p">{</span>
+                    <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="n">s</span><span class="p">,</span>
+                    <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;latin-1&quot;</span><span class="p">),</span>
+                    <span class="s2">&quot;orig_code&quot;</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;latin-1&quot;</span><span class="p">),</span>
+                <span class="p">}</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Error extracting macros from office document (this is an &quot;</span>
+                <span class="s2">&quot;issue with oletools - please report upstream): </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="OfficeDocument.deobfuscate"><a class="viewcode-back" href="../../processing.html#processing.static.OfficeDocument.deobfuscate">[docs]</a>    <span class="k">def</span> <span class="nf">deobfuscate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Bruteforce approach of regex-based deobfuscation.&quot;&quot;&quot;</span>
+        <span class="n">changes</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">changes</span><span class="p">:</span>
+            <span class="n">changes</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">for</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">repl</span><span class="p">,</span> <span class="n">flags</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">deobf</span><span class="p">:</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">while</span> <span class="n">count</span><span class="p">:</span>
+                    <span class="n">code</span><span class="p">,</span> <span class="n">count</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">subn</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">repl</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">)</span>
+                    <span class="n">changes</span> <span class="o">+=</span> <span class="n">count</span>
+
+        <span class="k">return</span> <span class="n">code</span></div>
+
+<div class="viewcode-block" id="OfficeDocument.run"><a class="viewcode-back" href="../../processing.html#processing.static.OfficeDocument.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_OLETOOLS</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;In order to do static analysis of Microsoft Word documents &quot;</span>
+                <span class="s2">&quot;we&#39;re going to require oletools (`pip install oletools`)&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">macro</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_macros</span><span class="p">():</span>
+            <span class="n">macro</span><span class="p">[</span><span class="s2">&quot;deobf&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deobfuscate</span><span class="p">(</span><span class="n">macro</span><span class="p">[</span><span class="s2">&quot;orig_code&quot;</span><span class="p">])</span>
+            <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">macro</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span></div></div>
+
+<div class="viewcode-block" id="Static"><a class="viewcode-back" href="../../processing.html#processing.static.Static">[docs]</a><span class="k">class</span> <span class="nc">Static</span><span class="p">(</span><span class="n">Processing</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Static analysis.&quot;&quot;&quot;</span>
+    <span class="n">PUBKEY_RE</span> <span class="o">=</span> <span class="s2">&quot;(-----BEGIN PUBLIC KEY-----[a-zA-Z0-9</span><span class="se">\\</span><span class="s2">n</span><span class="se">\\</span><span class="s2">+/]+-----END PUBLIC KEY-----)&quot;</span>
+    <span class="n">PRIVKEY_RE</span> <span class="o">=</span> <span class="s2">&quot;(-----BEGIN RSA PRIVATE KEY-----[a-zA-Z0-9</span><span class="se">\\</span><span class="s2">n</span><span class="se">\\</span><span class="s2">+/]+-----END RSA PRIVATE KEY-----)&quot;</span>
+
+    <span class="n">office_ext</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;doc&quot;</span><span class="p">,</span> <span class="s2">&quot;docm&quot;</span><span class="p">,</span> <span class="s2">&quot;dotm&quot;</span><span class="p">,</span> <span class="s2">&quot;docx&quot;</span><span class="p">,</span> <span class="s2">&quot;ppt&quot;</span><span class="p">,</span> <span class="s2">&quot;pptm&quot;</span><span class="p">,</span> <span class="s2">&quot;pptx&quot;</span><span class="p">,</span> <span class="s2">&quot;potm&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ppam&quot;</span><span class="p">,</span> <span class="s2">&quot;ppsm&quot;</span><span class="p">,</span> <span class="s2">&quot;xls&quot;</span><span class="p">,</span> <span class="s2">&quot;xlsm&quot;</span><span class="p">,</span> <span class="s2">&quot;xlsx&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="Static.run"><a class="viewcode-back" href="../../processing.html#processing.static.Static.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run analysis.</span>
+
+<span class="sd">        :return: results dict.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;static&quot;</span>
+        <span class="n">static</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Does the target file still exist?</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;file&quot;</span> <span class="ow">or</span> \
+                <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="n">package</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;package&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+            <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ext</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;exe&quot;</span> <span class="ow">or</span> <span class="s2">&quot;PE32&quot;</span> <span class="ow">in</span> <span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">get_type</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">HAVE_PEFILE</span><span class="p">:</span>
+                <span class="n">static</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">PortableExecutable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">())</span>
+            <span class="n">static</span><span class="p">[</span><span class="s2">&quot;keys&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_keys</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">package</span> <span class="o">==</span> <span class="s2">&quot;wsf&quot;</span> <span class="ow">or</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;wsf&quot;</span><span class="p">:</span>
+            <span class="n">static</span><span class="p">[</span><span class="s2">&quot;wsf&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">WindowsScriptFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">package</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;doc&quot;</span><span class="p">,</span> <span class="s2">&quot;ppt&quot;</span><span class="p">,</span> <span class="s2">&quot;xls&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">ext</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">office_ext</span><span class="p">:</span>
+            <span class="n">static</span><span class="p">[</span><span class="s2">&quot;office&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OfficeDocument</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">static</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get any embedded plaintext public and/or private keys.&quot;&quot;&quot;</span>
+        <span class="n">buf</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">ret</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PUBKEY_RE</span><span class="p">,</span> <span class="n">buf</span><span class="p">))</span>
+        <span class="n">ret</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PRIVKEY_RE</span><span class="p">,</span> <span class="n">buf</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

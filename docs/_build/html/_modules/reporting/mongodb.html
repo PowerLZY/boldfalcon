@@ -1,0 +1,449 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>reporting.mongodb &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>reporting.mongodb</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for reporting.mongodb</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+
+<span class="kn">from</span> <span class="nn">lib.cuckoo.common.abstracts</span> <span class="kn">import</span> <span class="n">Report</span>
+
+
+<div class="viewcode-block" id="MongoDB"><a class="viewcode-back" href="../../reporting.html#reporting.mongodb.MongoDB">[docs]</a><span class="k">class</span> <span class="nc">MongoDB</span><span class="p">(</span><span class="n">Report</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Stores report in MongoDB.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Mongo schema version, used for data migration.</span>
+    <span class="n">SCHEMA_VERSION</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+
+<div class="viewcode-block" id="MongoDB.connect"><a class="viewcode-back" href="../../reporting.html#reporting.mongodb.MongoDB.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Connects to Mongo database, loads options and set connectors.</span>
+
+<span class="sd">        :raise CuckooReportError: if unable to connect.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;host&quot;</span><span class="p">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">)</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;port&quot;</span><span class="p">,</span> <span class="mi">27017</span><span class="p">))</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;db&quot;</span><span class="p">,</span> <span class="s2">&quot;cuckoo&quot;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">[</span><span class="n">db</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fs</span> <span class="o">=</span> <span class="n">GridFS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooReportError</span><span class="p">(</span><span class="s2">&quot;Mongo connection port must be integer&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">ConnectionFailure</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooReportError</span><span class="p">(</span><span class="s2">&quot;Cannot connect to MongoDB&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MongoDB.store_file"><a class="viewcode-back" href="../../reporting.html#reporting.mongodb.MongoDB.store_file">[docs]</a>    <span class="k">def</span> <span class="nf">store_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_obj</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Store a file in GridFS.</span>
+
+<span class="sd">        :param file_obj: object to the file to store</span>
+<span class="sd">        :param filename: name of the file to store</span>
+<span class="sd">        :return: object id of the stored file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">file_obj</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span>
+
+        <span class="n">existing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;sha256&quot;</span><span class="p">:</span> <span class="n">file_obj</span><span class="o">.</span><span class="n">get_sha256</span><span class="p">()})</span>
+
+        <span class="k">if</span> <span class="n">existing</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">existing</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]</span>
+
+        <span class="n">new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">new_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+                               <span class="n">contentType</span><span class="o">=</span><span class="n">file_obj</span><span class="o">.</span><span class="n">get_content_type</span><span class="p">(),</span>
+                               <span class="n">sha256</span><span class="o">=</span><span class="n">file_obj</span><span class="o">.</span><span class="n">get_sha256</span><span class="p">())</span>
+
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">file_obj</span><span class="o">.</span><span class="n">get_chunks</span><span class="p">():</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">new</span><span class="o">.</span><span class="n">_id</span>
+        <span class="k">except</span> <span class="n">FileExists</span><span class="p">:</span>
+            <span class="n">to_find</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sha256&quot;</span><span class="p">:</span> <span class="n">file_obj</span><span class="o">.</span><span class="n">get_sha256</span><span class="p">()}</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">find_one</span><span class="p">(</span><span class="n">to_find</span><span class="p">)[</span><span class="s2">&quot;_id&quot;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="MongoDB.run"><a class="viewcode-back" href="../../reporting.html#reporting.mongodb.MongoDB.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Writes report.</span>
+
+<span class="sd">        :param results: analysis results dictionary.</span>
+<span class="sd">        :raise CuckooReportError: if fails to connect or write to MongoDB.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_MONGO</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooDependencyError</span><span class="p">(</span>
+                <span class="s2">&quot;Unable to import pymongo (install with &quot;</span>
+                <span class="s2">&quot;`pip install pymongo`)&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+
+        <span class="c1"># Set mongo schema version.</span>
+        <span class="c1"># TODO: This is not optimal becuase it run each analysis. Need to run</span>
+        <span class="c1"># only one time at startup.</span>
+        <span class="k">if</span> <span class="s2">&quot;cuckoo_schema&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">collection_names</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">cuckoo_schema</span><span class="o">.</span><span class="n">find_one</span><span class="p">()[</span><span class="s2">&quot;version&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCHEMA_VERSION</span><span class="p">:</span>
+                <span class="n">CuckooReportError</span><span class="p">(</span><span class="s2">&quot;Mongo schema version not expected, check data migration tool&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">cuckoo_schema</span><span class="o">.</span><span class="n">save</span><span class="p">({</span><span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">SCHEMA_VERSION</span><span class="p">})</span>
+
+        <span class="c1"># Set an unique index on stored files, to avoid duplicates.</span>
+        <span class="c1"># From pymongo docs:</span>
+        <span class="c1">#  Returns the name of the created index if an index is actually</span>
+        <span class="c1">#    created.</span>
+        <span class="c1">#  Returns None if the index already exists.</span>
+        <span class="c1"># TODO: This is not optimal because it run each analysis. Need to run</span>
+        <span class="c1"># only one time at startup.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">ensure_index</span><span class="p">(</span><span class="s2">&quot;sha256&quot;</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                      <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sha256_unique&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Create a copy of the dictionary. This is done in order to not modify</span>
+        <span class="c1"># the original dictionary and possibly compromise the following</span>
+        <span class="c1"># reporting modules.</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;network&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">report</span><span class="p">:</span>
+            <span class="n">report</span><span class="p">[</span><span class="s2">&quot;network&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Store path of the analysis path.</span>
+        <span class="n">report</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">][</span><span class="s2">&quot;analysis_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span>
+
+        <span class="c1"># Store the sample in GridFS.</span>
+        <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span> <span class="ow">and</span> <span class="s2">&quot;target&quot;</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">sample</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sample</span><span class="o">.</span><span class="n">valid</span><span class="p">():</span>
+                <span class="n">fname</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">][</span><span class="s2">&quot;file&quot;</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+                <span class="n">sample_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">store_file</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">fname</span><span class="p">)</span>
+                <span class="n">report</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;file_id&quot;</span><span class="p">:</span> <span class="n">sample_id</span><span class="p">}</span>
+                <span class="n">report</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Store the PCAP file in GridFS and reference it back in the report.</span>
+        <span class="n">pcap_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span><span class="p">,</span> <span class="s2">&quot;dump.pcap&quot;</span><span class="p">)</span>
+        <span class="n">pcap</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">pcap_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pcap</span><span class="o">.</span><span class="n">valid</span><span class="p">():</span>
+            <span class="n">pcap_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">store_file</span><span class="p">(</span><span class="n">pcap</span><span class="p">)</span>
+            <span class="n">report</span><span class="p">[</span><span class="s2">&quot;network&quot;</span><span class="p">][</span><span class="s2">&quot;pcap_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pcap_id</span>
+
+        <span class="n">sorted_pcap_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span><span class="p">,</span> <span class="s2">&quot;dump_sorted.pcap&quot;</span><span class="p">)</span>
+        <span class="n">spcap</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">sorted_pcap_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">spcap</span><span class="o">.</span><span class="n">valid</span><span class="p">():</span>
+            <span class="n">spcap_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">store_file</span><span class="p">(</span><span class="n">spcap</span><span class="p">)</span>
+            <span class="n">report</span><span class="p">[</span><span class="s2">&quot;network&quot;</span><span class="p">][</span><span class="s2">&quot;sorted_pcap_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spcap_id</span>
+
+        <span class="n">mitmproxy_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span><span class="p">,</span> <span class="s2">&quot;dump.mitm&quot;</span><span class="p">)</span>
+        <span class="n">mitmpr</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">mitmproxy_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mitmpr</span><span class="o">.</span><span class="n">valid</span><span class="p">():</span>
+            <span class="n">mitmpr_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">store_file</span><span class="p">(</span><span class="n">mitmpr</span><span class="p">)</span>
+            <span class="n">report</span><span class="p">[</span><span class="s2">&quot;network&quot;</span><span class="p">][</span><span class="s2">&quot;mitmproxy_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mitmpr_id</span>
+
+        <span class="c1"># Store the process memory dump file and extracted files in GridFS and</span>
+        <span class="c1"># reference it back in the report.</span>
+        <span class="k">if</span> <span class="s2">&quot;procmemory&quot;</span> <span class="ow">in</span> <span class="n">report</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;store_memdump&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">procmem</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">report</span><span class="p">[</span><span class="s2">&quot;procmemory&quot;</span><span class="p">]):</span>
+                <span class="n">procmem_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">analysis_path</span><span class="p">,</span> <span class="s2">&quot;memory&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.dmp&quot;</span> <span class="o">%</span> <span class="n">procmem</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">procmem_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">procmem_path</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">procmem_file</span><span class="o">.</span><span class="n">valid</span><span class="p">():</span>
+                    <span class="n">procmem_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">store_file</span><span class="p">(</span><span class="n">procmem_file</span><span class="p">)</span>
+                    <span class="n">procmem</span><span class="p">[</span><span class="s2">&quot;procmem_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">procmem_id</span>
+
+                <span class="k">for</span> <span class="n">extracted</span> <span class="ow">in</span> <span class="n">procmem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;extracted&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+                    <span class="n">f</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">extracted</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">valid</span><span class="p">():</span>
+                        <span class="n">extracted</span><span class="p">[</span><span class="s2">&quot;extracted_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">store_file</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="c1"># Walk through the dropped files, store them in GridFS and update the</span>
+        <span class="c1"># report with the ObjectIds.</span>
+        <span class="n">new_dropped</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="s2">&quot;dropped&quot;</span> <span class="ow">in</span> <span class="n">report</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">dropped</span> <span class="ow">in</span> <span class="n">report</span><span class="p">[</span><span class="s2">&quot;dropped&quot;</span><span class="p">]:</span>
+                <span class="n">new_drop</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">dropped</span><span class="p">)</span>
+                <span class="n">drop</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">dropped</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">drop</span><span class="o">.</span><span class="n">valid</span><span class="p">():</span>
+                    <span class="n">dropped_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">store_file</span><span class="p">(</span><span class="n">drop</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">dropped</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+                    <span class="n">new_drop</span><span class="p">[</span><span class="s2">&quot;object_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dropped_id</span>
+
+                <span class="n">new_dropped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_drop</span><span class="p">)</span>
+
+        <span class="n">report</span><span class="p">[</span><span class="s2">&quot;dropped&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_dropped</span>
+
+        <span class="c1"># Add screenshots.</span>
+        <span class="n">report</span><span class="p">[</span><span class="s2">&quot;shots&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shots_path</span><span class="p">):</span>
+            <span class="c1"># Walk through the files and select the JPGs.</span>
+            <span class="k">for</span> <span class="n">shot_file</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shots_path</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">shot_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.jpg&quot;</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+                <span class="n">shot_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shots_path</span><span class="p">,</span> <span class="n">shot_file</span><span class="p">)</span>
+                <span class="n">shot</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">shot_path</span><span class="p">)</span>
+                <span class="c1"># If the screenshot path is a valid file, store it and</span>
+                <span class="c1"># reference it back in the report.</span>
+                <span class="k">if</span> <span class="n">shot</span><span class="o">.</span><span class="n">valid</span><span class="p">():</span>
+                    <span class="n">shot_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">store_file</span><span class="p">(</span><span class="n">shot</span><span class="p">)</span>
+                    <span class="n">report</span><span class="p">[</span><span class="s2">&quot;shots&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shot_id</span><span class="p">)</span>
+
+        <span class="n">paginate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;paginate&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+        <span class="c1"># Store chunks of API calls in a different collection and reference</span>
+        <span class="c1"># those chunks back in the report. In this way we should defeat the</span>
+        <span class="c1"># issue with the oversized reports exceeding MongoDB&#39;s boundaries.</span>
+        <span class="c1"># Also allows paging of the reports.</span>
+        <span class="k">if</span> <span class="s2">&quot;behavior&quot;</span> <span class="ow">in</span> <span class="n">report</span> <span class="ow">and</span> <span class="s2">&quot;processes&quot;</span> <span class="ow">in</span> <span class="n">report</span><span class="p">[</span><span class="s2">&quot;behavior&quot;</span><span class="p">]:</span>
+            <span class="n">new_processes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">report</span><span class="p">[</span><span class="s2">&quot;behavior&quot;</span><span class="p">][</span><span class="s2">&quot;processes&quot;</span><span class="p">]:</span>
+                <span class="n">new_process</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
+
+                <span class="n">chunk</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">chunks_ids</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="c1"># Loop on each process call.</span>
+                <span class="k">for</span> <span class="n">call</span> <span class="ow">in</span> <span class="n">process</span><span class="p">[</span><span class="s2">&quot;calls&quot;</span><span class="p">]:</span>
+                    <span class="c1"># If the chunk size is paginate or if the loop is</span>
+                    <span class="c1"># completed then store the chunk in MongoDB.</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">==</span> <span class="n">paginate</span><span class="p">:</span>
+                        <span class="n">to_insert</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;pid&quot;</span><span class="p">:</span> <span class="n">process</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">],</span> <span class="s2">&quot;calls&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">}</span>
+                        <span class="n">chunk_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">calls</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">to_insert</span><span class="p">)</span>
+                        <span class="n">chunks_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk_id</span><span class="p">)</span>
+                        <span class="c1"># Reset the chunk.</span>
+                        <span class="n">chunk</span> <span class="o">=</span> <span class="p">[]</span>
+
+                    <span class="c1"># Append call to the chunk.</span>
+                    <span class="n">chunk</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">call</span><span class="p">)</span>
+
+                <span class="c1"># Store leftovers.</span>
+                <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                    <span class="n">to_insert</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;pid&quot;</span><span class="p">:</span> <span class="n">process</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">],</span> <span class="s2">&quot;calls&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">}</span>
+                    <span class="n">chunk_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">calls</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">to_insert</span><span class="p">)</span>
+                    <span class="n">chunks_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk_id</span><span class="p">)</span>
+
+                <span class="c1"># Add list of chunks.</span>
+                <span class="n">new_process</span><span class="p">[</span><span class="s2">&quot;calls&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chunks_ids</span>
+                <span class="n">new_processes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_process</span><span class="p">)</span>
+
+            <span class="c1"># Store the results in the report.</span>
+            <span class="n">report</span><span class="p">[</span><span class="s2">&quot;behavior&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">report</span><span class="p">[</span><span class="s2">&quot;behavior&quot;</span><span class="p">])</span>
+            <span class="n">report</span><span class="p">[</span><span class="s2">&quot;behavior&quot;</span><span class="p">][</span><span class="s2">&quot;processes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_processes</span>
+
+        <span class="c1"># Store the report and retrieve its object id.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

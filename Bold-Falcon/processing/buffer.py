@@ -1,18 +1,21 @@
 # Copyright (C) 2010-2013 Claudio Guarnieri.
 # Copyright (C) 2014-2016 Cuckoo Foundation.
+# Copyright (C) 2020-2021 PowerLZY.
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
-import os
+
 
 from lib.cuckoo.common.abstracts import Processing
+
 
 class DroppedBuffer(Processing):
     """Dropped buffer analysis."""
 
     def run(self):
-        """Run analysis.
-        @return: list of dropped files with related information.
+        """
+        Run analysis.
+        :return: list of dropped files with related information.
         """
         self.key = "buffer"
         dropped_files = []

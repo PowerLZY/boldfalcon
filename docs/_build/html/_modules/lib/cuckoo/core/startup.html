@@ -1,0 +1,720 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>lib.cuckoo.core.startup &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lib.cuckoo.core.startup</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lib.cuckoo.core.startup</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding=utf-8</span>
+<span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<div class="viewcode-block" id="check_python_version"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.check_python_version">[docs]</a><span class="k">def</span> <span class="nf">check_python_version</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Checks if Python version is supported by Cuckoo.</span>
+
+<span class="sd">    :raise CuckooStartupError: if version is not supported.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span><span class="s2">&quot;You are running an incompatible version &quot;</span>
+                                 <span class="s2">&quot;of Python, please use 2.7&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="check_working_directory"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.check_working_directory">[docs]</a><span class="k">def</span> <span class="nf">check_working_directory</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Checks if working directories are ready.</span>
+
+<span class="sd">    :raise CuckooStartupError: if directories are not properly configured.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span><span class="s2">&quot;You specified a non-existing root &quot;</span>
+                                 <span class="s2">&quot;directory: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">))</span>
+
+    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;cuckoo.py&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cwd</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span><span class="s2">&quot;You are not running Cuckoo from it&#39;s &quot;</span>
+                                 <span class="s2">&quot;root directory&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="check_configs"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.check_configs">[docs]</a><span class="k">def</span> <span class="nf">check_configs</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if config files exist.</span>
+
+<span class="sd">    :raise CuckooStartupError: if config files do not exist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">configs</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;auxiliary.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;avd.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;cuckoo.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;cuckooml.conf&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;esx.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;kvm.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;memory.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;physical.conf&quot;</span><span class="p">,</span><span class="s2">&quot;detection.conf&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;processing.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;qemu.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;reporting.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox.conf&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;vmware.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;vpn.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;vsphere.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;xenserver.conf&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;conf&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">configs</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span><span class="s2">&quot;Config file does not exist at &quot;</span>
+                                     <span class="s2">&quot;path: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">config</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+<span class="c1"># 添加样本分析目录</span>
+<div class="viewcode-block" id="create_structure"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.create_structure">[docs]</a><span class="k">def</span> <span class="nf">create_structure</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Creates Cuckoo directories.&quot;&quot;&quot;</span>
+    <span class="n">folders</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;log&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;storage&quot;</span><span class="p">,</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;analyses&quot;</span><span class="p">),</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;binaries&quot;</span><span class="p">),</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;baseline&quot;</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">create_folders</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="n">folders</span><span class="o">=</span><span class="n">folders</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">CuckooOperationalError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="check_version"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.check_version">[docs]</a><span class="k">def</span> <span class="nf">check_version</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Checks version of Cuckoo.&quot;&quot;&quot;</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">version_check</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Checking for updates...&quot;</span><span class="p">)</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://api.cuckoosandbox.org/checkversion.php&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">({</span><span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">CUCKOO_VERSION</span><span class="p">})</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">urllib2</span><span class="o">.</span><span class="n">URLError</span><span class="p">,</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">red</span><span class="p">(</span><span class="s2">&quot; Failed! &quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;Unable to establish connection.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">red</span><span class="p">(</span><span class="s2">&quot; Failed! &quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;Invalid response.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">stable_version</span> <span class="o">=</span> <span class="n">response_data</span><span class="p">[</span><span class="s2">&quot;current&quot;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">CUCKOO_VERSION</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;-dev&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">yellow</span><span class="p">(</span><span class="s2">&quot; You are running a development version! Current stable is </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">stable_version</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="n">CUCKOO_VERSION</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">LooseVersion</span><span class="p">(</span><span class="n">stable_version</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Cuckoo Sandbox version </span><span class="si">{}</span><span class="s2"> is available now.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">stable_version</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="n">red</span><span class="p">(</span><span class="s2">&quot; Outdated! &quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">green</span><span class="p">(</span><span class="s2">&quot; Good! &quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;You have the latest version &quot;</span>
+                                     <span class="s2">&quot;available.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="init_logging"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.init_logging">[docs]</a><span class="k">def</span> <span class="nf">init_logging</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Initializes logging.&quot;&quot;&quot;</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> [</span><span class="si">%(name)s</span><span class="s2">] </span><span class="si">%(levelname)s</span><span class="s2">: </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">fh</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">WatchedFileHandler</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="s2">&quot;cuckoo.log&quot;</span><span class="p">))</span>
+    <span class="n">fh</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+
+    <span class="n">ch</span> <span class="o">=</span> <span class="n">ConsoleHandler</span><span class="p">()</span>
+    <span class="n">ch</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+
+    <span class="n">dh</span> <span class="o">=</span> <span class="n">DatabaseHandler</span><span class="p">()</span>
+    <span class="n">dh</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">dh</span><span class="p">)</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="init_console_logging"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.init_console_logging">[docs]</a><span class="k">def</span> <span class="nf">init_console_logging</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Initializes logging only to console.&quot;&quot;&quot;</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> [</span><span class="si">%(name)s</span><span class="s2">] </span><span class="si">%(levelname)s</span><span class="s2">: </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">ch</span> <span class="o">=</span> <span class="n">ConsoleHandler</span><span class="p">()</span>
+    <span class="n">ch</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span></div>
+<span class="c1">#</span>
+<div class="viewcode-block" id="init_tasks"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.init_tasks">[docs]</a><span class="k">def</span> <span class="nf">init_tasks</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Check tasks and reschedule uncompleted ones.&quot;&quot;&quot;</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">Database</span><span class="p">()</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Checking for locked tasks..&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">db</span><span class="o">.</span><span class="n">list_tasks</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">TASK_RUNNING</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">reschedule</span><span class="p">:</span>
+            <span class="n">task_id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">reschedule</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Rescheduled task with ID </span><span class="si">%s</span><span class="s2"> and target </span><span class="si">%s</span><span class="s2">: task #</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">task_id</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">TASK_FAILED_ANALYSIS</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Updated running task ID </span><span class="si">{0}</span><span class="s2"> status to failed_analysis&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Checking for pending service tasks..&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">db</span><span class="o">.</span><span class="n">list_tasks</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">TASK_PENDING</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;service&quot;</span><span class="p">):</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">TASK_FAILED_ANALYSIS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="delete_file"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.delete_file">[docs]</a><span class="k">def</span> <span class="nf">delete_file</span><span class="p">(</span><span class="o">*</span><span class="n">rel_path</span><span class="p">):</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="o">*</span><span class="n">rel_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;Unable to remove old </span><span class="si">%s</span><span class="s2"> leftover file from before you updated &quot;</span>
+            <span class="s2">&quot;your Cuckoo setup to the latest version: </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">rel_path</span><span class="p">),</span> <span class="n">e</span>
+        <span class="p">)</span></div>
+
+<span class="c1"># 初始化功能模块 class modules</span>
+<div class="viewcode-block" id="init_modules"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.init_modules">[docs]</a><span class="k">def</span> <span class="nf">init_modules</span><span class="p">(</span><span class="n">machinery</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Initializes plugins.&quot;&quot;&quot;</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Importing modules...&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Import all auxiliary modules.</span>
+    <span class="kn">import</span> <span class="nn">modules.auxiliary</span>
+    <span class="n">import_package</span><span class="p">(</span><span class="n">modules</span><span class="o">.</span><span class="n">auxiliary</span><span class="p">)</span>
+
+    <span class="c1"># Import all processing modules.</span>
+    <span class="kn">import</span> <span class="nn">modules.processing</span>
+    <span class="n">import_package</span><span class="p">(</span><span class="n">modules</span><span class="o">.</span><span class="n">processing</span><span class="p">)</span>
+
+    <span class="c1"># ToDo:Import all processing modules.</span>
+    <span class="kn">import</span> <span class="nn">modules.detection</span>
+    <span class="n">import_package</span><span class="p">(</span><span class="n">modules</span><span class="o">.</span><span class="n">detection</span><span class="p">)</span>
+
+    <span class="c1"># Import all signatures.</span>
+    <span class="kn">import</span> <span class="nn">modules.signatures</span>
+    <span class="n">import_package</span><span class="p">(</span><span class="n">modules</span><span class="o">.</span><span class="n">signatures</span><span class="p">)</span>
+
+    <span class="n">delete_file</span><span class="p">(</span><span class="s2">&quot;modules&quot;</span><span class="p">,</span> <span class="s2">&quot;reporting&quot;</span><span class="p">,</span> <span class="s2">&quot;maec40.pyc&quot;</span><span class="p">)</span>
+    <span class="n">delete_file</span><span class="p">(</span><span class="s2">&quot;modules&quot;</span><span class="p">,</span> <span class="s2">&quot;reporting&quot;</span><span class="p">,</span> <span class="s2">&quot;maec41.pyc&quot;</span><span class="p">)</span>
+    <span class="n">delete_file</span><span class="p">(</span><span class="s2">&quot;modules&quot;</span><span class="p">,</span> <span class="s2">&quot;reporting&quot;</span><span class="p">,</span> <span class="s2">&quot;mmdef.pyc&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Import all reporting modules.</span>
+    <span class="kn">import</span> <span class="nn">modules.reporting</span>
+    <span class="n">import_package</span><span class="p">(</span><span class="n">modules</span><span class="o">.</span><span class="n">reporting</span><span class="p">)</span>
+
+    <span class="c1"># Import machine manager.</span>
+    <span class="k">if</span> <span class="n">machinery</span><span class="p">:</span>
+        <span class="n">import_plugin</span><span class="p">(</span><span class="s2">&quot;modules.machinery.&quot;</span> <span class="o">+</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">machinery</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">entries</span> <span class="ow">in</span> <span class="n">list_plugins</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Imported </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> modules:&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">entry</span> <span class="o">==</span> <span class="n">entries</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> `-- </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> |-- </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="init_yara"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.init_yara">[docs]</a><span class="k">def</span> <span class="nf">init_yara</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Generates index for yara signatures.&quot;&quot;&quot;</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Initializing Yara...&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Generate root directory for yara rules.</span>
+    <span class="n">yara_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;yara&quot;</span><span class="p">)</span>
+
+    <span class="c1"># We divide yara rules in three categories.</span>
+    <span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;binaries&quot;</span><span class="p">,</span> <span class="s2">&quot;urls&quot;</span><span class="p">,</span> <span class="s2">&quot;memory&quot;</span><span class="p">]</span>
+    <span class="n">generated</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Loop through all categories.</span>
+    <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="n">categories</span><span class="p">:</span>
+        <span class="c1"># Check if there is a directory for the given category.</span>
+        <span class="n">category_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">yara_root</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">category_root</span><span class="p">):</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Check if the directory contains any rules.</span>
+        <span class="n">signatures</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">category_root</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.yara&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">entry</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.yar&quot;</span><span class="p">):</span>
+                <span class="n">signatures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">category_root</span><span class="p">,</span> <span class="n">entry</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">signatures</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Generate path for the category&#39;s index file.</span>
+        <span class="n">index_name</span> <span class="o">=</span> <span class="s2">&quot;index_</span><span class="si">{0}</span><span class="s2">.yar&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">category</span><span class="p">)</span>
+        <span class="n">index_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">yara_root</span><span class="p">,</span> <span class="n">index_name</span><span class="p">)</span>
+
+        <span class="c1"># Create index file and populate it.</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">index_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">index_handle</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">signature</span> <span class="ow">in</span> <span class="n">signatures</span><span class="p">:</span>
+                <span class="n">index_handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;include </span><span class="se">\&quot;</span><span class="si">{0}</span><span class="se">\&quot;\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">signature</span><span class="p">))</span>
+
+        <span class="n">generated</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index_name</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">generated</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">entry</span> <span class="o">==</span> <span class="n">generated</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> `-- </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> |-- </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="init_binaries"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.init_binaries">[docs]</a><span class="k">def</span> <span class="nf">init_binaries</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Inform the user about the need to periodically look for new analyzer</span>
+<span class="sd">    binaries. These include the Windows monitor etc.&quot;&quot;&quot;</span>
+    <span class="n">monitor</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;monitor&quot;</span><span class="p">,</span> <span class="s2">&quot;latest&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Checks whether the &quot;latest&quot; symlink is available as well as whether</span>
+    <span class="c1"># it points to an existing directory.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">monitor</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span>
+            <span class="s2">&quot;The binaries used for Windows analysis are updated regularly, &quot;</span>
+            <span class="s2">&quot;independently from the release line. It appears that you&#39;re &quot;</span>
+            <span class="s2">&quot;not up-to-date. This can happen when you&#39;ve just installed &quot;</span>
+            <span class="s2">&quot;Cuckoo or when you&#39;ve updated your Cuckoo version by pulling &quot;</span>
+            <span class="s2">&quot;the latest changes from our Git repository. In order to get &quot;</span>
+            <span class="s2">&quot;up-to-date, please run the following &quot;</span>
+            <span class="s2">&quot;command: `./utils/community.py -wafb monitor` or &quot;</span>
+            <span class="s2">&quot;`./utils/community.py -waf` if you&#39;d also like to download &quot;</span>
+            <span class="s2">&quot;over 300 Cuckoo signatures.&quot;</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="init_rooter"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.init_rooter">[docs]</a><span class="k">def</span> <span class="nf">init_rooter</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;If required, check whether the rooter is running and whether we can</span>
+<span class="sd">    connect to it.&quot;&quot;&quot;</span>
+    <span class="n">cuckoo</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+
+    <span class="c1"># The default configuration doesn&#39;t require the rooter to be ran.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">Config</span><span class="p">(</span><span class="s2">&quot;vpn&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">vpn</span><span class="o">.</span><span class="n">enabled</span> <span class="ow">and</span> <span class="n">cuckoo</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">route</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">cuckoo</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">rooter</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">strerror</span> <span class="o">==</span> <span class="s2">&quot;No such file or directory&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span>
+                <span class="s2">&quot;The rooter is required but it is either not running or it &quot;</span>
+                <span class="s2">&quot;has been configured to a different Unix socket path. &quot;</span>
+                <span class="s2">&quot;(In order to disable the use of rooter, please set route &quot;</span>
+                <span class="s2">&quot;and internet to none in cuckoo.conf and enabled to no in &quot;</span>
+                <span class="s2">&quot;vpn.conf).&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">strerror</span> <span class="o">==</span> <span class="s2">&quot;Connection refused&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span>
+                <span class="s2">&quot;The rooter is required but we can&#39;t connect to it as the &quot;</span>
+                <span class="s2">&quot;rooter is not actually running. &quot;</span>
+                <span class="s2">&quot;(In order to disable the use of rooter, please set route &quot;</span>
+                <span class="s2">&quot;and internet to none in cuckoo.conf and enabled to no in &quot;</span>
+                <span class="s2">&quot;vpn.conf).&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">strerror</span> <span class="o">==</span> <span class="s2">&quot;Permission denied&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span>
+                <span class="s2">&quot;The rooter is required but we can&#39;t connect to it due to &quot;</span>
+                <span class="s2">&quot;incorrect permissions. Did you assign it the correct group? &quot;</span>
+                <span class="s2">&quot;(In order to disable the use of rooter, please set route &quot;</span>
+                <span class="s2">&quot;and internet to none in cuckoo.conf and enabled to no in &quot;</span>
+                <span class="s2">&quot;vpn.conf).&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span><span class="s2">&quot;Unknown rooter error: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+
+    <span class="c1"># Do not forward any packets unless we have explicitly stated so.</span>
+    <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;forward_drop&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="init_routing"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.init_routing">[docs]</a><span class="k">def</span> <span class="nf">init_routing</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Initialize and check whether the routing information is correct.&quot;&quot;&quot;</span>
+    <span class="n">cuckoo</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+    <span class="n">vpn</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="s2">&quot;vpn&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Check whether all VPNs exist if configured and make their configuration</span>
+    <span class="c1"># available through the vpns variable. Also enable NAT on each interface.</span>
+    <span class="k">if</span> <span class="n">vpn</span><span class="o">.</span><span class="n">vpn</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">vpn</span><span class="o">.</span><span class="n">vpn</span><span class="o">.</span><span class="n">vpns</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">vpn</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span>
+                    <span class="s2">&quot;Could not find VPN configuration for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span>
+                <span class="p">)</span>
+
+            <span class="n">entry</span> <span class="o">=</span> <span class="n">vpn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;nic_available&quot;</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">interface</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span>
+                    <span class="s2">&quot;The network interface that has been configured for &quot;</span>
+                    <span class="s2">&quot;VPN </span><span class="si">%s</span><span class="s2"> is not available.&quot;</span> <span class="o">%</span> <span class="n">entry</span><span class="o">.</span><span class="n">name</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;rt_available&quot;</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">rt_table</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span>
+                    <span class="s2">&quot;The routing table that has been configured for &quot;</span>
+                    <span class="s2">&quot;VPN </span><span class="si">%s</span><span class="s2"> is not available.&quot;</span> <span class="o">%</span> <span class="n">entry</span><span class="o">.</span><span class="n">name</span>
+                <span class="p">)</span>
+
+            <span class="n">vpns</span><span class="p">[</span><span class="n">entry</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span>
+
+            <span class="c1"># Disable &amp; enable NAT on this network interface. Disable it just</span>
+            <span class="c1"># in case we still had the same rule from a previous run.</span>
+            <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;disable_nat&quot;</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span>
+            <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;enable_nat&quot;</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span>
+
+            <span class="c1"># Populate routing table with entries from main routing table.</span>
+            <span class="k">if</span> <span class="n">cuckoo</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">auto_rt</span><span class="p">:</span>
+                <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;flush_rttable&quot;</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">rt_table</span><span class="p">)</span>
+                <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;init_rttable&quot;</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">rt_table</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span>
+
+    <span class="c1"># Check whether the default VPN exists if specified.</span>
+    <span class="k">if</span> <span class="n">cuckoo</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">route</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="s2">&quot;internet&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">vpn</span><span class="o">.</span><span class="n">vpn</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span>
+                <span class="s2">&quot;A VPN has been configured as default routing interface for &quot;</span>
+                <span class="s2">&quot;VMs, but VPNs have not been enabled in vpn.conf&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cuckoo</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">route</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vpns</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span>
+                <span class="s2">&quot;The VPN defined as default routing target has not been &quot;</span>
+                <span class="s2">&quot;configured in vpn.conf.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Check whether the dirty line exists if it has been defined.</span>
+    <span class="k">if</span> <span class="n">cuckoo</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">internet</span> <span class="o">!=</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;nic_available&quot;</span><span class="p">,</span> <span class="n">cuckoo</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">internet</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span>
+                <span class="s2">&quot;The network interface that has been configured as dirty &quot;</span>
+                <span class="s2">&quot;line is not available.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;rt_available&quot;</span><span class="p">,</span> <span class="n">cuckoo</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">rt_table</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooStartupError</span><span class="p">(</span>
+                <span class="s2">&quot;The routing table that has been configured for dirty &quot;</span>
+                <span class="s2">&quot;line interface is not available.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Disable &amp; enable NAT on this network interface. Disable it just</span>
+        <span class="c1"># in case we still had the same rule from a previous run.</span>
+        <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;disable_nat&quot;</span><span class="p">,</span> <span class="n">cuckoo</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">internet</span><span class="p">)</span>
+        <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;enable_nat&quot;</span><span class="p">,</span> <span class="n">cuckoo</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">internet</span><span class="p">)</span>
+
+        <span class="c1"># Populate routing table with entries from main routing table.</span>
+        <span class="k">if</span> <span class="n">cuckoo</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">auto_rt</span><span class="p">:</span>
+            <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;flush_rttable&quot;</span><span class="p">,</span> <span class="n">cuckoo</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">rt_table</span><span class="p">)</span>
+            <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;init_rttable&quot;</span><span class="p">,</span> <span class="n">cuckoo</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">rt_table</span><span class="p">,</span>
+                   <span class="n">cuckoo</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">internet</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="cuckoo_clean"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.cuckoo_clean">[docs]</a><span class="k">def</span> <span class="nf">cuckoo_clean</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Clean up cuckoo setup.</span>
+<span class="sd">    It deletes logs, all stored data from file system and configured</span>
+<span class="sd">    databases (SQL and MongoDB).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Init logging.</span>
+    <span class="c1"># This need to init a console logger handler, because the standard</span>
+    <span class="c1"># logger (init_logging()) logs to a file which will be deleted.</span>
+    <span class="n">create_structure</span><span class="p">()</span>
+    <span class="n">init_console_logging</span><span class="p">()</span>
+
+    <span class="c1"># Initialize the database connection.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">Database</span><span class="p">(</span><span class="n">schema_check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">CuckooDatabaseError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c1"># If something is screwed due to incorrect database migrations or bad</span>
+        <span class="c1"># database SqlAlchemy would be unable to connect and operate.</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Error connecting to database: it is suggested to check &quot;</span>
+                    <span class="s2">&quot;the connectivity, apply all migrations if needed or purge &quot;</span>
+                    <span class="s2">&quot;it manually. Error description: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Drop all tables.</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">drop</span><span class="p">()</span>
+
+    <span class="c1"># Check if MongoDB reporting is enabled and drop that if it is.</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="s2">&quot;reporting&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">mongodb</span> <span class="ow">and</span> <span class="n">cfg</span><span class="o">.</span><span class="n">mongodb</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">pymongo</span> <span class="kn">import</span> <span class="n">MongoClient</span>
+        <span class="n">host</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">mongodb</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;host&quot;</span><span class="p">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">)</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">mongodb</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;port&quot;</span><span class="p">,</span> <span class="mi">27017</span><span class="p">)</span>
+        <span class="n">mdb</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">mongodb</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;db&quot;</span><span class="p">,</span> <span class="s2">&quot;cuckoo&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">drop_database</span><span class="p">(</span><span class="n">mdb</span><span class="p">)</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unable to drop MongoDB database: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">mdb</span><span class="p">)</span>
+
+    <span class="c1"># Paths to clean.</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;db&quot;</span><span class="p">),</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;log&quot;</span><span class="p">),</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="c1"># Delete various directories.</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Error removing directory </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+    <span class="c1"># Delete all compiled Python objects (&quot;*.pyc&quot;).</span>
+    <span class="k">for</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">fname</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pyc&quot;</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># We don&#39;t want to delete the Android&#39;s Agent .pyc files (as we</span>
+            <span class="c1"># don&#39;t ship the original .py files and thus they&#39;re critical).</span>
+            <span class="k">if</span> <span class="s2">&quot;agent/android/python_agent&quot;</span> <span class="ow">in</span> <span class="n">dirpath</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Error removing file </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="drop_privileges"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.startup.drop_privileges">[docs]</a><span class="k">def</span> <span class="nf">drop_privileges</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Drops privileges to selected user.</span>
+
+<span class="sd">    :param username: drop privileges to this username</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_PWD</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Unable to import pwd required for dropping &quot;</span>
+                 <span class="s2">&quot;privileges (`pip install pwd`)&quot;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">pwd</span><span class="o">.</span><span class="n">getpwnam</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">setgroups</span><span class="p">((</span><span class="n">user</span><span class="o">.</span><span class="n">pw_gid</span><span class="p">,))</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">setgid</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">pw_gid</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">setuid</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">pw_uid</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">putenv</span><span class="p">(</span><span class="s2">&quot;HOME&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">.</span><span class="n">pw_dir</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Invalid user specified to drop privileges to: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">user</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Failed to drop privileges to </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

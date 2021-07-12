@@ -1,0 +1,760 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>lib.cuckoo.core.guest &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lib.cuckoo.core.guest</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lib.cuckoo.core.guest</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding=utf-8</span>
+<span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+
+<div class="viewcode-block" id="analyzer_zipfile"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.analyzer_zipfile">[docs]</a><span class="k">def</span> <span class="nf">analyzer_zipfile</span><span class="p">(</span><span class="n">platform</span><span class="p">,</span> <span class="n">monitor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Creates the Zip file that is sent to the Guest.&quot;&quot;&quot;</span> <span class="c1"># why no Yara?</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="n">zip_data</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">zip_file</span> <span class="o">=</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_data</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">ZIP_STORED</span><span class="p">)</span>
+
+    <span class="c1"># Select the proper analyzer&#39;s folder according to the operating</span>
+    <span class="c1"># system associated with the current machine.</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;analyzer&quot;</span><span class="p">,</span> <span class="n">platform</span><span class="p">)</span>
+    <span class="n">root_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No valid analyzer found at path: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="c1"># Walk through everything inside the analyzer&#39;s folder and write</span>
+    <span class="c1"># them to the zip archive.</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+        <span class="n">archive_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">root</span><span class="p">)[</span><span class="n">root_len</span><span class="p">:]</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">archive_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">archive_root</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">zip_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">archive_name</span><span class="p">)</span>
+
+    <span class="c1"># Include the chosen monitoring component.</span>
+    <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;windows&quot;</span><span class="p">:</span>
+        <span class="n">dirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;monitor&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">archive_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;/bin&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">zip_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">archive_name</span><span class="p">)</span>
+
+    <span class="n">zip_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">zip_data</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;It took more than 10 seconds to build the Analyzer Zip for the &quot;</span>
+            <span class="s2">&quot;Guest. This might be a serious performance penalty. Is your &quot;</span>
+            <span class="s2">&quot;analyzer/windows/ directory bloated with unnecessary files?&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="OldGuestManager"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.OldGuestManager">[docs]</a><span class="k">class</span> <span class="nc">OldGuestManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Old and deprecated Guest Manager.</span>
+
+<span class="sd">    :Note: This class handles the communications with the old agent running in the</span>
+<span class="sd">    virtual machine.</span>
+<span class="sd">    :param ip: guest&#39;s IP address.</span>
+<span class="sd">    :param platform: guest&#39;s operating system type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm_id</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">platform</span><span class="p">,</span> <span class="n">task_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param ip: guest&#39;s IP address.</span>
+<span class="sd">        :param platform: guest&#39;s operating system type.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">vm_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">=</span> <span class="n">platform</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task_id</span> <span class="o">=</span> <span class="n">task_id</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+
+        <span class="c1"># initialized in start_analysis so we can update the critical timeout</span>
+        <span class="c1"># TODO, pull options parameter into __init__ so we can do this here</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="OldGuestManager.wait"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.OldGuestManager.wait">[docs]</a>    <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Waiting for status.</span>
+
+<span class="sd">        :param status: status.</span>
+<span class="sd">        :return: always True.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: waiting for status 0x</span><span class="si">%.04x</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+
+        <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">_set_timeout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+
+        <span class="k">while</span> <span class="n">db</span><span class="o">.</span><span class="n">guest_get_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task_id</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;starting&quot;</span><span class="p">:</span>
+            <span class="c1"># Check if we&#39;ve passed the timeout.</span>
+            <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">end</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">CuckooGuestError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">: the guest initialization hit the &quot;</span>
+                                       <span class="s2">&quot;critical timeout, analysis &quot;</span>
+                                       <span class="s2">&quot;aborted.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># If the server returns the given status, break the loop</span>
+                <span class="c1"># and return.</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span> <span class="o">==</span> <span class="n">status</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: status ready&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                    <span class="k">break</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: not ready yet&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">_set_timeout</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="OldGuestManager.upload_analyzer"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.OldGuestManager.upload_analyzer">[docs]</a>    <span class="k">def</span> <span class="nf">upload_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">monitor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Upload analyzer to guest.</span>
+
+<span class="sd">        :return: operation status.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">zip_data</span> <span class="o">=</span> <span class="n">analyzer_zipfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">platform</span><span class="p">,</span> <span class="n">monitor</span><span class="p">)</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;Uploading analyzer to guest (id=</span><span class="si">%s</span><span class="s2">, ip=</span><span class="si">%s</span><span class="s2">, monitor=</span><span class="si">%s</span><span class="s2">, size=</span><span class="si">%d</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">zip_data</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Send the zip containing the analyzer to the agent running inside</span>
+        <span class="c1"># the guest.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">add_analyzer</span><span class="p">(</span><span class="n">xmlrpclib</span><span class="o">.</span><span class="n">Binary</span><span class="p">(</span><span class="n">zip_data</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">timeout</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooGuestError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">: guest communication timeout: unable &quot;</span>
+                                   <span class="s2">&quot;to upload agent, check networking or try &quot;</span>
+                                   <span class="s2">&quot;to increase timeout&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="OldGuestManager.start_analysis"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.OldGuestManager.start_analysis">[docs]</a>    <span class="k">def</span> <span class="nf">start_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">monitor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Start analysis.</span>
+
+<span class="sd">        :param options: options.</span>
+<span class="sd">        :return: operation status.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO Deal with unicode URLs, should probably try URL encoding.</span>
+        <span class="c1"># Unicode files are being taken care of.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;timeout&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">timeouts</span><span class="o">.</span><span class="n">critical</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://</span><span class="si">{0}</span><span class="s2">:</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">CUCKOO_GUEST_PORT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">TimeoutServer</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                    <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Wait for the agent to respond. This is done to check the</span>
+            <span class="c1"># availability of the agent and verify that it&#39;s ready to receive</span>
+            <span class="c1"># data.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">CUCKOO_GUEST_INIT</span><span class="p">)</span>
+
+            <span class="c1"># Invoke the upload of the analyzer to the guest.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">upload_analyzer</span><span class="p">(</span><span class="n">monitor</span><span class="p">)</span>
+
+            <span class="c1"># Give the analysis options to the guest, so it can generate the</span>
+            <span class="c1"># analysis.conf inside the guest.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">add_config</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">CuckooGuestError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">: unable to upload config to &quot;</span>
+                                       <span class="s2">&quot;analysis machine&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+
+            <span class="c1"># If the target of the analysis is a file, upload it to the guest.</span>
+            <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">file_data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">],</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">CuckooGuestError</span><span class="p">(</span><span class="s2">&quot;Unable to read </span><span class="si">{0}</span><span class="s2">, error: &quot;</span>
+                                           <span class="s2">&quot;</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">],</span> <span class="n">e</span><span class="p">))</span>
+
+                <span class="n">data</span> <span class="o">=</span> <span class="n">xmlrpclib</span><span class="o">.</span><span class="n">Binary</span><span class="p">(</span><span class="n">file_data</span><span class="p">)</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">add_malware</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;file_name&quot;</span><span class="p">])</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">CuckooGuestError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">: unable to upload malware to &quot;</span>
+                                           <span class="s2">&quot;analysis machine: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+
+            <span class="c1"># Launch the analyzer.</span>
+            <span class="n">pid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: analyzer started with PID </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span>
+        <span class="c1"># If something goes wrong when establishing the connection, raise an</span>
+        <span class="c1"># exception and abort the analysis.</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooGuestError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">: guest communication timeout, check &quot;</span>
+                                   <span class="s2">&quot;networking or try to increase &quot;</span>
+                                   <span class="s2">&quot;timeout&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="OldGuestManager.wait_for_completion"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.OldGuestManager.wait_for_completion">[docs]</a>    <span class="k">def</span> <span class="nf">wait_for_completion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Wait for analysis completion.</span>
+
+<span class="sd">        :return: operation status.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: waiting for completion&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+        <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">_set_timeout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+
+        <span class="k">while</span> <span class="n">db</span><span class="o">.</span><span class="n">guest_get_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task_id</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;running&quot;</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="c1"># If the analysis hits the critical timeout, just return straight</span>
+            <span class="c1"># away and try to recover the analysis results from the guest.</span>
+            <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">end</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">CuckooGuestError</span><span class="p">(</span><span class="s2">&quot;The analysis hit the critical timeout, terminating.&quot;</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: error retrieving status: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># React according to the returned status.</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">CUCKOO_GUEST_COMPLETED</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: analysis completed successfully&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="k">elif</span> <span class="n">status</span> <span class="o">==</span> <span class="n">CUCKOO_GUEST_FAILED</span><span class="p">:</span>
+                <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">get_error</span><span class="p">()</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">error</span><span class="p">:</span>
+                    <span class="n">error</span> <span class="o">=</span> <span class="s2">&quot;unknown error&quot;</span>
+
+                <span class="k">raise</span> <span class="n">CuckooGuestError</span><span class="p">(</span><span class="s2">&quot;Analysis failed: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: analysis not completed yet (status=</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">_set_timeout</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="GuestManager"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager">[docs]</a><span class="k">class</span> <span class="nc">GuestManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This class represents the new Guest Manager. It operates on the new</span>
+<span class="sd">    Cuckoo Agent which features a more abstract but more feature-rich API.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmid</span><span class="p">,</span> <span class="n">ipaddr</span><span class="p">,</span> <span class="n">platform</span><span class="p">,</span> <span class="n">task_id</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vmid</span> <span class="o">=</span> <span class="n">vmid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ipaddr</span> <span class="o">=</span> <span class="n">ipaddr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">CUCKOO_GUEST_PORT</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">=</span> <span class="n">platform</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task_id</span> <span class="o">=</span> <span class="n">task_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Just in case we have an old agent inside the Virtual Machine. This</span>
+        <span class="c1"># allows us to remain backwards compatible (for now).</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">old</span> <span class="o">=</span> <span class="n">OldGuestManager</span><span class="p">(</span><span class="n">vmid</span><span class="p">,</span> <span class="n">ipaddr</span><span class="p">,</span> <span class="n">platform</span><span class="p">,</span> <span class="n">task_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_old</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># We maintain the path of the Cuckoo Analyzer on the host.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyzer_path</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">environ</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+
+<div class="viewcode-block" id="GuestManager.get"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Simple wrapper around requests.get().&quot;&quot;&quot;</span>
+        <span class="n">do_raise</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;do_raise&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ipaddr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">trust_env</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">proxies</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">ConnectionError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooGuestError</span><span class="p">(</span>
+                <span class="s2">&quot;Cuckoo Agent failed without error status, please try &quot;</span>
+                <span class="s2">&quot;upgrading to the latest version of agent.py (&gt;= 0.10) and &quot;</span>
+                <span class="s2">&quot;notify us if the issue persists.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1">#r.raise_for_status() # 判断返回的Response类型状态是不是200</span>
+        <span class="k">return</span> <span class="n">r</span></div>
+
+<div class="viewcode-block" id="GuestManager.post"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Simple wrapper around requests.post().&quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ipaddr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">trust_env</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">proxies</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">ConnectionError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooGuestError</span><span class="p">(</span>
+                <span class="s2">&quot;Cuckoo Agent failed without error status, please try &quot;</span>
+                <span class="s2">&quot;upgrading to the latest version of agent.py (&gt;= 0.10) and &quot;</span>
+                <span class="s2">&quot;notify us if the issue persists.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">r</span></div>
+
+<div class="viewcode-block" id="GuestManager.wait_available"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.wait_available">[docs]</a>    <span class="k">def</span> <span class="nf">wait_available</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Wait until the Virtual Machine is available for usage.&quot;&quot;&quot;</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span>
+
+        <span class="k">while</span> <span class="n">db</span><span class="o">.</span><span class="n">guest_get_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task_id</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;starting&quot;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">ipaddr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">break</span>
+            <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">timeout</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: not ready yet&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmid</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: not ready yet&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmid</span><span class="p">)</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">end</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">CuckooGuestError</span><span class="p">(</span>
+                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: the guest initialization hit the critical timeout, &quot;</span>
+                    <span class="s2">&quot;analysis aborted.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmid</span>
+                <span class="p">)</span></div>
+
+<div class="viewcode-block" id="GuestManager.query_environ"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.query_environ">[docs]</a>    <span class="k">def</span> <span class="nf">query_environ</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Query the environment of the Agent in the Virtual Machine.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">environ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/environ&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;environ&quot;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="GuestManager.determine_analyzer_path"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.determine_analyzer_path">[docs]</a>    <span class="k">def</span> <span class="nf">determine_analyzer_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Determine the path of the analyzer. Basically creating a temporary</span>
+<span class="sd">        directory in the systemdrive, i.e., C:\\.&quot;&quot;&quot;</span>
+        <span class="c1">#systemdrive = &quot;%s\\&quot; % self.environ[&quot;SYSTEMDRIVE&quot;]</span>
+
+        <span class="c1">#r = self.post(&quot;/mkdtemp&quot;, data={&quot;dirpath&quot;: systemdrive})</span>
+        <span class="c1">#self.analyzer_path = r.json()[&quot;dirpath&quot;]</span>
+        <span class="n">systemdrive</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">determine_system_drive</span><span class="p">()</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="n">parse_options</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;options&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;analpath&quot;</span><span class="p">):</span>
+            <span class="n">dirpath</span> <span class="o">=</span> <span class="n">systemdrive</span> <span class="o">+</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;analpath&quot;</span><span class="p">]</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/mkdir&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;dirpath&quot;</span><span class="p">:</span> <span class="n">dirpath</span><span class="p">})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">analyzer_path</span> <span class="o">=</span> <span class="n">dirpath</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/mkdtemp&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;dirpath&quot;</span><span class="p">:</span> <span class="n">systemdrive</span><span class="p">})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">analyzer_path</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;dirpath&quot;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="GuestManager.determine_system_drive"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.determine_system_drive">[docs]</a>    <span class="k">def</span> <span class="nf">determine_system_drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;windows&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SYSTEMDRIVE&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s2">&quot;/&quot;</span></div>
+<div class="viewcode-block" id="GuestManager.determine_temp_path"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.determine_temp_path">[docs]</a>    <span class="k">def</span> <span class="nf">determine_temp_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;windows&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s2">&quot;/tmp&quot;</span></div>
+
+<div class="viewcode-block" id="GuestManager.upload_analyzer"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.upload_analyzer">[docs]</a>    <span class="k">def</span> <span class="nf">upload_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">monitor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Upload the analyzer to the Virtual Machine.&quot;&quot;&quot;</span>
+        <span class="n">zip_data</span> <span class="o">=</span> <span class="n">analyzer_zipfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">platform</span><span class="p">,</span> <span class="n">monitor</span><span class="p">)</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Uploading analyzer to guest (id=</span><span class="si">%s</span><span class="s2">, ip=</span><span class="si">%s</span><span class="s2">, monitor=</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">vmid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ipaddr</span><span class="p">,</span> <span class="n">monitor</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">determine_analyzer_path</span><span class="p">()</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;dirpath&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer_path</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/extract&quot;</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;zipfile&quot;</span><span class="p">:</span> <span class="n">zip_data</span><span class="p">},</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GuestManager.add_config"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.add_config">[docs]</a>    <span class="k">def</span> <span class="nf">add_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Upload the analysis.conf for this task to the Virtual Machine.&quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;[analysis]&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Encode datetime objects the way xmlrpc encodes them.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">T%H:%M:%S&quot;</span><span class="p">)))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;filepath&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analyzer_path</span><span class="p">,</span> <span class="s2">&quot;analysis.conf&quot;</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/store&quot;</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">)},</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GuestManager.start_analysis"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.start_analysis">[docs]</a>    <span class="k">def</span> <span class="nf">start_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">monitor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Start the analysis by uploading all required files.</span>
+
+<span class="sd">        :param options: the task options</span>
+<span class="sd">        :param monitor: identifier of the monitor to be used.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting analysis on guest (id=</span><span class="si">%s</span><span class="s2">, ip=</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">vmid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ipaddr</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;timeout&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">timeouts</span><span class="o">.</span><span class="n">critical</span>
+
+        <span class="c1"># Wait for the agent to come alive.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wait_available</span><span class="p">()</span>
+
+        <span class="c1"># Could be beautified a bit, but basically we have to perform the</span>
+        <span class="c1"># same check here as we did in wait_available().</span>
+        <span class="k">if</span> <span class="n">db</span><span class="o">.</span><span class="n">guest_get_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task_id</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;starting&quot;</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Check whether this is the new Agent or the old one (by looking at</span>
+        <span class="c1"># the status code of the index page).</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">501</span><span class="p">:</span>
+            <span class="c1"># log.info(&quot;Cuckoo 2.0 features a new Agent which is more &quot;</span>
+            <span class="c1">#          &quot;feature-rich. It is recommended to make new Virtual &quot;</span>
+            <span class="c1">#          &quot;Machines with the new Agent, but for now falling back &quot;</span>
+            <span class="c1">#          &quot;to backwards compatibility with the old agent.&quot;)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_old</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">old</span><span class="o">.</span><span class="n">start_analysis</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">monitor</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="s2">&quot;While trying to determine the Agent version that your VM is &quot;</span>
+                <span class="s2">&quot;running we retrieved an unexpected HTTP status code: </span><span class="si">%s</span><span class="s2">. If &quot;</span>
+                <span class="s2">&quot;this is a false positive, please report this issue to the &quot;</span>
+                <span class="s2">&quot;Cuckoo Developers. HTTP response headers: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">headers</span><span class="p">)),</span>
+            <span class="p">)</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">guest_set_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task_id</span><span class="p">,</span> <span class="s2">&quot;failed&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="n">status</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">)</span>
+            <span class="n">features</span> <span class="o">=</span> <span class="n">status</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;features&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="s2">&quot;We were unable to detect either the Old or New Agent in the &quot;</span>
+                <span class="s2">&quot;Guest VM, are you sure you have set it up correctly? Please &quot;</span>
+                <span class="s2">&quot;go through the documentation once more and otherwise inform &quot;</span>
+                <span class="s2">&quot;the Cuckoo Developers of your issue.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">guest_set_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task_id</span><span class="p">,</span> <span class="s2">&quot;failed&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Guest is running Cuckoo Agent </span><span class="si">%s</span><span class="s2"> (id=</span><span class="si">%s</span><span class="s2">, ip=</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+                 <span class="n">version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ipaddr</span><span class="p">)</span>
+
+        <span class="c1"># Pin the Agent to our IP address so that it is not accessible by</span>
+        <span class="c1"># other Virtual Machines etc</span>
+        <span class="k">if</span> <span class="s2">&quot;pinning&quot;</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/pinning&quot;</span><span class="p">)</span>
+        <span class="c1"># Obtain the environment variables.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query_environ</span><span class="p">()</span>
+
+        <span class="c1"># Upload the analyzer.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upload_analyzer</span><span class="p">(</span><span class="n">monitor</span><span class="p">)</span>
+
+        <span class="c1"># Pass along the analysis.conf file.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_config</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        # If the target is a file, upload it to the guest.</span>
+<span class="sd">        if options[&quot;category&quot;] == &quot;file&quot;:</span>
+<span class="sd">            data = {</span>
+<span class="sd">                &quot;filepath&quot;: os.path.join(self.environ[&quot;TEMP&quot;], options[&quot;file_name&quot;]),</span>
+<span class="sd">            }# u&#39;C:\\DOCUME~1\\LIZHEN~1\\LOCALS~1\\Temp/Backdoor.Win32.Agent.afxs_ed7c.exe&#39; ??</span>
+<span class="sd">            files = {</span>
+<span class="sd">                &quot;file&quot;: open(options[&quot;target&quot;], &quot;rb&quot;),</span>
+<span class="sd">            }</span>
+<span class="sd">            self.post(&quot;/store&quot;, files=files, data=data)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span> <span class="ow">or</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;archive&quot;</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;filepath&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">determine_temp_path</span><span class="p">(),</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;file_name&quot;</span><span class="p">]</span>
+                <span class="p">),</span>
+            <span class="p">}</span>
+            <span class="c1"># target中存放的是样本的路径</span>
+            <span class="n">files</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;sample.bin&quot;</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">],</span> <span class="s2">&quot;rb&quot;</span><span class="p">)),</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/store&quot;</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;execpy&quot;</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;filepath&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/analyzer.py&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer_path</span><span class="p">,</span>
+                <span class="s2">&quot;async&quot;</span><span class="p">:</span> <span class="s2">&quot;yes&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;cwd&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer_path</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="c1"># u&#39;C:/tmpjr2dbp\\analyzer.py&#39; ???</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/execpy&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Execute the analyzer that we just uploaded.</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Python27</span><span class="se">\\</span><span class="s2">pythonw.exe </span><span class="si">%s</span><span class="se">\\</span><span class="s2">analyzer.py&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer_path</span><span class="p">,</span>
+                <span class="s2">&quot;async&quot;</span><span class="p">:</span> <span class="s2">&quot;yes&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;cwd&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer_path</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/execute&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GuestManager.wait_for_completion"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.wait_for_completion">[docs]</a>    <span class="k">def</span> <span class="nf">wait_for_completion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        waite for the anaylzer from agent</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_old</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">old</span><span class="o">.</span><span class="n">wait_for_completion</span><span class="p">()</span>
+            <span class="k">return</span>
+
+        <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span>
+
+        <span class="k">while</span> <span class="n">db</span><span class="o">.</span><span class="n">guest_get_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task_id</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;running&quot;</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: analysis still processing&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmid</span><span class="p">)</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c1"># If the analysis hits the critical timeout, just return straight</span>
+            <span class="c1"># away and try to recover the analysis results from the guest.</span>
+            <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">end</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">CuckooGuestError</span><span class="p">(</span><span class="s2">&quot;The analysis hit the critical timeout, terminating.&quot;</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/status&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Virtual Machine /status failed (</span><span class="si">%r</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+                <span class="c1"># this might fail due to timeouts or just temporary network issues</span>
+                <span class="c1"># thus we don&#39;t want to abort the analysis just yet and wait for things to</span>
+                <span class="c1"># recover</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">status</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;complete&quot;</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: analysis completed successfully&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmid</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">elif</span> <span class="n">status</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;exception&quot;</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: analysis caught an exception</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">vmid</span><span class="p">,</span> <span class="n">status</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">])</span>
+                <span class="k">return</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Currently the Physical machine manager is using GuestManager in</span>
+<span class="sd">        an incorrect way. This should be fixed up later but for now this</span>
+<span class="sd">        workaround will do.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">old</span><span class="o">.</span><span class="n">server</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

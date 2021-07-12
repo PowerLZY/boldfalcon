@@ -1,0 +1,636 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>lib.cuckoo.core.resultserver &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lib.cuckoo.core.resultserver</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lib.cuckoo.core.resultserver</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<span class="kn">from</span> <span class="nn">lib.cuckoo.common.abstracts</span> <span class="kn">import</span> <span class="n">ProtocolHandler</span>
+
+
+
+<div class="viewcode-block" id="ResultServer"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultServer">[docs]</a><span class="k">class</span> <span class="nc">ResultServer</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Result server. Singleton!</span>
+
+<span class="sd">    This class handles results coming back from the analysis machines.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysistasks</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysishandlers</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">ip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">resultserver</span><span class="o">.</span><span class="n">ip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">resultserver</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">server_addr</span> <span class="o">=</span> <span class="n">ip</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span>
+                <span class="n">SocketServer</span><span class="o">.</span><span class="n">ThreadingTCPServer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="p">,</span> <span class="n">server_addr</span><span class="p">,</span> <span class="n">ResultHandler</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">EADDRINUSE</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">resultserver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;force_port&quot;</span><span class="p">):</span>
+                        <span class="k">raise</span> <span class="n">CuckooCriticalError</span><span class="p">(</span>
+                            <span class="s2">&quot;Cannot bind ResultServer on port </span><span class="si">%d</span><span class="s2">, &quot;</span>
+                            <span class="s2">&quot;bailing.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span>
+                        <span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Cannot bind ResultServer on port </span><span class="si">%s</span><span class="s2">, &quot;</span>
+                                    <span class="s2">&quot;trying another port.&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">EADDRNOTAVAIL</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">CuckooCriticalError</span><span class="p">(</span>
+                        <span class="s2">&quot;Unable to bind ResultServer on </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">. This &quot;</span>
+                        <span class="s2">&quot;usually happens when you start Cuckoo without &quot;</span>
+                        <span class="s2">&quot;bringing up the virtual interface associated with &quot;</span>
+                        <span class="s2">&quot;the ResultServer IP address. Please refer to &quot;</span>
+                        <span class="s2">&quot;http://docs.cuckoosandbox.org/en/latest/faq/#troubles-problem&quot;</span>
+                        <span class="s2">&quot; for more information.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">CuckooCriticalError</span><span class="p">(</span>
+                        <span class="s2">&quot;Unable to bind ResultServer on </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                        <span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+                    <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;ResultServer running on </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">servethread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">servethread</span><span class="o">.</span><span class="n">setDaemon</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">servethread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                <span class="k">break</span>
+
+<div class="viewcode-block" id="ResultServer.add_task"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultServer.add_task">[docs]</a>    <span class="k">def</span> <span class="nf">add_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">machine</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Register a task/machine with the ResultServer.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysistasks</span><span class="p">[</span><span class="n">machine</span><span class="o">.</span><span class="n">ip</span><span class="p">]</span> <span class="o">=</span> <span class="n">task</span><span class="p">,</span> <span class="n">machine</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysishandlers</span><span class="p">[</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="ResultServer.del_task"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultServer.del_task">[docs]</a>    <span class="k">def</span> <span class="nf">del_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">machine</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete ResultServer state and wait for pending RequestHandlers.&quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysistasks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">machine</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;ResultServer did not have </span><span class="si">%s</span><span class="s2"> in its task info.&quot;</span><span class="p">,</span>
+                        <span class="n">machine</span><span class="o">.</span><span class="n">ip</span><span class="p">)</span>
+        <span class="n">handlers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysishandlers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">handlers</span><span class="p">:</span>
+            <span class="n">h</span><span class="o">.</span><span class="n">end_request</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+            <span class="n">h</span><span class="o">.</span><span class="n">done_event</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ResultServer.register_handler"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultServer.register_handler">[docs]</a>    <span class="k">def</span> <span class="nf">register_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Register a RequestHandler so that we can later wait for it.&quot;&quot;&quot;</span>
+        <span class="n">task</span><span class="p">,</span> <span class="n">machine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ctx_for_ip</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">client_address</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">task</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">machine</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysishandlers</span><span class="p">[</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ResultServer.get_ctx_for_ip"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultServer.get_ctx_for_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_ctx_for_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return state for this IP&#39;s task.&quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysistasks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;ResultServer unable to map ip to context: </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">ip</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">x</span></div>
+
+<div class="viewcode-block" id="ResultServer.build_storage_path"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultServer.build_storage_path">[docs]</a>    <span class="k">def</span> <span class="nf">build_storage_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize analysis storage folder.&quot;&quot;&quot;</span>
+        <span class="n">task</span><span class="p">,</span> <span class="n">machine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ctx_for_ip</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">task</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">machine</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;analyses&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">))</span></div></div>
+
+<div class="viewcode-block" id="ResultHandler"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler">[docs]</a><span class="k">class</span> <span class="nc">ResultHandler</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Result handler.</span>
+
+<span class="sd">    This handler speaks our analysis log network protocol.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ResultHandler.setup"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.setup">[docs]</a>    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rawlogfd</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">protocol</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">startbuf</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_request</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done_event</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ppid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">procname</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">register_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="s2">&quot;poll&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">poll</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">poll</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="n">select</span><span class="o">.</span><span class="n">POLLIN</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">poll</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="ResultHandler.finish"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.finish">[docs]</a>    <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">protocol</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">protocol</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rawlogfd</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rawlogfd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ResultHandler.wait_sock_or_end"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.wait_sock_or_end">[docs]</a>    <span class="k">def</span> <span class="nf">wait_sock_or_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_request</span><span class="o">.</span><span class="n">isSet</span><span class="p">():</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">poll</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">poll</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rs</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">select</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">rs</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="ResultHandler.seek"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.seek">[docs]</a>    <span class="k">def</span> <span class="nf">seek</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="ResultHandler.read"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="n">buf</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait_sock_or_end</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">Disconnect</span><span class="p">()</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">length</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">tmp</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">Disconnect</span><span class="p">()</span>
+            <span class="n">buf</span> <span class="o">+=</span> <span class="n">tmp</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">protocol</span><span class="p">,</span> <span class="n">BsonParser</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rawlogfd</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rawlogfd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">startbuf</span> <span class="o">+=</span> <span class="n">buf</span>
+        <span class="k">return</span> <span class="n">buf</span></div>
+
+<div class="viewcode-block" id="ResultHandler.read_any"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.read_any">[docs]</a>    <span class="k">def</span> <span class="nf">read_any</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait_sock_or_end</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="n">Disconnect</span><span class="p">()</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">BUFSIZE</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tmp</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Disconnect</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">tmp</span></div>
+
+<div class="viewcode-block" id="ResultHandler.read_newline"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.read_newline">[docs]</a>    <span class="k">def</span> <span class="nf">read_newline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strip</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">buf</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">while</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">buf</span><span class="p">:</span>
+            <span class="n">buf</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">strip</span><span class="p">:</span>
+            <span class="n">buf</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">buf</span></div>
+
+<div class="viewcode-block" id="ResultHandler.negotiate_protocol"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.negotiate_protocol">[docs]</a>    <span class="k">def</span> <span class="nf">negotiate_protocol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">protocol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_newline</span><span class="p">(</span><span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Command with version number.</span>
+        <span class="k">if</span> <span class="s2">&quot; &quot;</span> <span class="ow">in</span> <span class="n">protocol</span><span class="p">:</span>
+            <span class="n">command</span><span class="p">,</span> <span class="n">version</span> <span class="o">=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">command</span><span class="p">,</span> <span class="n">version</span> <span class="o">=</span> <span class="n">protocol</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;BSON&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">protocol</span> <span class="o">=</span> <span class="n">BsonParser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;FILE&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">protocol</span> <span class="o">=</span> <span class="n">FileUpload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;LOG&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">protocol</span> <span class="o">=</span> <span class="n">LogHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooOperationalError</span><span class="p">(</span>
+                <span class="s2">&quot;Netlog failure, unknown protocol requested.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">protocol</span><span class="o">.</span><span class="n">init</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ResultHandler.handle"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ip</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_address</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">storagepath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">build_storage_path</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">storagepath</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Create all missing folders for this analysis.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_folders</span><span class="p">()</span> <span class="c1"># folders = &quot;shots&quot;, &quot;files&quot;, &quot;logs&quot;, &quot;buffer&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Initialize the protocol handler class for this connection.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">negotiate_protocol</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">protocol</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">protocol</span><span class="p">,</span> <span class="n">BsonParser</span><span class="p">)</span> <span class="ow">and</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;process&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">open_process_log</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">CuckooResultError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;ResultServer connection stopping because of &quot;</span>
+                <span class="s2">&quot;CuckooResultError: </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">e</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">Disconnect</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">):</span>
+            <span class="k">pass</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;FIXME - exception in resultserver connection </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">client_address</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ResultHandler.open_process_log"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.open_process_log">[docs]</a>    <span class="k">def</span> <span class="nf">open_process_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">pid</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">]</span>
+        <span class="n">ppid</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;ppid&quot;</span><span class="p">]</span>
+        <span class="n">procname</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;process_name&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;ResultServer got a new process message but already &quot;</span>
+                <span class="s2">&quot;has pid </span><span class="si">%d</span><span class="s2"> ppid </span><span class="si">%s</span><span class="s2"> procname </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">ppid</span><span class="p">,</span> <span class="n">procname</span>
+            <span class="p">)</span>
+            <span class="k">raise</span> <span class="n">CuckooResultError</span><span class="p">(</span>
+                <span class="s2">&quot;ResultServer connection state inconsistent.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Only report this process when we&#39;re tracking it.</span>
+        <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;track&quot;</span><span class="p">]:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;New process (pid=</span><span class="si">%s</span><span class="s2">, ppid=</span><span class="si">%s</span><span class="s2">, name=</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+                <span class="n">pid</span><span class="p">,</span> <span class="n">ppid</span><span class="p">,</span> <span class="n">procname</span>
+            <span class="p">)</span>
+
+        <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storagepath</span><span class="p">,</span> <span class="s2">&quot;logs&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.bson&quot;</span> <span class="o">%</span> <span class="n">pid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rawlogfd</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rawlogfd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">startbuf</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ppid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">procname</span> <span class="o">=</span> <span class="n">pid</span><span class="p">,</span> <span class="n">ppid</span><span class="p">,</span> <span class="n">procname</span></div>
+
+<div class="viewcode-block" id="ResultHandler.create_folders"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.create_folders">[docs]</a>    <span class="k">def</span> <span class="nf">create_folders</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">folders</span> <span class="o">=</span> <span class="s2">&quot;shots&quot;</span><span class="p">,</span> <span class="s2">&quot;files&quot;</span><span class="p">,</span> <span class="s2">&quot;logs&quot;</span><span class="p">,</span> <span class="s2">&quot;buffer&quot;</span>
+
+        <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="n">folders</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">create_folder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storagepath</span><span class="p">,</span> <span class="n">folder</span><span class="o">=</span><span class="n">folder</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">CuckooOperationalError</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to create folder </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">folder</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span></div></div>
+
+<div class="viewcode-block" id="FileUpload"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.FileUpload">[docs]</a><span class="k">class</span> <span class="nc">FileUpload</span><span class="p">(</span><span class="n">ProtocolHandler</span><span class="p">):</span>
+  
+
+<div class="viewcode-block" id="FileUpload.init"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.FileUpload.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upload_max_size</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">resultserver</span><span class="o">.</span><span class="n">upload_max_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storagepath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">storagepath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fd</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filelog</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">storagepath</span><span class="p">,</span> <span class="s2">&quot;files.json&quot;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Read until newline for file path, e.g.,</span>
+        <span class="c1"># shots/0001.jpg or files/9498687557/libcurl-4.dll.bin</span>
+
+        <span class="n">dump_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">read_newline</span><span class="p">(</span><span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">read_newline</span><span class="p">(</span><span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">pids</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">read_newline</span><span class="p">(</span><span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filepath</span><span class="p">,</span> <span class="n">pids</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[]</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;File upload request for </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dump_path</span><span class="p">)</span>
+
+        <span class="n">dir_part</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">dump_path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;./&quot;</span> <span class="ow">in</span> <span class="n">dump_path</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">dir_part</span> <span class="ow">or</span> <span class="n">dump_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooOperationalError</span><span class="p">(</span>
+                <span class="s2">&quot;FileUpload failure, banned path: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">dump_path</span>
+            <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">restricted</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">RESTRICTED_DIRECTORIES</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">restricted</span> <span class="ow">in</span> <span class="n">dir_part</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">CuckooOperationalError</span><span class="p">(</span>
+                    <span class="s2">&quot;FileUpload failure, banned path.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">create_folder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storagepath</span><span class="p">,</span> <span class="n">dir_part</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">CuckooOperationalError</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to create folder </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dir_part</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storagepath</span><span class="p">,</span> <span class="n">dump_path</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storagepath</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooOperationalError</span><span class="p">(</span>
+                <span class="s2">&quot;FileUpload failure, path sanitization failed.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Analyzer tried to overwrite an existing file, &quot;</span>
+                <span class="s2">&quot;closing connection.&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fd</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
+        <span class="n">chunk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">read_any</span><span class="p">()</span>
+        <span class="k">while</span> <span class="n">chunk</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">upload_max_size</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s2">&quot;Uploaded file length larger than upload_max_size, &quot;</span>
+                    <span class="s2">&quot;stopping upload.&quot;</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;... (truncated)&quot;</span><span class="p">)</span>
+                <span class="k">break</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">chunk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">read_any</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filelog</span><span class="p">,</span> <span class="s2">&quot;a+b&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">dump_path</span><span class="p">,</span>
+                <span class="s2">&quot;filepath&quot;</span><span class="p">:</span> <span class="n">filepath</span><span class="p">,</span>
+                <span class="s2">&quot;pids&quot;</span><span class="p">:</span> <span class="n">pids</span><span class="p">,</span>
+            <span class="p">}))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Uploaded file length: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">tell</span><span class="p">())</span>
+        <span class="k">return</span>
+        <span class="k">yield</span>
+
+<div class="viewcode-block" id="FileUpload.close"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.FileUpload.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+
+<div class="viewcode-block" id="LogHandler"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.LogHandler">[docs]</a><span class="k">class</span> <span class="nc">LogHandler</span><span class="p">(</span><span class="n">ProtocolHandler</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LogHandler.init"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.LogHandler.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">storagepath</span><span class="p">,</span> <span class="s2">&quot;analysis.log&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open</span><span class="p">()</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;LogHandler for live analysis.log initialized.&quot;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">buf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">read_newline</span><span class="p">(</span><span class="n">strip</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">Disconnect</span><span class="p">:</span>
+                <span class="k">break</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">buf</span><span class="p">:</span>
+                <span class="k">break</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+        <span class="k">return</span>
+        <span class="k">yield</span>
+
+<div class="viewcode-block" id="LogHandler.close"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.resultserver.LogHandler.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logpath</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logpath</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Log analysis.log already existing, appending data.&quot;</span><span class="p">)</span>
+        <span class="n">fd</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logpath</span><span class="p">,</span> <span class="s2">&quot;ab&quot;</span><span class="p">)</span>
+
+        <span class="c1"># add a fake log entry, saying this had to be re-opened</span>
+        <span class="c1">#  use the same format as the default logger, in case anyone wants to parse this</span>
+        <span class="c1">#  2015-02-23 12:05:05,092 [lib.api.process] DEBUG: Using QueueUserAPC injection.</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="nb">print</span> <span class="o">&gt;&gt;</span><span class="n">fd</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">%s</span><span class="s2">,</span><span class="si">%03.0f</span><span class="s2"> [lib.core.resultserver] WARNING: This log file was re-opened, log entries will be appended.&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">),</span> <span class="n">now</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">/</span> <span class="mf">1000.0</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">fd</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

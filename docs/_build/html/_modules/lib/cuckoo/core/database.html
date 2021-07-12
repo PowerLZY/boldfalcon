@@ -1,0 +1,1275 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>lib.cuckoo.core.database &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lib.cuckoo.core.database</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lib.cuckoo.core.database</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<div class="viewcode-block" id="Database"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database">[docs]</a><span class="k">class</span> <span class="nc">Database</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Analysis queue database.</span>
+
+<span class="sd">    :note: This class handles the creation of the database user for internal queue</span>
+<span class="sd">    management. It also provides some functions for interacting with it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dsn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">schema_check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param dsn: database connection string.</span>
+<span class="sd">        :param schema_check: disable or enable the db schema version check.</span>
+<span class="sd">        :param echo: echo sql queries.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span> <span class="o">=</span> <span class="n">SuperLock</span><span class="p">()</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">dsn</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connect_database</span><span class="p">(</span><span class="n">dsn</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;database&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">cfg</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">connection</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connect_database</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">connection</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">db_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;db&quot;</span><span class="p">,</span> <span class="s2">&quot;cuckoo.db&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">db_file</span><span class="p">):</span>
+                <span class="n">db_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">db_file</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">db_dir</span><span class="p">):</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">create_folder</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="n">db_dir</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="n">CuckooOperationalError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="n">CuckooDatabaseError</span><span class="p">(</span><span class="s2">&quot;Unable to create database directory: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connect_database</span><span class="p">(</span><span class="s2">&quot;sqlite:///</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">db_file</span><span class="p">)</span>
+
+        <span class="c1"># Disable SQL logging. Turn it on for debugging.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">echo</span> <span class="o">=</span> <span class="n">echo</span>
+
+        <span class="c1"># Connection timeout.</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;database&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">cfg</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">timeout</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">pool_timeout</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">timeout</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">pool_timeout</span> <span class="o">=</span> <span class="mi">60</span>
+
+        <span class="c1"># Let&#39;s emit a warning just in case.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;database&quot;</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;It appears you don&#39;t have a valid `database` &quot;</span>
+                        <span class="s2">&quot;section in conf/cuckoo.conf, using sqlite3 instead.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Create schema.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooDatabaseError</span><span class="p">(</span><span class="s2">&quot;Unable to create or connect to database: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+        <span class="c1"># Get db session.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+
+        <span class="c1"># Deal with schema versioning.</span>
+        <span class="c1"># TODO: it&#39;s a little bit dirty, needs refactoring.</span>
+        <span class="n">tmp_session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tmp_session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">AlembicVersion</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">():</span>
+            <span class="c1"># Set database schema version.</span>
+            <span class="n">tmp_session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">AlembicVersion</span><span class="p">(</span><span class="n">version_num</span><span class="o">=</span><span class="n">SCHEMA_VERSION</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tmp_session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">CuckooDatabaseError</span><span class="p">(</span><span class="s2">&quot;Unable to set schema version: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="n">tmp_session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">tmp_session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Check if db version is the expected one.</span>
+            <span class="n">last</span> <span class="o">=</span> <span class="n">tmp_session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">AlembicVersion</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="n">tmp_session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">last</span><span class="o">.</span><span class="n">version_num</span> <span class="o">!=</span> <span class="n">SCHEMA_VERSION</span> <span class="ow">and</span> <span class="n">schema_check</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">CuckooDatabaseError</span><span class="p">(</span>
+                    <span class="s2">&quot;DB schema version mismatch: found </span><span class="si">%s</span><span class="s2">, expected </span><span class="si">%s</span><span class="s2">. &quot;</span>
+                    <span class="s2">&quot;Try to apply all migrations (cd utils/db_migration/ &amp;&amp; &quot;</span>
+                    <span class="s2">&quot;alembic upgrade head).&quot;</span> <span class="o">%</span>
+                    <span class="p">(</span><span class="n">last</span><span class="o">.</span><span class="n">version_num</span><span class="p">,</span> <span class="n">SCHEMA_VERSION</span><span class="p">)</span>
+                <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Disconnects pool.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_connect_database</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection_string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Connect to a Database.</span>
+
+<span class="sd">        :param connection_string: Connection string specifying the database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># TODO: this is quite ugly, should improve.</span>
+            <span class="k">if</span> <span class="n">connection_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;sqlite&quot;</span><span class="p">):</span>
+                <span class="c1"># Using &quot;check_same_thread&quot; to disable sqlite safety check on multiple threads.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">connection_string</span><span class="p">,</span> <span class="n">connect_args</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;check_same_thread&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+            <span class="k">elif</span> <span class="n">connection_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;postgres&quot;</span><span class="p">):</span>
+                <span class="c1"># Disabling SSL mode to avoid some errors using sqlalchemy and multiprocesing.</span>
+                <span class="c1"># See: http://www.postgresql.org/docs/9.0/static/libpq-ssl.html#LIBPQ-SSL-SSLMODE-STATEMENTS</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">connection_string</span><span class="p">,</span> <span class="n">connect_args</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;sslmode&quot;</span><span class="p">:</span> <span class="s2">&quot;disable&quot;</span><span class="p">})</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">connection_string</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">lib</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">raise</span> <span class="n">CuckooDependencyError</span><span class="p">(</span>
+                <span class="s2">&quot;Missing database driver, unable to import </span><span class="si">%s</span><span class="s2"> (install with &quot;</span>
+                <span class="s2">&quot;`pip install </span><span class="si">%s</span><span class="s2">`)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="n">lib</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_or_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get an ORM instance or create it if not exist.</span>
+
+<span class="sd">        :param session: SQLAlchemy session object</span>
+<span class="sd">        :param model: model to query</span>
+<span class="sd">        :return: row instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">instance</span> <span class="ow">or</span> <span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    
+<div class="viewcode-block" id="Database.drop"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.drop">[docs]</a>    <span class="k">def</span> <span class="nf">drop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Drop all tables.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">drop_all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooDatabaseError</span><span class="p">(</span><span class="s2">&quot;Unable to create or connect to database: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
+
+    
+<div class="viewcode-block" id="Database.clean_machines"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.clean_machines">[docs]</a>    <span class="k">def</span> <span class="nf">clean_machines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clean old stored machines and related tables.&quot;&quot;&quot;</span>
+        <span class="c1"># Secondary table.</span>
+        <span class="c1"># TODO: this is better done via cascade delete.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">machines_tags</span><span class="o">.</span><span class="n">delete</span><span class="p">())</span>
+
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Machine</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error cleaning machines: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+ 
+<div class="viewcode-block" id="Database.add_machine"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add_machine">[docs]</a>    <span class="k">def</span> <span class="nf">add_machine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">platform</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">interface</span><span class="p">,</span>
+                    <span class="n">snapshot</span><span class="p">,</span> <span class="n">resultserver_ip</span><span class="p">,</span> <span class="n">resultserver_port</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a guest machine.</span>
+
+<span class="sd">        :param name: machine id</span>
+<span class="sd">        :param label: machine label</span>
+<span class="sd">        :param ip: machine IP address</span>
+<span class="sd">        :param platform: machine supported platform</span>
+<span class="sd">        :param tags: list of comma separated tags</span>
+<span class="sd">        :param interface: sniffing interface for this machine</span>
+<span class="sd">        :param snapshot: snapshot name to use instead of the current one, if configured</span>
+<span class="sd">        :param resultserver_ip: IP address of the Result Server</span>
+<span class="sd">        :param resultserver_port: port of the Result Server</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="n">machine</span> <span class="o">=</span> <span class="n">Machine</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                          <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                          <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span>
+                          <span class="n">platform</span><span class="o">=</span><span class="n">platform</span><span class="p">,</span>
+                          <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span>
+                          <span class="n">interface</span><span class="o">=</span><span class="n">interface</span><span class="p">,</span>
+                          <span class="n">snapshot</span><span class="o">=</span><span class="n">snapshot</span><span class="p">,</span>
+                          <span class="n">resultserver_ip</span><span class="o">=</span><span class="n">resultserver_ip</span><span class="p">,</span>
+                          <span class="n">resultserver_port</span><span class="o">=</span><span class="n">resultserver_port</span><span class="p">)</span>
+
+        <span class="c1"># Deal with tags format (i.e., foo,bar,baz)</span>
+        <span class="k">if</span> <span class="n">tags</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                    <span class="n">tag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_or_create</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">Tag</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">tag</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                    <span class="n">machine</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">machine</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error adding machine: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="Database.set_status"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.set_status">[docs]</a>    <span class="k">def</span> <span class="nf">set_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set task status.</span>
+
+<span class="sd">        :param task_id: task identifier</span>
+<span class="sd">        :param status: status string</span>
+<span class="sd">        :return: operation status</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Task</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">row</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="n">row</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">status</span>
+
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">TASK_RUNNING</span><span class="p">:</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">started_on</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">status</span> <span class="o">==</span> <span class="n">TASK_COMPLETED</span><span class="p">:</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">completed_on</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error setting status: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="Database.set_route"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.set_route">[docs]</a>    <span class="k">def</span> <span class="nf">set_route</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">,</span> <span class="n">route</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the taken route of this task.</span>
+
+<span class="sd">        :param task_id: task identifier</span>
+<span class="sd">        :param route: route string</span>
+<span class="sd">        :return: operation status</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Task</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">row</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="n">row</span><span class="o">.</span><span class="n">route</span> <span class="o">=</span> <span class="n">route</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error setting route: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.fetch"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetches a task waiting to be processed and locks it for running.</span>
+
+<span class="sd">        :return: None or task</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Task</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">TASK_PENDING</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">machine</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">machine</span><span class="o">=</span><span class="n">machine</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">service</span><span class="p">:</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">not_</span><span class="p">(</span><span class="n">Task</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;service&quot;</span><span class="p">)))</span>
+
+            <span class="n">row</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">Task</span><span class="o">.</span><span class="n">priority</span><span class="o">.</span><span class="n">desc</span><span class="p">(),</span> <span class="n">Task</span><span class="o">.</span><span class="n">added_on</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">row</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="n">row</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">TASK_RUNNING</span><span class="p">)</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">row</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error fetching task: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.guest_start"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.guest_start">[docs]</a>    <span class="k">def</span> <span class="nf">guest_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">manager</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Logs guest start.</span>
+
+<span class="sd">        :param task_id: task identifier</span>
+<span class="sd">        :param name: vm name</span>
+<span class="sd">        :param label: vm label</span>
+<span class="sd">        :param manager: vm manager</span>
+<span class="sd">        :return: guest row id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="n">guest</span> <span class="o">=</span> <span class="n">Guest</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">manager</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">guest</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;init&quot;</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Task</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span><span class="o">.</span><span class="n">guest</span> <span class="o">=</span> <span class="n">guest</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">guest</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">guest</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error logging guest start: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.guest_get_status"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.guest_get_status">[docs]</a>    <span class="k">def</span> <span class="nf">guest_get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Logs guest start.</span>
+
+<span class="sd">        :param task_id: task id</span>
+<span class="sd">        :return: guest status</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">guest</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Guest</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="n">task_id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">guest</span><span class="o">.</span><span class="n">status</span> <span class="k">if</span> <span class="n">guest</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error logging guest start: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+            <span class="k">return</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.guest_set_status"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.guest_set_status">[docs]</a>    <span class="k">def</span> <span class="nf">guest_set_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Logs guest start.</span>
+
+<span class="sd">        :param task_id: task identifier</span>
+<span class="sd">        :param status: status</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">guest</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Guest</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="n">task_id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="n">guest</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">status</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">guest</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error logging guest start: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.guest_remove"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.guest_remove">[docs]</a>    <span class="k">def</span> <span class="nf">guest_remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">guest_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Removes a guest start entry.&quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">guest</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Guest</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">guest_id</span><span class="p">)</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">guest</span><span class="p">)</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error logging guest remove: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.guest_stop"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.guest_stop">[docs]</a>    <span class="k">def</span> <span class="nf">guest_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">guest_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Logs guest stop.</span>
+
+<span class="sd">        :param guest_id: guest log entry id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">guest</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Guest</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">guest_id</span><span class="p">)</span>
+            <span class="n">guest</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;stopped&quot;</span>
+            <span class="n">guest</span><span class="o">.</span><span class="n">shutdown_on</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error logging guest stop: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Data inconsistency in guests table detected, it might be a crash leftover. Continue&quot;</span><span class="p">)</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.list_machines"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.list_machines">[docs]</a>    <span class="k">def</span> <span class="nf">list_machines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Lists virtual machines.</span>
+
+<span class="sd">        :return: list of virtual machines</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">locked</span><span class="p">:</span>
+                <span class="n">machines</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Machine</span><span class="p">)</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">joinedload</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">locked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">machines</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Machine</span><span class="p">)</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">joinedload</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">machines</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error listing machines: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.lock_machine"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.lock_machine">[docs]</a>    <span class="k">def</span> <span class="nf">lock_machine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">platform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Places a lock on a free virtual machine.</span>
+
+<span class="sd">        :param label: optional virtual machine label</span>
+<span class="sd">        :param platform: optional virtual machine platform</span>
+<span class="sd">        :param tags: optional tags required (list)</span>
+<span class="sd">        :return: locked machine</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+
+        <span class="c1"># Preventive checks.</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">and</span> <span class="n">platform</span><span class="p">:</span>
+            <span class="c1"># Wrong usage.</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;You can select machine only by label or by platform.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="n">label</span> <span class="ow">and</span> <span class="n">tags</span><span class="p">:</span>
+            <span class="c1"># Also wrong usage.</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;You can select machine only by label or by tags.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">machines</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Machine</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
+                <span class="n">machines</span> <span class="o">=</span> <span class="n">machines</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">platform</span><span class="p">:</span>
+                <span class="n">machines</span> <span class="o">=</span> <span class="n">machines</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="n">platform</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">tags</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+                    <span class="n">machines</span> <span class="o">=</span> <span class="n">machines</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Machine</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">tag</span><span class="p">))</span>
+
+            <span class="c1"># Check if there are any machines that satisfy the</span>
+            <span class="c1"># selection requirements.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">machines</span><span class="o">.</span><span class="n">count</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">CuckooOperationalError</span><span class="p">(</span><span class="s2">&quot;No machines match selection criteria.&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Get the first free machine.</span>
+            <span class="n">machine</span> <span class="o">=</span> <span class="n">machines</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error locking machine: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">machine</span><span class="p">:</span>
+            <span class="n">machine</span><span class="o">.</span><span class="n">locked</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">machine</span><span class="o">.</span><span class="n">locked_changed_on</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">machine</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error locking machine: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">machine</span></div>
+
+     
+<div class="viewcode-block" id="Database.unlock_machine"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.unlock_machine">[docs]</a>    <span class="k">def</span> <span class="nf">unlock_machine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove lock form a virtual machine.</span>
+
+<span class="sd">        :param label: virtual machine label</span>
+<span class="sd">        :return: unlocked machine</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">machine</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Machine</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error unlocking machine: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">machine</span><span class="p">:</span>
+            <span class="n">machine</span><span class="o">.</span><span class="n">locked</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">machine</span><span class="o">.</span><span class="n">locked_changed_on</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">machine</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error locking machine: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">machine</span></div>
+
+     
+<div class="viewcode-block" id="Database.count_machines_available"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.count_machines_available">[docs]</a>    <span class="k">def</span> <span class="nf">count_machines_available</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;How many virtual machines are ready for analysis.</span>
+
+<span class="sd">        :return: free virtual machines count</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">machines_count</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Machine</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">machines_count</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error counting machines: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.get_available_machines"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.get_available_machines">[docs]</a>    <span class="k">def</span> <span class="nf">get_available_machines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;  Which machines are available</span>
+
+<span class="sd">        :return: free virtual machines</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">machines</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Machine</span><span class="p">)</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">joinedload</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">machines</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error getting available machines: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.set_machine_status"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.set_machine_status">[docs]</a>    <span class="k">def</span> <span class="nf">set_machine_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set status for a virtual machine.</span>
+
+<span class="sd">        :param label: virtual machine label</span>
+<span class="sd">        :param status: new virtual machine status</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">machine</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Machine</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error setting machine status: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">machine</span><span class="p">:</span>
+            <span class="n">machine</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">status</span>
+            <span class="n">machine</span><span class="o">.</span><span class="n">status_changed_on</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">machine</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error setting machine status: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.add_error"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add_error">[docs]</a>    <span class="k">def</span> <span class="nf">add_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">task_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add an error related to a task.</span>
+
+<span class="sd">        :param message: error message</span>
+<span class="sd">        :param task_id: ID of the related task</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">Error</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="n">task_id</span><span class="p">)</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error adding error log: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    <span class="c1"># The following functions are mostly used by external utils.</span>
+
+     
+<div class="viewcode-block" id="Database.add"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">custom</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">enforce_timeout</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">clock</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a task to database.</span>
+
+<span class="sd">        :param obj: object to add (File or URL).</span>
+<span class="sd">        :param timeout: selected timeout.</span>
+<span class="sd">        :param options: analysis options.</span>
+<span class="sd">        :param priority: analysis priority.</span>
+<span class="sd">        :param custom: custom options.</span>
+<span class="sd">        :param owner: task owner.</span>
+<span class="sd">        :param machine: selected machine.</span>
+<span class="sd">        :param platform: platform.</span>
+<span class="sd">        :param tags: optional tags that must be set for machine selection</span>
+<span class="sd">        :param memory: toggle full memory dump.</span>
+<span class="sd">        :param enforce_timeout: toggle full timeout execution.</span>
+<span class="sd">        :param clock: virtual machine clock time</span>
+<span class="sd">        :return: cursor or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+
+        <span class="c1"># Convert empty strings and None values to a valid int</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">timeout</span><span class="p">:</span>
+            <span class="n">timeout</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">priority</span><span class="p">:</span>
+            <span class="n">priority</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">File</span><span class="p">):</span>
+            <span class="n">sample</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">md5</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">get_md5</span><span class="p">(),</span>
+                            <span class="n">crc32</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">get_crc32</span><span class="p">(),</span>
+                            <span class="n">sha1</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">get_sha1</span><span class="p">(),</span>
+                            <span class="n">sha256</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">get_sha256</span><span class="p">(),</span>
+                            <span class="n">sha512</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">get_sha512</span><span class="p">(),</span>
+                            <span class="n">file_size</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">get_size</span><span class="p">(),</span>
+                            <span class="n">file_type</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">get_type</span><span class="p">(),</span>
+                            <span class="n">ssdeep</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">get_ssdeep</span><span class="p">())</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">except</span> <span class="n">IntegrityError</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sample</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Sample</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">md5</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">get_md5</span><span class="p">())</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+                <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Error querying sample for hash: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                    <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error adding task: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+            <span class="n">task</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="n">task</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">URL</span><span class="p">):</span>
+            <span class="n">task</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">task</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+
+        <span class="n">task</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">package</span> <span class="o">=</span> <span class="n">package</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">options</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">priority</span> <span class="o">=</span> <span class="n">priority</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">custom</span> <span class="o">=</span> <span class="n">custom</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">owner</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">machine</span> <span class="o">=</span> <span class="n">machine</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">platform</span> <span class="o">=</span> <span class="n">platform</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="n">memory</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">enforce_timeout</span> <span class="o">=</span> <span class="n">enforce_timeout</span>
+
+        <span class="c1"># Deal with tags format (i.e., foo,bar,baz)</span>
+        <span class="k">if</span> <span class="n">tags</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
+                <span class="n">tag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_or_create</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">Tag</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">tag</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                <span class="n">task</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">clock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clock</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clock</span><span class="p">,</span> <span class="n">unicode</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">task</span><span class="o">.</span><span class="n">clock</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">clock</span><span class="p">,</span> <span class="s2">&quot;%m-</span><span class="si">%d</span><span class="s2">-%Y %H:%M:%S&quot;</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The date you specified has an invalid format, using current timestamp.&quot;</span><span class="p">)</span>
+                    <span class="n">task</span><span class="o">.</span><span class="n">clock</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">task</span><span class="o">.</span><span class="n">clock</span> <span class="o">=</span> <span class="n">clock</span>
+
+        <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">task_id</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error adding task: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">task_id</span></div>
+
+<div class="viewcode-block" id="Database.add_path"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add_path">[docs]</a>    <span class="k">def</span> <span class="nf">add_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                 <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">custom</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                 <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">enforce_timeout</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">clock</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a task to database from file path.</span>
+
+<span class="sd">        :param file_path: sample path.</span>
+<span class="sd">        :param timeout: selected timeout.</span>
+<span class="sd">        :param options: analysis options.</span>
+<span class="sd">        :param priority: analysis priority.</span>
+<span class="sd">        :param custom: custom options.</span>
+<span class="sd">        :param owner: task owner.</span>
+<span class="sd">        :param machine: selected machine.</span>
+<span class="sd">        :param platform: platform.</span>
+<span class="sd">        :param tags: Tags required in machine selection</span>
+<span class="sd">        :param memory: toggle full memory dump.</span>
+<span class="sd">        :param enforce_timeout: toggle full timeout execution.</span>
+<span class="sd">        :param clock: virtual machine clock time</span>
+<span class="sd">        :return: cursor or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;File does not exist: </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Convert empty strings and None values to a valid int</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">timeout</span><span class="p">:</span>
+            <span class="n">timeout</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">priority</span><span class="p">:</span>
+            <span class="n">priority</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="n">file_path</span><span class="p">),</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">package</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span>
+                        <span class="n">custom</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">machine</span><span class="p">,</span> <span class="n">platform</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span>
+                        <span class="n">enforce_timeout</span><span class="p">,</span> <span class="n">clock</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Database.add_url"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add_url">[docs]</a>    <span class="k">def</span> <span class="nf">add_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">custom</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">enforce_timeout</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">clock</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a task to database from url.</span>
+
+<span class="sd">        :param url: url.</span>
+<span class="sd">        :param timeout: selected timeout.</span>
+<span class="sd">        :param options: analysis options.</span>
+<span class="sd">        :param priority: analysis priority.</span>
+<span class="sd">        :param custom: custom options.</span>
+<span class="sd">        :param owner: task owner.</span>
+<span class="sd">        :param machine: selected machine.</span>
+<span class="sd">        :param platform: platform.</span>
+<span class="sd">        :param tags: tags for machine selection</span>
+<span class="sd">        :param memory: toggle full memory dump.</span>
+<span class="sd">        :param enforce_timeout: toggle full timeout execution.</span>
+<span class="sd">        :param clock: virtual machine clock time</span>
+<span class="sd">        :return: cursor or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Convert empty strings and None values to a valid int</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">timeout</span><span class="p">:</span>
+            <span class="n">timeout</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">priority</span><span class="p">:</span>
+            <span class="n">priority</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">URL</span><span class="p">(</span><span class="n">url</span><span class="p">),</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">package</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span>
+                        <span class="n">custom</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">machine</span><span class="p">,</span> <span class="n">platform</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span>
+                        <span class="n">enforce_timeout</span><span class="p">,</span> <span class="n">clock</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Database.add_baseline"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add_baseline">[docs]</a>    <span class="k">def</span> <span class="nf">add_baseline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">memory</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a baseline task to database.</span>
+
+<span class="sd">        :param timeout: selected timeout.</span>
+<span class="sd">        :param owner: task owner.</span>
+<span class="sd">        :param machine: selected machine.</span>
+<span class="sd">        :param memory: toggle full memory dump.</span>
+<span class="sd">        :return: cursor or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">999</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="n">owner</span><span class="p">,</span>
+                        <span class="n">machine</span><span class="o">=</span><span class="n">machine</span><span class="p">,</span> <span class="n">memory</span><span class="o">=</span><span class="n">memory</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;baseline&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Database.add_service"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add_service">[docs]</a>    <span class="k">def</span> <span class="nf">add_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">tags</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a service task to database.</span>
+
+<span class="sd">        :param timeout: selected timeout.</span>
+<span class="sd">        :param owner: task owner.</span>
+<span class="sd">        :param tags: task tags.</span>
+<span class="sd">        :return: cursor or None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">999</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="n">owner</span><span class="p">,</span>
+                        <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;service&quot;</span><span class="p">)</span></div>
+
+     
+<div class="viewcode-block" id="Database.reschedule"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.reschedule">[docs]</a>    <span class="k">def</span> <span class="nf">reschedule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reschedule a task.</span>
+
+<span class="sd">        :param task_id: ID of the task to reschedule.</span>
+<span class="sd">        :return: ID of the newly created task.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_task</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+            <span class="n">add</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_path</span>
+        <span class="k">elif</span> <span class="n">task</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;url&quot;</span><span class="p">:</span>
+            <span class="n">add</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_url</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Change status to recovered.</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Task</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">TASK_RECOVERED</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error rescheduling task: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="c1"># Normalize tags.</span>
+        <span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
+            <span class="n">tags</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">task</span><span class="o">.</span><span class="n">tags</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tags</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">tags</span>
+
+        <span class="c1"># Assign a new priority.</span>
+        <span class="k">if</span> <span class="n">priority</span><span class="p">:</span>
+            <span class="n">task</span><span class="o">.</span><span class="n">priority</span> <span class="o">=</span> <span class="n">priority</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="n">emit_options</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">add</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">package</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span>
+                   <span class="n">task</span><span class="o">.</span><span class="n">priority</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">custom</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">machine</span><span class="p">,</span>
+                   <span class="n">task</span><span class="o">.</span><span class="n">platform</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">memory</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">enforce_timeout</span><span class="p">,</span>
+                   <span class="n">task</span><span class="o">.</span><span class="n">clock</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Database.list_tasks"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.list_tasks">[docs]</a>    <span class="k">def</span> <span class="nf">list_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">not_status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">completed_after</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order_by</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve list of task.</span>
+
+<span class="sd">        :param limit: specify a limit of entries.</span>
+<span class="sd">        :param details: if details about must be included</span>
+<span class="sd">        :param category: filter by category</span>
+<span class="sd">        :param owner: task owner</span>
+<span class="sd">        :param offset: list offset</span>
+<span class="sd">        :param status: filter by task status</span>
+<span class="sd">        :param sample_id: filter tasks for a sample</span>
+<span class="sd">        :param not_status: exclude this task status from filter</span>
+<span class="sd">        :param completed_after: only list tasks completed after this timestamp</span>
+<span class="sd">        :param order_by: definition which field to sort by</span>
+<span class="sd">        :return: list of tasks.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">search</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Task</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
+                <span class="n">search</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">not_status</span><span class="p">:</span>
+                <span class="n">search</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Task</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="n">not_status</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">category</span><span class="p">:</span>
+                <span class="n">search</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">owner</span><span class="p">:</span>
+                <span class="n">search</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="n">owner</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">details</span><span class="p">:</span>
+                <span class="n">search</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">joinedload</span><span class="p">(</span><span class="s2">&quot;guest&quot;</span><span class="p">),</span> <span class="n">joinedload</span><span class="p">(</span><span class="s2">&quot;errors&quot;</span><span class="p">),</span> <span class="n">joinedload</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">sample_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">search</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">sample_id</span><span class="o">=</span><span class="n">sample_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">completed_after</span><span class="p">:</span>
+                <span class="n">search</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Task</span><span class="o">.</span><span class="n">completed_on</span> <span class="o">&gt;</span> <span class="n">completed_after</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">order_by</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">search</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">order_by</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">search</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">Task</span><span class="o">.</span><span class="n">added_on</span><span class="o">.</span><span class="n">desc</span><span class="p">())</span>
+
+            <span class="n">tasks</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="n">limit</span><span class="p">)</span><span class="o">.</span><span class="n">offset</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">tasks</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error listing tasks: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.count_tasks"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.count_tasks">[docs]</a>    <span class="k">def</span> <span class="nf">count_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Count tasks in the database</span>
+
+<span class="sd">        :param status: apply a filter according to the task status</span>
+<span class="sd">        :return: number of tasks found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
+                <span class="n">tasks_count</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Task</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tasks_count</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Task</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">tasks_count</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error counting tasks: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.view_task"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.view_task">[docs]</a>    <span class="k">def</span> <span class="nf">view_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve information on a task.</span>
+
+<span class="sd">        :param task_id: ID of the task to query.</span>
+<span class="sd">        :return: details on the task.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">details</span><span class="p">:</span>
+                <span class="n">task</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Task</span><span class="p">)</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">joinedload</span><span class="p">(</span><span class="s2">&quot;guest&quot;</span><span class="p">),</span> <span class="n">joinedload</span><span class="p">(</span><span class="s2">&quot;errors&quot;</span><span class="p">),</span> <span class="n">joinedload</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">task</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Task</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error viewing task: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">task</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">expunge</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">task</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+     
+<div class="viewcode-block" id="Database.delete_task"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.delete_task">[docs]</a>    <span class="k">def</span> <span class="nf">delete_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete information on a task.</span>
+
+<span class="sd">        :param task_id: ID of the task to query.</span>
+<span class="sd">        :return: operation status.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">task</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Task</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error deleting task: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+     
+<div class="viewcode-block" id="Database.view_sample"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.view_sample">[docs]</a>    <span class="k">def</span> <span class="nf">view_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve information on a sample given a sample id.</span>
+
+<span class="sd">        :param sample_id: ID of the sample to query.</span>
+<span class="sd">        :return: details on the sample used in sample: sample_id.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sample</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Sample</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sample_id</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error viewing task: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sample</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">expunge</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">sample</span></div>
+
+     
+<div class="viewcode-block" id="Database.find_sample"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.find_sample">[docs]</a>    <span class="k">def</span> <span class="nf">find_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md5</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sha256</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Search samples by MD5.</span>
+
+<span class="sd">        :param md5: md5 string</span>
+<span class="sd">        :return: matches list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">md5</span><span class="p">:</span>
+                <span class="n">sample</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Sample</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">md5</span><span class="o">=</span><span class="n">md5</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">sha256</span><span class="p">:</span>
+                <span class="n">sample</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Sample</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">sha256</span><span class="o">=</span><span class="n">sha256</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error searching sample: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sample</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">expunge</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">sample</span></div>
+
+     
+<div class="viewcode-block" id="Database.count_samples"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.count_samples">[docs]</a>    <span class="k">def</span> <span class="nf">count_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Counts the amount of samples in the database.&quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sample_count</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Sample</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error counting samples: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">sample_count</span></div>
+
+     
+<div class="viewcode-block" id="Database.view_machine"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.view_machine">[docs]</a>    <span class="k">def</span> <span class="nf">view_machine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Show virtual machine.</span>
+
+<span class="sd">        :params name: virtual machine name</span>
+<span class="sd">        :return: virtual machine&#39;s details</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">machine</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Machine</span><span class="p">)</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">joinedload</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error viewing machine: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">machine</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">expunge</span><span class="p">(</span><span class="n">machine</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">machine</span></div>
+
+     
+<div class="viewcode-block" id="Database.view_machine_by_label"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.view_machine_by_label">[docs]</a>    <span class="k">def</span> <span class="nf">view_machine_by_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Show virtual machine.</span>
+
+<span class="sd">        :params label: virtual machine label</span>
+<span class="sd">        :return: virtual machine&#39;s details</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">machine</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Machine</span><span class="p">)</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">joinedload</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error viewing machine by label: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">machine</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">expunge</span><span class="p">(</span><span class="n">machine</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">machine</span></div>
+
+     
+<div class="viewcode-block" id="Database.view_errors"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.view_errors">[docs]</a>    <span class="k">def</span> <span class="nf">view_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get all errors related to a task.</span>
+
+<span class="sd">        :param task_id: ID of task associated to the errors</span>
+<span class="sd">        :return: list of errors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">errors</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Error</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="n">task_id</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error viewing errors: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">errors</span></div>
+
+<div class="viewcode-block" id="Database.processing_get_task"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.database.Database.processing_get_task">[docs]</a>    <span class="k">def</span> <span class="nf">processing_get_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get an available task for processing.&quot;&quot;&quot;</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+
+        <span class="c1"># Please feel free to sqlalchemize the following query, but I didn&#39;t</span>
+        <span class="c1"># get that far. This seems to be doing a fine job for avoiding race</span>
+        <span class="c1"># conditions - especially with the session.commit() thing. But any</span>
+        <span class="c1"># improvements are welcome.</span>
+        <span class="c1"># TODO We can get rid of the `processing` column once again by</span>
+        <span class="c1"># introducing a &quot;reporting&quot; status, but this requires annoying</span>
+        <span class="c1"># database migrations, so leaving that for another day.</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            UPDATE tasks SET processing = :instance</span>
+<span class="s2">            WHERE id IN (</span>
+<span class="s2">                SELECT id FROM tasks</span>
+<span class="s2">                WHERE status = :status AND processing IS NULL</span>
+<span class="s2">                LIMIT 1 FOR UPDATE</span>
+<span class="s2">            )</span>
+<span class="s2">            RETURNING id</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;instance&quot;</span><span class="p">:</span> <span class="n">instance</span><span class="p">,</span>
+                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">TASK_COMPLETED</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">task</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">task</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">task</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="n">SQLAlchemyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Database error getting new processing tasks: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

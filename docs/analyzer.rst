@@ -1,8 +1,7 @@
 analyzer package
 ================
 
-Submodules
-----------
+
 
 analyzer.analyzer module
 ------------------------
@@ -13,10 +12,3 @@ analyzer.analyzer module
    :show-inheritance:
 
 
-Module contents
----------------
-
-.. automodule:: analyzer
-   :members:
-   :undoc-members:
-   :show-inheritance:

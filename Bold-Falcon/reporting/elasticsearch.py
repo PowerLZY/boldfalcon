@@ -1,3 +1,8 @@
+# Copyright (C) 2016 Cuckoo Foundation.
+# Copyright (C) 2020-2021 PowerLZY.
+# This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
+# See the file 'docs/LICENSE' for copying permission.
+
 
 from lib.cuckoo.common.abstracts import Report
 
@@ -6,8 +11,8 @@ class ElasticSearch(Report):
     """Stores report in Elasticsearch."""
 
     def connect(self):
-        """
-        Connect to Elasticsearch.
+        """Connect to Elasticsearch.
+
         :raise CuckooReportError: if unable to connect.
         """
         hosts = []
@@ -26,12 +31,11 @@ class ElasticSearch(Report):
             )
         except (ConnectionError, ConnectionTimeout) as e:
             raise CuckooReportError("Cannot connect to Elasticsearch: %s" % e)
-    
-    def do_index(self, obj):
-        """
-        Save results in ElasticSearch for index-task['id']
-        """
 
+    def do_index(self, obj):
+        '''
+        Create results in ElasticSearch
+        '''
         index = "%s-%d" % (self.index, self.task["id"])
 
         try:
@@ -72,24 +76,12 @@ class ElasticSearch(Report):
                     },
                 })
 
-    def load_json(self, json_file, name="unknown"):
-        """
-        Load JSON formatted malware report. It can handle both a path to JSON file and a dictionary object.
-        
-        :note: adb
-        :param json_file: json path
-        :param name: default "unknown"
-        :return: byte sequence
-        """
-
-
     def run(self, results):
-        '''
-        Index the Cuckoo report into ElasticSearch.
-        
+        """Index the Cuckoo report into ElasticSearch.
+
         :param results: analysis results dictionary.
         :raise CuckooReportError: if the connection or reporting failed.
-        '''
+        """
         if not HAVE_ELASTIC:
             raise CuckooDependencyError(
                 "Unable to import elasticsearch (install with "
@@ -110,4 +102,3 @@ class ElasticSearch(Report):
         # Index the API calls.
         if self.options.get("calls"):
             self.process_behavior(results)
-

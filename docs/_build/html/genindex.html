@@ -93,6 +93,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="analyzer.html">analyzer package</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Common:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib.cuckoo.common.html">lib.cuckoo.common package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Core:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib.cuckoo.core.html">lib.cuckoo.core package</a></li>
+</ul>
 <p class="caption"><span class="caption-text">auxiliary:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="auxiliary.html">auxiliary package</a></li>
@@ -105,9 +113,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="processing.html">processing package</a></li>
 </ul>
-<p class="caption"><span class="caption-text">signatures:</span></p>
+<p class="caption"><span class="caption-text">detection:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="signatures.html">signatures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detection.html">detection package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">report</span></p>
 <ul>
@@ -197,6 +205,7 @@
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
@@ -217,13 +226,29 @@
       </ul></li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery.acquire">acquire() (lib.cuckoo.common.abstracts.Machinery method)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.acquire_machine">acquire_machine() (lib.cuckoo.core.scheduler.AnalysisManager method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add">add() (lib.cuckoo.core.database.Database method)</a>
+</li>
       <li><a href="agent.html#agent.agent.Agent.add_analyzer">add_analyzer() (agent.agent.Agent method)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add_baseline">add_baseline() (lib.cuckoo.core.database.Database method)</a>
+</li>
       <li><a href="agent.html#agent.agent.Agent.add_config">add_config() (agent.agent.Agent method)</a>
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.add_config">(lib.cuckoo.core.guest.GuestManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add_error">add_error() (lib.cuckoo.core.database.Database method)</a>
 </li>
       <li><a href="analyzer.html#analyzer.analyzer.Files.add_file">add_file() (analyzer.analyzer.Files method)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add_machine">add_machine() (lib.cuckoo.core.database.Database method)</a>
+</li>
       <li><a href="agent.html#agent.agent.Agent.add_malware">add_malware() (agent.agent.Agent method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add_path">add_path() (lib.cuckoo.core.database.Database method)</a>
 </li>
       <li><a href="analyzer.html#analyzer.analyzer.Files.add_pid">add_pid() (analyzer.analyzer.Files method)</a>
 
@@ -233,15 +258,16 @@
       </ul></li>
       <li><a href="analyzer.html#analyzer.analyzer.ProcessList.add_pids">add_pids() (analyzer.analyzer.ProcessList method)</a>
 </li>
-      <li>
-    agent
-
-      <ul>
-        <li><a href="agent.html#module-agent">module</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add_service">add_service() (lib.cuckoo.core.database.Database method)</a>
 </li>
-      </ul></li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultServer.add_task">add_task() (lib.cuckoo.core.resultserver.ResultServer method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.add_url">add_url() (lib.cuckoo.core.database.Database method)</a>
+</li>
       <li><a href="agent.html#agent.agent.Agent">Agent (class in agent.agent)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     agent.agent
 
@@ -251,17 +277,12 @@
       </ul></li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.alert">alert (lib.cuckoo.common.abstracts.Signature attribute)</a>
 </li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.ALTERNATIVE_PLATFORMS">ALTERNATIVE_PLATFORMS (lib.cuckoo.common.virustotal.VirusTotalAPI attribute)</a>
+</li>
       <li><a href="processing.html#processing.analysisinfo.AnalysisInfo">AnalysisInfo (class in processing.analysisinfo)</a>
 </li>
-      <li>
-    analyzer
-
-      <ul>
-        <li><a href="analyzer.html#module-analyzer">module</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager">AnalysisManager (class in lib.cuckoo.core.scheduler)</a>
 </li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="analyzer.html#analyzer.analyzer.Analyzer">Analyzer (class in analyzer.analyzer)</a>
 </li>
       <li>
@@ -271,27 +292,18 @@
         <li><a href="analyzer.html#module-analyzer.analyzer">module</a>
 </li>
       </ul></li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.analyzer_zipfile">analyzer_zipfile() (in module lib.cuckoo.core.guest)</a>
+</li>
       <li><a href="processing.html#processing.behavior.Anomaly">Anomaly (class in processing.behavior)</a>
 </li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.apihooks">apihooks() (processing.memory.VolatilityAPI method)</a>
 </li>
+      <li><a href="detection.html#detection.apistats.Apistats">Apistats (class in detection.apistats)</a>
+</li>
       <li><a href="processing.html#processing.behavior.ApiStats">ApiStats (class in processing.behavior)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.authors">authors (lib.cuckoo.common.abstracts.Signature attribute)</a>
-
-      <ul>
-        <li><a href="signatures.html#signatures.creates_exe.CreatesExe.authors">(signatures.creates_exe.CreatesExe attribute)</a>
 </li>
-        <li><a href="signatures.html#signatures.generic_metrics.SystemMetrics.authors">(signatures.generic_metrics.SystemMetrics attribute)</a>
-</li>
-      </ul></li>
-      <li>
-    auxiliary
-
-      <ul>
-        <li><a href="auxiliary.html#module-auxiliary">module</a>
-</li>
-      </ul></li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Auxiliary">Auxiliary (class in lib.cuckoo.common.abstracts)</a>
 </li>
       <li>
@@ -299,13 +311,6 @@
 
       <ul>
         <li><a href="auxiliary.html#module-auxiliary.mitm">module</a>
-</li>
-      </ul></li>
-      <li>
-    auxiliary.services
-
-      <ul>
-        <li><a href="auxiliary.html#module-auxiliary.services">module</a>
 </li>
       </ul></li>
       <li>
@@ -323,13 +328,25 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="processing.html#processing.baseline.Baseline">Baseline (class in processing.baseline)</a>
+</li>
       <li><a href="processing.html#processing.network.batch_sort">batch_sort() (in module processing.network)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="processing.html#processing.behavior.BehaviorAnalysis">BehaviorAnalysis (class in processing.behavior)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.BehaviorHandler">BehaviorHandler (class in lib.cuckoo.common.abstracts)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.colors.black">black() (in module lib.cuckoo.common.colors)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.colors.blue">blue() (in module lib.cuckoo.common.colors)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.colors.bold">bold() (in module lib.cuckoo.common.colors)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.build_options">build_options() (lib.cuckoo.core.scheduler.AnalysisManager method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultServer.build_storage_path">build_storage_path() (lib.cuckoo.core.resultserver.ResultServer method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -337,40 +354,62 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunSignatures.call_signature">call_signature() (lib.cuckoo.core.plugins.RunSignatures method)</a>
+</li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.callbacks">callbacks() (processing.memory.VolatilityAPI method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.categories">categories (lib.cuckoo.common.abstracts.Signature attribute)</a>
-
-      <ul>
-        <li><a href="signatures.html#signatures.creates_exe.CreatesExe.categories">(signatures.creates_exe.CreatesExe attribute)</a>
 </li>
-        <li><a href="signatures.html#signatures.generic_metrics.SystemMetrics.categories">(signatures.generic_metrics.SystemMetrics attribute)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.check_configs">check_configs() (in module lib.cuckoo.core.startup)</a>
 </li>
-      </ul></li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.check_dll_loaded">check_dll_loaded() (lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.check_domain">check_domain() (lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.check_file">check_file() (lib.cuckoo.common.abstracts.Signature method)</a>
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.check_file">(lib.cuckoo.core.scheduler.AnalysisManager method)</a>
 </li>
+      </ul></li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.check_ip">check_ip() (lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.check_key">check_key() (lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.check_mutex">check_mutex() (lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.check_python_version">check_python_version() (in module lib.cuckoo.core.startup)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunSignatures.check_signature_version">check_signature_version() (lib.cuckoo.core.plugins.RunSignatures method)</a>
+</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.check_url">check_url() (lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.check_version">check_version() (in module lib.cuckoo.core.startup)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.check_working_directory">check_working_directory() (in module lib.cuckoo.core.startup)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.utils.classlock">classlock() (in module lib.cuckoo.common.utils)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.clean_machines">clean_machines() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.clean_tokens">clean_tokens() (lib.cuckoo.common.virustotal.VirusTotalAPI method)</a>
+</li>
       <li><a href="processing.html#processing.memory.VolatilityManager.cleanup">cleanup() (processing.memory.VolatilityManager method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.utils.cleanup_value">cleanup_value() (in module lib.cuckoo.common.utils)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.ProtocolHandler.close">close() (lib.cuckoo.common.abstracts.ProtocolHandler method)</a>
 
       <ul>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.FileUpload.close">(lib.cuckoo.core.resultserver.FileUpload method)</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.LogHandler.close">(lib.cuckoo.core.resultserver.LogHandler method)</a>
+</li>
         <li><a href="processing.html#processing.network.SortCap.close">(processing.network.SortCap method)</a>
 </li>
       </ul></li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.colors.color">color() (in module lib.cuckoo.common.colors)</a>
+</li>
       <li><a href="analyzer.html#analyzer.analyzer.CommandPipeHandler">CommandPipeHandler (class in analyzer.analyzer)</a>
 </li>
       <li><a href="agent.html#agent.agent.Agent.complete">complete() (agent.agent.Agent method)</a>
@@ -379,6 +418,10 @@
         <li><a href="analyzer.html#analyzer.analyzer.Analyzer.complete">(analyzer.analyzer.Analyzer method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.config.Config">Config (class in lib.cuckoo.common.config)</a>
+</li>
       <li><a href="processing.html#processing.network.conn_from_flowtuple">conn_from_flowtuple() (in module processing.network)</a>
 </li>
       <li><a href="reporting.html#reporting.elasticsearch.ElasticSearch.connect">connect() (reporting.elasticsearch.ElasticSearch method)</a>
@@ -387,9 +430,59 @@
         <li><a href="reporting.html#reporting.mongodb.MongoDB.connect">(reporting.mongodb.MongoDB method)</a>
 </li>
       </ul></li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.utils.convert_char">convert_char() (in module lib.cuckoo.common.utils)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.utils.convert_to_printable">convert_to_printable() (in module lib.cuckoo.common.utils)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.count_machines_available">count_machines_available() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.count_samples">count_samples() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.count_tasks">count_tasks() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.utils.create_folder">create_folder() (in module lib.cuckoo.common.utils)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.utils.create_folders">create_folders() (in module lib.cuckoo.common.utils)</a>
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.create_folders">(lib.cuckoo.core.resultserver.ResultHandler method)</a>
+</li>
+      </ul></li>
       <li><a href="processing.html#processing.procmemory.ProcessMemory.create_idapy">create_idapy() (processing.procmemory.ProcessMemory method)</a>
 </li>
-      <li><a href="signatures.html#signatures.creates_exe.CreatesExe">CreatesExe (class in signatures.creates_exe)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.create_structure">create_structure() (in module lib.cuckoo.core.startup)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.cuckoo_clean">cuckoo_clean() (in module lib.cuckoo.core.startup)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.cuckoo.cuckoo_init">cuckoo_init() (in module lib.cuckoo.core.cuckoo)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.cuckoo.cuckoo_main">cuckoo_main() (in module lib.cuckoo.core.cuckoo)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooAnalysisError">CuckooAnalysisError</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooCriticalError">CuckooCriticalError</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooDatabaseError">CuckooDatabaseError</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooDependencyError">CuckooDependencyError</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooDetectionError">CuckooDetectionError</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooGuestError">CuckooGuestError</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooMachineError">CuckooMachineError</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooOperationalError">CuckooOperationalError</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooProcessingError">CuckooProcessingError</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooReportError">CuckooReportError</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooResultError">CuckooResultError</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.exceptions.CuckooStartupError">CuckooStartupError</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.colors.cyan">cyan() (in module lib.cuckoo.common.colors)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -397,25 +490,66 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database">Database (class in lib.cuckoo.core.database)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.utils.datetime_to_iso">datetime_to_iso() (in module lib.cuckoo.common.utils)</a>
+</li>
       <li><a href="processing.html#processing.debug.Debug">Debug (class in processing.debug)</a>
 </li>
       <li><a href="processing.html#processing.static.WindowsScriptFile.decode">decode() (processing.static.WindowsScriptFile method)</a>
 </li>
+      <li><a href="processing.html#processing.baseline.Baseline.deep_tuple">deep_tuple() (processing.baseline.Baseline method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultServer.del_task">del_task() (lib.cuckoo.core.resultserver.ResultServer method)</a>
+</li>
       <li><a href="analyzer.html#analyzer.analyzer.Files.delete_file">delete_file() (analyzer.analyzer.Files method)</a>
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.delete_file">(in module lib.cuckoo.core.startup)</a>
+</li>
+      </ul></li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.utils.delete_folder">delete_folder() (in module lib.cuckoo.common.utils)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.delete_task">delete_task() (lib.cuckoo.core.database.Database method)</a>
 </li>
       <li><a href="processing.html#processing.static.OfficeDocument.deobf">deobf (processing.static.OfficeDocument attribute)</a>
 </li>
       <li><a href="processing.html#processing.static.OfficeDocument.deobfuscate">deobfuscate() (processing.static.OfficeDocument method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.description">description (lib.cuckoo.common.abstracts.Signature attribute)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.detect_platform">detect_platform() (lib.cuckoo.common.virustotal.VirusTotalAPI method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection">Detection (class in lib.cuckoo.common.abstracts)</a>
+</li>
+      <li>
+    detection.apistats
 
       <ul>
-        <li><a href="signatures.html#signatures.creates_exe.CreatesExe.description">(signatures.creates_exe.CreatesExe attribute)</a>
-</li>
-        <li><a href="signatures.html#signatures.generic_metrics.SystemMetrics.description">(signatures.generic_metrics.SystemMetrics attribute)</a>
+        <li><a href="detection.html#module-detection.apistats">module</a>
 </li>
       </ul></li>
-      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection">Detection (class in lib.cuckoo.common.abstracts)</a>
+      <li>
+    detection.malconv
+
+      <ul>
+        <li><a href="detection.html#module-detection.malconv">module</a>
+</li>
+      </ul></li>
+      <li>
+    detection.strings
+
+      <ul>
+        <li><a href="detection.html#module-detection.strings">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.determine_analyzer_path">determine_analyzer_path() (lib.cuckoo.core.guest.GuestManager method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.determine_system_drive">determine_system_drive() (lib.cuckoo.core.guest.GuestManager method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.determine_temp_path">determine_temp_path() (lib.cuckoo.core.guest.GuestManager method)</a>
 </li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.devicetree">devicetree() (processing.memory.VolatilityAPI method)</a>
 </li>
@@ -423,11 +557,11 @@
 </li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.dlllist">dlllist() (processing.memory.VolatilityAPI method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reporting.html#reporting.elasticsearch.ElasticSearch.do_index">do_index() (reporting.elasticsearch.ElasticSearch method)</a>
 </li>
-      <li><a href="processing.html#processing.droidmon.Droidmon">Droidmon (class in processing.droidmon)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.drop">drop() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.drop_privileges">drop_privileges() (in module lib.cuckoo.core.startup)</a>
 </li>
       <li><a href="processing.html#processing.dropped.Dropped">Dropped (class in processing.dropped)</a>
 </li>
@@ -459,6 +593,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reporting.html#reporting.elasticsearch.ElasticSearch">ElasticSearch (class in reporting.elasticsearch)</a>
 </li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.config.emit_options">emit_options() (in module lib.cuckoo.common.config)</a>
+</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.enabled">enabled (lib.cuckoo.common.abstracts.Detection attribute)</a>
 
       <ul>
@@ -466,17 +602,13 @@
 </li>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.enabled">(lib.cuckoo.common.abstracts.Signature attribute)</a>
 </li>
-        <li><a href="signatures.html#signatures.creates_exe.CreatesExe.enabled">(signatures.creates_exe.CreatesExe attribute)</a>
-</li>
-        <li><a href="signatures.html#signatures.generic_metrics.SystemMetrics.enabled">(signatures.generic_metrics.SystemMetrics attribute)</a>
-</li>
       </ul></li>
       <li><a href="processing.html#processing.static.WindowsScriptFile.encoding">encoding (processing.static.WindowsScriptFile attribute)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.enumerate_plugins">enumerate_plugins() (in module lib.cuckoo.core.plugins)</a>
+</li>
       <li><a href="reporting.html#reporting.jsondump.JsonDump.erase_calls">erase_calls() (reporting.jsondump.JsonDump method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.LibVirtMachinery.ERROR">ERROR (lib.cuckoo.common.abstracts.LibVirtMachinery attribute)</a>
 
       <ul>
@@ -497,7 +629,19 @@
         <li><a href="processing.html#processing.behavior.Summary.event_types">(processing.behavior.Summary attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="agent.html#agent.agent.Agent.execute">execute() (agent.agent.Agent method)</a>
+</li>
+      <li><a href="detection.html#detection.malconv.ExeDataset">ExeDataset (class in detection.malconv)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.extract_basic_features">extract_basic_features() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.extract_features">extract_features() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.extract_features_dynamic">extract_features_dynamic() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.extract_features_static">extract_features_static() (lib.cuckoo.common.abstracts.Instance method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -507,27 +651,61 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.families">families (lib.cuckoo.common.abstracts.Signature attribute)</a>
 </li>
-      <li><a href="analyzer.html#analyzer.analyzer.Files">Files (class in analyzer.analyzer)</a>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.feature_dynamic_filesystem">feature_dynamic_filesystem() (lib.cuckoo.common.abstracts.Instance method)</a>
 </li>
-      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.filter_apinames">filter_apinames (lib.cuckoo.common.abstracts.Signature attribute)</a>
-
-      <ul>
-        <li><a href="signatures.html#signatures.generic_metrics.SystemMetrics.filter_apinames">(signatures.generic_metrics.SystemMetrics attribute)</a>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.feature_dynamic_imports">feature_dynamic_imports() (lib.cuckoo.common.abstracts.Instance method)</a>
 </li>
-      </ul></li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.feature_dynamic_network">feature_dynamic_network() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.feature_dynamic_registry">feature_dynamic_registry() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.feature_dynamic_windowsapi">feature_dynamic_windowsapi() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.feature_static_heuristic">feature_static_heuristic() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.feature_static_imports">feature_static_imports() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.feature_static_metadata">feature_static_metadata() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.feature_static_packer">feature_static_packer() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.feature_static_pef">feature_static_pef() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.feature_static_signature">feature_static_signature() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.feature_static_string">feature_static_string() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.fetch">fetch() (lib.cuckoo.core.database.Database method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.filter_categories">filter_categories (lib.cuckoo.common.abstracts.Signature attribute)</a>
-
-      <ul>
-        <li><a href="signatures.html#signatures.generic_metrics.SystemMetrics.filter_categories">(signatures.generic_metrics.SystemMetrics attribute)</a>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.FILE_REPORT">FILE_REPORT (lib.cuckoo.common.virustotal.VirusTotalAPI attribute)</a>
 </li>
-      </ul></li>
-      <li><a href="signatures.html#signatures.generic_metrics.SystemMetrics.filter_processnames">filter_processnames (signatures.generic_metrics.SystemMetrics attribute)</a>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.file_report">file_report() (lib.cuckoo.common.virustotal.VirusTotalAPI method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.FILE_SCAN">FILE_SCAN (lib.cuckoo.common.virustotal.VirusTotalAPI attribute)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.file_scan">file_scan() (lib.cuckoo.common.virustotal.VirusTotalAPI method)</a>
+</li>
+      <li><a href="analyzer.html#analyzer.analyzer.Files">Files (class in analyzer.analyzer)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.FileUpload">FileUpload (class in lib.cuckoo.core.resultserver)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.filter_apinames">filter_apinames (lib.cuckoo.common.abstracts.Signature attribute)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.filter_categories">filter_categories (lib.cuckoo.common.abstracts.Signature attribute)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.find_sample">find_sample() (lib.cuckoo.core.database.Database method)</a>
 </li>
       <li><a href="processing.html#processing.memory.VolatilityManager.find_taint">find_taint() (processing.memory.VolatilityManager method)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.finish">finish() (lib.cuckoo.core.resultserver.ResultHandler method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.FIX_BLACKLIST">FIX_BLACKLIST (lib.cuckoo.common.virustotal.VirusTotalAPI attribute)</a>
+</li>
       <li><a href="processing.html#processing.network.flowtuple_from_raw">flowtuple_from_raw() (in module processing.network)</a>
+</li>
+      <li><a href="detection.html#detection.malconv.PreMalConv.forward">forward() (detection.malconv.PreMalConv method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -539,9 +717,19 @@
 </li>
       <li><a href="processing.html#processing.behavior.GenericBehavior">GenericBehavior (class in processing.behavior)</a>
 </li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.config.Config.get">get() (lib.cuckoo.common.config.Config method)</a>
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.get">(lib.cuckoo.core.guest.GuestManager method)</a>
+</li>
+      </ul></li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.get_apkinfo">get_apkinfo() (lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.get_available_machines">get_available_machines() (lib.cuckoo.core.database.Database method)</a>
+</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.get_command_lines">get_command_lines() (lib.cuckoo.common.abstracts.Signature method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultServer.get_ctx_for_ip">get_ctx_for_ip() (lib.cuckoo.core.resultserver.ResultServer method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.get_dll_loaded">get_dll_loaded() (lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
@@ -551,11 +739,17 @@
 </li>
       <li><a href="agent.html#agent.agent.Agent.get_error">get_error() (agent.agent.Agent method)</a>
 </li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.get_features">get_features() (lib.cuckoo.common.abstracts.Detection method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.utils.get_filename_from_path">get_filename_from_path() (in module lib.cuckoo.common.utils)</a>
+</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.get_files">get_files() (lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.get_googleplay">get_googleplay() (lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.get_keys">get_keys() (lib.cuckoo.common.abstracts.Signature method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.get_labels">get_labels() (lib.cuckoo.common.abstracts.Detection method)</a>
 </li>
       <li><a href="processing.html#processing.static.OfficeDocument.get_macros">get_macros() (processing.static.OfficeDocument method)</a>
 </li>
@@ -583,8 +777,6 @@
 </li>
       <li><a href="processing.html#processing.memory.VolatilityManager.get_osprofile">get_osprofile() (processing.memory.VolatilityManager method)</a>
 </li>
-      <li><a href="processing.html#processing.droidmon.Droidmon.get_pair">get_pair() (processing.droidmon.Droidmon method)</a>
-</li>
       <li><a href="analyzer.html#analyzer.analyzer.Analyzer.get_pipe_path">get_pipe_path() (analyzer.analyzer.Analyzer method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.get_process_by_pid">get_process_by_pid() (lib.cuckoo.common.abstracts.Signature method)</a>
@@ -592,6 +784,8 @@
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.get_processes">get_processes() (lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.get_results">get_results() (lib.cuckoo.common.abstracts.Signature method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.get_simple_features">get_simple_features() (lib.cuckoo.common.abstracts.Detection method)</a>
 </li>
       <li><a href="agent.html#agent.agent.Agent.get_status">get_status() (agent.agent.Agent method)</a>
 </li>
@@ -609,12 +803,30 @@
 </li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.getsids">getsids() (processing.memory.VolatilityAPI method)</a>
 </li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.colors.green">green() (in module lib.cuckoo.common.colors)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.guest_get_status">guest_get_status() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.guest_manage">guest_manage() (lib.cuckoo.core.scheduler.AnalysisManager method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.guest_remove">guest_remove() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.guest_set_status">guest_set_status() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.guest_start">guest_start() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.guest_stop">guest_stop() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager">GuestManager (class in lib.cuckoo.core.guest)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.handle">handle() (lib.cuckoo.core.resultserver.ResultHandler method)</a>
+</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.BehaviorHandler.handle_event">handle_event() (lib.cuckoo.common.abstracts.BehaviorHandler method)</a>
 
       <ul>
@@ -641,6 +853,8 @@
 </li>
       <li><a href="analyzer.html#analyzer.analyzer.ProcessList.has_pid">has_pid() (analyzer.analyzer.ProcessList method)</a>
 </li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.utils.hash_file">hash_file() (in module lib.cuckoo.common.utils)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -653,23 +867,57 @@
 </li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.imageinfo">imageinfo() (processing.memory.VolatilityAPI method)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.import_package">import_package() (in module lib.cuckoo.core.plugins)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.import_plugin">import_plugin() (in module lib.cuckoo.core.plugins)</a>
+</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.ProtocolHandler.init">init() (lib.cuckoo.common.abstracts.ProtocolHandler method)</a>
 
       <ul>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.init">(lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.FileUpload.init">(lib.cuckoo.core.resultserver.FileUpload method)</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.LogHandler.init">(lib.cuckoo.core.resultserver.LogHandler method)</a>
+</li>
       </ul></li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunSignatures.init_api_sigs">init_api_sigs() (lib.cuckoo.core.plugins.RunSignatures method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.init_binaries">init_binaries() (in module lib.cuckoo.core.startup)</a>
+</li>
+      <li><a href="processing.html#processing.memory.VolatilityAPI.init_config">init_config() (processing.memory.VolatilityAPI method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.init_console_logging">init_console_logging() (in module lib.cuckoo.core.startup)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="processing.html#processing.memory.VolatilityAPI.init_config">init_config() (processing.memory.VolatilityAPI method)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.init_logging">init_logging() (in module lib.cuckoo.core.startup)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.init_modules">init_modules() (in module lib.cuckoo.core.startup)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.init_rooter">init_rooter() (in module lib.cuckoo.core.startup)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.init_routing">init_routing() (in module lib.cuckoo.core.startup)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.init_storage">init_storage() (lib.cuckoo.core.scheduler.AnalysisManager method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.init_tasks">init_tasks() (in module lib.cuckoo.core.startup)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.startup.init_yara">init_yara() (in module lib.cuckoo.core.startup)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.LibVirtMachinery.initialize">initialize() (lib.cuckoo.common.abstracts.LibVirtMachinery method)</a>
 
       <ul>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery.initialize">(lib.cuckoo.common.abstracts.Machinery method)</a>
 </li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.Scheduler.initialize">(lib.cuckoo.core.scheduler.Scheduler method)</a>
+</li>
       </ul></li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance">Instance (class in lib.cuckoo.common.abstracts)</a>
+</li>
       <li><a href="processing.html#processing.network.iplayer_from_raw">iplayer_from_raw() (in module processing.network)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.utils.is_printable">is_printable() (in module lib.cuckoo.common.utils)</a>
 </li>
       <li><a href="analyzer.html#analyzer.analyzer.Files.is_protected_filename">is_protected_filename() (analyzer.analyzer.Files method)</a>
 </li>
@@ -710,10 +958,6 @@
 </li>
       </ul></li>
   </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="processing.html#processing.droidmon.Droidmon.keyCleaner">keyCleaner() (processing.droidmon.Droidmon method)</a>
-</li>
-  </ul></td>
 </tr></table>
 
 <h2 id="L">L</h2>
@@ -725,31 +969,14 @@
         <li><a href="machinery.html#machinery.vmware.VMware.LABEL">(machinery.vmware.VMware attribute)</a>
 </li>
       </ul></li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.label_sample">label_sample() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.LABEL_SIGNIFICANCE_COUNT">LABEL_SIGNIFICANCE_COUNT (lib.cuckoo.common.abstracts.Instance attribute)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.launch_analysis">launch_analysis() (lib.cuckoo.core.scheduler.AnalysisManager method)</a>
+</li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.ldrmodules">ldrmodules() (processing.memory.VolatilityAPI method)</a>
 </li>
-      <li>
-    lib
-
-      <ul>
-        <li><a href="lib.html#module-lib">module</a>
-</li>
-      </ul></li>
-      <li>
-    lib.cuckoo
-
-      <ul>
-        <li><a href="lib.cuckoo.html#module-lib.cuckoo">module</a>
-</li>
-      </ul></li>
-      <li>
-    lib.cuckoo.common
-
-      <ul>
-        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     lib.cuckoo.common.abstracts
 
@@ -757,17 +984,136 @@
         <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.abstracts">module</a>
 </li>
       </ul></li>
-      <li><a href="processing.html#processing.droidmon.Droidmon.lib_pairs">lib_pairs() (processing.droidmon.Droidmon method)</a>
+      <li>
+    lib.cuckoo.common.colors
+
+      <ul>
+        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.colors">module</a>
 </li>
+      </ul></li>
+      <li>
+    lib.cuckoo.common.config
+
+      <ul>
+        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.config">module</a>
+</li>
+      </ul></li>
+      <li>
+    lib.cuckoo.common.exceptions
+
+      <ul>
+        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.exceptions">module</a>
+</li>
+      </ul></li>
+      <li>
+    lib.cuckoo.common.logo
+
+      <ul>
+        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.logo">module</a>
+</li>
+      </ul></li>
+      <li>
+    lib.cuckoo.common.utils
+
+      <ul>
+        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    lib.cuckoo.common.virustotal
+
+      <ul>
+        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.virustotal">module</a>
+</li>
+      </ul></li>
+      <li>
+    lib.cuckoo.core.cuckoo
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.cuckoo">module</a>
+</li>
+      </ul></li>
+      <li>
+    lib.cuckoo.core.database
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.database">module</a>
+</li>
+      </ul></li>
+      <li>
+    lib.cuckoo.core.guest
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.guest">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    lib.cuckoo.core.plugins
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.plugins">module</a>
+</li>
+      </ul></li>
+      <li>
+    lib.cuckoo.core.resultserver
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.resultserver">module</a>
+</li>
+      </ul></li>
+      <li>
+    lib.cuckoo.core.scheduler
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.scheduler">module</a>
+</li>
+      </ul></li>
+      <li>
+    lib.cuckoo.core.startup
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.startup">module</a>
+</li>
+      </ul></li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.LibVirtMachinery">LibVirtMachinery (class in lib.cuckoo.common.abstracts)</a>
 </li>
-      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.load_binaries">load_binaries() (lib.cuckoo.common.abstracts.Detection method)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.list_machines">list_machines() (lib.cuckoo.core.database.Database method)</a>
 </li>
-      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.load_features">load_features() (lib.cuckoo.common.abstracts.Detection method)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.list_plugins">list_plugins() (in module lib.cuckoo.core.plugins)</a>
 </li>
-      <li><a href="reporting.html#reporting.elasticsearch.ElasticSearch.load_json">load_json() (reporting.elasticsearch.ElasticSearch method)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.list_tasks">list_tasks() (lib.cuckoo.core.database.Database method)</a>
 </li>
-      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.load_model">load_model() (lib.cuckoo.common.abstracts.Detection method)</a>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.load_binaries">load_binaries() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.load_binaries_dir">load_binaries_dir() (lib.cuckoo.common.abstracts.Detection method)</a>
+</li>
+      <li><a href="detection.html#detection.apistats.Apistats.load_features">load_features() (detection.apistats.Apistats method)</a>
+
+      <ul>
+        <li><a href="detection.html#detection.strings.Strings_ngram.load_features">(detection.strings.Strings_ngram method)</a>
+</li>
+      </ul></li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.load_instance">load_instance() (lib.cuckoo.common.abstracts.Detection method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.load_json">load_json() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="detection.html#detection.apistats.Apistats.load_model">load_model() (detection.apistats.Apistats method)</a>
+
+      <ul>
+        <li><a href="detection.html#detection.malconv.MalConv.load_model">(detection.malconv.MalConv method)</a>
+</li>
+        <li><a href="detection.html#detection.strings.Strings_ngram.load_model">(detection.strings.Strings_ngram method)</a>
+</li>
+      </ul></li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.load_plugins">load_plugins() (in module lib.cuckoo.core.plugins)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.lock_machine">lock_machine() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.LogHandler">LogHandler (class in lib.cuckoo.core.resultserver)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.logo.logo">logo() (in module lib.cuckoo.common.logo)</a>
 </li>
       <li><a href="processing.html#processing.static.WindowsScriptFile.lookup">lookup (processing.static.WindowsScriptFile attribute)</a>
 </li>
@@ -777,13 +1123,6 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    machinery
-
-      <ul>
-        <li><a href="machinery.html#module-machinery">module</a>
-</li>
-      </ul></li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery">Machinery (class in lib.cuckoo.common.abstracts)</a>
 </li>
       <li>
@@ -802,7 +1141,13 @@
       </ul></li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery.machines">machines() (lib.cuckoo.common.abstracts.Machinery method)</a>
 </li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.colors.magenta">magenta() (in module lib.cuckoo.common.colors)</a>
+</li>
+      <li><a href="detection.html#detection.malconv.MalConv">MalConv (class in detection.malconv)</a>
+</li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.malfind">malfind() (processing.memory.VolatilityAPI method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.MAPPING">MAPPING (lib.cuckoo.common.virustotal.VirusTotalAPI attribute)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.mark">mark() (lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
@@ -820,18 +1165,14 @@
 </li>
       <li><a href="processing.html#processing.memory.Memory">Memory (class in processing.memory)</a>
 </li>
+      <li><a href="processing.html#processing.baseline.Baseline.memory">memory() (processing.baseline.Baseline method)</a>
+</li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.messagehooks">messagehooks() (processing.memory.VolatilityAPI method)</a>
 </li>
       <li><a href="processing.html#processing.analysisinfo.MetaInfo">MetaInfo (class in processing.analysisinfo)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.minimum">minimum (lib.cuckoo.common.abstracts.Signature attribute)</a>
-
-      <ul>
-        <li><a href="signatures.html#signatures.creates_exe.CreatesExe.minimum">(signatures.creates_exe.CreatesExe attribute)</a>
 </li>
-        <li><a href="signatures.html#signatures.generic_metrics.SystemMetrics.minimum">(signatures.generic_metrics.SystemMetrics attribute)</a>
-</li>
-      </ul></li>
       <li><a href="auxiliary.html#auxiliary.mitm.MITM">MITM (class in auxiliary.mitm)</a>
 </li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.modscan">modscan() (processing.memory.VolatilityAPI method)</a>
@@ -840,47 +1181,61 @@
     module
 
       <ul>
-        <li><a href="agent.html#module-agent">agent</a>
-</li>
         <li><a href="agent.html#module-agent.agent">agent.agent</a>
-</li>
-        <li><a href="analyzer.html#module-analyzer">analyzer</a>
 </li>
         <li><a href="analyzer.html#module-analyzer.analyzer">analyzer.analyzer</a>
 </li>
-        <li><a href="auxiliary.html#module-auxiliary">auxiliary</a>
-</li>
         <li><a href="auxiliary.html#module-auxiliary.mitm">auxiliary.mitm</a>
-</li>
-        <li><a href="auxiliary.html#module-auxiliary.services">auxiliary.services</a>
 </li>
         <li><a href="auxiliary.html#module-auxiliary.sniffer">auxiliary.sniffer</a>
 </li>
-        <li><a href="lib.html#module-lib">lib</a>
+        <li><a href="detection.html#module-detection.apistats">detection.apistats</a>
 </li>
-        <li><a href="lib.cuckoo.html#module-lib.cuckoo">lib.cuckoo</a>
+        <li><a href="detection.html#module-detection.malconv">detection.malconv</a>
 </li>
-        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common">lib.cuckoo.common</a>
+        <li><a href="detection.html#module-detection.strings">detection.strings</a>
 </li>
         <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.abstracts">lib.cuckoo.common.abstracts</a>
 </li>
-        <li><a href="machinery.html#module-machinery">machinery</a>
+        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.colors">lib.cuckoo.common.colors</a>
+</li>
+        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.config">lib.cuckoo.common.config</a>
+</li>
+        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.exceptions">lib.cuckoo.common.exceptions</a>
+</li>
+        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.logo">lib.cuckoo.common.logo</a>
+</li>
+        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.utils">lib.cuckoo.common.utils</a>
+</li>
+        <li><a href="lib.cuckoo.common.html#module-lib.cuckoo.common.virustotal">lib.cuckoo.common.virustotal</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.cuckoo">lib.cuckoo.core.cuckoo</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.database">lib.cuckoo.core.database</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.guest">lib.cuckoo.core.guest</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.plugins">lib.cuckoo.core.plugins</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.resultserver">lib.cuckoo.core.resultserver</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.scheduler">lib.cuckoo.core.scheduler</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#module-lib.cuckoo.core.startup">lib.cuckoo.core.startup</a>
 </li>
         <li><a href="machinery.html#module-machinery.virtualbox">machinery.virtualbox</a>
 </li>
         <li><a href="machinery.html#module-machinery.vmware">machinery.vmware</a>
 </li>
-        <li><a href="processing.html#module-processing">processing</a>
-</li>
         <li><a href="processing.html#module-processing.analysisinfo">processing.analysisinfo</a>
+</li>
+        <li><a href="processing.html#module-processing.baseline">processing.baseline</a>
 </li>
         <li><a href="processing.html#module-processing.behavior">processing.behavior</a>
 </li>
         <li><a href="processing.html#module-processing.buffer">processing.buffer</a>
 </li>
         <li><a href="processing.html#module-processing.debug">processing.debug</a>
-</li>
-        <li><a href="processing.html#module-processing.droidmon">processing.droidmon</a>
 </li>
         <li><a href="processing.html#module-processing.dropped">processing.dropped</a>
 </li>
@@ -900,35 +1255,21 @@
 </li>
         <li><a href="processing.html#module-processing.strings">processing.strings</a>
 </li>
-        <li><a href="processing.html#module-processing.suricata">processing.suricata</a>
-</li>
         <li><a href="processing.html#module-processing.targetinfo">processing.targetinfo</a>
 </li>
         <li><a href="processing.html#module-processing.virustotal">processing.virustotal</a>
-</li>
-        <li><a href="reporting.html#module-reporting">reporting</a>
 </li>
         <li><a href="reporting.html#module-reporting.elasticsearch">reporting.elasticsearch</a>
 </li>
         <li><a href="reporting.html#module-reporting.jsondump">reporting.jsondump</a>
 </li>
-        <li><a href="reporting.html#module-reporting.moloch">reporting.moloch</a>
-</li>
         <li><a href="reporting.html#module-reporting.mongodb">reporting.mongodb</a>
 </li>
         <li><a href="reporting.html#module-reporting.reporthtml">reporting.reporthtml</a>
 </li>
-        <li><a href="signatures.html#module-signatures">signatures</a>
-</li>
-        <li><a href="signatures.html#module-signatures.creates_exe">signatures.creates_exe</a>
-</li>
-        <li><a href="signatures.html#module-signatures.generic_metrics">signatures.generic_metrics</a>
-</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reporting.html#reporting.moloch.Moloch">Moloch (class in reporting.moloch)</a>
-</li>
       <li><a href="reporting.html#reporting.mongodb.MongoDB">MongoDB (class in reporting.mongodb)</a>
 </li>
       <li><a href="analyzer.html#analyzer.analyzer.Files.move_file">move_file() (analyzer.analyzer.Files method)</a>
@@ -942,23 +1283,25 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.name">name (lib.cuckoo.common.abstracts.Signature attribute)</a>
-
-      <ul>
-        <li><a href="signatures.html#signatures.creates_exe.CreatesExe.name">(signatures.creates_exe.CreatesExe attribute)</a>
 </li>
-        <li><a href="signatures.html#signatures.generic_metrics.SystemMetrics.name">(signatures.generic_metrics.SystemMetrics attribute)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.negotiate_protocol">negotiate_protocol() (lib.cuckoo.core.resultserver.ResultHandler method)</a>
 </li>
-      </ul></li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.netscan">netscan() (processing.memory.VolatilityAPI method)</a>
+</li>
+      <li><a href="processing.html#processing.network.NetworkAnalysis">NetworkAnalysis (class in processing.network)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="processing.html#processing.network.NetworkAnalysis">NetworkAnalysis (class in processing.network)</a>
-</li>
       <li><a href="processing.html#processing.network.SortCap.next">next() (processing.network.SortCap method)</a>
 </li>
       <li><a href="processing.html#processing.network.next_connection_packets">next_connection_packets() (in module processing.network)</a>
 </li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.normalize">normalize() (lib.cuckoo.common.virustotal.VirusTotalAPI method)</a>
+
+      <ul>
+        <li><a href="processing.html#processing.baseline.Baseline.normalize">(processing.baseline.Baseline method)</a>
+</li>
+      </ul></li>
       <li><a href="processing.html#processing.network.Pcap.notified_dpkt">notified_dpkt (processing.network.Pcap attribute)</a>
 </li>
   </ul></td>
@@ -971,25 +1314,21 @@
 </li>
       <li><a href="processing.html#processing.static.OfficeDocument">OfficeDocument (class in processing.static)</a>
 </li>
-      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.on_call">on_call() (lib.cuckoo.common.abstracts.Signature method)</a>
-
-      <ul>
-        <li><a href="signatures.html#signatures.generic_metrics.SystemMetrics.on_call">(signatures.generic_metrics.SystemMetrics method)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.OldGuestManager">OldGuestManager (class in lib.cuckoo.core.guest)</a>
 </li>
-      </ul></li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.on_call">on_call() (lib.cuckoo.common.abstracts.Signature method)</a>
+</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.on_call_dispatch">on_call_dispatch (lib.cuckoo.common.abstracts.Signature attribute)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.on_complete">on_complete() (lib.cuckoo.common.abstracts.Signature method)</a>
-
-      <ul>
-        <li><a href="signatures.html#signatures.creates_exe.CreatesExe.on_complete">(signatures.creates_exe.CreatesExe method)</a>
 </li>
-      </ul></li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.on_process">on_process() (lib.cuckoo.common.abstracts.Signature method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.on_signature">on_signature() (lib.cuckoo.common.abstracts.Signature method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.on_signature">on_signature() (lib.cuckoo.common.abstracts.Signature method)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.open_process_log">open_process_log() (lib.cuckoo.core.resultserver.ResultHandler method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.order">order (lib.cuckoo.common.abstracts.Detection attribute)</a>
 
@@ -999,6 +1338,8 @@
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Report.order">(lib.cuckoo.common.abstracts.Report attribute)</a>
 </li>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.order">(lib.cuckoo.common.abstracts.Signature attribute)</a>
+</li>
+        <li><a href="processing.html#processing.baseline.Baseline.order">(processing.baseline.Baseline attribute)</a>
 </li>
         <li><a href="processing.html#processing.dumptls.TLSMasterSecrets.order">(processing.dumptls.TLSMasterSecrets attribute)</a>
 </li>
@@ -1017,9 +1358,7 @@
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.BehaviorHandler.parse">parse() (lib.cuckoo.common.abstracts.BehaviorHandler method)</a>
 </li>
-      <li><a href="processing.html#processing.suricata.Suricata.parse_eve_json">parse_eve_json() (processing.suricata.Suricata method)</a>
-</li>
-      <li><a href="processing.html#processing.suricata.Suricata.parse_files">parse_files() (processing.suricata.Suricata method)</a>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.config.parse_options">parse_options() (in module lib.cuckoo.common.config)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.LibVirtMachinery.PAUSED">PAUSED (lib.cuckoo.common.abstracts.LibVirtMachinery attribute)</a>
 </li>
@@ -1035,9 +1374,15 @@
 </li>
       <li><a href="processing.html#processing.behavior.PlatformInfo">PlatformInfo (class in processing.behavior)</a>
 </li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.PLATFORMS">PLATFORMS (lib.cuckoo.common.virustotal.VirusTotalAPI attribute)</a>
+</li>
       <li><a href="processing.html#processing.memory.VolatilityManager.PLUGINS">PLUGINS (processing.memory.VolatilityManager attribute)</a>
 </li>
       <li><a href="processing.html#processing.static.PortableExecutable">PortableExecutable (class in processing.static)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.POSITIVE_RATE">POSITIVE_RATE (lib.cuckoo.common.abstracts.Instance attribute)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.post">post() (lib.cuckoo.core.guest.GuestManager method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.LibVirtMachinery.POWEROFF">POWEROFF (lib.cuckoo.common.abstracts.LibVirtMachinery attribute)</a>
 
@@ -1045,7 +1390,13 @@
         <li><a href="machinery.html#machinery.virtualbox.VirtualBox.POWEROFF">(machinery.virtualbox.VirtualBox attribute)</a>
 </li>
       </ul></li>
-      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.predict">predict() (lib.cuckoo.common.abstracts.Detection method)</a>
+      <li><a href="detection.html#detection.apistats.Apistats.predict">predict() (detection.apistats.Apistats method)</a>
+
+      <ul>
+        <li><a href="detection.html#detection.strings.Strings_ngram.predict">(detection.strings.Strings_ngram method)</a>
+</li>
+      </ul></li>
+      <li><a href="detection.html#detection.malconv.PreMalConv">PreMalConv (class in detection.malconv)</a>
 </li>
       <li><a href="analyzer.html#analyzer.analyzer.Analyzer.prepare">prepare() (analyzer.analyzer.Analyzer method)</a>
 </li>
@@ -1053,19 +1404,18 @@
 </li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.privs">privs() (processing.memory.VolatilityAPI method)</a>
 </li>
-      <li><a href="reporting.html#reporting.elasticsearch.ElasticSearch.process_behavior">process_behavior() (reporting.elasticsearch.ElasticSearch method)</a>
-</li>
-      <li><a href="processing.html#processing.suricata.Suricata.process_pcap_binary">process_pcap_binary() (processing.suricata.Suricata method)</a>
-</li>
-      <li><a href="processing.html#processing.suricata.Suricata.process_pcap_socket">process_pcap_socket() (processing.suricata.Suricata method)</a>
-</li>
-      <li>
-    processing
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunDetection.process">process() (lib.cuckoo.core.plugins.RunDetection method)</a>
 
       <ul>
-        <li><a href="processing.html#module-processing">module</a>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunProcessing.process">(lib.cuckoo.core.plugins.RunProcessing method)</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunReporting.process">(lib.cuckoo.core.plugins.RunReporting method)</a>
 </li>
       </ul></li>
+      <li><a href="reporting.html#reporting.elasticsearch.ElasticSearch.process_behavior">process_behavior() (reporting.elasticsearch.ElasticSearch method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.process_results">process_results() (lib.cuckoo.core.scheduler.AnalysisManager method)</a>
+</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing">Processing (class in lib.cuckoo.common.abstracts)</a>
 </li>
       <li>
@@ -1076,12 +1426,21 @@
 </li>
       </ul></li>
       <li>
+    processing.baseline
+
+      <ul>
+        <li><a href="processing.html#module-processing.baseline">module</a>
+</li>
+      </ul></li>
+      <li>
     processing.behavior
 
       <ul>
         <li><a href="processing.html#module-processing.behavior">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     processing.buffer
 
@@ -1094,15 +1453,6 @@
 
       <ul>
         <li><a href="processing.html#module-processing.debug">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    processing.droidmon
-
-      <ul>
-        <li><a href="processing.html#module-processing.droidmon">module</a>
 </li>
       </ul></li>
       <li>
@@ -1169,13 +1519,6 @@
 </li>
       </ul></li>
       <li>
-    processing.suricata
-
-      <ul>
-        <li><a href="processing.html#module-processing.suricata">module</a>
-</li>
-      </ul></li>
-      <li>
     processing.targetinfo
 
       <ul>
@@ -1189,6 +1532,8 @@
         <li><a href="processing.html#module-processing.virustotal">module</a>
 </li>
       </ul></li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.processing_get_task">processing_get_task() (lib.cuckoo.core.database.Database method)</a>
+</li>
       <li><a href="analyzer.html#analyzer.analyzer.ProcessList">ProcessList (class in analyzer.analyzer)</a>
 </li>
       <li><a href="processing.html#processing.procmemory.ProcessMemory">ProcessMemory (class in processing.procmemory)</a>
@@ -1208,12 +1553,32 @@
   </ul></td>
 </tr></table>
 
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.query_environ">query_environ() (lib.cuckoo.core.guest.GuestManager method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.read">read() (lib.cuckoo.core.resultserver.ResultHandler method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.read_any">read_any() (lib.cuckoo.core.resultserver.ResultHandler method)</a>
+</li>
       <li><a href="processing.html#processing.procmemory.ProcessMemory.read_dump">read_dump() (processing.procmemory.ProcessMemory method)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.read_newline">read_newline() (lib.cuckoo.core.resultserver.ResultHandler method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.colors.red">red() (in module lib.cuckoo.common.colors)</a>
+</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.references">references (lib.cuckoo.common.abstracts.Signature attribute)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultServer.register_handler">register_handler() (lib.cuckoo.core.resultserver.ResultServer method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.register_plugin">register_plugin() (in module lib.cuckoo.core.plugins)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery.release">release() (lib.cuckoo.common.abstracts.Machinery method)</a>
 </li>
@@ -1223,13 +1588,6 @@
 </li>
       <li><a href="reporting.html#reporting.reporthtml.ReportHTML">ReportHTML (class in reporting.reporthtml)</a>
 </li>
-      <li>
-    reporting
-
-      <ul>
-        <li><a href="reporting.html#module-reporting">module</a>
-</li>
-      </ul></li>
       <li>
     reporting.elasticsearch
 
@@ -1242,13 +1600,6 @@
 
       <ul>
         <li><a href="reporting.html#module-reporting.jsondump">module</a>
-</li>
-      </ul></li>
-      <li>
-    reporting.moloch
-
-      <ul>
-        <li><a href="reporting.html#module-reporting.moloch">module</a>
 </li>
       </ul></li>
       <li>
@@ -1265,13 +1616,29 @@
         <li><a href="reporting.html#module-reporting.reporthtml">module</a>
 </li>
       </ul></li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.reschedule">reschedule() (lib.cuckoo.core.database.Database method)</a>
+</li>
       <li><a href="reporting.html#reporting.jsondump.JsonDump.restore_calls">restore_calls() (reporting.jsondump.JsonDump method)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler">ResultHandler (class in lib.cuckoo.core.resultserver)</a>
+</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.results">results() (lib.cuckoo.common.abstracts.Signature method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultServer">ResultServer (class in lib.cuckoo.core.resultserver)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.RISKWARE">RISKWARE (lib.cuckoo.common.virustotal.VirusTotalAPI attribute)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.route_network">route_network() (lib.cuckoo.core.scheduler.AnalysisManager method)</a>
 </li>
       <li><a href="analyzer.html#analyzer.analyzer.Analyzer.run">run() (analyzer.analyzer.Analyzer method)</a>
 
       <ul>
+        <li><a href="detection.html#detection.apistats.Apistats.run">(detection.apistats.Apistats method)</a>
+</li>
+        <li><a href="detection.html#detection.malconv.MalConv.run">(detection.malconv.MalConv method)</a>
+</li>
+        <li><a href="detection.html#detection.strings.Strings_ngram.run">(detection.strings.Strings_ngram method)</a>
+</li>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.BehaviorHandler.run">(lib.cuckoo.common.abstracts.BehaviorHandler method)</a>
 </li>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.run">(lib.cuckoo.common.abstracts.Detection method)</a>
@@ -1280,9 +1647,21 @@
 </li>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Report.run">(lib.cuckoo.common.abstracts.Report method)</a>
 </li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunDetection.run">(lib.cuckoo.core.plugins.RunDetection method)</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunProcessing.run">(lib.cuckoo.core.plugins.RunProcessing method)</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunReporting.run">(lib.cuckoo.core.plugins.RunReporting method)</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunSignatures.run">(lib.cuckoo.core.plugins.RunSignatures method)</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.run">(lib.cuckoo.core.scheduler.AnalysisManager method)</a>
+</li>
         <li><a href="processing.html#processing.analysisinfo.AnalysisInfo.run">(processing.analysisinfo.AnalysisInfo method)</a>
 </li>
         <li><a href="processing.html#processing.analysisinfo.MetaInfo.run">(processing.analysisinfo.MetaInfo method)</a>
+</li>
+        <li><a href="processing.html#processing.baseline.Baseline.run">(processing.baseline.Baseline method)</a>
 </li>
         <li><a href="processing.html#processing.behavior.Anomaly.run">(processing.behavior.Anomaly method)</a>
 </li>
@@ -1299,8 +1678,6 @@
         <li><a href="processing.html#processing.buffer.DroppedBuffer.run">(processing.buffer.DroppedBuffer method)</a>
 </li>
         <li><a href="processing.html#processing.debug.Debug.run">(processing.debug.Debug method)</a>
-</li>
-        <li><a href="processing.html#processing.droidmon.Droidmon.run">(processing.droidmon.Droidmon method)</a>
 </li>
         <li><a href="processing.html#processing.dropped.Dropped.run">(processing.dropped.Dropped method)</a>
 </li>
@@ -1332,8 +1709,6 @@
 </li>
         <li><a href="processing.html#processing.strings.Strings.run">(processing.strings.Strings method)</a>
 </li>
-        <li><a href="processing.html#processing.suricata.Suricata.run">(processing.suricata.Suricata method)</a>
-</li>
         <li><a href="processing.html#processing.targetinfo.TargetInfo.run">(processing.targetinfo.TargetInfo method)</a>
 </li>
         <li><a href="processing.html#processing.virustotal.VirusTotal.run">(processing.virustotal.VirusTotal method)</a>
@@ -1342,8 +1717,6 @@
 </li>
         <li><a href="reporting.html#reporting.jsondump.JsonDump.run">(reporting.jsondump.JsonDump method)</a>
 </li>
-        <li><a href="reporting.html#reporting.moloch.Moloch.run">(reporting.moloch.Moloch method)</a>
-</li>
         <li><a href="reporting.html#reporting.mongodb.MongoDB.run">(reporting.mongodb.MongoDB method)</a>
 </li>
         <li><a href="reporting.html#reporting.reporthtml.ReportHTML.run">(reporting.reporthtml.ReportHTML method)</a>
@@ -1351,6 +1724,10 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunAuxiliary">RunAuxiliary (class in lib.cuckoo.core.plugins)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunDetection">RunDetection (class in lib.cuckoo.core.plugins)</a>
+</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.LibVirtMachinery.RUNNING">RUNNING (lib.cuckoo.common.abstracts.LibVirtMachinery attribute)</a>
 
       <ul>
@@ -1359,17 +1736,29 @@
       </ul></li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery.running">running() (lib.cuckoo.common.abstracts.Machinery method)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunProcessing">RunProcessing (class in lib.cuckoo.core.plugins)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunReporting">RunReporting (class in lib.cuckoo.core.plugins)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunSignatures">RunSignatures (class in lib.cuckoo.core.plugins)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.save_binaries">save_binaries() (lib.cuckoo.common.abstracts.Detection method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.save_json">save_json() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
       <li><a href="machinery.html#machinery.virtualbox.VirtualBox.SAVED">SAVED (machinery.virtualbox.VirtualBox attribute)</a>
 </li>
       <li><a href="processing.html#processing.virustotal.VirusTotal.scan_file">scan_file() (processing.virustotal.VirusTotal method)</a>
 </li>
       <li><a href="processing.html#processing.virustotal.VirusTotal.scan_url">scan_url() (processing.virustotal.VirusTotal method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.Scheduler">Scheduler (class in lib.cuckoo.core.scheduler)</a>
 </li>
       <li><a href="reporting.html#reporting.mongodb.MongoDB.SCHEMA_VERSION">SCHEMA_VERSION (reporting.mongodb.MongoDB attribute)</a>
 </li>
@@ -1377,15 +1766,21 @@
 </li>
       <li><a href="processing.html#processing.static.WindowsScriptFile.script_re">script_re (processing.static.WindowsScriptFile attribute)</a>
 </li>
-      <li><a href="auxiliary.html#auxiliary.services.Services">Services (class in auxiliary.services)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.seek">seek() (lib.cuckoo.core.resultserver.ResultHandler method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.server">server (lib.cuckoo.core.guest.GuestManager property)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing.set_baseline">set_baseline() (lib.cuckoo.common.abstracts.Processing method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Auxiliary.set_machine">set_machine() (lib.cuckoo.common.abstracts.Auxiliary method)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.set_machine_status">set_machine_status() (lib.cuckoo.core.database.Database method)</a>
+</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Auxiliary.set_options">set_options() (lib.cuckoo.common.abstracts.Auxiliary method)</a>
 
       <ul>
+        <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.set_options">(lib.cuckoo.common.abstracts.Detection method)</a>
+</li>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery.set_options">(lib.cuckoo.common.abstracts.Machinery method)</a>
 </li>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing.set_options">(lib.cuckoo.common.abstracts.Processing method)</a>
@@ -1401,30 +1796,30 @@
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Report.set_path">(lib.cuckoo.common.abstracts.Report method)</a>
 </li>
       </ul></li>
-      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.set_results">set_results() (lib.cuckoo.common.abstracts.Detection method)</a>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing.set_results">set_results() (lib.cuckoo.common.abstracts.Processing method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.set_route">set_route() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery.set_status">set_status() (lib.cuckoo.common.abstracts.Machinery method)</a>
 
       <ul>
-        <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing.set_results">(lib.cuckoo.common.abstracts.Processing method)</a>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.set_status">(lib.cuckoo.core.database.Database method)</a>
 </li>
       </ul></li>
-      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery.set_status">set_status() (lib.cuckoo.common.abstracts.Machinery method)</a>
-</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Auxiliary.set_task">set_task() (lib.cuckoo.common.abstracts.Auxiliary method)</a>
 
       <ul>
+        <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.set_task">(lib.cuckoo.common.abstracts.Detection method)</a>
+</li>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Processing.set_task">(lib.cuckoo.common.abstracts.Processing method)</a>
 </li>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Report.set_task">(lib.cuckoo.common.abstracts.Report method)</a>
 </li>
       </ul></li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.setup">setup() (lib.cuckoo.core.resultserver.ResultHandler method)</a>
+</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature.severity">severity (lib.cuckoo.common.abstracts.Signature attribute)</a>
-
-      <ul>
-        <li><a href="signatures.html#signatures.creates_exe.CreatesExe.severity">(signatures.creates_exe.CreatesExe attribute)</a>
 </li>
-        <li><a href="signatures.html#signatures.generic_metrics.SystemMetrics.severity">(signatures.generic_metrics.SystemMetrics attribute)</a>
-</li>
-      </ul></li>
       <li><a href="processing.html#processing.virustotal.VirusTotal.should_scan_file">should_scan_file() (processing.virustotal.VirusTotal method)</a>
 </li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.LibVirtMachinery.shutdown">shutdown() (lib.cuckoo.common.abstracts.LibVirtMachinery method)</a>
@@ -1433,35 +1828,12 @@
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery.shutdown">(lib.cuckoo.common.abstracts.Machinery method)</a>
 </li>
       </ul></li>
-      <li><a href="processing.html#processing.suricata.Suricata.sid_blacklist">sid_blacklist (processing.suricata.Suricata attribute)</a>
-</li>
       <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Signature">Signature (class in lib.cuckoo.common.abstracts)</a>
 </li>
-      <li>
-    signatures
-
-      <ul>
-        <li><a href="signatures.html#module-signatures">module</a>
-</li>
-      </ul></li>
-      <li>
-    signatures.creates_exe
-
-      <ul>
-        <li><a href="signatures.html#module-signatures.creates_exe">module</a>
-</li>
-      </ul></li>
-      <li>
-    signatures.generic_metrics
-
-      <ul>
-        <li><a href="signatures.html#module-signatures.generic_metrics">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="auxiliary.html#auxiliary.sniffer.Sniffer">Sniffer (class in auxiliary.sniffer)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="processing.html#processing.snort.Snort">Snort (class in processing.snort)</a>
 </li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.sockscan">sockscan() (processing.memory.VolatilityAPI method)</a>
@@ -1477,8 +1849,6 @@
       <li><a href="auxiliary.html#auxiliary.mitm.MITM.start">start() (auxiliary.mitm.MITM method)</a>
 
       <ul>
-        <li><a href="auxiliary.html#auxiliary.services.Services.start">(auxiliary.services.Services method)</a>
-</li>
         <li><a href="auxiliary.html#auxiliary.sniffer.Sniffer.start">(auxiliary.sniffer.Sniffer method)</a>
 </li>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Auxiliary.start">(lib.cuckoo.common.abstracts.Auxiliary method)</a>
@@ -1487,21 +1857,27 @@
 </li>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery.start">(lib.cuckoo.common.abstracts.Machinery method)</a>
 </li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunAuxiliary.start">(lib.cuckoo.core.plugins.RunAuxiliary method)</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.Scheduler.start">(lib.cuckoo.core.scheduler.Scheduler method)</a>
+</li>
         <li><a href="machinery.html#machinery.virtualbox.VirtualBox.start">(machinery.virtualbox.VirtualBox method)</a>
 </li>
         <li><a href="machinery.html#machinery.vmware.VMware.start">(machinery.vmware.VMware method)</a>
 </li>
       </ul></li>
-      <li><a href="auxiliary.html#auxiliary.services.Services.start_service">start_service() (auxiliary.services.Services method)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.start_analysis">start_analysis() (lib.cuckoo.core.guest.GuestManager method)</a>
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.OldGuestManager.start_analysis">(lib.cuckoo.core.guest.OldGuestManager method)</a>
 </li>
+      </ul></li>
       <li><a href="processing.html#processing.static.Static">Static (class in processing.static)</a>
 </li>
       <li><a href="analyzer.html#analyzer.analyzer.Analyzer.stop">stop() (analyzer.analyzer.Analyzer method)</a>
 
       <ul>
         <li><a href="auxiliary.html#auxiliary.mitm.MITM.stop">(auxiliary.mitm.MITM method)</a>
-</li>
-        <li><a href="auxiliary.html#auxiliary.services.Services.stop">(auxiliary.services.Services method)</a>
 </li>
         <li><a href="auxiliary.html#auxiliary.sniffer.Sniffer.stop">(auxiliary.sniffer.Sniffer method)</a>
 </li>
@@ -1511,26 +1887,34 @@
 </li>
         <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Machinery.stop">(lib.cuckoo.common.abstracts.Machinery method)</a>
 </li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunAuxiliary.stop">(lib.cuckoo.core.plugins.RunAuxiliary method)</a>
+</li>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.Scheduler.stop">(lib.cuckoo.core.scheduler.Scheduler method)</a>
+</li>
         <li><a href="machinery.html#machinery.virtualbox.VirtualBox.stop">(machinery.virtualbox.VirtualBox method)</a>
 </li>
         <li><a href="machinery.html#machinery.vmware.VMware.stop">(machinery.vmware.VMware method)</a>
 </li>
-        <li><a href="signatures.html#signatures.generic_metrics.SystemMetrics.stop">(signatures.generic_metrics.SystemMetrics method)</a>
+      </ul></li>
+      <li><a href="processing.html#processing.baseline.Baseline.store_baseline">store_baseline() (processing.baseline.Baseline method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.store_file">store_file() (lib.cuckoo.core.scheduler.AnalysisManager method)</a>
+
+      <ul>
+        <li><a href="reporting.html#reporting.mongodb.MongoDB.store_file">(reporting.mongodb.MongoDB method)</a>
 </li>
       </ul></li>
-      <li><a href="auxiliary.html#auxiliary.services.Services.stop_service">stop_service() (auxiliary.services.Services method)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.store_task_info">store_task_info() (lib.cuckoo.core.scheduler.AnalysisManager method)</a>
 </li>
-      <li><a href="reporting.html#reporting.mongodb.MongoDB.store_file">store_file() (reporting.mongodb.MongoDB method)</a>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.utils.store_temp_file">store_temp_file() (in module lib.cuckoo.common.utils)</a>
 </li>
       <li><a href="processing.html#processing.strings.Strings">Strings (class in processing.strings)</a>
 </li>
+      <li><a href="detection.html#detection.strings.Strings_ngram">Strings_ngram (class in detection.strings)</a>
+</li>
       <li><a href="processing.html#processing.behavior.Summary">Summary (class in processing.behavior)</a>
 </li>
-      <li><a href="processing.html#processing.suricata.Suricata">Suricata (class in processing.suricata)</a>
-</li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.svcscan">svcscan() (processing.memory.VolatilityAPI method)</a>
-</li>
-      <li><a href="signatures.html#signatures.generic_metrics.SystemMetrics">SystemMetrics (class in signatures.generic_metrics)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1540,11 +1924,21 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="processing.html#processing.targetinfo.TargetInfo">TargetInfo (class in processing.targetinfo)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.TEMPLATE">TEMPLATE (lib.cuckoo.common.virustotal.VirusTotalAPI attribute)</a>
+</li>
       <li><a href="processing.html#processing.memory.VolatilityAPI.timers">timers() (processing.memory.VolatilityAPI method)</a>
 </li>
       <li><a href="processing.html#processing.dumptls.TLSMasterSecrets">TLSMasterSecrets (class in processing.dumptls)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.utils.to_unicode">to_unicode() (in module lib.cuckoo.common.utils)</a>
+</li>
+      <li><a href="detection.html#detection.malconv.PreMalConv.training">training (detection.malconv.PreMalConv attribute)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.TROJANS">TROJANS (lib.cuckoo.common.virustotal.VirusTotalAPI attribute)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.TYPES">TYPES (lib.cuckoo.common.virustotal.VirusTotalAPI attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1554,18 +1948,58 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="processing.html#processing.static.WindowsScriptFile.unescape">unescape (processing.static.WindowsScriptFile attribute)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.unlock_machine">unlock_machine() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.unroute_network">unroute_network() (lib.cuckoo.core.scheduler.AnalysisManager method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Instance.update">update() (lib.cuckoo.common.abstracts.Instance method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.abstracts.Detection.update_binaries">update_binaries() (lib.cuckoo.common.abstracts.Detection method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.upload_analyzer">upload_analyzer() (lib.cuckoo.core.guest.GuestManager method)</a>
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.OldGuestManager.upload_analyzer">(lib.cuckoo.core.guest.OldGuestManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.URL_REPORT">URL_REPORT (lib.cuckoo.common.virustotal.VirusTotalAPI attribute)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.url_report">url_report() (lib.cuckoo.common.virustotal.VirusTotalAPI method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.URL_SCAN">URL_SCAN (lib.cuckoo.common.virustotal.VirusTotalAPI attribute)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.url_scan">url_scan() (lib.cuckoo.common.virustotal.VirusTotalAPI method)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI.VARIANT_BLACKLIST">VARIANT_BLACKLIST (lib.cuckoo.common.virustotal.VirusTotalAPI attribute)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.view_errors">view_errors() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.view_machine">view_machine() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.view_machine_by_label">view_machine_by_label() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.view_sample">view_sample() (lib.cuckoo.core.database.Database method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.database.Database.view_task">view_task() (lib.cuckoo.core.database.Database method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="machinery.html#machinery.virtualbox.VirtualBox">VirtualBox (class in machinery.virtualbox)</a>
 </li>
       <li><a href="processing.html#processing.virustotal.VirusTotal">VirusTotal (class in processing.virustotal)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalAPI">VirusTotalAPI (class in lib.cuckoo.common.virustotal)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.virustotal.VirusTotalResourceNotScanned">VirusTotalResourceNotScanned</a>
+</li>
       <li><a href="machinery.html#machinery.vmware.VMware">VMware (class in machinery.vmware)</a>
 </li>
       <li><a href="processing.html#processing.memory.VolatilityAPI">VolatilityAPI (class in processing.memory)</a>
@@ -1578,10 +2012,26 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="processing.html#processing.static.WindowsScriptFile">WindowsScriptFile (class in processing.static)</a>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.OldGuestManager.wait">wait() (lib.cuckoo.core.guest.OldGuestManager method)</a>
 </li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.wait_available">wait_available() (lib.cuckoo.core.guest.GuestManager method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.wait_finish">wait_finish() (lib.cuckoo.core.scheduler.AnalysisManager method)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.GuestManager.wait_for_completion">wait_for_completion() (lib.cuckoo.core.guest.GuestManager method)</a>
+
+      <ul>
+        <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.guest.OldGuestManager.wait_for_completion">(lib.cuckoo.core.guest.OldGuestManager method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.resultserver.ResultHandler.wait_sock_or_end">wait_sock_or_end() (lib.cuckoo.core.resultserver.ResultHandler method)</a>
+</li>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.colors.white">white() (in module lib.cuckoo.common.colors)</a>
+</li>
+      <li><a href="processing.html#processing.static.WindowsScriptFile">WindowsScriptFile (class in processing.static)</a>
+</li>
       <li><a href="processing.html#processing.network.SortCap.write">write() (processing.network.SortCap method)</a>
 </li>
   </ul></td>
@@ -1591,6 +2041,12 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="processing.html#processing.memory.VolatilityAPI.yarascan">yarascan() (processing.memory.VolatilityAPI method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.cuckoo.common.html#lib.cuckoo.common.colors.yellow">yellow() (in module lib.cuckoo.common.colors)</a>
+</li>
+      <li><a href="lib.cuckoo.core.html#lib.cuckoo.core.plugins.RunSignatures.yield_calls">yield_calls() (lib.cuckoo.core.plugins.RunSignatures method)</a>
 </li>
   </ul></td>
 </tr></table>

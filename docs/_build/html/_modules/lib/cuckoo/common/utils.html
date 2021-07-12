@@ -1,0 +1,436 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>lib.cuckoo.common.utils &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lib.cuckoo.common.utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lib.cuckoo.common.utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+
+<div class="viewcode-block" id="create_folders"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.utils.create_folders">[docs]</a><span class="k">def</span> <span class="nf">create_folders</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">folders</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;Create directories.</span>
+
+<span class="sd">    :param root: root path.</span>
+<span class="sd">    :param folders: folders list to be created.</span>
+<span class="sd">    :raise CuckooOperationalError: if fails to create folder.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="n">folders</span><span class="p">:</span>
+        <span class="n">create_folder</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">folder</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="create_folder"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.utils.create_folder">[docs]</a><span class="k">def</span> <span class="nf">create_folder</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">folder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create directory.</span>
+
+<span class="sd">    :param root: root path.</span>
+<span class="sd">    :param folder: folder name to be created.</span>
+<span class="sd">    :raise CuckooOperationalError: if fails to create folder.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">folder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">folder</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">folder</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">folder_path</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooOperationalError</span><span class="p">(</span><span class="s2">&quot;Unable to create folder: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                                         <span class="n">folder_path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="delete_folder"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.utils.delete_folder">[docs]</a><span class="k">def</span> <span class="nf">delete_folder</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Delete a folder and all its subdirectories.</span>
+
+<span class="sd">    :param folder: path to delete.</span>
+<span class="sd">    :raise CuckooOperationalError: if fails to delete folder.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooOperationalError</span><span class="p">(</span><span class="s2">&quot;Unable to delete folder: &quot;</span>
+                                         <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">folder</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="convert_char"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.utils.convert_char">[docs]</a><span class="k">def</span> <span class="nf">convert_char</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Escapes characters.</span>
+
+<span class="sd">    :param c: dirty char.</span>
+<span class="sd">    :return: sanitized char.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">PRINTABLE_CHARACTERS</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">c</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">x</span><span class="si">%02x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="is_printable"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.utils.is_printable">[docs]</a><span class="k">def</span> <span class="nf">is_printable</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Test if a string is printable.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PRINTABLE_CHARACTERS</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="convert_to_printable"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.utils.convert_to_printable">[docs]</a><span class="k">def</span> <span class="nf">convert_to_printable</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert char to printable.</span>
+
+<span class="sd">    :param s: string.</span>
+<span class="sd">    :return: sanitized string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">is_printable</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">s</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">convert_char</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="datetime_to_iso"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.utils.datetime_to_iso">[docs]</a><span class="k">def</span> <span class="nf">datetime_to_iso</span><span class="p">(</span><span class="n">timestamp</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Parse a datatime string and returns a datetime in iso format.</span>
+
+<span class="sd">    :param timestamp: timestamp string</span>
+<span class="sd">    :return: ISO datetime</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="get_filename_from_path"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.utils.get_filename_from_path">[docs]</a><span class="k">def</span> <span class="nf">get_filename_from_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cross-platform filename extraction from path.</span>
+
+<span class="sd">    :param path: file path.</span>
+<span class="sd">    :return: filename.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dirpath</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">ntpath</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">filename</span> <span class="k">if</span> <span class="n">filename</span> <span class="k">else</span> <span class="n">ntpath</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="store_temp_file"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.utils.store_temp_file">[docs]</a><span class="k">def</span> <span class="nf">store_temp_file</span><span class="p">(</span><span class="n">filedata</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Store a temporary file.</span>
+
+<span class="sd">    :param filedata: content of the original file.</span>
+<span class="sd">    :param filename: name of the original file.</span>
+<span class="sd">    :param path: optional path for temp directory.</span>
+<span class="sd">    :return: path to the temporary file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">get_filename_from_path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="c1"># Reduce length (100 is arbitrary).</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span>
+
+    <span class="n">options</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+    <span class="c1"># Create temporary directory path.</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+        <span class="n">target_path</span> <span class="o">=</span> <span class="n">path</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tmp_path</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tmppath&quot;</span><span class="p">,</span> <span class="s2">&quot;/tmp&quot;</span><span class="p">)</span>
+        <span class="n">target_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">,</span> <span class="s2">&quot;cuckoo-tmp&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">target_path</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">target_path</span><span class="p">)</span>
+
+    <span class="n">tmp_dir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;upload_&quot;</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="n">target_path</span><span class="p">)</span>
+    <span class="n">tmp_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tmp_file_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmp_file</span><span class="p">:</span>
+        <span class="c1"># If filedata is file object, do chunked copy.</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">filedata</span><span class="p">,</span> <span class="s2">&quot;read&quot;</span><span class="p">):</span>
+            <span class="n">chunk</span> <span class="o">=</span> <span class="n">filedata</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+            <span class="k">while</span> <span class="n">chunk</span><span class="p">:</span>
+                <span class="n">tmp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                <span class="n">chunk</span> <span class="o">=</span> <span class="n">filedata</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tmp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filedata</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tmp_file_path</span></div>
+
+
+<div class="viewcode-block" id="to_unicode"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.utils.to_unicode">[docs]</a><span class="k">def</span> <span class="nf">to_unicode</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Attempt to fix non uft-8 string into utf-8. It tries to guess input encoding,</span>
+<span class="sd">    if fail retry with a replace strategy (so undetectable chars will be escaped).</span>
+
+<span class="sd">    :see: fuller list of encodings at http://docs.python.org/library/codecs.html#standard-encodings</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">brute_enc</span><span class="p">(</span><span class="n">s2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Trying to decode via simple brute forcing.&quot;&quot;&quot;</span>
+        <span class="n">encodings</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">,</span> <span class="s2">&quot;utf8&quot;</span><span class="p">,</span> <span class="s2">&quot;latin1&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">enc</span> <span class="ow">in</span> <span class="n">encodings</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">unicode</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="n">enc</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">chardet_enc</span><span class="p">(</span><span class="n">s2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Guess encoding via chardet.&quot;&quot;&quot;</span>
+        <span class="n">enc</span> <span class="o">=</span> <span class="n">chardet</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">s2</span><span class="p">)[</span><span class="s2">&quot;encoding&quot;</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">unicode</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="n">enc</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># If already in unicode, skip.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">unicode</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">s</span>
+
+    <span class="c1"># First try to decode against a little set of common encodings.</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">brute_enc</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="c1"># Try via chardet.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span> <span class="ow">and</span> <span class="n">HAVE_CHARDET</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">chardet_enc</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="c1"># If not possible to convert the input string, try again with</span>
+    <span class="c1"># a replace strategy.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">unicode</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="cleanup_value"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.utils.cleanup_value">[docs]</a><span class="k">def</span> <span class="nf">cleanup_value</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cleanup utility function, strips some unwanted parts from values.&quot;&quot;&quot;</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">??</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">):</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="n">v</span></div>
+
+<div class="viewcode-block" id="classlock"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.utils.classlock">[docs]</a><span class="k">def</span> <span class="nf">classlock</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Classlock decorator (created for database.Database).</span>
+<span class="sd">    Used to put a lock to avoid sqlite errors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">curframe</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span>
+        <span class="n">calframe</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getouterframes</span><span class="p">(</span><span class="n">curframe</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">calframe</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;database.py&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">inner</span></div>
+
+
+<div class="viewcode-block" id="hash_file"><a class="viewcode-back" href="../../../../lib.cuckoo.common.html#lib.cuckoo.common.utils.hash_file">[docs]</a><span class="k">def</span> <span class="nf">hash_file</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculates an hash on a file by path.</span>
+
+<span class="sd">    :param method: callable hashing method</span>
+<span class="sd">    :param path: file path</span>
+<span class="sd">    :return: computed hash string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">method</span><span class="p">()</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">buf</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">buf</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

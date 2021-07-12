@@ -1,11 +1,13 @@
 # Copyright (C) 2010-2013 Claudio Guarnieri.
 # Copyright (C) 2014-2016 Cuckoo Foundation.
+# Copyright (C) 2020-2021 PowerLZY.
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
-import os
+
 
 from lib.cuckoo.common.abstracts import Report
+
 
 class MongoDB(Report):
     """Stores report in MongoDB."""
@@ -15,7 +17,8 @@ class MongoDB(Report):
 
     def connect(self):
         """Connects to Mongo database, loads options and set connectors.
-        @raise CuckooReportError: if unable to connect.
+
+        :raise CuckooReportError: if unable to connect.
         """
         host = self.options.get("host", "127.0.0.1")
         port = int(self.options.get("port", 27017))
@@ -32,9 +35,10 @@ class MongoDB(Report):
 
     def store_file(self, file_obj, filename=""):
         """Store a file in GridFS.
-        @param file_obj: object to the file to store
-        @param filename: name of the file to store
-        @return: object id of the stored file
+
+        :param file_obj: object to the file to store
+        :param filename: name of the file to store
+        :return: object id of the stored file
         """
         if not filename:
             filename = file_obj.get_name()
@@ -60,8 +64,9 @@ class MongoDB(Report):
 
     def run(self, results):
         """Writes report.
-        @param results: analysis results dictionary.
-        @raise CuckooReportError: if fails to connect or write to MongoDB.
+
+        :param results: analysis results dictionary.
+        :raise CuckooReportError: if fails to connect or write to MongoDB.
         """
         if not HAVE_MONGO:
             raise CuckooDependencyError(

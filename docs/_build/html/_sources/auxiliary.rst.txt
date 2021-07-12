@@ -1,21 +1,12 @@
 auxiliary package
 =================
 
-Submodules
-----------
+
 
 auxiliary.mitm module
 ---------------------
 
 .. automodule:: auxiliary.mitm
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-auxiliary.services module
--------------------------
-
-.. automodule:: auxiliary.services
    :members:
    :undoc-members:
    :show-inheritance:
@@ -29,10 +20,4 @@ auxiliary.sniffer module
    :show-inheritance:
 
 
-Module contents
----------------
 
-.. automodule:: auxiliary
-   :members:
-   :undoc-members:
-   :show-inheritance:

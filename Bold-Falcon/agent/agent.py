@@ -1,13 +1,25 @@
 # Copyright (C) 2010-2013 Claudio Guarnieri.
-# Copyright (C) 2014-2016 Cuckoo Foundation.
+# Copyright (C) 2014-2018 Cuckoo Foundation.
+# Copyright (C) 2020-2021 PowerLZY.
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
 
 class Agent(object):
-    """Cuckoo agent, it runs inside guest."""
+    """
+    Bold-Falcon agent, it runs inside guest.
+
+    :param system: platform
+    :param analyzer_path: analyzer path
+    :param int analyzer_pid: analyzer pid
+    :param error_message: None
+    :param current_status: STATUS_INIT = 0x0001,STATUS_RUNNING = 0x0002,STATUS_COMPLETED = 0x0003,STATUS_FAILED = 0x0004
+    :param analyzer_folder: upload analyzer folder
+    :param results_folder: results folder
+    """
 
     def __init__(self):
+
         self.system = platform.system().lower()
         self.analyzer_path = ""
         self.analyzer_pid = 0
@@ -18,6 +30,9 @@ class Agent(object):
         self.results_folder = ""
 
     def _initialize(self):
+        '''
+        initialize agent.py
+        '''
         if not self.analyzer_folder:
             random.seed(time.time())
             container = "".join(random.choice(string.ascii_lowercase) for x in range(random.randint(5, 10)))
@@ -41,22 +56,28 @@ class Agent(object):
         return True
 
     def get_status(self):
-        """Get current status.
-        @return: status.
+        """
+        Get current status.
+
+        :return: status.
         """
         return self.current_status
 
     def get_error(self):
-        """Get error message.
-        @return: error message.
+        """
+        Get error message
+
+        :return: error message.
         """
         return str(self.error_message)
 
     def add_malware(self, data, name):
-        """Get analysis data.
-        @param data: analysis data.
-        @param name: file name.
-        @return: operation status.
+        """
+        Get analysis data.
+
+        :param data: analysis data.
+        :param name: file name.
+        :return: operation status.
         """
         data = data.data
 
@@ -83,9 +104,11 @@ class Agent(object):
         return True
 
     def add_config(self, options):
-        """Creates analysis.conf file from current analysis options.
-        @param options: current configuration options, dict format.
-        @return: operation status.
+        """
+        Creates analysis.conf file from current analysis options.
+
+        :param options: current configuration options, dict format.
+        :return: operation status.
         """
         if not isinstance(options, dict):
             return False
@@ -116,8 +139,9 @@ class Agent(object):
 
     def add_analyzer(self, data):
         """Add analyzer.
-        @param data: analyzer data.
-        @return: operation status.
+
+        :param data: analyzer data.
+        :return: operation status.
         """
         data = data.data
 
@@ -137,8 +161,10 @@ class Agent(object):
         return True
 
     def execute(self):
-        """Execute analysis.
-        @return: analyzer PID.
+        """
+        Execute analysis.
+
+        :return: analyzer PID.
         """
         if not self.analyzer_path or not os.path.exists(self.analyzer_path):
             return False
@@ -155,9 +181,11 @@ class Agent(object):
         return self.analyzer_pid
 
     def complete(self, success=True, error="", results=""):
-        """Complete analysis.
-        @param success: success status.
-        @param error: error status.
+        """
+        Complete analysis.
+
+        :param success: success status.
+        :param error: error status.
         """
         if success:
             self.current_status = STATUS_COMPLETED

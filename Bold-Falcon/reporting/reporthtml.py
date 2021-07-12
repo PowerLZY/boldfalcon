@@ -1,12 +1,10 @@
 # Copyright (C) 2010-2013 Claudio Guarnieri.
 # Copyright (C) 2014-2016 Cuckoo Foundation.
+# Copyright (C) 2020-2021 PowerLZY.
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
-
-
 from lib.cuckoo.common.abstracts import Report
-
 
 
 class ReportHTML(Report):
@@ -14,8 +12,9 @@ class ReportHTML(Report):
 
     def run(self, results):
         """Writes report.
-        @param results: Cuckoo results dict.
-        @raise CuckooReportError: if fails to write report.
+
+        :param results: Cuckoo results dict.
+        :raise CuckooReportError: if fails to write report.
         """
         if not HAVE_JINJA2:
             raise CuckooReportError(

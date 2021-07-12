@@ -1,8 +1,8 @@
 # Copyright (C) 2010-2013 Claudio Guarnieri.
 # Copyright (C) 2014-2016 Cuckoo Foundation.
+# Copyright (C) 2020-2021 PowerLZY.
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
-
 
 
 from lib.cuckoo.common.abstracts import Processing, BehaviorHandler
@@ -28,7 +28,8 @@ class Summary(BehaviorHandler):
 
 class Anomaly(BehaviorHandler):
     """Anomaly detected during analysis.
-    :For example: a malware tried to remove Cuckoo's hooks.
+
+    :note: For example: a malware tried to remove Cuckoo's hooks.
     """
 
     key = "anomaly"
@@ -169,7 +170,9 @@ class PlatformInfo(BehaviorHandler):
 
 class BehaviorAnalysis(Processing):
     """Behavior Analyzer.
+    """
 
+    """
     The behavior key in the results dict will contain both default content keys
     that contain generic / abstracted analysis info, available on any platform,
     as well as platform / analyzer specific output.
@@ -177,18 +180,37 @@ class BehaviorAnalysis(Processing):
     Typically the analyzer behavior contains some sort of "process" separation as
     we're tracking different processes in most cases.
 
-    There are several handlers that produce the respective keys / subkeys. Overall
-    the platform / analyzer specific ones parse / process the captured data and yield
-    both their own output, but also a standard structure that is then captured by the
-    "generic" handlers so they can generate the standard result structures.
-
-    The resulting structure contains some iterator onions for the monitored function calls
-    that stream the content when some sink (reporting, signatures) needs it, thereby
-    reducing memory footprint.
-
-    So hopefully in the end each analysis should be fine with 2 passes over the results,
-    once during processing (creating the generic output, summaries, etc) and once
-    during reporting (well once for each report type if multiple are enabled).
+    So this looks roughly like this:
+    "behavior": {
+        "generic": {
+            "processes": [
+                {
+                    "pid": x,
+                    "ppid": y,
+                    "calls": [
+                        {
+                            "function": "foo",
+                            "arguments": {
+                                "a": 1,
+                                "b": 2,
+                            },
+                        },
+                        ...
+                    ]
+                },
+                ...
+            ]
+        }
+        "summary": {
+            "
+        }
+        "platform": {
+            "name": "windows",
+            "architecture": "x86",
+            "source": ["monitor", "windows"],
+            ...
+        }
+    }
     """
 
     key = "behavior"
@@ -220,7 +242,9 @@ class BehaviorAnalysis(Processing):
             yield path
 
     def run(self):
-        """Run analysis.
+        """
+        Run analysis.
+
         :return: results dict.
         """
         self.cfg = Config()

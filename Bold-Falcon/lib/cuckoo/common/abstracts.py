@@ -1,13 +1,20 @@
 # coding=utf-8
 # Copyright (C) 2010-2013 Claudio Guarnieri.
-# Copyright (C) 2014-2016 Cuckoo Foundation.
+# Copyright (C) 2014-2018 Cuckoo Foundation.
+# Copyright (C) 2020-2021 PowerLZY.
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
 
 
 class Auxiliary(object):
-    """Base abstract class for auxiliary modules."""
+    """
+    Base abstract class for auxiliary modules.
+    
+    :param task: Current analysis task
+    :param machine: machine info
+    :param options: options conf 
+    """
 
     def __init__(self):
         self.task = None
@@ -15,28 +22,42 @@ class Auxiliary(object):
         self.options = None
 
     def set_task(self, task):
+        '''
+        set Current analysis task info
+        '''
         self.task = task
 
     def set_machine(self, machine):
+        '''
+        set machine info
+        '''
         self.machine = machine
 
     def set_options(self, options):
+        '''
+        set options
+        '''
         self.options = options
 
     def start(self):
+        '''
+        start machine
+        '''
         raise NotImplementedError
 
     def stop(self):
+        '''
+        stop machine
+        '''
         raise NotImplementedError
 
 class Machinery(object):
-    """Base abstract class for machinery modules."""
+    """
+    Base abstract class for machinery modules.
 
-    # Default label used in machinery configuration file to supply virtual
-    # machine name/label/vmx path. Override it if you dubbed it in another
-    # way.
+    :note: Default label used in machinery configuration file to supply virtual machine name/label/vmx path. Override it if you dubbed it in another way.
+    """
     LABEL = "label"
-
     def __init__(self):
         self.module_name = ""
         self.options = None
@@ -54,14 +75,18 @@ class Machinery(object):
                             "%s" % task_id, "dump.pcap")
 
     def set_options(self, options):
-        """Set machine manager options.
-        ：param options: machine manager options dict.
+        """
+        Set machine manager options.
+        
+        :param options: machine manager options dict.
         """
         self.options = options
 
     def initialize(self, module_name):
-        """Read, load, and verify machines configuration.
-        ：param module_name: module name.
+        """
+        Read, load, and verify machines configuration.
+        
+        :param module_name: module name.
         """
         # Load.
         self._initialize(module_name)
@@ -70,14 +95,19 @@ class Machinery(object):
         self._initialize_check()
 
     def _get_resultserver_port(self):
-        """Returns the ResultServer port."""
-        # Avoid import recursion issues by importing ResultServer here.
+        """
+        Returns the ResultServer port.
+        
+        :note: Avoid import recursion issues by importing ResultServer here.
+        """
         from lib.cuckoo.core.resultserver import ResultServer
         return ResultServer().port
 
     def _initialize(self, module_name):
-        """Read configuration.
-        ：param module_name: module name.
+        """
+        Read configuration.
+        
+        :param module_name: module name.
         """
         self.module_name = module_name
         mmanager_opts = self.options.get(module_name)
@@ -139,12 +169,11 @@ class Machinery(object):
                 continue
 
     def _initialize_check(self):
-        """Runs checks against virtualization software when a machine manager
-        is initialized.
-        ：note: in machine manager modules you may override or superclass
-               his method.
-        ：raise CuckooMachineError: if a misconfiguration or a unkown vm state
-                                   is found.
+        """
+        Runs checks against virtualization software when a machine manageris initialized.
+        
+        :note: in machine manager modules you may override or superclass his method.
+        :raise CuckooMachineError: if a misconfiguration or a unkown vm state is found.
         """
         try:
             configured_vms = self._list()
@@ -174,23 +203,29 @@ class Machinery(object):
                                       "the config file.")
 
     def machines(self):
-        """List virtual machines.
-        ：return: virtual machines list
+        """
+        List virtual machines.
+        
+        :return: virtual machines list
         """
         return self.db.list_machines()
 
     def availables(self):
-        """How many machines are free.
-        ：return: free machines count.
+        """
+        How many machines are free.
+        
+        :return: free machines count.
         """
         return self.db.count_machines_available()
 
     def acquire(self, machine_id=None, platform=None, tags=None):
-        """Acquire a machine to start analysis.
-        ：param machine_id: machine ID.
-        ：param platform: machine platform.
-        ：param tags: machine tags
-        ：return: machine or None.
+        """
+        Acquire a machine to start analysis.
+        
+        :param machine_id: machine ID.
+        :param platform: machine platform.
+        :param tags: machine tags
+        :return: machine or None.
         """
         if machine_id:
             return self.db.lock_machine(label=machine_id)
@@ -200,20 +235,26 @@ class Machinery(object):
             return self.db.lock_machine(tags=tags)
 
     def release(self, label=None):
-        """Release a machine.
-        ：param label: machine name.
+        """
+        Release a machine.
+        
+        :param label: machine name.
         """
         self.db.unlock_machine(label)
 
     def running(self):
-        """Returns running virtual machines.
-        ：return: running virtual machines list.
+        """
+        Returns running virtual machines.
+        
+        :return: running virtual machines list.
         """
         return self.db.list_machines(locked=True)
 
     def shutdown(self):
-        """Shutdown the machine manager. Kills all alive machines.
-        ：raise CuckooMachineError: if unable to stop machine.
+        """
+        Shutdown the machine manager. Kills all alive machines.
+        
+        :raise CuckooMachineError: if unable to stop machine.
         """
         if len(self.running()) > 0:
             log.info("Still %s guests alive. Shutting down...",
@@ -226,44 +267,56 @@ class Machinery(object):
                                 "manually. Error: %s", machine.label, e)
 
     def set_status(self, label, status):
-        """Set status for a virtual machine.
-        ：param label: virtual machine label
-        ：param status: new virtual machine status
+        """
+        Set status for a virtual machine.
+        
+        :param label: virtual machine label
+        :param status: new virtual machine status
         """
         self.db.set_machine_status(label, status)
 
     def start(self, label, task):
-        """Start a machine.
-        ：param label: machine name.
-        ：param task: task object.
-        ：raise NotImplementedError: this method is abstract.
+        """
+        Start a machine.
+        
+        :param label: machine name.
+        :param task: task object.
+        :raise NotImplementedError: this method is abstract.
         """
         raise NotImplementedError
 
     def stop(self, label=None):
-        """Stop a machine.
-        ：param label: machine name.
-        ：raise NotImplementedError: this method is abstract.
+        """
+        Stop a machine.
+        
+        :param label: machine name.
+        :raise NotImplementedError: this method is abstract.
         """
         raise NotImplementedError
 
     def _list(self):
-        """Lists virtual machines configured.
-        ：raise NotImplementedError: this method is abstract.
+        """
+        Lists virtual machines configured.
+        
+        :raise NotImplementedError: this method is abstract.
         """
         raise NotImplementedError
 
     def dump_memory(self, label, path):
-        """Takes a memory dump of a machine.
-        ：param path: path to where to store the memory dump.
+        """
+        Takes a memory dump of a machine.
+        
+        :param path: path to where to store the memory dump.
         """
         raise NotImplementedError
 
     def _wait_status(self, label, state):
-        """Waits for a vm status.
-        ：param label: virtual machine name.
-        ：param state: virtual machine status, accepts multiple states as list.
-        ：raise CuckooMachineError: if default waiting timeout expire.
+        """
+        Waits for a vm status.
+        
+        :param label: virtual machine name.
+        :param state: virtual machine status, accepts multiple states as list.
+        :raise CuckooMachineError: if default waiting timeout expire.
         """
         # This block was originally suggested by Loic Jaquemet.
         waitme = 0
@@ -286,9 +339,10 @@ class Machinery(object):
             current = self._status(label)
 
 class LibVirtMachinery(Machinery):
-    """Libvirt based machine manager.
+    """
+    Libvirt based machine manager.
 
-    If you want to write a custom module for a virtualization software
+    :note: If you want to write a custom module for a virtualization software
     supported by libvirt you have just to inherit this machine manager and
     change the connection string.
     """
@@ -307,15 +361,19 @@ class LibVirtMachinery(Machinery):
         super(LibVirtMachinery, self).__init__()
 
     def initialize(self, module):
-        """Initialize machine manager module. Override default to set proper
+        """
+        Initialize machine manager module. Override default to set proper
         connection string.
-        ：param module:  machine manager module
+        
+        :param module:  machine manager module
         """
         super(LibVirtMachinery, self).initialize(module)
 
     def _initialize_check(self):
-        """Runs all checks when a machine manager is initialized.
-        ：raise CuckooMachineError: if libvirt version is not supported.
+        """
+        Runs all checks when a machine manager is initialized.
+        
+        :raise CuckooMachineError: if libvirt version is not supported.
         """
         # Version checks.
         if not self._version_check():
@@ -330,10 +388,12 @@ class LibVirtMachinery(Machinery):
         super(LibVirtMachinery, self)._initialize_check()
 
     def start(self, label, task):
-        """Starts a virtual machine.
-        ：param label: virtual machine name.
-        ：param task: task object.
-        ：raise CuckooMachineError: if unable to start virtual machine.
+        """
+        Starts a virtual machine.
+        
+        :param label: virtual machine name.
+        :param task: task object.
+        :raise CuckooMachineError: if unable to start virtual machine.
         """
         log.debug("Starting machine %s", label)
 
@@ -383,9 +443,11 @@ class LibVirtMachinery(Machinery):
         self._wait_status(label, self.RUNNING)
 
     def stop(self, label):
-        """Stops a virtual machine. Kill them all.
-        ：param label: virtual machine name.
-        ：raise CuckooMachineError: if unable to stop virtual machine.
+        """
+        Stops a virtual machine. Kill them all.
+        
+        :param label: virtual machine name.
+        :raise CuckooMachineError: if unable to stop virtual machine.
         """
         log.debug("Stopping machine %s", label)
 
@@ -417,8 +479,10 @@ class LibVirtMachinery(Machinery):
         self.vms = None
 
     def dump_memory(self, label, path):
-        """Takes a memory dump.
-        ：param path: path to where to store the memory dump.
+        """
+        Takes a memory dump.
+        
+        :param path: path to where to store the memory dump.
         """
         log.debug("Dumping memory for machine %s", label)
 
@@ -436,9 +500,11 @@ class LibVirtMachinery(Machinery):
             self._disconnect(conn)
 
     def _status(self, label):
-        """Gets current status of a vm.
-        ：param label: virtual machine name.
-        ：return: status string.
+        """
+        Gets current status of a vm.
+        
+        :param label: virtual machine name.
+        :return: status string.
         """
         log.debug("Getting status for %s", label)
 
@@ -481,8 +547,10 @@ class LibVirtMachinery(Machinery):
                                      "{0}".format(label))
 
     def _connect(self):
-        """Connects to libvirt subsystem.
-        ：raise CuckooMachineError: when unable to connect to libvirt.
+        """
+        Connects to libvirt subsystem.
+        
+        :raise CuckooMachineError: when unable to connect to libvirt.
         """
         # Check if a connection string is available.
         if not self.dsn:
@@ -495,8 +563,10 @@ class LibVirtMachinery(Machinery):
             raise CuckooMachineError("Cannot connect to libvirt")
 
     def _disconnect(self, conn):
-        """Disconnects to libvirt subsystem.
-        ：raise CuckooMachineError: if cannot disconnect from libvirt.
+        """
+        Disconnects to libvirt subsystem.
+        
+        :raise CuckooMachineError: if cannot disconnect from libvirt.
         """
         try:
             conn.close()
@@ -504,8 +574,10 @@ class LibVirtMachinery(Machinery):
             raise CuckooMachineError("Cannot disconnect from libvirt")
 
     def _fetch_machines(self):
-        """Fetch machines handlers.
-        ：return: dict with machine label as key and handle as value.
+        """
+        Fetch machines handlers.
+        
+        :return: dict with machine label as key and handle as value.
         """
         vms = {}
         for vm in self.machines():
@@ -513,10 +585,12 @@ class LibVirtMachinery(Machinery):
         return vms
 
     def _lookup(self, label):
-        """Search for a virtual machine.
-        ：param conn: libvirt connection handle.
-        ：param label: virtual machine name.
-        ：raise CuckooMachineError: if virtual machine is not found.
+        """
+        Search for a virtual machine.
+        
+        :param conn: libvirt connection handle.
+        :param label: virtual machine name.
+        :raise CuckooMachineError: if virtual machine is not found.
         """
         conn = self._connect()
         try:
@@ -529,8 +603,10 @@ class LibVirtMachinery(Machinery):
         return vm
 
     def _list(self):
-        """List available virtual machines.
-        ：raise CuckooMachineError: if unable to list virtual machines.
+        """
+        List available virtual machines.
+        
+        :raise CuckooMachineError: if unable to list virtual machines.
         """
         conn = self._connect()
         try:
@@ -542,8 +618,10 @@ class LibVirtMachinery(Machinery):
         return names
 
     def _version_check(self):
-        """Check if libvirt release supports snapshots.
-        ：return: True or false.
+        """
+        Check if libvirt release supports snapshots.
+        
+        :return: True or false.
         """
         if libvirt.getVersion() >= 8000:
             return True
@@ -551,16 +629,18 @@ class LibVirtMachinery(Machinery):
             return False
 
     def _get_snapshot(self, label):
-        """Get current snapshot for virtual machine
-        ：param label: virtual machine name
-        ：return None or current snapshot
-        ：raise CuckooMachineError: if cannot find current snapshot or
+        """
+        Get current snapshot for virtual machine
+        
+        :param label: virtual machine name
+        :return None or current snapshot
+        :raise CuckooMachineError: if cannot find current snapshot or
                                    when there are too many snapshots available
         """
         def _extract_creation_time(node):
             """Extracts creation time from a KVM vm config file.
-            ：param node: config file node
-            ：return: extracted creation time
+            :param node: config file node
+            :return: extracted creation time
             """
             xml = ET.fromstring(node.getXMLDesc(flags=0))
             return xml.findtext("./creationTime")
@@ -603,24 +683,32 @@ class Processing(object):
         self.results = {}
 
     def set_options(self, options):
-        """Set report options.
-        ：param options: report options dict.
+        """
+        Set report options.
+        
+        :param options: report options dict.
         """
         self.options = options
 
     def set_task(self, task):
-        """Add task information.
-        ：param task: task dictionary.
+        """
+        Add task information.
+        
+        :param task: task dictionary.
         """
         self.task = task
 
     def set_baseline(self, baseline_path):
-        """Set the path to the baseline directory."""
+        """
+        Set the path to the baseline directory.
+        """
         self.baseline_path = baseline_path
 
     def set_path(self, analysis_path):
-        """Set paths.
-        ：param analysis_path: analysis folder path.
+        """
+        Set paths.
+        
+        :param analysis_path: analysis folder 
         """
         self.analysis_path = analysis_path
         self.log_path = os.path.join(self.analysis_path, "analysis.log")
@@ -643,17 +731,450 @@ class Processing(object):
         self.taskinfo_path = os.path.join(self.analysis_path, "task.json")
 
     def set_results(self, results):
-        """Set the results - the fat dictionary."""
+        """
+        Set the results - the fat dictionary.
+        """
         self.results = results
 
     def run(self):
-        """Start processing.
-        ：raise NotImplementedError: this method is abstract.
+        """
+        Start processing.
+        
+        :raise NotImplementedError: this method is abstract.
         """
         raise NotImplementedError
 
+class Instance(object):
+    """
+    Instance for binaries .
+    """
+    LABEL_SIGNIFICANCE_COUNT = 5
+    POSITIVE_RATE = 2 * LABEL_SIGNIFICANCE_COUNT
+
+    def __init__(self):
+        self.json_path = ""
+        self.bin_path = ""
+        self.name = ""
+        self.report = None
+        self.total = None
+        self.positives = None
+        self.scans = None
+        self.label = None
+        self.features = {}
+        self.basic_features = {}
+
+    def load_json(self, json_file, name="unknown"):
+        """
+        Load JSON formatted malware report. It can handle both a path to JSON file and a dictionary object.
+        
+        :param json_file: json path
+        :param name: default "unknown"
+        """
+        if isinstance(json_file, str):
+
+            self.json_path = json_file
+            with open(json_file, "r") as malware_report:
+                
+                self.report = json.load(malware_report)
+                
+        elif isinstance(json_file, dict):
+            self.report = json_file
+        else:
+            # Unknown binary format
+            print >> sys.stderr, "Could not load the data *", json, "* is of " \
+                "unknown type: ", type(json), "."
+
+        self.name = name
+        # Get total and positives
+        self.total = self.report.get("virustotal").get("total")
+        self.positives = self.report.get("virustotal").get("positives")
+        # Pull all VT normalised results
+        self.scans = self.report.get("virustotal").get("scans")
+
+    def load_binaries(self, data_path, first_n_byte = 2 ** 20):
+        '''
+        Import the sample and convert it into a fixed length byte sequence for MalConv
+
+        :param data_path: Analysis sample path
+        :param first_n_byte: fixed length
+        :return numpy: byte sequence
+        '''
+        try:
+            with open(data_path, 'rb') as f:
+                tmp = [int(ord(i)) + 1 for i in f.read()[:first_n_byte]]  # index 0 will be special padding index 每个值加一
+                tmp = tmp + [0] * (first_n_byte - len(tmp))
+        except:
+            raise CuckooOperationalError("Error convert it into a fixed length byte sequence")
+        return np.array(tmp)
+
+    def label_sample(self, external_labels=None, label_type="family"):
+        """
+        Generate label for the loaded sample. You can use platform, cve, metatype, type, and family (default).
+        """
+        merged_labels = []
+
+        if external_labels is None and self.scans is not None:
+            for vendor in self.scans:
+                merged_labels += self.scans[vendor]["normalized"][label_type]
+        elif external_labels is not None and self.scans is None:
+            merged_labels = external_labels
+
+        if not merged_labels:
+            self.label = "none"
+            return
+
+        # Get most common label if it has more hits than set threshold
+        labels_frequency = collections.Counter(merged_labels)
+        top_label, top_label_count = labels_frequency.most_common(1)[0]
+        if top_label_count >= self.LABEL_SIGNIFICANCE_COUNT:
+                # self.positives >= self.POSITIVE_RATE:
+            self.label = top_label.encode("ascii", "ignore")
+        else:
+            self.label = "none"
+
+    def update(self, element, location):
+        """
+        Insert `element` at given `location`.
+        """
+        element_to_update = self.report
+        for l in location[:-1]:
+            etu = element_to_update.get(l)
+            if etu is None:
+                element_to_update[l] = {}
+                element_to_update = element_to_update.get(l)
+            else:
+                element_to_update = etu
+        element_to_update[location[-1]] = element
+
+    def save_json(self, root_dir):
+        """
+        Save JSON stored in the class to a file.
+        """
+        with open(root_dir+self.name, "w") as j_file:
+            json.dump(self.report, j_file)
+
+    def extract_features(self):
+        """Extract features of the loaded sample."""
+        self.extract_features_static()
+        self.extract_features_dynamic()
+
+    def extract_features_static(self):
+        """Extract static features of the loaded sample."""
+        self.feature_static_metadata()
+        self.feature_static_signature()
+        # self.feature_static_heuristic()
+        self.feature_static_string()
+        self.feature_static_packer()
+        self.feature_static_pef()
+        self.feature_static_imports()
+
+    def extract_features_dynamic(self):
+        """Extract dynamic features of the loaded sample."""
+        self.feature_dynamic_imports()
+        self.feature_dynamic_filesystem()
+        self.feature_dynamic_network()
+        self.feature_dynamic_registry()
+        self.feature_dynamic_windowsapi()
+
+    def feature_static_metadata(self):
+        """Create features form extracted binary metadata."""
+        
+        # Get binary size
+        self.features["size"] = self.report.get("target", {}).get("file", {}).get("size")
+
+        # Get binary timestamp in the UNIX timestamp format
+        str_dt = self.report.get("static", {}).get("pe_timestamp")
+        ts = None
+        if str_dt is not None:
+            dt = datetime.datetime.strptime(str_dt, "%Y-%m-%d %H:%M:%S")
+            ts = int(time.mktime(dt.timetuple()))
+        self.features["timestamp"] = ts
+
+        # ExifTool output
+        et_tokens = ["FileDescription", "OriginalFilename"]
+        for token in et_tokens:
+            self.features[token] = None
+        for attr in self.report.get("static", {}).get("pe_versioninfo", []):
+            attr_name = attr.get("name")
+            if attr_name in et_tokens:
+                self.features[attr_name] = attr.get("value")
+
+        # Magic byte
+        self.features["magic_byte"] = \
+            self.report.get("target", {}).get("file", {}).get("type")
+
+    def feature_static_signature(self):
+        """Create features form binary signature check."""
+        
+        # Check availability of digital signature
+        self.features["signed"] = bool(self.report.get("static", {}).get("signature", []))
+
+
+        # ExifTool output
+        et_tokens = ["Comments", "ProductName", "LegalCopyright", "InternalName", "CompanyName"]
+        for token in et_tokens:
+            self.features[token] = None
+        for attr in self.report.get("static", {}).get("pe_versioninfo", []):
+            attr_name = attr.get("name")
+            if attr_name in et_tokens:
+                self.features[attr_name] = attr.get("value")
+
+    def feature_static_heuristic(self):
+        """Create features form results return by heuristic tools.
+        **Not available for current JSON content.**"""
+        pass
+
+    def feature_static_packer(self):
+        """
+        Create feature from information returned by packer/cryptor detectors.
+        """
+        self.features["packer"] = \
+            self.report.get("static", {}).get("peid_signatures", None)
+
+    def feature_static_pef(self):
+        """
+        Create features from information derived form portable executable format.
+        """
+        # Get resource languages
+        self.features["languages"] = []
+        for d in self.report.get("static", {}).get("pe_resources", []):
+            lang = d.get("language", False)
+            if lang:
+                if lang.startswith("LANG_"):
+                    lang = lang[5:]
+                else:
+                    lang = lang
+                if lang not in self.features["languages"]:
+                    self.features["languages"].append(lang)
+            sublang = d.get("sublanguage", False)
+            if sublang:
+                if sublang.startswith("SUBLANG_"):
+                    sublang = sublang[8:]
+                else:
+                    sublang = sublang
+                if sublang not in self.features["languages"]:
+                    self.features["languages"].append(sublang)
+
+        # Section and resource attributes
+        self.features["section_attrs"] = {}
+        for d in self.report.get("static", {}).get("pe_sections", []):
+            n = d.get("name")
+            e = d.get("entropy")
+            if n and d:
+                self.features["section_attrs"][n] = e
+        self.features["resource_attrs"] = {}
+        for d in self.report.get("static", {}).get("pe_resources", []):
+            n = d.get("name")
+            f = d.get("filetype")
+            if n and f:
+                self.features["resource_attrs"][n] = f
+
+    def feature_static_imports(self):
+        """Extract features from static imports like referenced library
+        functions."""
+        self.features["static_imports"] = {}
+
+        # Static libraries import count
+        self.features["static_imports"]["count"] = \
+            self.report.get("static", {}).get("imported_dll_count", None)
+
+        # Get all imported libraries
+        for d in self.report.get("static", {}).get("pe_imports", []):
+            ddl_name = d.get("dll")
+            if not ddl_name:
+                continue
+            self.features["static_imports"][ddl_name] = []
+            for i in d.get("imports", []):
+                ref = i.get("name")
+                if ref is not None:
+                    self.features["static_imports"][ddl_name].append(ref)
+
+    def feature_static_string(self):
+        """Create Static string list"""
+        self.features['strings'] = self.report.get("strings", {})
+
+    def feature_dynamic_imports(self):
+        """Extract features from dynamic imports, mutexes, and processes."""
+        # Get mutexes
+        self.features["mutex"] = \
+            self.report.get("behavior", {}).get("summary", {}).get("mutex")
+
+        # Get processes names
+        self.features["processes"] = []
+        for p in self.report.get("behavior", {}).get("processes", []):
+            p_name = p.get("process_name")
+            if p_name and p_name not in self.features["processes"]:
+                self.features["processes"].append(p_name)
+
+        # Get dynamically loaded library names
+        self.features["dynamic_imports"] = \
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("dll_loaded", [])
+
+    def feature_dynamic_filesystem(self):
+        """Extract features from filesystem operations."""
+        def flatten_list(structured):
+            """Flatten nested list."""
+            flat = []
+            for i in structured:
+                flat += i
+            return flat
+
+        # Get file operations and their number
+        self.features["file_read"] = \
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_read", [])
+        self.features["files_read"] = len(self.features["file_read"])
+        self.features["file_written"] = \
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_written", [])
+        self.features["files_written"] = len(self.features["file_written"])
+        self.features["file_deleted"] = \
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_deleted", [])
+        self.features["files_deleted"] = len(self.features["file_deleted"])
+        self.features["file_copied"] = flatten_list(\
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_copied", [])
+                                                   )
+        self.features["files_copied"] = len(\
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_copied", [])
+                                            )
+        self.features["file_renamed"] = flatten_list(\
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_moved", [])
+                                                    )
+        self.features["files_renamed"] = len(self.features["file_renamed"])
+
+        # Get other file operations numbers
+        self.features["files_opened"] = len(
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_opened", [])
+        )
+        self.features["files_exists"] = len(
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_exists", [])
+        )
+        self.features["files_failed"] = len(
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_failed", [])
+        )
+
+        # Get total number of unique touched files
+        file_operations = \
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_read", []) + \
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_written", []) + \
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_deleted", []) + \
+            flatten_list(self.report.get("behavior", {}).get("summary", {})\
+            .get("file_copied", [])) + \
+            flatten_list(self.report.get("behavior", {}).get("summary", {})\
+            .get("file_moved", [])) + \
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_recreated", []) + \
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_opened", []) + \
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_exists", []) + \
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("file_failed", [])
+        # remove duplicates
+        self.features["files_operations"] = len(list(set(file_operations)))
+
+    def feature_dynamic_network(self):
+        """Extract features from network operations."""
+        # Get TCP IP addresses
+        self.features["tcp"] = []
+        for c in self.report.get("network", {}).get("tcp", []):
+            c_dst = c.get("dst")
+            if c_dst and c_dst not in self.features["tcp"]:
+                self.features["tcp"].append(c_dst)
+
+        # Get UDP IPs
+        self.features["udp"] = []
+        for c in self.report.get("network", {}).get("udp", []):
+            c_dst = c.get("dst")
+            if c_dst and c_dst not in self.features["udp"]:
+                self.features["udp"].append(c_dst)
+
+        # Get DNS queries and responses
+        self.features["dns"] = {}
+        for c in self.report.get("network", {}).get("dns", []):
+            request = c.get("request")
+            if request:
+                self.features["dns"][request] = []
+            else:
+                continue
+
+            answers = c.get("answers", [])
+            for a in answers:
+                a_type = a.get("type")
+                a_data = a.get("data")
+                if a_type == "A" and a_data:
+                    self.features["dns"][request].append(a_data)
+
+        # Get HTTP requests: method, host, port, path
+        self.features["http"] = {}
+        for c in self.report.get("network", {}).get("http", []):
+            c_data = c.get("data")
+            if c_data:
+                self.features["http"][c_data] = {}
+            else:
+                continue
+
+            c_method = c.get("method")
+            if c_method:
+                self.features["http"][c_data]["method"] = c_method
+            c_host = c.get("host")
+            if c_host:
+                self.features["http"][c_data]["host"] = c_host
+            c_port = c.get("port")
+            if c_port:
+                self.features["http"][c_data]["port"] = c_port
+
+    def feature_dynamic_registry(self):
+        """Extract features from registry operations."""
+        # Registry written
+        self.features["regkey_written"] = \
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("regkey_written", [])
+        # Registry delete
+        self.features["regkey_deleted"] = \
+            self.report.get("behavior", {}).get("summary", {})\
+            .get("regkey_deleted", [])
+
+    def feature_dynamic_windowsapi(self):
+        """Extract features from Windows API calls sequence."""
+        self.features["api_stats"] = {}
+        apistats = self.report.get("behavior", {}).get("apistats", {})
+        for d in apistats:
+            for e in apistats[d]:
+                if e in self.features["api_stats"]:
+                    self.features["api_stats"][e] += apistats[d][e]
+                else:
+                    self.features["api_stats"][e] = apistats[d][e]
+
+    def extract_basic_features(self):
+        """Extract very basic set of features from *signatures* JSON field."""
+        if self.basic_features:
+            self.basic_features = {}
+
+        for s in self.report.get("signatures", []):
+            name = s.get("name", "")
+            description = s.get("description", "")
+            if name:
+                self.basic_features[name] = description
+                continue
+            if description:
+                self.basic_features[hash(description)] = description
+
 class Detection(object):
-    """Base abstract class for detection module."""
+    """
+    Base abstract class for detection module.
+    """
     order = 1
     enabled = True
 
@@ -661,44 +1182,128 @@ class Detection(object):
         self.key = None
         self.task = None
         self.options = None  # conf options
-        self.json_path = None  # 原文件结果路径
-        self.bin_path = None  # 原文件路径
+        # self.json_path = None  # 原文件结果路径
+        # self.bin_path = None  # 原文件路径
         self.labels = None
         self.features = None
-        self.results = None  # 保持模型预测结果
+        self.binaries = {}
+        self.binaries_location = ""
+        self.binaries_updated = False
+        self.results = {}  # 保持模型预测结果
+
+    def set_options(self, options):
+        """
+        Set report options.
+
+        :param options: report options dict.
+        """
+        self.options = options
 
     def set_path(self, analysis_path):
-        """Set paths.
-        ：param analysis_path: analysis folder path.
+        """
+        Set paths.
+
+        :param analysis_path: analysis folder path.
+        :param file_path: binaries file path
         """
         self.analysis_path = analysis_path
         self.file_path = os.path.realpath(os.path.join(self.analysis_path, "binary"))
 
-    # 特征提取
-    # 特征工程
-    # 特征保存pandas
-    def load_binaries(self):
-        pass
+    def set_task(self, task):
+        """Add task information.
+        
+        :param task: task dictionary.
+        """
+        self.task = task
 
-    def load_features(self, features_dict):
-        pass
+    def load_instance(self, results):
+        """
+        Initialize the sample instance and load the dictionary
+        
+        :param results:  results dict
+        """
+        self.binaries = Instance()
+        self.binaries.load_json(results) #导入json
+        # self.binaries.extract_features() #导入全体特征
+        # self.binaries.extract_basic_features()
 
+    def get_features(self):
+        """Return complex binary features as a labelled dictionary."""
+        features = {}
+        if isinstance(self.binaries, list):
+            for i in self.binaries:
+                features[i] = self.binaries[i].features
+        elif isinstance(self.binaries, Instance):
+            features = self.binaries.features
+        else:
+            # Unknown binary format
+            print >> sys.stderr, "Could not get the features *", self.binaries, "* is of " "unknown type: ", type(
+                self.binaries), "."
+        return features
+    # ------------------- only dir --------------------------
+    def load_binaries_dir(self, directory):
+        """
+        Load all binaries' reports from given directory.
+        """
+        self.binaries_location = directory + "/"
+        # 导入整个文件夹的json
+        for f in os.listdir(directory):
+            self.binaries[f] = Instance()
+            self.binaries[f].load_json(directory + "/" + f, f)
+            self.binaries[f].label_sample()
+            self.binaries[f].extract_features()
+            self.binaries[f].extract_basic_features()
 
-    def load_model(self):
-        pass
+    def update_binaries(self, elements, root, locations):
+        """Attach "elements" to the loaded JSON at the given location"""
+        if isinstance(elements, pd.DataFrame) and isinstance(locations, dict):
+            self.binaries_updated = True
+            for i in elements.index:
+                for j in elements.columns:
+                    self.binaries[i].update(elements[j][i], root + [locations[j]])
+        elif isinstance(locations, str):
+            self.binaries_updated = True
+            for i in self.binaries:
+                self.binaries[i].update(elements, root + [locations])
 
+    def save_binaries(self, alternative_location=""):
+        """Save the binaries to given location if they have been updated."""
+        if self.binaries_updated:
+            save_location = self.binaries_location
+            if alternative_location:
+                save_location = alternative_location
+                if save_location[-1] != "/":
+                    save_location += "/"
 
-    def predict(self):
-        pass
+            # Create directory if it does not exist
+            if not os.path.exists(save_location):
+                os.makedirs(save_location)
 
+            for f in self.binaries:
+                self.binaries[f].save_json(save_location)
+            self.binaries_updated = False
+        else:
+            print("The binaries haven't been updated. No need to save them.")
 
-    def set_results(self, results):
-        """Set the results - the fat dictionary."""
-        self.results = results
+    def get_labels(self):
+        """Return binary labels as a labelled dictionary."""
+        labels = {}
+        for i in self.binaries:
+            labels[i] = self.binaries[i].label
+        return labels
 
+    def get_simple_features(self):
+        """Return simplified binary features as a labelled dictionary."""
+        simple_features = {}
+        for i in self.binaries:
+            simple_features[i] = self.binaries[i].basic_features
+        return simple_features
+    # ------------------- only dir --------------------------
     def run(self):
-        """Start detection.
-        ：raise NotImplementedError: this method is abstract.
+        """
+        Start detection.
+        
+        :raise NotImplementedError: this method is abstract.
         """
         raise NotImplementedError
 
@@ -732,7 +1337,7 @@ class Signature(object):
 
     def __init__(self, caller):
         """
-        ：param caller: calling object. Stores results in caller.results
+        :param caller: calling object. Stores results in caller.results
         """
         self.marks = []
         self.matched = False
@@ -745,12 +1350,14 @@ class Signature(object):
         self.call = None
 
     def _check_value(self, pattern, subject, regex=False, all=False):
-        """Checks a pattern against a given subject.
-        ：param pattern: string or expression to check for.
-        ：param subject: target of the check.
-        ：param regex: boolean representing if the pattern is a regular
+        """
+        Checks a pattern against a given subject.
+        
+        :param pattern: string or expression to check for.
+        :param subject: target of the check.
+        :param regex: boolean representing if the pattern is a regular
                       expression or not and therefore should be compiled.
-        ：return: boolean with the result of the check.
+        :return: boolean with the result of the check.
         """
         ret = set()
         if regex:
@@ -779,6 +1386,9 @@ class Signature(object):
             return ret.pop()
 
     def get_results(self, key=None, default=None):
+        '''
+        Get Signature results
+        '''
         if key:
             return self._caller.results.get(key, default)
 
@@ -787,8 +1397,8 @@ class Signature(object):
     def get_processes(self, name=None):
         """Get a list of processes.
 
-        ：param name: If set only return processes with that name.
-        ：return: List of processes or empty list
+        :param name: If set only return processes with that name.
+        :return: List of processes or empty list
         """
         for item in self.get_results("behavior", {}).get("processes", []):
             if name is None or item["process_name"] == name:
@@ -797,8 +1407,8 @@ class Signature(object):
     def get_process_by_pid(self, pid=None):
         """Get a process by its process identifier.
 
-        ：param pid: pid to search for.
-        ：return: process.
+        :param pid: pid to search for.
+        :return: process.
         """
         for item in self.get_results("behavior", {}).get("processes", []):
             if item["pid"] == pid:
@@ -812,8 +1422,8 @@ class Signature(object):
     def get_summary_generic(self, pid, actions):
         """Get generic info from summary.
 
-        ：param pid: pid of the process. None for all
-        ：param actions: A list of actions to get
+        :param pid: pid of the process. None for all
+        :param actions: A list of actions to get
         """
         ret = []
         for process in self.get_results("behavior", {}).get("generic", []):
@@ -829,9 +1439,9 @@ class Signature(object):
         """Get files read, queried, or written to optionally by a
         specific process.
 
-        ：param pid: the process or None for all
-        ：param actions: actions to search for. None is all
-        ：return: yields files
+        :param pid: the process or None for all
+        :param actions: actions to search for. None is all
+        :return: yields files
 
         """
         if actions is None:
@@ -846,8 +1456,8 @@ class Signature(object):
     def get_dll_loaded(self, pid=None):
         """Get DLLs loaded by a specific process.
 
-        ：param pid: the process or None for all
-        ：return: yields DLLs loaded
+        :param pid: the process or None for all
+        :return: yields DLLs loaded
 
         """
         return self.get_summary_generic(pid, ["dll_loaded"])
@@ -855,9 +1465,9 @@ class Signature(object):
     def get_keys(self, pid=None, actions=None):
         """Get registry keys.
 
-        ：param pid: The pid to look in or None for all.
-        ：param actions: the actions as a list.
-        ：return: yields registry keys
+        :param pid: The pid to look in or None for all.
+        :param actions: the actions as a list.
+        :return: yields registry keys
 
         """
         if actions is None:
@@ -871,13 +1481,14 @@ class Signature(object):
     def check_file(self, pattern, regex=False, actions=None, pid=None,
                    all=False):
         """Checks for a file being opened.
-        ：param pattern: string or expression to check for.
-        ：param regex: boolean representing if the pattern is a regular
+
+        :param pattern: string or expression to check for.
+        :param regex: boolean representing if the pattern is a regular
                       expression or not and therefore should be compiled.
-        ：param actions: a list of key actions to use.
-        ：param pid: The process id to check. If it is set to None, all
+        :param actions: a list of key actions to use.
+        :param pid: The process id to check. If it is set to None, all
                     processes will be checked.
-        ：return: boolean with the result of the check.
+        :return: boolean with the result of the check.
         """
         if actions is None:
             actions = [
@@ -894,12 +1505,13 @@ class Signature(object):
     def check_dll_loaded(self, pattern, regex=False, actions=None, pid=None,
                          all=False):
         """Checks for DLLs being loaded.
-        ：param pattern: string or expression to check for.
-        ：param regex: boolean representing if the pattern is a regular
+
+        :param pattern: string or expression to check for.
+        :param regex: boolean representing if the pattern is a regular
                       expression or not and therefore should be compiled.
-        ：param pid: The process id to check. If it is set to None, all
+        :param pid: The process id to check. If it is set to None, all
                     processes will be checked.
-        ：return: boolean with the result of the check.
+        :return: boolean with the result of the check.
         """
         return self._check_value(pattern=pattern,
                                  subject=self.get_dll_loaded(pid),
@@ -909,13 +1521,14 @@ class Signature(object):
     def check_key(self, pattern, regex=False, actions=None, pid=None,
                   all=False):
         """Checks for a registry key being accessed.
-        ：param pattern: string or expression to check for.
-        ：param regex: boolean representing if the pattern is a regular
+
+        :param pattern: string or expression to check for.
+        :param regex: boolean representing if the pattern is a regular
                       expression or not and therefore should be compiled.
-        ：param actions: a list of key actions to use.
-        ：param pid: The process id to check. If it is set to None, all
+        :param actions: a list of key actions to use.
+        :param pid: The process id to check. If it is set to None, all
                     processes will be checked.
-        ：return: boolean with the result of the check.
+        :return: boolean with the result of the check.
         """
         if actions is None:
             actions = [
@@ -930,17 +1543,20 @@ class Signature(object):
 
     def get_mutexes(self, pid=None):
         """
-        ：param pid: Pid to filter for
-        ：return:List of mutexes
+        Get the summary genertic
+
+        :param pid: Pid to filter for
+        :return:List of mutexes
         """
         return self.get_summary_generic(pid, ["mutex"])
 
     def check_mutex(self, pattern, regex=False, all=False):
         """Checks for a mutex being opened.
-        ：param pattern: string or expression to check for.
-        ：param regex: boolean representing if the pattern is a regular
+
+        :param pattern: string or expression to check for.
+        :param regex: boolean representing if the pattern is a regular
                       expression or not and therefore should be compiled.
-        ：return: boolean with the result of the check.
+        :return: boolean with the result of the check.
         """
         return self._check_value(pattern=pattern,
                                  subject=self.get_mutexes(),
@@ -958,7 +1574,7 @@ class Signature(object):
     def get_net_generic(self, subtype):
         """Generic getting network data.
 
-        ：param subtype: subtype string to search for.
+        :param subtype: subtype string to search for.
         """
         return self.get_results("network", {}).get(subtype, [])
 
@@ -1021,10 +1637,11 @@ class Signature(object):
 
     def check_ip(self, pattern, regex=False, all=False):
         """Checks for an IP address being contacted.
-        ：param pattern: string or expression to check for.
-        ：param regex: boolean representing if the pattern is a regular
+
+        :param pattern: string or expression to check for.
+        :param regex: boolean representing if the pattern is a regular
                       expression or not and therefore should be compiled.
-        ：return: boolean with the result of the check.
+        :return: boolean with the result of the check.
         """
         return self._check_value(pattern=pattern,
                                  subject=self.get_net_hosts(),
@@ -1033,10 +1650,11 @@ class Signature(object):
 
     def check_domain(self, pattern, regex=False, all=False):
         """Checks for a domain being contacted.
-        ：param pattern: string or expression to check for.
-        ：param regex: boolean representing if the pattern is a regular
+
+        :param pattern: string or expression to check for.
+        :param regex: boolean representing if the pattern is a regular
                       expression or not and therefore should be compiled.
-        ：return: boolean with the result of the check.
+        :return: boolean with the result of the check.
         """
         domains = set()
         for item in self.get_net_domains():
@@ -1049,10 +1667,11 @@ class Signature(object):
 
     def check_url(self, pattern, regex=False, all=False):
         """Checks for a URL being contacted.
-        ：param pattern: string or expression to check for.
-        ：param regex: boolean representing if the pattern is a regular
+
+        :param pattern: string or expression to check for.
+        :param regex: boolean representing if the pattern is a regular
                       expression or not and therefore should be compiled.
-        ：return: boolean with the result of the check.
+        :return: boolean with the result of the check.
         """
         urls = set()
         for item in self.get_net_http():
@@ -1129,8 +1748,8 @@ class Signature(object):
 
         Only called if signature is "active".
 
-        ：param call: logged API call.
-        ：param process: proc object.
+        :param call: logged API call.
+        :param process: proc object.
         """
         # Dispatch this call to a per-API specific handler.
         if self.on_call_dispatch:
@@ -1143,19 +1762,19 @@ class Signature(object):
         only take effect when one or more other signatures have matched as
         well.
 
-        ：param signature: The signature that just matched
+        :param signature: The signature that just matched
         """
 
     def on_process(self, process):
         """Called on process change.
 
-        Can be used for cleanup of flags, re-activation of the signature, etc.
-
-        ：param process: dictionary describing this process
+        :note: Can be used for cleanup of flags, re-activation of the signature, etc.
+        :param process: dictionary describing this process
         """
 
     def on_complete(self):
-        """Signature is notified when all API calls have been processed."""
+        """
+        Signature is notified when all API calls have been processed."""
 
     def results(self):
         """Turn this signature into actionable results."""
@@ -1166,7 +1785,7 @@ class Signature(object):
                     references=self.references,
                     marks=self.marks[:self.markcount],
                     markcount=len(self.marks))
-        
+
 class Report(object):
     """Base abstract class for reporting module."""
     order = 1
@@ -1182,7 +1801,8 @@ class Report(object):
 
     def set_path(self, analysis_path):
         """Set analysis folder path.
-        ：param analysis_path: analysis folder path.
+
+        :param analysis_path: analysis folder path.
         """
         self.analysis_path = analysis_path
         self.conf_path = self._get_analysis_path("analysis.conf")
@@ -1198,19 +1818,22 @@ class Report(object):
 
     def set_options(self, options):
         """Set report options.
-        ：param options: report options dict.
+
+        :param options: report options dict.
         """
         self.options = options
 
     def set_task(self, task):
         """Add task information.
-        ：param task: task dictionary.
+
+        :param task: task dictionary.
         """
         self.task = task
 
     def run(self):
         """Start report processing.
-        ：raise NotImplementedError: this method is abstract.
+
+        :raise NotImplementedError: this method is abstract.
         """
         raise NotImplementedError
 

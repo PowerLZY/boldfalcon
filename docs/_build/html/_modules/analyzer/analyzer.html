@@ -1,0 +1,1002 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>analyzer.analyzer &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>analyzer.analyzer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for analyzer.analyzer</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2011-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2018 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<div class="viewcode-block" id="Files"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Files">[docs]</a><span class="k">class</span> <span class="nc">Files</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">PROTECTED_NAMES</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files_orig</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dumped</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="Files.is_protected_filename"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Files.is_protected_filename">[docs]</a>    <span class="k">def</span> <span class="nf">is_protected_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return whether or not to inject into a process with this name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">file_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">PROTECTED_NAMES</span></div>
+
+<div class="viewcode-block" id="Files.add_pid"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Files.add_pid">[docs]</a>    <span class="k">def</span> <span class="nf">add_pid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Track a process identifier for this file.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pid</span> <span class="ow">or</span> <span class="n">filepath</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">pid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">filepath</span><span class="o">.</span><span class="n">lower</span><span class="p">()]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">filepath</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+            <span class="n">verbose</span> <span class="ow">and</span> <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Added pid </span><span class="si">%s</span><span class="s2"> for </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Files.add_file"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Files.add_file">[docs]</a>    <span class="k">def</span> <span class="nf">add_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add filepath to the list of files and track the pid.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">filepath</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Added new file to list with pid </span><span class="si">%s</span><span class="s2"> and path </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">pid</span><span class="p">,</span> <span class="n">filepath</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">filepath</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">files_orig</span><span class="p">[</span><span class="n">filepath</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="n">filepath</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_pid</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Files.dump_file"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Files.dump_file">[docs]</a>    <span class="k">def</span> <span class="nf">dump_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Dump a file to the host.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;File at path </span><span class="si">%r</span><span class="s2"> does not exist, skip.&quot;</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Check whether we&#39;ve already dumped this file - in that case skip it.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sha256</span> <span class="o">=</span> <span class="n">hash_file</span><span class="p">(</span><span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sha256</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dumped</span><span class="p">:</span>
+                <span class="k">return</span>
+        <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Error dumping file from path </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sha256</span><span class="p">[:</span><span class="mi">16</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
+        <span class="n">upload_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;files&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">upload_to_host</span><span class="p">(</span>
+                <span class="c1"># If available use the original filepath, the one that is</span>
+                <span class="c1"># not lowercased.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">files_orig</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">filepath</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">filepath</span><span class="p">),</span>
+                <span class="n">upload_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">filepath</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="p">[])</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dumped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sha256</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;Unable to upload dropped file at path </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">filepath</span><span class="p">,</span> <span class="n">e</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Files.delete_file"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Files.delete_file">[docs]</a>    <span class="k">def</span> <span class="nf">delete_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A file is about to removed and thus should be dumped right away.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_pid</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dump_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+        <span class="c1"># Remove the filepath from the files list.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">filepath</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files_orig</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">filepath</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Files.move_file"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Files.move_file">[docs]</a>    <span class="k">def</span> <span class="nf">move_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oldfilepath</span><span class="p">,</span> <span class="n">newfilepath</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A file will be moved - track this change.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_pid</span><span class="p">(</span><span class="n">oldfilepath</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">oldfilepath</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="c1"># Replace the entry with the new filepath.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">newfilepath</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">oldfilepath</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="p">[])</span></div>
+
+<div class="viewcode-block" id="Files.dump_files"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Files.dump_files">[docs]</a>    <span class="k">def</span> <span class="nf">dump_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Dump all pending files.&quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delete_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span></div></div>
+
+<div class="viewcode-block" id="ProcessList"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.ProcessList">[docs]</a><span class="k">class</span> <span class="nc">ProcessList</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pids_notrack</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="ProcessList.add_pid"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.ProcessList.add_pid">[docs]</a>    <span class="k">def</span> <span class="nf">add_pid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a process identifier to the process list.</span>
+<span class="sd">        Track determines whether the analyzer should be monitoring this</span>
+<span class="sd">        process, i.e., whether Cuckoo should wait for this process to finish.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pids</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pids_notrack</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">track</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pids_notrack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ProcessList.add_pids"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.ProcessList.add_pids">[docs]</a>    <span class="k">def</span> <span class="nf">add_pids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pids</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add one or more process identifiers to the process list.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pids</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">pids</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_pid</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_pid</span><span class="p">(</span><span class="n">pids</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ProcessList.has_pid"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.ProcessList.has_pid">[docs]</a>    <span class="k">def</span> <span class="nf">has_pid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">notrack</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return whether or not this process identifier being tracked.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pids</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">notrack</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pids_notrack</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="ProcessList.remove_pid"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.ProcessList.remove_pid">[docs]</a>    <span class="k">def</span> <span class="nf">remove_pid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove a process identifier from being tracked.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">pid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pids</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">pid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pids_notrack</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pids_notrack</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="CommandPipeHandler"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.CommandPipeHandler">[docs]</a><span class="k">class</span> <span class="nc">CommandPipeHandler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pipe Handler.</span>
+
+<span class="sd">    This class handles the notifications received through the Pipe Server and</span>
+<span class="sd">    decides what to do with them.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ignore_list</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">pid</span><span class="o">=</span><span class="p">[])</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analyzer</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span> <span class="o">=</span> <span class="n">analyzer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracked</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">_handle_debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Debug message from the monitor.&quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Regular message from the monitor.&quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Warning message from the monitor.&quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_critical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Critical message from the monitor.&quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The monitor has loaded into a particular process.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span> <span class="ow">or</span> <span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Received loaded command with incorrect parameters, &quot;</span>
+                        <span class="s2">&quot;skipping it.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">pid</span><span class="p">,</span> <span class="n">track</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pid</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">track</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Received loaded command with incorrect parameters, &quot;</span>
+                        <span class="s2">&quot;skipping it.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">process_lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">process_list</span><span class="o">.</span><span class="n">add_pid</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">),</span> <span class="n">track</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">track</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">process_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Loaded monitor into process with pid </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_getpids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the process identifiers of the agent and its parent process.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;II&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">ppid</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_inject_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">process_id</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Helper function for injecting the monitor into a process.&quot;&quot;&quot;</span>
+
+        <span class="c1"># We acquire the process lock in order to prevent the analyzer to</span>
+        <span class="c1"># terminate the analysis while we are operating on the new process.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">process_lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+
+        <span class="c1"># Set the current DLL to the default one provided at submission.</span>
+        <span class="n">dll</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">default_dll</span>
+
+        <span class="k">if</span> <span class="n">process_id</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">ppid</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">process_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ignore_list</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">]:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Received request to inject Cuckoo processes, &quot;</span>
+                            <span class="s2">&quot;skipping it.&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ignore_list</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">process_id</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">process_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+            <span class="k">return</span>
+
+        <span class="c1"># We inject the process only if it&#39;s not being monitored already,</span>
+        <span class="c1"># otherwise we would generated polluted logs (if it wouldn&#39;t crash</span>
+        <span class="c1"># horribly to start with).</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">process_list</span><span class="o">.</span><span class="n">has_pid</span><span class="p">(</span><span class="n">process_id</span><span class="p">):</span>
+            <span class="c1"># This pid is already on the notrack list, move it to the</span>
+            <span class="c1"># list of tracked pids.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">process_list</span><span class="o">.</span><span class="n">has_pid</span><span class="p">(</span><span class="n">process_id</span><span class="p">,</span> <span class="n">notrack</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Received request to inject pid=</span><span class="si">%d</span><span class="s2">. It was already &quot;</span>
+                          <span class="s2">&quot;on our notrack list, moving it to the track list.&quot;</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">process_list</span><span class="o">.</span><span class="n">remove_pid</span><span class="p">(</span><span class="n">process_id</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">process_list</span><span class="o">.</span><span class="n">add_pid</span><span class="p">(</span><span class="n">process_id</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ignore_list</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">process_id</span><span class="p">)</span>
+            <span class="c1"># Spit out an error once and just ignore it further on.</span>
+            <span class="k">elif</span> <span class="n">process_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ignore_list</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ignore_list</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">process_id</span><span class="p">)</span>
+
+            <span class="c1"># We&#39;re done operating on the processes list, release the lock.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">process_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Open the process and inject the DLL. Hope it enjoys it.</span>
+        <span class="n">proc</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">pid</span><span class="o">=</span><span class="n">process_id</span><span class="p">,</span> <span class="n">tid</span><span class="o">=</span><span class="n">thread_id</span><span class="p">)</span>
+
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">get_filepath</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">is_protected_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="c1"># Add the new process ID to the list of monitored processes.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">process_list</span><span class="o">.</span><span class="n">add_pid</span><span class="p">(</span><span class="n">process_id</span><span class="p">)</span>
+
+            <span class="c1"># We&#39;re done operating on the processes list,</span>
+            <span class="c1"># release the lock. Let the injection do its thing.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">process_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+            <span class="c1"># If we have both pid and tid, then we can use APC to inject.</span>
+            <span class="k">if</span> <span class="n">process_id</span> <span class="ow">and</span> <span class="n">thread_id</span><span class="p">:</span>
+                <span class="n">proc</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="n">dll</span><span class="p">,</span> <span class="n">apc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mode</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">proc</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="n">dll</span><span class="p">,</span> <span class="n">apc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mode</span><span class="p">)</span>
+
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Injected into process with pid </span><span class="si">%s</span><span class="s2"> and name </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                     <span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Request for injection into a process.&quot;&quot;&quot;</span>
+        <span class="c1"># Parse the process identifier.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Received PROCESS command from monitor with an &quot;</span>
+                        <span class="s2">&quot;incorrect argument.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inject_process</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_process2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Request for injection into a process using APC.&quot;&quot;&quot;</span>
+        <span class="c1"># Parse the process and thread identifier.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span> <span class="ow">or</span> <span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Received PROCESS2 command from monitor with an &quot;</span>
+                        <span class="s2">&quot;incorrect argument.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">pid</span><span class="p">,</span> <span class="n">tid</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pid</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">tid</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">mode</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Received PROCESS2 command from monitor with an &quot;</span>
+                        <span class="s2">&quot;incorrect argument.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inject_process</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">tid</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_handle_file_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Notification of a new dropped file.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">add_file</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_file_del</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Notification of a file being removed (if it exists) - we have to</span>
+<span class="sd">        dump it before it&#39;s being removed.&quot;&quot;&quot;</span>
+        <span class="n">filepath</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">delete_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_file_move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A file is being moved - track these changes.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;::&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Received FILE_MOVE command from monitor with an &quot;</span>
+                        <span class="s2">&quot;incorrect argument.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">old_filepath</span><span class="p">,</span> <span class="n">new_filepath</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;::&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">move_file</span><span class="p">(</span>
+            <span class="n">old_filepath</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">),</span> <span class="n">new_filepath</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">pid</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_kill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A process is being killed.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Received KILL command with an incorrect argument.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;procmemdump&quot;</span><span class="p">):</span>
+            <span class="n">dump_memory</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_handle_dumpmem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Dump the memory of a process as it is right now.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Received DUMPMEM command with an incorrect argument.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">dump_memory</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_handle_dumpreqs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Received DUMPREQS command with an incorrect argument </span><span class="si">%r</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">pid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">pid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracked</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Received DUMPREQS command but there are no reqs for pid </span><span class="si">%d</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">dumpreqs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracked</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dumpreq&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">for</span> <span class="n">addr</span><span class="p">,</span> <span class="n">length</span> <span class="ow">in</span> <span class="n">dumpreqs</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;tracked dump req (</span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">addr</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">length</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">Process</span><span class="p">(</span><span class="n">pid</span><span class="o">=</span><span class="n">pid</span><span class="p">)</span><span class="o">.</span><span class="n">dump_memory_block</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">addr</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_handle_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Received TRACK command with an incorrect argument </span><span class="si">%r</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">pid</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">pid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+
+        <span class="n">paramtuple</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracked</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tracked</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">scope</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracked</span><span class="p">[</span><span class="n">pid</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tracked</span><span class="p">[</span><span class="n">pid</span><span class="p">][</span><span class="n">scope</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracked</span><span class="p">[</span><span class="n">pid</span><span class="p">][</span><span class="n">scope</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">paramtuple</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CommandPipeHandler.dispatch"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.CommandPipeHandler.dispatch">[docs]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="s2">&quot;NOPE&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span> <span class="ow">or</span> <span class="s2">&quot;:&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Unknown command received from the monitor: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                         <span class="n">data</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Backwards compatibility (old syntax is, e.g., &quot;FILE_NEW:&quot; vs the</span>
+            <span class="c1"># new syntax, e.g., &quot;1234:FILE_NEW:&quot;).</span>
+            <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isupper</span><span class="p">():</span>
+                <span class="n">command</span><span class="p">,</span> <span class="n">arguments</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pid</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">arguments</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+            <span class="n">fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_handle_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">command</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">fn</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Unknown command received from the monitor: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                             <span class="n">data</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">response</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
+                        <span class="s2">&quot;Pipe command handler exception occurred (command &quot;</span>
+                        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> args </span><span class="si">%r</span><span class="s2">).&quot;</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">arguments</span>
+                    <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">response</span></div></div>
+
+<div class="viewcode-block" id="Analyzer"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Analyzer">[docs]</a><span class="k">class</span> <span class="nc">Analyzer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cuckoo Windows Analyzer.</span>
+
+<span class="sd">    :Note: This class handles the initialization and execution of the analysis</span>
+<span class="sd">    procedure, including handling of the pipe server, the auxiliary modules and</span>
+<span class="sd">    the analysis packages.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_run</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_dll</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ppid</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">pid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span><span class="o">.</span><span class="n">get_parent_pid</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_list</span> <span class="o">=</span> <span class="n">ProcessList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">package</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">reboot</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="Analyzer.get_pipe_path"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Analyzer.get_pipe_path">[docs]</a>    <span class="k">def</span> <span class="nf">get_pipe_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the pipe path</span>
+
+<span class="sd">        :return: \\\\.\\PIPE on Windows XP and \\??\\PIPE elsewhere.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">getwindowsversion</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">version</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">version</span><span class="o">.</span><span class="n">minor</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">.</span><span class="se">\\</span><span class="s2">PIPE</span><span class="se">\\</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">??</span><span class="se">\\</span><span class="s2">PIPE</span><span class="se">\\</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span></div>
+
+<div class="viewcode-block" id="Analyzer.prepare"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Analyzer.prepare">[docs]</a>    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prepare env for analysis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Get SeDebugPrivilege for the Python process. It will be needed in</span>
+        <span class="c1"># order to perform the injections.</span>
+        <span class="n">grant_privilege</span><span class="p">(</span><span class="s2">&quot;SeDebugPrivilege&quot;</span><span class="p">)</span>
+        <span class="n">grant_privilege</span><span class="p">(</span><span class="s2">&quot;SeLoadDriverPrivilege&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Initialize logging.</span>
+        <span class="n">init_logging</span><span class="p">()</span>
+
+        <span class="c1"># Parse the analysis configuration file generated by the agent.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="n">cfg</span><span class="o">=</span><span class="s2">&quot;analysis.conf&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Pass the configuration through to the Process class.</span>
+        <span class="n">Process</span><span class="o">.</span><span class="n">set_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+
+        <span class="c1"># Set virtual machine clock.</span>
+        <span class="n">set_clock</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">clock</span><span class="p">,</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">T%H:%M:%S&quot;</span>
+        <span class="p">))</span>
+
+        <span class="c1"># Set the default DLL to be used for this analysis.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_dll</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dll&quot;</span><span class="p">)</span>
+
+        <span class="c1"># If a pipe name has not set, then generate a random one.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">pipe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pipe_path</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pipe&quot;</span><span class="p">,</span> <span class="n">random_string</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Generate a random name for the logging pipe server.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">logpipe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pipe_path</span><span class="p">(</span><span class="n">random_string</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+
+        <span class="c1"># Initialize and start the Command Handler pipe server. This is going</span>
+        <span class="c1"># to be used for communicating with the monitored processes.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_pipe</span> <span class="o">=</span> <span class="n">PipeServer</span><span class="p">(</span>
+            <span class="n">PipeDispatcher</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">pipe</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">dispatcher</span><span class="o">=</span><span class="n">CommandPipeHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_pipe</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_pipe</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="c1"># Initialize and start the Log Pipe Server - the log pipe server will</span>
+        <span class="c1"># open up a pipe that monitored processes will use to send logs to</span>
+        <span class="c1"># before they head off to the host machine.</span>
+        <span class="n">destination</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_pipe_server</span> <span class="o">=</span> <span class="n">PipeServer</span><span class="p">(</span>
+            <span class="n">PipeForwarder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">logpipe</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">destination</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_pipe_server</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_pipe_server</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="c1"># We update the target according to its category. If it&#39;s a file, then</span>
+        <span class="c1"># we store the target path.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">file_name</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;archive&quot;</span><span class="p">:</span>
+            <span class="n">zip_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">file_name</span><span class="p">)</span>
+            <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TEMP&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="c1"># If it&#39;s a URL, well.. we store the URL.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target</span></div>
+
+<div class="viewcode-block" id="Analyzer.stop"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Analyzer.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allow an auxiliary module to stop the analysis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_run</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Analyzer.complete"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Analyzer.complete">[docs]</a>    <span class="k">def</span> <span class="nf">complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        End analysis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Stop the Pipe Servers.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_pipe</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_pipe_server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+        <span class="c1"># Cleanly close remaining connections</span>
+        <span class="n">disconnect_pipes</span><span class="p">()</span>
+        <span class="n">disconnect_logger</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Analyzer.run"><a class="viewcode-back" href="../../analyzer.html#analyzer.analyzer.Analyzer.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run analysis.</span>
+
+<span class="sd">        :return: operation status.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prepare</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Starting analyzer from: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Pipe server name: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">pipe</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Log pipe server name: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">logpipe</span><span class="p">)</span>
+
+        <span class="c1"># If no analysis package was specified at submission, we try to select</span>
+        <span class="c1"># one automatically.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">package</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;No analysis package specified, trying to detect &quot;</span>
+                <span class="s2">&quot;it automagically.&quot;</span>
+            <span class="p">)</span>
+
+            <span class="c1"># If the analysis target is a file, we choose the package according</span>
+            <span class="c1"># to the file format.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+                <span class="n">package</span> <span class="o">=</span> <span class="n">choose_package</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">file_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">file_name</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">pe_exports</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="c1"># If it&#39;s an URL, we&#39;ll just use the default Internet Explorer</span>
+            <span class="c1"># package.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">package</span> <span class="o">=</span> <span class="s2">&quot;ie&quot;</span>
+
+            <span class="c1"># If we weren&#39;t able to automatically determine the proper package,</span>
+            <span class="c1"># we need to abort the analysis.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">package</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">CuckooError</span><span class="p">(</span><span class="s2">&quot;No valid package available for file &quot;</span>
+                                  <span class="s2">&quot;type: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">file_type</span><span class="p">))</span>
+
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Automatically selected analysis package </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">package</span><span class="p">)</span>
+        <span class="c1"># Otherwise just select the specified package.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">package</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">package</span>
+
+        <span class="c1"># Generate the package path.</span>
+        <span class="n">package_name</span> <span class="o">=</span> <span class="s2">&quot;modules.packages.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">package</span>
+
+        <span class="c1"># Try to import the analysis package.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">__import__</span><span class="p">(</span><span class="n">package_name</span><span class="p">,</span> <span class="nb">globals</span><span class="p">(),</span> <span class="nb">locals</span><span class="p">(),</span> <span class="p">[</span><span class="s2">&quot;dummy&quot;</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># If it fails, we need to abort the analysis.</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooError</span><span class="p">(</span><span class="s2">&quot;Unable to import package </span><span class="se">\&quot;</span><span class="si">{0}</span><span class="se">\&quot;</span><span class="s2">, does &quot;</span>
+                              <span class="s2">&quot;not exist.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">package_name</span><span class="p">))</span>
+
+        <span class="c1"># Initialize the package parent abstract.</span>
+        <span class="n">Package</span><span class="p">()</span>
+
+        <span class="c1"># Enumerate the abstract subclasses.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">package_class</span> <span class="o">=</span> <span class="n">Package</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooError</span><span class="p">(</span><span class="s2">&quot;Unable to select package class &quot;</span>
+                              <span class="s2">&quot;(package=</span><span class="si">{0}</span><span class="s2">): </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">package_name</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+
+        <span class="c1"># Initialize the analysis package.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">package</span> <span class="o">=</span> <span class="n">package_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">options</span><span class="p">,</span> <span class="n">analyzer</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="c1"># Move the sample to the current working directory as provided by the</span>
+        <span class="c1"># task - one is able to override the starting path of the sample.</span>
+        <span class="c1"># E.g., for some samples it might be useful to run from %APPDATA%</span>
+        <span class="c1"># instead of %TEMP%.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">move_curdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+
+        <span class="c1"># Initialize Auxiliary modules</span>
+        <span class="n">Auxiliary</span><span class="p">()</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="n">auxiliary</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span>
+        <span class="k">for</span> <span class="n">loader</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ispkg</span> <span class="ow">in</span> <span class="n">pkgutil</span><span class="o">.</span><span class="n">iter_modules</span><span class="p">(</span><span class="n">auxiliary</span><span class="o">.</span><span class="n">__path__</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">ispkg</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Import the auxiliary module.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">__import__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">globals</span><span class="p">(),</span> <span class="nb">locals</span><span class="p">(),</span> <span class="p">[</span><span class="s2">&quot;dummy&quot;</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unable to import the auxiliary module &quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="c1"># Walk through the available auxiliary modules.</span>
+        <span class="n">aux_enabled</span><span class="p">,</span> <span class="n">aux_avail</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">Auxiliary</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">():</span>
+            <span class="c1"># Try to start the auxiliary module.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">aux</span> <span class="o">=</span> <span class="n">module</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">options</span><span class="p">,</span> <span class="n">analyzer</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+                <span class="n">aux_avail</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">aux</span><span class="p">)</span>
+                <span class="n">aux</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+                <span class="n">aux</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">NotImplementedError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
+                    <span class="s2">&quot;Auxiliary module </span><span class="si">%s</span><span class="s2"> was not implemented&quot;</span><span class="p">,</span> <span class="n">module</span><span class="o">.</span><span class="vm">__name__</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="n">CuckooDisableModule</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
+                    <span class="s2">&quot;Cannot execute auxiliary module </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">module</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Started auxiliary module </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                          <span class="n">module</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+                <span class="n">aux_enabled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">aux</span><span class="p">)</span>
+
+        <span class="c1"># Inform zer0m0n of the ResultServer address.</span>
+        <span class="n">zer0m0n</span><span class="o">.</span><span class="n">resultserver</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+
+        <span class="c1"># Forward the command pipe and logpipe names on to zer0m0n.</span>
+        <span class="n">zer0m0n</span><span class="o">.</span><span class="n">cmdpipe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">pipe</span><span class="p">)</span>
+        <span class="n">zer0m0n</span><span class="o">.</span><span class="n">channel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">logpipe</span><span class="p">)</span>
+
+        <span class="c1"># Hide the Cuckoo Analyzer &amp; Cuckoo Agent.</span>
+        <span class="n">zer0m0n</span><span class="o">.</span><span class="n">hidepid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span>
+        <span class="n">zer0m0n</span><span class="o">.</span><span class="n">hidepid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ppid</span><span class="p">)</span>
+
+        <span class="c1"># Initialize zer0m0n with our compiled Yara rules.</span>
+        <span class="n">zer0m0n</span><span class="o">.</span><span class="n">yarald</span><span class="p">(</span><span class="s2">&quot;bin/rules.yarac&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Propagate the requested dump interval, if set.</span>
+        <span class="n">zer0m0n</span><span class="o">.</span><span class="n">dumpint</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dumpint&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)))</span>
+
+        <span class="c1"># Start analysis package. If for any reason, the execution of the</span>
+        <span class="c1"># analysis package fails, we have to abort the analysis.</span>
+        <span class="n">pids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+
+        <span class="c1"># If the analysis package returned a list of process identifiers, we</span>
+        <span class="c1"># add them to the list of monitored processes and enable the process monitor.</span>
+        <span class="k">if</span> <span class="n">pids</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_list</span><span class="o">.</span><span class="n">add_pids</span><span class="p">(</span><span class="n">pids</span><span class="p">)</span>
+            <span class="n">pid_check</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># If the package didn&#39;t return any process ID (for example in the case</span>
+        <span class="c1"># where the package isn&#39;t enabling any behavioral analysis), we don&#39;t</span>
+        <span class="c1"># enable the process monitor.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No process IDs returned by the package, running &quot;</span>
+                     <span class="s2">&quot;for the full timeout.&quot;</span><span class="p">)</span>
+            <span class="n">pid_check</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Check in the options if the user toggled the timeout enforce. If so,</span>
+        <span class="c1"># we need to override pid_check and disable process monitor.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">enforce_timeout</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Enabled timeout enforce, running for the full timeout.&quot;</span><span class="p">)</span>
+            <span class="n">pid_check</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_run</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">time_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_counter</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">timeout</span><span class="p">):</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Analysis timeout hit, terminating analysis.&quot;</span><span class="p">)</span>
+                <span class="k">break</span>
+
+            <span class="c1"># If the process lock is locked, it means that something is</span>
+            <span class="c1"># operating on the list of monitored processes. Therefore we</span>
+            <span class="c1"># cannot proceed with the checks until the lock is released.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_lock</span><span class="o">.</span><span class="n">locked</span><span class="p">():</span>
+                <span class="n">KERNEL32</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># If the process monitor is enabled we start checking whether</span>
+                <span class="c1"># the monitored processes are still alive.</span>
+                <span class="k">if</span> <span class="n">pid_check</span><span class="p">:</span>
+                    <span class="c1"># We also track the PIDs provided by zer0m0n.</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">process_list</span><span class="o">.</span><span class="n">add_pids</span><span class="p">(</span><span class="n">zer0m0n</span><span class="o">.</span><span class="n">getpids</span><span class="p">())</span>
+
+                    <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_list</span><span class="o">.</span><span class="n">pids</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">Process</span><span class="p">(</span><span class="n">pid</span><span class="o">=</span><span class="n">pid</span><span class="p">)</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
+                            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Process with pid </span><span class="si">%s</span><span class="s2"> has terminated&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">process_list</span><span class="o">.</span><span class="n">remove_pid</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+
+                    <span class="c1"># If none of the monitored processes are still alive, we</span>
+                    <span class="c1"># can terminate the analysis.</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_list</span><span class="o">.</span><span class="n">pids</span><span class="p">:</span>
+                        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Process list is empty, &quot;</span>
+                                 <span class="s2">&quot;terminating analysis.&quot;</span><span class="p">)</span>
+                        <span class="k">break</span>
+
+                    <span class="c1"># Update the list of monitored processes available to the</span>
+                    <span class="c1"># analysis package. It could be used for internal</span>
+                    <span class="c1"># operations within the module.</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">set_pids</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process_list</span><span class="o">.</span><span class="n">pids</span><span class="p">)</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1"># The analysis packages are provided with a function that</span>
+                    <span class="c1"># is executed at every loop&#39;s iteration. If such function</span>
+                    <span class="c1"># returns False, it means that it requested the analysis</span>
+                    <span class="c1"># to be terminate.</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">check</span><span class="p">():</span>
+                        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;The analysis package requested the &quot;</span>
+                                 <span class="s2">&quot;termination of the analysis.&quot;</span><span class="p">)</span>
+                        <span class="k">break</span>
+
+                <span class="c1"># If the check() function of the package raised some exception</span>
+                <span class="c1"># we don&#39;t care, we can still proceed with the analysis but we</span>
+                <span class="c1"># throw a warning.</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The package </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> check function raised &quot;</span>
+                                <span class="s2">&quot;an exception: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="c1"># Zzz.</span>
+                <span class="n">KERNEL32</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_run</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;The analyzer has been stopped on request by an &quot;</span>
+                      <span class="s2">&quot;auxiliary module.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Create the shutdown mutex.</span>
+        <span class="n">KERNEL32</span><span class="o">.</span><span class="n">CreateMutexA</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">SHUTDOWN_MUTEX</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Before shutting down the analysis, the package can perform some</span>
+            <span class="c1"># final operations through the finish() function.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The package </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> finish function raised an &quot;</span>
+                        <span class="s2">&quot;exception: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Upload files the package created to package_files in the</span>
+            <span class="c1"># results folder.</span>
+            <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">package_files</span><span class="p">()</span> <span class="ow">or</span> <span class="p">[]:</span>
+                <span class="n">upload_to_host</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;package_files&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The package </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> package_files function raised an &quot;</span>
+                        <span class="s2">&quot;exception: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="c1"># Terminate the Auxiliary modules.</span>
+        <span class="k">for</span> <span class="n">aux</span> <span class="ow">in</span> <span class="n">aux_enabled</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">aux</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">NotImplementedError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Cannot terminate auxiliary module </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">aux</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">terminate_processes</span><span class="p">:</span>
+            <span class="c1"># Try to terminate remaining active processes.</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Terminating remaining processes before shutdown.&quot;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_list</span><span class="o">.</span><span class="n">pids</span><span class="p">:</span>
+                <span class="n">proc</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">pid</span><span class="o">=</span><span class="n">pid</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">proc</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="k">continue</span>
+
+        <span class="c1"># Run the finish callback of every available Auxiliary module.</span>
+        <span class="k">for</span> <span class="n">aux</span> <span class="ow">in</span> <span class="n">aux_avail</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">aux</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">NotImplementedError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Exception running finish callback of auxiliary &quot;</span>
+                            <span class="s2">&quot;module </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">aux</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="c1"># Dump all the notified files.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">dump_files</span><span class="p">()</span>
+
+        <span class="c1"># Hell yeah.</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Analysis completed.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

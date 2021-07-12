@@ -1,5 +1,4 @@
 # 毕方云沙箱（恶意软件检测平台）
-sphinx使用：https://zhuanlan.zhihu.com/p/102208548
 #### 开源资料
 + [cuckoo](https://github.com/cuckoosandbox/cuckoo) Cuckoo Sandbox is an automated dynamic malware analysis system
 + [cuckoo-modified](https://github.com/spender-sandbox/cuckoo-modified) Modified edition of cuckoo
@@ -64,39 +63,3 @@ sphinx使用：https://zhuanlan.zhihu.com/p/102208548
   + [ ] 虚拟机管理：libvirt+高并发虚拟机
   + [ ] 沙箱内存管理：MemScrimper: Time- and Space-Efficient Storage of *Malware* Sandbox Memory Dumps （2018 DIVMA）
   + [ ] 3.3.5 REST API(Cuckoo docs) wsgi应用程序
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<<<<<<< Updated upstream
-+ 使用手册：http://doc.yonyoucloud.com/doc/zh-sphinx-doc/contents.html
-+ Read the Docs https://readthedocs.org/accounts/social/connections/
-+ 使用 Sphinx 撰写技术文档并生成 PDF 总结 https://blog.csdn.net/weixin_34342578/article/details/88589942
-=======
->>>>>>> Stashed changes

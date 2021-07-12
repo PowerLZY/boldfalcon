@@ -1,19 +1,23 @@
 # Copyright (C) 2010-2013 Claudio Guarnieri.
 # Copyright (C) 2014-2016 Cuckoo Foundation.
+# Copyright (C) 2020-2021 PowerLZY.
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
 
 from lib.cuckoo.common.abstracts import Processing
 
-
 class VolatilityAPI(object):
-    """ Volatility API interface."""
+    """ Volatility API interface.
+
+    :param memdump: the memdump file path
+    :param osprofile: the profile (OS type)
+    """
 
     def __init__(self, memdump, osprofile=None):
         """
         :param memdump: the memdump file path
-        @param osprofile: the profile (OS type)
+        :param osprofile: the profile (OS type)
         """
         registry.PluginImporter()
         self.memdump = memdump
@@ -87,7 +91,8 @@ class VolatilityAPI(object):
 
     def pslist(self):
         """Volatility pslist plugin.
-        @see volatility/plugins/taskmods.py
+
+        :see volatility/plugins/taskmods.py
         """
         results = []
 
@@ -110,7 +115,8 @@ class VolatilityAPI(object):
 
     def psxview(self):
         """Volatility psxview plugin.
-        @see volatility/plugins/malware/psxview.py
+
+        :see: volatility/plugins/malware/psxview.py
         """
         results = []
 
@@ -134,7 +140,8 @@ class VolatilityAPI(object):
 
     def callbacks(self):
         """Volatility callbacks plugin.
-        @see volatility/plugins/malware/callbacks.py
+
+        :see: volatility/plugins/malware/callbacks.py
         """
         results = []
 
@@ -160,7 +167,8 @@ class VolatilityAPI(object):
 
     def idt(self):
         """Volatility idt plugin.
-        @see volatility/plugins/malware/idt.py
+
+        :see: volatility/plugins/malware/idt.py
         """
         results = []
 
@@ -189,7 +197,8 @@ class VolatilityAPI(object):
 
     def gdt(self):
         """Volatility gdt plugin.
-        @see volatility/plugins/malware/idt.py
+
+        :see: volatility/plugins/malware/idt.py
         """
         results = []
 
@@ -237,7 +246,8 @@ class VolatilityAPI(object):
 
     def ssdt(self):
         """Volatility ssdt plugin.
-        @see volatility/plugins/ssdt.py
+
+        :see: volatility/plugins/ssdt.py
         """
         results = []
 
@@ -312,7 +322,8 @@ class VolatilityAPI(object):
 
     def timers(self):
         """Volatility timers plugin.
-        @see volatility/plugins/malware/timers.py
+
+        :see: volatility/plugins/malware/timers.py
         """
         results = []
 
@@ -344,7 +355,8 @@ class VolatilityAPI(object):
 
     def messagehooks(self):
         """Volatility messagehooks plugin.
-        @see volatility/plugins/malware/messagehooks.py
+
+        :see: volatility/plugins/malware/messagehooks.py
         """
         results = []
 
@@ -390,7 +402,8 @@ class VolatilityAPI(object):
 
     def getsids(self):
         """Volatility getsids plugin.
-        @see volatility/plugins/malware/getsids.py
+
+        :see: volatility/plugins/malware/getsids.py
         """
         results = []
 
@@ -423,7 +436,8 @@ class VolatilityAPI(object):
 
     def privs(self):
         """Volatility privs plugin.
-        @see volatility/plugins/malware/privs.py
+
+        :see: volatility/plugins/malware/privs.py
         """
         results = []
 
@@ -458,8 +472,9 @@ class VolatilityAPI(object):
 
     def malfind(self, dump_dir=None):
         """Volatility malfind plugin.
-        @param dump_dir: optional directory for dumps
-        @see volatility/plugins/malware/malfind.py
+
+        :param dump_dir: optional directory for dumps
+        :see: volatility/plugins/malware/malfind.py
         """
         results = []
 
@@ -485,7 +500,8 @@ class VolatilityAPI(object):
 
     def yarascan(self):
         """Volatility yarascan plugin.
-        @see volatility/plugins/malware/yarascan.py
+
+        :see: volatility/plugins/malware/yarascan.py
         """
         results = []
 
@@ -521,7 +537,8 @@ class VolatilityAPI(object):
 
     def apihooks(self):
         """Volatility apihooks plugin.
-        @see volatility/plugins/malware/apihooks.py
+
+        :see: volatility/plugins/malware/apihooks.py
         """
         results = []
 
@@ -552,7 +569,8 @@ class VolatilityAPI(object):
 
     def dlllist(self):
         """Volatility dlllist plugin.
-        @see volatility/plugins/taskmods.py
+
+        :see: volatility/plugins/taskmods.py
         """
         results = []
 
@@ -579,7 +597,8 @@ class VolatilityAPI(object):
 
     def handles(self):
         """Volatility handles plugin.
-        @see volatility/plugins/handles.py
+
+        :see: volatility/plugins/handles.py
         """
         results = []
 
@@ -599,7 +618,8 @@ class VolatilityAPI(object):
 
     def ldrmodules(self):
         """Volatility ldrmodules plugin.
-        @see volatility/plugins/malware/malfind.py
+
+        :see: volatility/plugins/malware/malfind.py
         """
         results = []
 
@@ -657,7 +677,8 @@ class VolatilityAPI(object):
 
     def mutantscan(self):
         """Volatility mutantscan plugin.
-        @see volatility/plugins/filescan.py
+
+        :see: volatility/plugins/filescan.py
         """
         results = []
 
@@ -687,7 +708,8 @@ class VolatilityAPI(object):
 
     def devicetree(self):
         """Volatility devicetree plugin.
-        @see volatility/plugins/malware/devicetree.py
+
+        :see: volatility/plugins/malware/devicetree.py
         """
         results = []
 
@@ -746,7 +768,8 @@ class VolatilityAPI(object):
 
     def svcscan(self):
         """Volatility svcscan plugin - scans for services.
-        @see volatility/plugins/malware/svcscan.py
+
+        :see: volatility/plugins/malware/svcscan.py
         """
         results = []
 
@@ -769,7 +792,8 @@ class VolatilityAPI(object):
 
     def modscan(self):
         """Volatility modscan plugin.
-        @see volatility/plugins/modscan.py
+
+        :see: volatility/plugins/modscan.py
         """
         results = []
 
@@ -789,7 +813,8 @@ class VolatilityAPI(object):
 
     def imageinfo(self):
         """Volatility imageinfo plugin.
-        @see volatility/plugins/imageinfo.py
+
+        :see: volatility/plugins/imageinfo.py
         """
         results = []
 
@@ -807,7 +832,8 @@ class VolatilityAPI(object):
 
     def sockscan(self):
         """Volatility sockscan plugin.
-        @see volatility/plugins/sockscan.py
+
+        :see: volatility/plugins/sockscan.py
         """
         results = []
 
@@ -827,7 +853,8 @@ class VolatilityAPI(object):
 
     def netscan(self):
         """Volatility sockscan plugin.
-        @see volatility/plugins/netscan.py
+
+        :see: volatility/plugins/netscan.py
         """
         results = []
 
@@ -981,7 +1008,8 @@ class Memory(Processing):
 
     def run(self):
         """Run analysis.
-        @return: volatility results dict.
+
+        :return: volatility results dict.
         """
         self.key = "memory"
 

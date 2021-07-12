@@ -90,15 +90,21 @@
               <p class="caption"><span class="caption-text">agent:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">agent package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-agent.agent">agent.agent module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-agent">Module contents</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption"><span class="caption-text">analyzer:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Common:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib.cuckoo.common.html">lib.cuckoo.common package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Core:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib.cuckoo.core.html">lib.cuckoo.core package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">auxiliary:</span></p>
 <ul>
@@ -112,9 +118,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="processing.html">processing package</a></li>
 </ul>
-<p class="caption"><span class="caption-text">signatures:</span></p>
+<p class="caption"><span class="caption-text">detection:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="signatures.html">signatures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detection.html">detection package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">report</span></p>
 <ul>
@@ -188,75 +194,120 @@
             
   <div class="section" id="agent-package">
 <h1>agent package<a class="headerlink" href="#agent-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-agent.agent">
 <span id="agent-agent-module"></span><h2>agent.agent module<a class="headerlink" href="#module-agent.agent" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="agent.agent.Agent">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">agent.agent.</span></span><span class="sig-name descname"><span class="pre">Agent</span></span><a class="headerlink" href="#agent.agent.Agent" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">agent.agent.</span></span><span class="sig-name descname"><span class="pre">Agent</span></span><a class="reference internal" href="_modules/agent/agent.html#Agent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agent.agent.Agent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Cuckoo agent, it runs inside guest.</p>
+<p>Bold-Falcon agent, it runs inside guest.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>system</strong> – platform</p></li>
+<li><p><strong>analyzer_path</strong> – analyzer path</p></li>
+<li><p><strong>analyzer_pid</strong> (<em>int</em>) – analyzer pid</p></li>
+<li><p><strong>error_message</strong> – None</p></li>
+<li><p><strong>current_status</strong> – STATUS_INIT = 0x0001,STATUS_RUNNING = 0x0002,STATUS_COMPLETED = 0x0003,STATUS_FAILED = 0x0004</p></li>
+<li><p><strong>analyzer_folder</strong> – upload analyzer folder</p></li>
+<li><p><strong>results_folder</strong> – results folder</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="agent.agent.Agent.add_analyzer">
-<span class="sig-name descname"><span class="pre">add_analyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agent.agent.Agent.add_analyzer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add analyzer.
-&#64;param data: analyzer data.
-&#64;return: operation status.</p>
+<span class="sig-name descname"><span class="pre">add_analyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agent/agent.html#Agent.add_analyzer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agent.agent.Agent.add_analyzer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add analyzer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> – analyzer data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>operation status.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="agent.agent.Agent.add_config">
-<span class="sig-name descname"><span class="pre">add_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agent.agent.Agent.add_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates analysis.conf file from current analysis options.
-&#64;param options: current configuration options, dict format.
-&#64;return: operation status.</p>
+<span class="sig-name descname"><span class="pre">add_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agent/agent.html#Agent.add_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agent.agent.Agent.add_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates analysis.conf file from current analysis options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>options</strong> – current configuration options, dict format.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>operation status.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="agent.agent.Agent.add_malware">
-<span class="sig-name descname"><span class="pre">add_malware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agent.agent.Agent.add_malware" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get analysis data.
-&#64;param data: analysis data.
-&#64;param name: file name.
-&#64;return: operation status.</p>
+<span class="sig-name descname"><span class="pre">add_malware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agent/agent.html#Agent.add_malware"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agent.agent.Agent.add_malware" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get analysis data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – analysis data.</p></li>
+<li><p><strong>name</strong> – file name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>operation status.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="agent.agent.Agent.complete">
-<span class="sig-name descname"><span class="pre">complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agent.agent.Agent.complete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Complete analysis.
-&#64;param success: success status.
-&#64;param error: error status.</p>
+<span class="sig-name descname"><span class="pre">complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agent/agent.html#Agent.complete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agent.agent.Agent.complete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Complete analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>success</strong> – success status.</p></li>
+<li><p><strong>error</strong> – error status.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="agent.agent.Agent.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#agent.agent.Agent.execute" title="Permalink to this definition">¶</a></dt>
-<dd><p>Execute analysis.
-&#64;return: analyzer PID.</p>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/agent/agent.html#Agent.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agent.agent.Agent.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>analyzer PID.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="agent.agent.Agent.get_error">
-<span class="sig-name descname"><span class="pre">get_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#agent.agent.Agent.get_error" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get error message.
-&#64;return: error message.</p>
+<span class="sig-name descname"><span class="pre">get_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/agent/agent.html#Agent.get_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agent.agent.Agent.get_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get error message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>error message.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="agent.agent.Agent.get_status">
-<span class="sig-name descname"><span class="pre">get_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#agent.agent.Agent.get_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get current status.
-&#64;return: status.</p>
+<span class="sig-name descname"><span class="pre">get_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/agent/agent.html#Agent.get_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agent.agent.Agent.get_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get current status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>status.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-agent">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-agent" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

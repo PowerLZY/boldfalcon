@@ -1,0 +1,452 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>machinery.vmware &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Common &amp; Core:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../lib.cuckoo.html">lib.cuckoo package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">machinery:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../machinery.html">machinery package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">detection:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../detection.html">detection package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>machinery.vmware</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for machinery.vmware</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># This file was originally produced by Mike Tu.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<span class="kn">from</span> <span class="nn">lib.cuckoo.common.abstracts</span> <span class="kn">import</span> <span class="n">Machinery</span>
+
+
+<div class="viewcode-block" id="VMware"><a class="viewcode-back" href="../../machinery.html#machinery.vmware.VMware">[docs]</a><span class="k">class</span> <span class="nc">VMware</span><span class="p">(</span><span class="n">Machinery</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Virtualization layer for VMware Workstation using vmrun utility.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">LABEL</span> <span class="o">=</span> <span class="s2">&quot;vmx_path&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_initialize_check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check for configuration file and vmware setup.</span>
+<span class="sd">        </span>
+<span class="sd">        :raise CuckooMachineError: if configuration is missing or wrong.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">vmware</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;VMware vmrun path missing, &quot;</span>
+                                     <span class="s2">&quot;please add it to vmware.conf&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">vmware</span><span class="o">.</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;VMware vmrun not found in &quot;</span>
+                                     <span class="s2">&quot;specified path </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                                     <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">vmware</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="c1"># Consistency checks.</span>
+        <span class="k">for</span> <span class="n">machine</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">machines</span><span class="p">():</span>
+            <span class="n">vmx_path</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">label</span>
+
+            <span class="n">snapshot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_snapshot_from_vmx</span><span class="p">(</span><span class="n">vmx_path</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_vmx</span><span class="p">(</span><span class="n">vmx_path</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_snapshot</span><span class="p">(</span><span class="n">vmx_path</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">)</span>
+
+        <span class="c1"># Base checks.</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">VMware</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_initialize_check</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_check_vmx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmx_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Checks whether a vmx file exists and is valid.</span>
+
+<span class="sd">        :param vmx_path: path to vmx file</span>
+<span class="sd">        :raise CuckooMachineError: if file not found or not ending with .vmx</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">vmx_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.vmx&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Wrong configuration: vm path not &quot;</span>
+                                     <span class="s2">&quot;ending with .vmx: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">vmx_path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">vmx_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Vm file </span><span class="si">%s</span><span class="s2"> not found&quot;</span> <span class="o">%</span> <span class="n">vmx_path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_snapshot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmx_path</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Checks snapshot existance.</span>
+
+<span class="sd">        :param vmx_path: path to vmx file</span>
+<span class="sd">        :param snapshot: snapshot name</span>
+<span class="sd">        :raise CuckooMachineError: if snapshot not found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">vmware</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                                  <span class="s2">&quot;listSnapshots&quot;</span><span class="p">,</span> <span class="n">vmx_path</span><span class="p">],</span>
+                                 <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                 <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+            <span class="n">output</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Unable to get snapshot list for </span><span class="si">%s</span><span class="s2">. &quot;</span>
+                                     <span class="s2">&quot;Reason: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vmx_path</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">snapshot</span> <span class="ow">in</span> <span class="n">output</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Unable to get snapshot list for </span><span class="si">%s</span><span class="s2">. &quot;</span>
+                                         <span class="s2">&quot;No output from &quot;</span>
+                                         <span class="s2">&quot;`vmrun listSnapshots`&quot;</span> <span class="o">%</span> <span class="n">vmx_path</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VMware.start"><a class="viewcode-back" href="../../machinery.html#machinery.vmware.VMware.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmx_path</span><span class="p">,</span> <span class="n">task</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Start a virtual machine.</span>
+
+<span class="sd">        :param vmx_path: path to vmx file.</span>
+<span class="sd">        :param task: task object.</span>
+<span class="sd">        :raise CuckooMachineError: if unable to start.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">snapshot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_snapshot_from_vmx</span><span class="p">(</span><span class="n">vmx_path</span><span class="p">)</span>
+
+        <span class="c1"># Preventive check</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span><span class="p">(</span><span class="n">vmx_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Machine </span><span class="si">%s</span><span class="s2"> is already running&quot;</span> <span class="o">%</span>
+                                     <span class="n">vmx_path</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_revert</span><span class="p">(</span><span class="n">vmx_path</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">)</span>
+
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Starting vm </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">vmx_path</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">vmware</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                                  <span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="n">vmx_path</span><span class="p">,</span>
+                                  <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">vmware</span><span class="o">.</span><span class="n">mode</span><span class="p">],</span>
+                                 <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                 <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">vmware</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;gui&quot;</span><span class="p">:</span>
+                <span class="n">output</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Unable to start machine &quot;</span>
+                                             <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vmx_path</span><span class="p">,</span> <span class="n">output</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">vmware</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Unable to start machine </span><span class="si">%s</span><span class="s2"> in </span><span class="si">%s</span><span class="s2"> &quot;</span>
+                                     <span class="s2">&quot;mode: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vmx_path</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="VMware.stop"><a class="viewcode-back" href="../../machinery.html#machinery.vmware.VMware.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmx_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Stops a virtual machine.</span>
+
+<span class="sd">        :param vmx_path: path to vmx file</span>
+<span class="sd">        :raise CuckooMachineError: if unable to stop.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Stopping vm </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">vmx_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span><span class="p">(</span><span class="n">vmx_path</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">vmware</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                                    <span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="n">vmx_path</span><span class="p">,</span> <span class="s2">&quot;hard&quot;</span><span class="p">],</span>
+                                   <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                   <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Error shutting down &quot;</span>
+                                             <span class="s2">&quot;machine </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">vmx_path</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Error shutting down machine &quot;</span>
+                                         <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vmx_path</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Trying to stop an already stopped machine: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="n">vmx_path</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_revert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmx_path</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Revets machine to snapshot.</span>
+
+<span class="sd">        :param vmx_path: path to vmx file</span>
+<span class="sd">        :param snapshot: snapshot name</span>
+<span class="sd">        :raise CuckooMachineError: if unable to revert</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Revert snapshot for vm </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">vmx_path</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">vmware</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                                <span class="s2">&quot;revertToSnapshot&quot;</span><span class="p">,</span> <span class="n">vmx_path</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">],</span>
+                               <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                               <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Unable to revert snapshot for &quot;</span>
+                                         <span class="s2">&quot;machine </span><span class="si">%s</span><span class="s2">: vmrun exited with &quot;</span>
+                                         <span class="s2">&quot;error&quot;</span> <span class="o">%</span> <span class="n">vmx_path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Unable to revert snapshot for &quot;</span>
+                                     <span class="s2">&quot;machine </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vmx_path</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_is_running</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmx_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Checks if virtual machine is running.</span>
+
+<span class="sd">        :param vmx_path: path to vmx file</span>
+<span class="sd">        :return: running status</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">vmware</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">],</span>
+                                 <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                 <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+            <span class="n">output</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Unable to check running status for </span><span class="si">%s</span><span class="s2">. &quot;</span>
+                                     <span class="s2">&quot;Reason: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vmx_path</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">vmx_path</span> <span class="ow">in</span> <span class="n">output</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Unable to check running status &quot;</span>
+                                         <span class="s2">&quot;for </span><span class="si">%s</span><span class="s2">. No output from &quot;</span>
+                                         <span class="s2">&quot;`vmrun list`&quot;</span> <span class="o">%</span> <span class="n">vmx_path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_snapshot_from_vmx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmx_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get snapshot for a given vmx file.</span>
+
+<span class="sd">        :param vmx_path: configuration option from config file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">vm_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">view_machine_by_label</span><span class="p">(</span><span class="n">vmx_path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vm_info</span><span class="o">.</span><span class="n">snapshot</span>
+
+<div class="viewcode-block" id="VMware.dump_memory"><a class="viewcode-back" href="../../machinery.html#machinery.vmware.VMware.dump_memory">[docs]</a>    <span class="k">def</span> <span class="nf">dump_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmx_path</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Take a memory dump of the machine.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">vmx_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t find .vmx file </span><span class="si">{0}</span><span class="s2">. Ensure to configure a fully qualified path in vmware.conf (key = vmx_path)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vmx_path</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">vmware</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;snapshot&quot;</span><span class="p">,</span>
+                             <span class="n">vmx_path</span><span class="p">,</span> <span class="s2">&quot;memdump&quot;</span><span class="p">],</span>
+                            <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                            <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;vmrun failed to take a memory dump of the machine with label </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vmx_path</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+
+        <span class="n">vmwarepath</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">vmx_path</span><span class="p">)</span>
+        <span class="n">latestvmem</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">iglob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vmwarepath</span><span class="p">,</span> <span class="s2">&quot;*.vmem&quot;</span><span class="p">)),</span>
+                         <span class="n">key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getctime</span><span class="p">)</span>
+
+        <span class="c1"># We need to move the snapshot to the current analysis directory as</span>
+        <span class="c1"># vmware doesn&#39;t support an option for the destination path :-/</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">latestvmem</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># Old snapshot can be deleted, as it isn&#39;t needed any longer.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">vmware</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;deleteSnapshot&quot;</span><span class="p">,</span>
+                             <span class="n">vmx_path</span><span class="p">,</span> <span class="s2">&quot;memdump&quot;</span><span class="p">],</span>
+                            <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                            <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooMachineError</span><span class="p">(</span><span class="s2">&quot;vmrun failed to delete the temporary snapshot in </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vmx_path</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Successfully generated memory dump for virtual machine with label </span><span class="si">%s</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="n">vmx_path</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

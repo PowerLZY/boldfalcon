@@ -1,0 +1,938 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>lib.cuckoo.core.scheduler &mdash; Bold-Falcon 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Bold-Falcon
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">agent:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../agent.html">agent package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">analyzer:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../analyzer.html">analyzer package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">auxiliary:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auxiliary.html">auxiliary package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">processing:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../processing.html">processing package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">signatures:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../signatures.html">signatures package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">report</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reporting.html">reporting package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Bold-Falcon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lib.cuckoo.core.scheduler</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lib.cuckoo.core.scheduler</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2010-2013 Claudio Guarnieri.</span>
+<span class="c1"># Copyright (C) 2014-2016 Cuckoo Foundation.</span>
+<span class="c1"># Copyright (C) 2020-2021 PowerLZY.</span>
+<span class="c1"># This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org</span>
+<span class="c1"># See the file &#39;docs/LICENSE&#39; for copying permission.</span>
+
+
+<span class="kn">import</span> <span class="nn">threading</span>
+
+<div class="viewcode-block" id="AnalysisManager"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager">[docs]</a><span class="k">class</span> <span class="nc">AnalysisManager</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Analysis Manager.</span>
+
+<span class="sd">    :Note: This class handles the full analysis process for a given task. It takes</span>
+<span class="sd">    care of selecting the analysis machine, preparing the configuration and</span>
+<span class="sd">    interacting with the guest agent and analyzer components to launch and</span>
+<span class="sd">    complete the analysis and store, process and report its results.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">,</span> <span class="n">error_queue</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:param task: task object containing the details for the analysis.&quot;&quot;&quot;</span>
+        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">errors</span> <span class="o">=</span> <span class="n">error_queue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage_binary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">machine</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">Database</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">view_task</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">interface</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rt_table</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="AnalysisManager.init_storage"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.init_storage">[docs]</a>    <span class="k">def</span> <span class="nf">init_storage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize analysis storage folder.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span>
+                                    <span class="s2">&quot;storage&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;analyses&quot;</span><span class="p">,</span>
+                                    <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+
+        <span class="c1"># If the analysis storage folder already exists, we need to abort the</span>
+        <span class="c1"># analysis or previous results will be overwritten and lost.</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Analysis results folder already exists at path </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">,&quot;</span>
+                      <span class="s2">&quot; analysis aborted&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># If we&#39;re not able to create the analysis storage folder, we have to</span>
+        <span class="c1"># abort the analysis.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">create_folder</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">CuckooOperationalError</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to create analysis folder </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="AnalysisManager.check_file"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.check_file">[docs]</a>    <span class="k">def</span> <span class="nf">check_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Checks the integrity of the file to be analyzed.&quot;&quot;&quot;</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">view_sample</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">sample_id</span><span class="p">)</span>
+
+        <span class="n">sha256</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">get_sha256</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">sha256</span> <span class="o">!=</span> <span class="n">sample</span><span class="o">.</span><span class="n">sha256</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Target file has been modified after submission: </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="AnalysisManager.store_file"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.store_file">[docs]</a>    <span class="k">def</span> <span class="nf">store_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Store a copy of the file being analyzed.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The file to analyze does not exist at path </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">, &quot;</span>
+                      <span class="s2">&quot;analysis aborted&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">sha256</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">get_sha256</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;binaries&quot;</span><span class="p">,</span> <span class="n">sha256</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;File already exists at </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># TODO: do we really need to abort the analysis in case we are not</span>
+            <span class="c1"># able to store a copy of the file?</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="n">shutil</span><span class="o">.</span><span class="n">Error</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to store file from </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> to </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">, &quot;</span>
+                          <span class="s2">&quot;analysis aborted&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">storage_binary</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">,</span> <span class="s2">&quot;binary&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">os</span><span class="p">,</span> <span class="s2">&quot;symlink&quot;</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage_binary</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage_binary</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to create symlink/copy from </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> to &quot;</span>
+                      <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="AnalysisManager.store_task_info"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.store_task_info">[docs]</a>    <span class="k">def</span> <span class="nf">store_task_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;grab latest task from db (if available) and update self.task&quot;&quot;&quot;</span>
+        <span class="n">dbtask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">view_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">dbtask</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+        <span class="n">task_info_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">,</span> <span class="s2">&quot;task.json&quot;</span><span class="p">)</span>
+        <span class="nb">open</span><span class="p">(</span><span class="n">task_info_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">dbtask</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="AnalysisManager.acquire_machine"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.acquire_machine">[docs]</a>    <span class="k">def</span> <span class="nf">acquire_machine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Acquire an analysis machine from the pool of available ones.&quot;&quot;&quot;</span>
+        <span class="n">machine</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Start a loop to acquire the a machine to run the analysis on.</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">machine_lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+
+            <span class="c1"># In some cases it&#39;s possible that we enter this loop without</span>
+            <span class="c1"># having any available machines. We should make sure this is not</span>
+            <span class="c1"># such case, or the analysis task will fail completely.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">machinery</span><span class="o">.</span><span class="n">availables</span><span class="p">():</span>
+                <span class="n">machine_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># If the user specified a specific machine ID, a platform to be</span>
+            <span class="c1"># used or machine tags acquire the machine accordingly.</span>
+            <span class="n">machine</span> <span class="o">=</span> <span class="n">machinery</span><span class="o">.</span><span class="n">acquire</span><span class="p">(</span><span class="n">machine_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">machine</span><span class="p">,</span>
+                                        <span class="n">platform</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">platform</span><span class="p">,</span>
+                                        <span class="n">tags</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">tags</span><span class="p">)</span>
+
+            <span class="c1"># If no machine is available at this moment, wait for one second</span>
+            <span class="c1"># and try again.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">machine</span><span class="p">:</span>
+                <span class="n">machine_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Task #</span><span class="si">%d</span><span class="s2">: no machine available yet&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Task #</span><span class="si">%d</span><span class="s2">: acquired machine </span><span class="si">%s</span><span class="s2"> (label=</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">machine</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">machine</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+                <span class="k">break</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">machine</span> <span class="o">=</span> <span class="n">machine</span></div>
+
+<div class="viewcode-block" id="AnalysisManager.build_options"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.build_options">[docs]</a>    <span class="k">def</span> <span class="nf">build_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generate analysis options.</span>
+
+<span class="sd">        :return: options dict.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+            <span class="n">options</span><span class="p">[</span><span class="s2">&quot;file_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span>
+            <span class="n">options</span><span class="p">[</span><span class="s2">&quot;file_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">get_type</span><span class="p">()</span>
+            <span class="n">options</span><span class="p">[</span><span class="s2">&quot;pe_exports&quot;</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">get_exported_functions</span><span class="p">())</span>
+
+            <span class="n">package</span><span class="p">,</span> <span class="n">activity</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">get_apk_entry</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;apk_entry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">package</span><span class="p">,</span> <span class="n">activity</span><span class="p">)</span>
+
+        <span class="n">options</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">options</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">resultserver_ip</span>
+        <span class="n">options</span><span class="p">[</span><span class="s2">&quot;port&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">resultserver_port</span>
+        <span class="n">options</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">category</span>
+        <span class="n">options</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span>
+        <span class="n">options</span><span class="p">[</span><span class="s2">&quot;package&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">package</span>
+        <span class="n">options</span><span class="p">[</span><span class="s2">&quot;options&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">emit_options</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">options</span><span class="p">[</span><span class="s2">&quot;enforce_timeout&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">enforce_timeout</span>
+        <span class="n">options</span><span class="p">[</span><span class="s2">&quot;clock&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">clock</span>
+        <span class="n">options</span><span class="p">[</span><span class="s2">&quot;terminate_processes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">terminate_processes</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">timeout</span><span class="p">:</span>
+            <span class="n">options</span><span class="p">[</span><span class="s2">&quot;timeout&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">timeouts</span><span class="o">.</span><span class="n">default</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">options</span><span class="p">[</span><span class="s2">&quot;timeout&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">timeout</span>
+
+        <span class="c1"># copy in other analyzer specific options, TEMPORARY (most likely)</span>
+        <span class="n">vm_options</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">machinery</span><span class="o">.</span><span class="n">options</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">vm_options</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;analyzer_&quot;</span><span class="p">):</span>
+                <span class="n">options</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">vm_options</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">options</span></div>
+
+<div class="viewcode-block" id="AnalysisManager.route_network"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.route_network">[docs]</a>    <span class="k">def</span> <span class="nf">route_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Enable network routing if desired.&quot;&quot;&quot;</span>
+        <span class="c1"># Determine the desired routing strategy (none, internet, VPN).</span>
+        <span class="n">route</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;route&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">route</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">route</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interface</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rt_table</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="n">route</span> <span class="o">==</span> <span class="s2">&quot;internet&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">internet</span> <span class="o">!=</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">internet</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rt_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">rt_table</span>
+        <span class="k">elif</span> <span class="n">route</span> <span class="ow">in</span> <span class="n">vpns</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interface</span> <span class="o">=</span> <span class="n">vpns</span><span class="p">[</span><span class="n">route</span><span class="p">]</span><span class="o">.</span><span class="n">interface</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rt_table</span> <span class="o">=</span> <span class="n">vpns</span><span class="p">[</span><span class="n">route</span><span class="p">]</span><span class="o">.</span><span class="n">rt_table</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unknown network routing destination specified, &quot;</span>
+                        <span class="s2">&quot;ignoring routing for this analysis: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">route</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interface</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rt_table</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Check if the network interface is still available. If a VPN dies for</span>
+        <span class="c1"># some reason, its tunX interface will no longer be available.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;nic_available&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;The network interface &#39;</span><span class="si">%s</span><span class="s2">&#39; configured for this analysis is &quot;</span>
+                <span class="s2">&quot;not available at the moment, switching to route=none mode.&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">interface</span>
+            <span class="p">)</span>
+            <span class="n">route</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;route&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interface</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rt_table</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="p">:</span>
+            <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;forward_enable&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">interface</span><span class="p">,</span>
+                   <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">ip</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rt_table</span><span class="p">:</span>
+            <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;srcroute_enable&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rt_table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">ip</span><span class="p">)</span>
+
+        <span class="c1"># Propagate the taken route to the database.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">set_route</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">route</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AnalysisManager.unroute_network"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.unroute_network">[docs]</a>    <span class="k">def</span> <span class="nf">unroute_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="p">:</span>
+            <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;forward_disable&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">interface</span><span class="p">,</span>
+                   <span class="bp">self</span><span class="o">.</span><span class="n">interface</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">ip</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rt_table</span><span class="p">:</span>
+            <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;srcroute_disable&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rt_table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">ip</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AnalysisManager.wait_finish"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.wait_finish">[docs]</a>    <span class="k">def</span> <span class="nf">wait_finish</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Some VMs don&#39;t have an actual agent. Mainly those that are used as</span>
+<span class="sd">        assistance for an analysis through the services auxiliary module. This</span>
+<span class="sd">        method just waits until the analysis is finished rather than actively</span>
+<span class="sd">        trying to engage with the Cuckoo Agent.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">guest_set_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s2">&quot;running&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">guest_get_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;running&quot;</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AnalysisManager.guest_manage"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.guest_manage">[docs]</a>    <span class="k">def</span> <span class="nf">guest_manage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="c1"># Handle a special case where we&#39;re creating a baseline report of this</span>
+        <span class="c1"># particular virtual machine - a report containing all the results</span>
+        <span class="c1"># that are gathered if no additional samples are ran in the VM. These</span>
+        <span class="c1"># results, such as loaded drivers and opened sockets in volatility, or</span>
+        <span class="c1"># DNS requests to hostnames related to Microsoft Windows, etc may be</span>
+        <span class="c1"># omitted or at the very least given less priority when creating a</span>
+        <span class="c1"># report for an analysis that ran on this VM later on.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;baseline&quot;</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;timeout&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Initialize the guest manager.</span>
+            <span class="n">guest</span> <span class="o">=</span> <span class="n">GuestManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span>
+                                 <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">platform</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+            <span class="c1"># Start the analysis.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">guest_set_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s2">&quot;starting&quot;</span><span class="p">)</span>
+            <span class="n">monitor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;monitor&quot;</span><span class="p">,</span> <span class="s2">&quot;latest&quot;</span><span class="p">)</span>
+            <span class="n">guest</span><span class="o">.</span><span class="n">start_analysis</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">monitor</span><span class="p">)</span>
+
+            <span class="c1"># In case the Agent didn&#39;t respond and we force-quit the analysis</span>
+            <span class="c1"># at some point while it was still starting the analysis the state</span>
+            <span class="c1"># will be &quot;stop&quot; (or anything but &quot;running&quot;, really).</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">guest_get_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;starting&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">guest_set_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s2">&quot;running&quot;</span><span class="p">)</span>
+                <span class="n">guest</span><span class="o">.</span><span class="n">wait_for_completion</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">guest_set_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s2">&quot;stopping&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AnalysisManager.launch_analysis"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.launch_analysis">[docs]</a>    <span class="k">def</span> <span class="nf">launch_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Start analysis.&quot;&quot;&quot;</span>
+        <span class="n">succeeded</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting analysis of </span><span class="si">%s</span><span class="s2"> </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> (task #</span><span class="si">%d</span><span class="s2">, options </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">)&quot;</span><span class="p">,</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">category</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                 <span class="n">emit_options</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">options</span><span class="p">))</span>
+
+        <span class="c1"># Initialize the analysis folders.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_storage</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">store_task_info</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+            <span class="c1"># Check whether the file has been changed for some unknown reason.</span>
+            <span class="c1"># And fail this analysis if it has been modified.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_file</span><span class="p">():</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="c1"># Store a copy of the original file.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">store_file</span><span class="p">():</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Acquire analysis machine.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acquire_machine</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">CuckooOperationalError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">machine_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Cannot acquire machine: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># At this point we can tell the ResultServer about it.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ResultServer</span><span class="p">()</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">machinery</span><span class="o">.</span><span class="n">release</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="n">aux</span> <span class="o">=</span> <span class="n">RunAuxiliary</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="p">)</span>
+        <span class="n">aux</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="c1"># Generate the analysis configuration file.</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_options</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">unlocked</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interface</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1"># Mark the selected analysis machine in the database as started.</span>
+            <span class="n">guest_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">guest_start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
+                                            <span class="n">machinery</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="c1"># Start the machine.</span>
+            <span class="n">machinery</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">)</span>
+
+            <span class="c1"># Enable network routing.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">route_network</span><span class="p">()</span>
+
+            <span class="c1"># By the time start returns it will have fully started the Virtual</span>
+            <span class="c1"># Machine. We can now safely release the machine lock.</span>
+            <span class="n">machine_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+            <span class="n">unlocked</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># Run and manage the components inside the guest unless this</span>
+            <span class="c1"># machine has the &quot;noagent&quot; option specified (please refer to the</span>
+            <span class="c1"># wait_finish() function for more details on this function).</span>
+            <span class="k">if</span> <span class="s2">&quot;noagent&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">guest_manage</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wait_finish</span><span class="p">()</span>
+
+            <span class="n">succeeded</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="n">CuckooMachineError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">unlocked</span><span class="p">:</span>
+                <span class="n">machine_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">extra</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;task_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">})</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="s2">&quot;A critical error has occurred trying to use the machine &quot;</span>
+                <span class="s2">&quot;with name </span><span class="si">%s</span><span class="s2"> during an analysis due to which it is no &quot;</span>
+                <span class="s2">&quot;longer in a working state, please report this issue and all &quot;</span>
+                <span class="s2">&quot;of the related environment details to the developers so we &quot;</span>
+                <span class="s2">&quot;can improve this situation. (Note that before we would &quot;</span>
+                <span class="s2">&quot;simply remove this VM from doing any more analyses, but as &quot;</span>
+                <span class="s2">&quot;all the VMs will eventually be depleted that way, hopefully &quot;</span>
+                <span class="s2">&quot;we&#39;ll find a better solution now).&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="n">CuckooGuestError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">unlocked</span><span class="p">:</span>
+                <span class="n">machine_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">extra</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;task_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">})</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Stop Auxiliary modules.</span>
+            <span class="n">aux</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+            <span class="c1"># Take a memory dump of the machine before shutting it off.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">memory_dump</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">memory</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">dump_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">,</span> <span class="s2">&quot;memory.dmp&quot;</span><span class="p">)</span>
+                    <span class="n">machinery</span><span class="o">.</span><span class="n">dump_memory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">dump_path</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The memory dump functionality is not available &quot;</span>
+                              <span class="s2">&quot;for the current machine manager.&quot;</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">CuckooMachineError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Stop the analysis machine.</span>
+                <span class="n">machinery</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">CuckooMachineError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unable to stop machine </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+            <span class="c1"># Mark the machine in the database as stopped. Unless this machine</span>
+            <span class="c1"># has been marked as dead, we just keep it as &quot;started&quot; in the</span>
+            <span class="c1"># database so it&#39;ll not be used later on in this session.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">guest_stop</span><span class="p">(</span><span class="n">guest_log</span><span class="p">)</span>
+
+            <span class="c1"># After all this, we can make the ResultServer forget about the</span>
+            <span class="c1"># internal state for this analysis task.</span>
+            <span class="n">ResultServer</span><span class="p">()</span><span class="o">.</span><span class="n">del_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="p">)</span>
+
+            <span class="c1"># Drop the network routing rules if any.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unroute_network</span><span class="p">()</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Release the analysis machine. But only if the machine has</span>
+                <span class="c1"># not turned dead yet.</span>
+                <span class="n">machinery</span><span class="o">.</span><span class="n">release</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">CuckooMachineError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to release machine </span><span class="si">%s</span><span class="s2">, reason </span><span class="si">%s</span><span class="s2">. &quot;</span>
+                          <span class="s2">&quot;You might need to restore it manually.&quot;</span><span class="p">,</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">machine</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">succeeded</span></div>
+
+<div class="viewcode-block" id="AnalysisManager.process_results"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.process_results">[docs]</a>    <span class="k">def</span> <span class="nf">process_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Process the analysis results and generate the enabled reports.&quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">RunProcessing</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="n">RunSignatures</span><span class="p">(</span><span class="n">results</span><span class="o">=</span><span class="n">results</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="n">RunDetection</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="n">results</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="n">RunReporting</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="n">results</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+        <span class="c1"># If the target is a file and the user enabled the option,</span>
+        <span class="c1"># delete the original copy.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">delete_original</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">):</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Original file does not exist anymore: </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">: &quot;</span>
+                            <span class="s2">&quot;File not found.&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to delete original file at path &quot;</span>
+                              <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="c1"># If the target is a file and the user enabled the delete copy of</span>
+        <span class="c1"># the binary option, then delete the copy.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">delete_bin_copy</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">):</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Copy of the original file does not exist anymore: </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">: File not found&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to delete the copy of the original file at path </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="c1"># Check if the binary in the analysis directory is an invalid symlink. If it is, delete it.</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">islink</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storage_binary</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storage_binary</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storage_binary</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to delete symlink to the binary copy at path </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage_binary</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Task #</span><span class="si">%d</span><span class="s2">: reports generation completed (path=</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="AnalysisManager.run"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.AnalysisManager.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run manager thread.&quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">active_analysis_count</span>
+        <span class="n">active_analysis_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">launch_analysis</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">TASK_COMPLETED</span><span class="p">)</span>
+
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Released database task #</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">process_results</span><span class="p">:</span>
+                <span class="c1"># this updates self.task so processing gets the latest and greatest</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">store_task_info</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">process_results</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">TASK_REPORTED</span><span class="p">)</span>
+
+            <span class="c1"># We make a symbolic link (&quot;latest&quot;) which links to the latest</span>
+            <span class="c1"># analysis - this is useful for debugging purposes. This is only</span>
+            <span class="c1"># supported under systems that support symbolic links.</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">os</span><span class="p">,</span> <span class="s2">&quot;symlink&quot;</span><span class="p">):</span>
+                <span class="n">latest</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;analyses&quot;</span><span class="p">,</span> <span class="s2">&quot;latest&quot;</span><span class="p">)</span>
+
+                <span class="c1"># First we have to remove the existing symbolic link, then we</span>
+                <span class="c1"># have to create the new one.</span>
+                <span class="c1"># Deal with race conditions using a lock.</span>
+                <span class="n">latest_symlink_lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1"># As per documentation, lexists() returns True for dead</span>
+                    <span class="c1"># symbolic links.</span>
+                    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">lexists</span><span class="p">(</span><span class="n">latest</span><span class="p">):</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">latest</span><span class="p">)</span>
+
+                    <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="p">,</span> <span class="n">latest</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Error pointing latest analysis symlink: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+                <span class="k">finally</span><span class="p">:</span>
+                    <span class="n">latest_symlink_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+            <span class="c1"># overwrite task.json so we have the latest data inside</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">store_task_info</span><span class="p">()</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Task #</span><span class="si">%d</span><span class="s2">: analysis procedure completed&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Failure in AnalysisManager.run&quot;</span><span class="p">)</span>
+
+        <span class="n">active_analysis_count</span> <span class="o">-=</span> <span class="mi">1</span></div></div>
+
+<div class="viewcode-block" id="Scheduler"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.Scheduler">[docs]</a><span class="k">class</span> <span class="nc">Scheduler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Tasks Scheduler.</span>
+
+<span class="sd">    :note: This class is responsible for the main execution loop of the tool. It</span>
+<span class="sd">    prepares the analysis machines and keep waiting and loading for new</span>
+<span class="sd">    analysis tasks.Whenever a new task is available, it launches AnalysisManager which will</span>
+<span class="sd">    take care of running the full analysis process and operating with the</span>
+<span class="sd">    assigned analysis machine.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maxcount</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">Database</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxcount</span> <span class="o">=</span> <span class="n">maxcount</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_analysis_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="Scheduler.initialize"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.Scheduler.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the machine manager.&quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">machinery</span><span class="p">,</span> <span class="n">machine_lock</span>
+
+        <span class="n">machinery_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">machinery</span>
+
+        <span class="n">max_vmstartup_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">max_vmstartup_count</span>
+        <span class="k">if</span> <span class="n">max_vmstartup_count</span><span class="p">:</span>
+            <span class="n">machine_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Semaphore</span><span class="p">(</span><span class="n">max_vmstartup_count</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">machine_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Using </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> as machine manager&quot;</span><span class="p">,</span> <span class="n">machinery_name</span><span class="p">)</span>
+
+        <span class="c1"># Get registered class name. Only one machine manager is imported,</span>
+        <span class="c1"># therefore there should be only one class in the list.</span>
+        <span class="n">plugin</span> <span class="o">=</span> <span class="n">list_plugins</span><span class="p">(</span><span class="s2">&quot;machinery&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># Initialize the machine manager.</span>
+        <span class="n">machinery</span> <span class="o">=</span> <span class="n">plugin</span><span class="p">()</span>
+
+        <span class="c1"># Find its configuration file.</span>
+        <span class="n">conf</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;conf&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.conf&quot;</span> <span class="o">%</span> <span class="n">machinery_name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">conf</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">CuckooCriticalError</span><span class="p">(</span><span class="s2">&quot;The configuration file for machine &quot;</span>
+                                      <span class="s2">&quot;manager </span><span class="se">\&quot;</span><span class="si">{0}</span><span class="se">\&quot;</span><span class="s2"> does not exist at path:&quot;</span>
+                                      <span class="s2">&quot; </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">machinery_name</span><span class="p">,</span> <span class="n">conf</span><span class="p">))</span>
+
+        <span class="c1"># Provide a dictionary with the configuration options to the</span>
+        <span class="c1"># machine manager instance.</span>
+        <span class="n">machinery</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="n">Config</span><span class="p">(</span><span class="n">machinery_name</span><span class="p">))</span>
+
+        <span class="c1"># Initialize the machine manager.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">machinery</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">machinery_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">CuckooMachineError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CuckooCriticalError</span><span class="p">(</span><span class="s2">&quot;Error initializing machines: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="c1"># At this point all the available machines should have been identified</span>
+        <span class="c1"># and added to the list. If none were found, Cuckoo needs to abort the</span>
+        <span class="c1"># execution.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">machinery</span><span class="o">.</span><span class="n">machines</span><span class="p">()):</span>
+            <span class="k">raise</span> <span class="n">CuckooCriticalError</span><span class="p">(</span><span class="s2">&quot;No machines available.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loaded </span><span class="si">%s</span><span class="s2"> machine/s&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">machinery</span><span class="o">.</span><span class="n">machines</span><span class="p">()))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">machinery</span><span class="o">.</span><span class="n">machines</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;sqlite&quot;</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;As you&#39;ve configured Cuckoo to execute parallel &quot;</span>
+                        <span class="s2">&quot;analyses, we recommend you to switch to a MySQL or&quot;</span>
+                        <span class="s2">&quot;a PostgreSQL database as SQLite might cause some &quot;</span>
+                        <span class="s2">&quot;issues.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">machinery</span><span class="o">.</span><span class="n">machines</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">process_results</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;When running many virtual machines it is recommended &quot;</span>
+                        <span class="s2">&quot;to process the results in a separate process.py to &quot;</span>
+                        <span class="s2">&quot;increase throughput and stability. Please read the &quot;</span>
+                        <span class="s2">&quot;documentation about the `Processing Utility`.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Drop all existing packet forwarding rules for each VM. Just in case</span>
+        <span class="c1"># Cuckoo was terminated for some reason and various forwarding rules</span>
+        <span class="c1"># have thus not been dropped yet.</span>
+        <span class="k">for</span> <span class="n">machine</span> <span class="ow">in</span> <span class="n">machinery</span><span class="o">.</span><span class="n">machines</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">machine</span><span class="o">.</span><span class="n">interface</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Unable to determine the network interface for VM &quot;</span>
+                         <span class="s2">&quot;with name </span><span class="si">%s</span><span class="s2">, Cuckoo will not be able to give it &quot;</span>
+                         <span class="s2">&quot;full internet access or route it through a VPN! &quot;</span>
+                         <span class="s2">&quot;Please define a default network interface for the &quot;</span>
+                         <span class="s2">&quot;machinery or define a network interface for each &quot;</span>
+                         <span class="s2">&quot;VM.&quot;</span><span class="p">,</span> <span class="n">machine</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Drop forwarding rule to each VPN.</span>
+            <span class="k">for</span> <span class="n">vpn</span> <span class="ow">in</span> <span class="n">vpns</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;forward_disable&quot;</span><span class="p">,</span> <span class="n">machine</span><span class="o">.</span><span class="n">interface</span><span class="p">,</span>
+                       <span class="n">vpn</span><span class="o">.</span><span class="n">interface</span><span class="p">,</span> <span class="n">machine</span><span class="o">.</span><span class="n">ip</span><span class="p">)</span>
+
+            <span class="c1"># Drop forwarding rule to the internet / dirty line.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">internet</span> <span class="o">!=</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+                <span class="n">rooter</span><span class="p">(</span><span class="s2">&quot;forward_disable&quot;</span><span class="p">,</span> <span class="n">machine</span><span class="o">.</span><span class="n">interface</span><span class="p">,</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">internet</span><span class="p">,</span> <span class="n">machine</span><span class="o">.</span><span class="n">ip</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scheduler.stop"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.Scheduler.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Stop scheduler.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Shutdown machine manager (used to kill machines that still alive).</span>
+        <span class="n">machinery</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Scheduler.start"><a class="viewcode-back" href="../../../../lib.cuckoo.core.html#lib.cuckoo.core.scheduler.Scheduler.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Start scheduler.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Waiting for analysis tasks.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Message queue with threads to transmit exceptions (used as IPC).</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="n">Queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+
+        <span class="c1"># Command-line overrides the configuration file.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxcount</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">maxcount</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">max_analysis_count</span>
+
+        <span class="c1"># This loop runs forever.</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="c1"># Wait until the machine lock is not locked. This is only the case</span>
+            <span class="c1"># when all machines are fully running, rather that about to start</span>
+            <span class="c1"># or still busy starting. This way we won&#39;t have race conditions</span>
+            <span class="c1"># with finding out there are no available machines in the analysis</span>
+            <span class="c1"># manager or having two analyses pick the same machine.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">machine_lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">(</span><span class="kc">False</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="n">machine_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+            <span class="c1"># If not enough free disk space is available, then we print an</span>
+            <span class="c1"># error message and wait another round (this check is ignored</span>
+            <span class="c1"># when the freespace configuration variable is set to zero).</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">freespace</span><span class="p">:</span>
+                <span class="c1"># Resolve the full base path to the analysis folder, just in</span>
+                <span class="c1"># case somebody decides to make a symbolic link out of it.</span>
+                <span class="n">dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUCKOO_ROOT</span><span class="p">,</span> <span class="s2">&quot;storage&quot;</span><span class="p">,</span> <span class="s2">&quot;analyses&quot;</span><span class="p">)</span>
+
+                <span class="c1"># TODO: Windows support</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">os</span><span class="p">,</span> <span class="s2">&quot;statvfs&quot;</span><span class="p">):</span>
+                    <span class="n">dir_stats</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">statvfs</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+
+                    <span class="c1"># Calculate the free disk space in megabytes.</span>
+                    <span class="n">space_available</span> <span class="o">=</span> <span class="n">dir_stats</span><span class="o">.</span><span class="n">f_bavail</span> <span class="o">*</span> <span class="n">dir_stats</span><span class="o">.</span><span class="n">f_frsize</span>
+                    <span class="n">space_available</span> <span class="o">/=</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
+
+                    <span class="k">if</span> <span class="n">space_available</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">freespace</span><span class="p">:</span>
+                        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Not enough free disk space! (Only </span><span class="si">%d</span><span class="s2"> MB!)&quot;</span><span class="p">,</span>
+                                  <span class="n">space_available</span><span class="p">)</span>
+                        <span class="k">continue</span>
+
+            <span class="c1"># Have we limited the number of concurrently executing machines?</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">max_machines_count</span><span class="p">:</span>
+                <span class="c1"># Are too many running?</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">machinery</span><span class="o">.</span><span class="n">running</span><span class="p">())</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">cuckoo</span><span class="o">.</span><span class="n">max_machines_count</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+            <span class="c1"># If no machines are available, it&#39;s pointless to fetch for</span>
+            <span class="c1"># pending tasks. Loop over.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">machinery</span><span class="o">.</span><span class="n">availables</span><span class="p">():</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Exits if max_analysis_count is defined in the configuration</span>
+            <span class="c1"># file and has been reached.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxcount</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_analysis_count</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxcount</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">active_analysis_count</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Reached max analysis count, exiting.&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Fetch a pending analysis task.</span>
+            <span class="c1"># TODO This fixes only submissions by --machine, need to add</span>
+            <span class="c1"># other attributes (tags etc).</span>
+            <span class="c1"># TODO We should probably move the entire &quot;acquire machine&quot; logic</span>
+            <span class="c1"># from the Analysis Manager to the Scheduler and then pass the</span>
+            <span class="c1"># selected machine onto the Analysis Manager instance.</span>
+            <span class="n">task</span><span class="p">,</span> <span class="n">available</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">machine</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">get_available_machines</span><span class="p">():</span>
+                <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">machine</span><span class="o">=</span><span class="n">machine</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">task</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+                <span class="k">if</span> <span class="n">machine</span><span class="o">.</span><span class="n">is_analysis</span><span class="p">():</span>
+                    <span class="n">available</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># We only fetch a new task if at least one of the available</span>
+            <span class="c1"># machines is not a &quot;service&quot; machine (again, please refer to the</span>
+            <span class="c1"># services auxiliary module for more information on service VMs).</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">task</span> <span class="ow">and</span> <span class="n">available</span><span class="p">:</span>
+                <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">task</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Processing task #</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">total_analysis_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="c1"># Initialize and start the analysis manager.</span>
+                <span class="n">analysis</span> <span class="o">=</span> <span class="n">AnalysisManager</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span>
+                <span class="n">analysis</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">analysis</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+            <span class="c1"># Deal with errors.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">errors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">Queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;End of analyses.&quot;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, PowerLZY.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
