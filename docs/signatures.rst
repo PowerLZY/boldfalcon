@@ -3,7 +3,7 @@ signatures package
 
 
 
-signatures.creates\_exe module
+signatures.creates\_exe
 ------------------------------
 
 .. automodule:: signatures.creates_exe
@@ -11,7 +11,7 @@ signatures.creates\_exe module
    :undoc-members:
    :show-inheritance:
 
-signatures.generic\_metrics module
+signatures.generic\_metrics
 ----------------------------------
 
 .. automodule:: signatures.generic_metrics

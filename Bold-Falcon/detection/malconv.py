@@ -5,16 +5,13 @@
 
 
 from lib.cuckoo.common.abstracts import Detection
-
 import torch.nn as nn
 from torch.utils.data import Dataset
 
-
 class MalConv(Detection):
-    """
-    Providing the raw bytes from a file as input to a convolutional neural network
-    which then classifies the given binary as either malicious or benign
-    """
+    '''
+    Providing the raw bytes from a file as input to a convolutional neural network which then classifies the given binary as either malicious or benign
+    '''
 
     def load_model(self):
         '''

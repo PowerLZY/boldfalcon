@@ -3,7 +3,7 @@ reporting package
 
 
 
-reporting.elasticsearch module
+reporting.elasticsearch
 ------------------------------
 
 .. automodule:: reporting.elasticsearch
@@ -11,7 +11,7 @@ reporting.elasticsearch module
    :undoc-members:
    :show-inheritance:
 
-reporting.jsondump module
+reporting.jsondump
 -------------------------
 
 .. automodule:: reporting.jsondump
@@ -19,7 +19,7 @@ reporting.jsondump module
    :undoc-members:
    :show-inheritance:
 
-reporting.mongodb module
+reporting.mongodb
 ------------------------
 
 .. automodule:: reporting.mongodb
@@ -27,7 +27,7 @@ reporting.mongodb module
    :undoc-members:
    :show-inheritance:
 
-reporting.reporthtml module
+reporting.reporthtml
 ---------------------------
 
 .. automodule:: reporting.reporthtml

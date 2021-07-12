@@ -2,7 +2,7 @@ agent package
 =============
 
 
-agent.agent module
+agent.agent
 ------------------
 
 .. automodule:: agent.agent

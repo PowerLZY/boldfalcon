@@ -3,7 +3,7 @@ analyzer package
 
 
 
-analyzer.analyzer module
+analyzer.analyzer
 ------------------------
 
 .. automodule:: analyzer.analyzer

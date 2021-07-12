@@ -1,7 +1,7 @@
 processing package
 ==================
 
-processing.analysisinfo module
+processing.analysisinfo
 ------------------------------
 
 .. automodule:: processing.analysisinfo
@@ -9,7 +9,7 @@ processing.analysisinfo module
    :undoc-members:
    :show-inheritance:
 
-processing.baseline module
+processing.baseline
 --------------------------
 
 .. automodule:: processing.baseline
@@ -17,7 +17,7 @@ processing.baseline module
    :undoc-members:
    :show-inheritance:
 
-processing.behavior module
+processing.behavior
 --------------------------
 
 .. automodule:: processing.behavior
@@ -25,7 +25,7 @@ processing.behavior module
    :undoc-members:
    :show-inheritance:
 
-processing.buffer module
+processing.buffer
 ------------------------
 
 .. automodule:: processing.buffer
@@ -33,7 +33,7 @@ processing.buffer module
    :undoc-members:
    :show-inheritance:
 
-processing.debug module
+processing.debug
 -----------------------
 
 .. automodule:: processing.debug
@@ -41,7 +41,7 @@ processing.debug module
    :undoc-members:
    :show-inheritance:
 
-processing.dropped module
+processing.dropped
 -------------------------
 
 .. automodule:: processing.dropped
@@ -49,7 +49,7 @@ processing.dropped module
    :undoc-members:
    :show-inheritance:
 
-processing.dumptls module
+processing.dumptls
 -------------------------
 
 .. automodule:: processing.dumptls
@@ -57,7 +57,7 @@ processing.dumptls module
    :undoc-members:
    :show-inheritance:
 
-processing.memory module
+processing.memory
 ------------------------
 
 .. automodule:: processing.memory
@@ -65,7 +65,7 @@ processing.memory module
    :undoc-members:
    :show-inheritance:
 
-processing.network module
+processing.network
 -------------------------
 
 .. automodule:: processing.network
@@ -73,7 +73,7 @@ processing.network module
    :undoc-members:
    :show-inheritance:
 
-processing.procmemory module
+processing.procmemory
 ----------------------------
 
 .. automodule:: processing.procmemory
@@ -81,7 +81,7 @@ processing.procmemory module
    :undoc-members:
    :show-inheritance:
 
-processing.screenshots module
+processing.screenshots
 -----------------------------
 
 .. automodule:: processing.screenshots
@@ -89,7 +89,7 @@ processing.screenshots module
    :undoc-members:
    :show-inheritance:
 
-processing.snort module
+processing.snort
 -----------------------
 
 .. automodule:: processing.snort
@@ -97,7 +97,7 @@ processing.snort module
    :undoc-members:
    :show-inheritance:
 
-processing.static module
+processing.static
 ------------------------
 
 .. automodule:: processing.static
@@ -105,7 +105,7 @@ processing.static module
    :undoc-members:
    :show-inheritance:
 
-processing.strings module
+processing.strings
 -------------------------
 
 .. automodule:: processing.strings
@@ -113,7 +113,7 @@ processing.strings module
    :undoc-members:
    :show-inheritance:
 
-processing.targetinfo module
+processing.targetinfo
 ----------------------------
 
 .. automodule:: processing.targetinfo
@@ -121,7 +121,7 @@ processing.targetinfo module
    :undoc-members:
    :show-inheritance:
 
-processing.virustotal module
+processing.virustotal
 ----------------------------
 
 .. automodule:: processing.virustotal
