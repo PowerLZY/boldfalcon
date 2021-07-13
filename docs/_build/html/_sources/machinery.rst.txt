@@ -2,7 +2,7 @@ machinery package
 =================
 
 
-machinery.virtualbox module
+machinery.virtualbox
 ---------------------------
 
 .. automodule:: machinery.virtualbox
@@ -10,7 +10,7 @@ machinery.virtualbox module
    :undoc-members:
    :show-inheritance:
 
-machinery.vmware module
+machinery.vmware
 -----------------------
 
 .. automodule:: machinery.vmware

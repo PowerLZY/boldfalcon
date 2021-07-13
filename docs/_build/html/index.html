@@ -190,11 +190,35 @@
             
   <div class="section" id="welcome-to-bold-falcon-s-documentation">
 <h1>Welcome to Bold-Falcon’s documentation!<a class="headerlink" href="#welcome-to-bold-falcon-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span> ____        _     _       _____     _
+| __ )  ___ | | __| |     |  ___|_ _| | ___ ___  _ __
+|  _ / _ \| |/ _` |_____| |_ / _` | |/ __/ _ \| &#39;_
+| |_) | (_) | | (_| |_____|  _| (_| | | (_| (_) | | | |
+|____/ \___/|_|\__,_|     |_|  \__,_|_|\___\___/|_| |_|
+</pre></div>
+</div>
+<p><span class="raw-html-m2r"><img src="pics/logo.png" align="right" width="256px" height="176px"></span></p>
 </div>
 <div class="section" id="id1">
-<h1>毕方云沙箱（恶意软件检测平台）<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id2">
-<h2>开源资料<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h1>毕方智能云沙箱<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>毕方智能云沙箱(<strong>*Bold-Falcon***)是一个开源的自动化恶意软件分析系统。
+它用于自动运行和分析文件，并收集全面的分析结果，概述恶意软件在独立操作系统中运行时所做的工作。
+我们的工作是二次开发开源cuckoo沙箱，包括**更新项目结构</strong>，<strong>重写整个前端的用户交互</strong>和<strong>添加基于机器学习的检测模块</strong>，
+使恶意软件分析系统可以<strong>思考</strong>。</p>
+<a class="reference external image-reference" href="https://img.shields.io/badge/GitHub-Bold--Falcon-000000"><img alt="" src="https://img.shields.io/badge/GitHub-Bold--Falcon-000000" /></a>
+<p><a href="#id2"><span class="problematic" id="id3">**</span></a><code class="docutils literal notranslate"><span class="pre">说明文档</span></code>** <a class="reference external" href="https://powerlzy.github.io/Bold-Falcon/">https://powerlzy.github.io/Bold-Falcon/</a></p>
+<p><a href="#id4"><span class="problematic" id="id5">**</span></a><code class="docutils literal notranslate"><span class="pre">开发文档</span></code>** <a class="reference external" href="https://boldfalcon.readthedocs.io">https://boldfalcon.readthedocs.io</a></p>
+<div class="section" id="id6">
+<h2>获取项目<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/PowerLZY/Bold-Falcon
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install Bold-Falcon
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>开源资料<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/cuckoosandbox/cuckoo">cuckoo</a> Cuckoo Sandbox is an automated dynamic malware analysis system</p></li>
 <li><p><a class="reference external" href="https://github.com/spender-sandbox/cuckoo-modified">cuckoo-modified</a> Modified edition of cuckoo</p></li>
@@ -206,8 +230,8 @@
 <li><p><a class="reference external" href="https://github.com/Tencent/HaboMalHunter#readme_cn">HaboMalHunter</a> HaboMalHunter is a sub-project of Habo Malware Analysis System</p></li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h2>源码分析<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2>源码分析<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://cloud.tencent.com/developer/article/1597020">cuckoo技术分析全景图</a></p></li>
 <li><p><a class="reference external" href="https://bbs.pediy.com/thread-260038.htm">cuckoo沙箱源码分析上</a></p></li>
@@ -217,65 +241,49 @@
 <li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/54756845">腾讯哈勃Linux沙箱源码分析下</a></p></li>
 </ul>
 </div>
-<div class="section" id="id9">
-<h2>项目结构更新<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h2>项目结构更新<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>[x] 整理工程目录打包lib：（common，core），Modules（辅助功能、虚拟机、处理、签名、机器学习模型检测）</p></li>
 <li><p>[x] 省略CWD目录：添加 analyzer、db、examples、Mal_sample、sample_data、storage、log等目录</p></li>
-<li><p>[ ] 更新源码简介信息</p></li>
+<li><p>[x] 编写<a class="reference external" href="https://powerlzy.github.io/Bold-Falcon/">说明文档</a>和<a class="reference external" href="https://boldfalcon.readthedocs.io">开发文档</a></p></li>
 </ul>
 </div>
-<div class="section" id="id10">
-<h2>主要更新内容<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id17">
+<h2>后期需求<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>学习内容</p>
-<ul>
-<li><p>[x] Yara规则、ssdeep</p></li>
-<li><p>[x] DLL注入、动态信息提取原理</p></li>
-<li><p>[x] 历届网络技术挑战赛调研</p></li>
-<li><p>[x] <a class="reference external" href="https://zhuanlan.zhihu.com/p/323457078">用Github Page快速创建项目文档网站</a></p></li>
-<li><p>[ ] <a class="reference external" href="https://img.shields.io">动态牌子</a></p></li>
-<li><p>[ ] 创建Bold-Falcon logo in logo.py</p></li>
-<li><p>[ ] pypi上传模块，pip安装</p></li>
-<li><p>[x] requirements.txt 整理</p></li>
-<li><p>[ ] Frog:create an image and add an image and a host to the Fog server</p></li>
-<li><p>[ ] 解析plugins.py, class RunSignatures()原理</p></li>
-<li><p>[ ] 解析analyzer/windows/analyzer.py 虚拟机运行脚本</p></li>
-</ul>
-</li>
-<li><p>设计文档</p>
-<ul>
-<li><p>[x] 参考文献记录（设计依据）</p></li>
-<li><p>[x] 国内沙箱深度调研</p></li>
-<li><p>[ ] 图标+起名</p></li>
-</ul>
-</li>
-<li><p>家族签名模块</p>
-<ul>
-<li><p>[x] <a class="reference external" href="https://github.com/cuckoosandbox/community">cuckoo 社区签名库</a></p></li>
-<li><p>[x] <a class="reference external" href="https://www.secpulse.com/archives/75180.html">cuckoo的行为签名</a></p></li>
-<li><p>[ ] 添加挖矿+使用自定义签名</p></li>
-</ul>
-</li>
-<li><p>机器学习模块</p>
-<ul>
-<li><p>[x] 数据集：kaggle microsoft 10000个软件、挖矿软件 6000个；</p></li>
-<li><p>[ ] 报告显示内容：模型检测图展示、使用特征展示、预测威胁得分；</p></li>
-<li><p>[x] 静态检测引擎: ember、string、Op-code、灰度图、malconv；</p></li>
-<li><p>[x] 动态检测引擎：API调用序列；</p></li>
-<li><p>[x] 家族聚类（hdbscan等）；</p></li>
-<li><p>[ ] 定义基类Ml、loader等；</p></li>
-<li><p>[ ] 定义模型命名规则</p></li>
-<li><p>[ ] 添加Smaple——malware，200个json report样本；<strong>gist.github.com</strong></p></li>
-</ul>
-</li>
-<li><p>后期需求</p>
-<ul>
 <li><p>[ ] 环境打包，Dockershells安装</p></li>
-<li><p>[ ] blog解析文档编写</p></li>
 <li><p>[ ] 虚拟机管理：libvirt+高并发虚拟机</p></li>
 <li><p>[ ] 沙箱内存管理：MemScrimper: Time- and Space-Efficient Storage of <em>Malware</em> Sandbox Memory Dumps （2018 DIVMA）</p></li>
-<li><p>[ ] 3.3.5 REST API(Cuckoo docs) wsgi应用程序</p></li>
+<li><p>[ ] 搭建Elasticsearch数据库实现全局搜索</p></li>
+<li><p>[ ] 搭建moloch工具流量收集和索引</p></li>
+</ul>
+</div>
+<div class="section" id="id18">
+<h2>常见问题<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Machine * status gurumeditation</p>
+<ul>
+<li><p>找到虚拟机安装目录下VBox.log日志文件</p></li>
+<li><p>在日志文件中找到ProcessID, <code class="docutils literal notranslate"><span class="pre">kill</span> <span class="pre">-</span> <span class="pre">9</span> <span class="pre">ProcessID</span></code></p></li>
+</ul>
+</li>
+<li><p>python 2/3 joblib.dump() 和 joblib.load()</p>
+<ul>
+<li><p>不同python版本的pickle.dump()和pickle.load()是可以相互转换和支持的</p></li>
+<li><p>在python3中，您应该使用较低的协议号来编写pickle数据 <code class="docutils literal notranslate"><span class="pre">pickle.dump(your_object,</span> <span class="pre">your_file,</span> <span class="pre">protocol=2)</span></code></p></li>
+</ul>
+</li>
+<li><p>Pytorch Cpu 导入 Gpu 训练的模型</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">model.load(model_path,</span> <span class="pre">map_location='cpu')</span></code></p></li>
+</ul>
+</li>
+<li><p>Sphinx-readthedocs 开发文档自动生成</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sphinx-apidoc</span> <span class="pre">-o</span> <span class="pre">./source</span> <span class="pre">../Bold-Falcon</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">sphinx</span> <span class="pre">-T</span> <span class="pre">-E</span> <span class="pre">-b</span> <span class="pre">html</span> <span class="pre">-d</span> <span class="pre">_build/doctrees</span> <span class="pre">-D</span> <span class="pre">language=en</span> <span class="pre">.</span> <span class="pre">_build/html</span></code></p></li>
 </ul>
 </li>
 </ul>
@@ -285,7 +293,7 @@
 <p class="caption"><span class="caption-text">agent:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="agent.html">agent package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="agent.html#module-agent.agent">agent.agent module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agent.html#module-agent.agent">agent.agent</a></li>
 </ul>
 </li>
 </ul>
@@ -294,7 +302,7 @@
 <p class="caption"><span class="caption-text">analyzer:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="analyzer.html">analyzer package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="analyzer.html#module-analyzer.analyzer">analyzer.analyzer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analyzer.html#module-analyzer.analyzer">analyzer.analyzer</a></li>
 </ul>
 </li>
 </ul>
@@ -303,13 +311,13 @@
 <p class="caption"><span class="caption-text">Common:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lib.cuckoo.common.html">lib.cuckoo.common package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.abstracts">lib.cuckoo.common.abstracts module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.colors">lib.cuckoo.common.colors module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.config">lib.cuckoo.common.config module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.exceptions">lib.cuckoo.common.exceptions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.logo">lib.cuckoo.common.logo module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.utils">lib.cuckoo.common.utils module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.virustotal">lib.cuckoo.common.virustotal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.abstracts">lib.cuckoo.common.abstracts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.colors">lib.cuckoo.common.colors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.config">lib.cuckoo.common.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.exceptions">lib.cuckoo.common.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.logo">lib.cuckoo.common.logo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.utils">lib.cuckoo.common.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.common.html#module-lib.cuckoo.common.virustotal">lib.cuckoo.common.virustotal</a></li>
 </ul>
 </li>
 </ul>
@@ -318,13 +326,13 @@
 <p class="caption"><span class="caption-text">Core:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lib.cuckoo.core.html">lib.cuckoo.core package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.cuckoo">lib.cuckoo.core.cuckoo module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.database">lib.cuckoo.core.database module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.guest">lib.cuckoo.core.guest module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.plugins">lib.cuckoo.core.plugins module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.resultserver">lib.cuckoo.core.resultserver module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.scheduler">lib.cuckoo.core.scheduler module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.startup">lib.cuckoo.core.startup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.cuckoo">lib.cuckoo.core.cuckoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.database">lib.cuckoo.core.database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.guest">lib.cuckoo.core.guest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.plugins">lib.cuckoo.core.plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.resultserver">lib.cuckoo.core.resultserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.scheduler">lib.cuckoo.core.scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib.cuckoo.core.html#module-lib.cuckoo.core.startup">lib.cuckoo.core.startup</a></li>
 </ul>
 </li>
 </ul>
@@ -333,8 +341,8 @@
 <p class="caption"><span class="caption-text">auxiliary:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="auxiliary.html">auxiliary package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auxiliary.html#module-auxiliary.mitm">auxiliary.mitm module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="auxiliary.html#module-auxiliary.sniffer">auxiliary.sniffer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auxiliary.html#module-auxiliary.mitm">auxiliary.mitm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auxiliary.html#module-auxiliary.sniffer">auxiliary.sniffer</a></li>
 </ul>
 </li>
 </ul>
@@ -343,8 +351,8 @@
 <p class="caption"><span class="caption-text">machinery:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="machinery.html">machinery package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="machinery.html#module-machinery.virtualbox">machinery.virtualbox module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="machinery.html#module-machinery.vmware">machinery.vmware module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="machinery.html#module-machinery.virtualbox">machinery.virtualbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="machinery.html#module-machinery.vmware">machinery.vmware</a></li>
 </ul>
 </li>
 </ul>
@@ -353,22 +361,22 @@
 <p class="caption"><span class="caption-text">processing:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="processing.html">processing package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.analysisinfo">processing.analysisinfo module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.baseline">processing.baseline module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.behavior">processing.behavior module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.buffer">processing.buffer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.debug">processing.debug module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.dropped">processing.dropped module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.dumptls">processing.dumptls module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.memory">processing.memory module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.network">processing.network module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.procmemory">processing.procmemory module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.screenshots">processing.screenshots module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.snort">processing.snort module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.static">processing.static module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.strings">processing.strings module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.targetinfo">processing.targetinfo module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.virustotal">processing.virustotal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.analysisinfo">processing.analysisinfo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.baseline">processing.baseline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.behavior">processing.behavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.buffer">processing.buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.debug">processing.debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.dropped">processing.dropped</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.dumptls">processing.dumptls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.memory">processing.memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.network">processing.network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.procmemory">processing.procmemory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.screenshots">processing.screenshots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.snort">processing.snort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.static">processing.static</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.strings">processing.strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.targetinfo">processing.targetinfo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processing.html#module-processing.virustotal">processing.virustotal</a></li>
 </ul>
 </li>
 </ul>
@@ -377,9 +385,9 @@
 <p class="caption"><span class="caption-text">detection:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="detection.html">detection package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="detection.html#module-detection.apistats">detection.apistats module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="detection.html#module-detection.malconv">detection.malconv module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="detection.html#module-detection.strings">detection.strings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detection.html#module-detection.apistats">detection.apistats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detection.html#module-detection.malconv">detection.malconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detection.html#module-detection.strings">detection.strings</a></li>
 </ul>
 </li>
 </ul>
@@ -388,10 +396,10 @@
 <p class="caption"><span class="caption-text">report</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="reporting.html">reporting package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="reporting.html#module-reporting.elasticsearch">reporting.elasticsearch module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reporting.html#module-reporting.jsondump">reporting.jsondump module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reporting.html#module-reporting.mongodb">reporting.mongodb module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reporting.html#module-reporting.reporthtml">reporting.reporthtml module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reporting.html#module-reporting.elasticsearch">reporting.elasticsearch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reporting.html#module-reporting.jsondump">reporting.jsondump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reporting.html#module-reporting.mongodb">reporting.mongodb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reporting.html#module-reporting.reporthtml">reporting.reporthtml</a></li>
 </ul>
 </li>
 </ul>

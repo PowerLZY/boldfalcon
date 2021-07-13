@@ -2,7 +2,7 @@ lib.cuckoo.common package
 =========================
 
 
-lib.cuckoo.common.abstracts module
+lib.cuckoo.common.abstracts
 ----------------------------------
 
 .. automodule:: lib.cuckoo.common.abstracts
@@ -10,7 +10,7 @@ lib.cuckoo.common.abstracts module
    :undoc-members:
    :show-inheritance:
 
-lib.cuckoo.common.colors module
+lib.cuckoo.common.colors
 -------------------------------
 
 .. automodule:: lib.cuckoo.common.colors
@@ -18,7 +18,7 @@ lib.cuckoo.common.colors module
    :undoc-members:
    :show-inheritance:
 
-lib.cuckoo.common.config module
+lib.cuckoo.common.config
 -------------------------------
 
 .. automodule:: lib.cuckoo.common.config
@@ -26,7 +26,7 @@ lib.cuckoo.common.config module
    :undoc-members:
    :show-inheritance:
 
-lib.cuckoo.common.exceptions module
+lib.cuckoo.common.exceptions
 -----------------------------------
 
 .. automodule:: lib.cuckoo.common.exceptions
@@ -34,7 +34,7 @@ lib.cuckoo.common.exceptions module
    :undoc-members:
    :show-inheritance:
 
-lib.cuckoo.common.logo module
+lib.cuckoo.common.logo
 -----------------------------
 
 .. automodule:: lib.cuckoo.common.logo
@@ -42,7 +42,7 @@ lib.cuckoo.common.logo module
    :undoc-members:
    :show-inheritance:
 
-lib.cuckoo.common.utils module
+lib.cuckoo.common.utils
 ------------------------------
 
 .. automodule:: lib.cuckoo.common.utils
@@ -50,7 +50,7 @@ lib.cuckoo.common.utils module
    :undoc-members:
    :show-inheritance:
 
-lib.cuckoo.common.virustotal module
+lib.cuckoo.common.virustotal
 -----------------------------------
 
 .. automodule:: lib.cuckoo.common.virustotal

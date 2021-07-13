@@ -3,7 +3,7 @@ lib.cuckoo.core package
 
 
 
-lib.cuckoo.core.cuckoo module
+lib.cuckoo.core.cuckoo
 -----------------------------
 
 .. automodule:: lib.cuckoo.core.cuckoo
@@ -11,7 +11,7 @@ lib.cuckoo.core.cuckoo module
    :undoc-members:
    :show-inheritance:
 
-lib.cuckoo.core.database module
+lib.cuckoo.core.database
 -------------------------------
 
 .. automodule:: lib.cuckoo.core.database
@@ -19,7 +19,7 @@ lib.cuckoo.core.database module
    :undoc-members:
    :show-inheritance:
 
-lib.cuckoo.core.guest module
+lib.cuckoo.core.guest
 ----------------------------
 
 .. automodule:: lib.cuckoo.core.guest
@@ -27,7 +27,7 @@ lib.cuckoo.core.guest module
    :undoc-members:
    :show-inheritance:
 
-lib.cuckoo.core.plugins module
+lib.cuckoo.core.plugins
 ------------------------------
 
 .. automodule:: lib.cuckoo.core.plugins
@@ -35,7 +35,7 @@ lib.cuckoo.core.plugins module
    :undoc-members:
    :show-inheritance:
 
-lib.cuckoo.core.resultserver module
+lib.cuckoo.core.resultserver
 -----------------------------------
 
 .. automodule:: lib.cuckoo.core.resultserver
@@ -43,7 +43,7 @@ lib.cuckoo.core.resultserver module
    :undoc-members:
    :show-inheritance:
 
-lib.cuckoo.core.scheduler module
+lib.cuckoo.core.scheduler
 --------------------------------
 
 .. automodule:: lib.cuckoo.core.scheduler
@@ -51,7 +51,7 @@ lib.cuckoo.core.scheduler module
    :undoc-members:
    :show-inheritance:
 
-lib.cuckoo.core.startup module
+lib.cuckoo.core.startup
 ------------------------------
 
 .. automodule:: lib.cuckoo.core.startup

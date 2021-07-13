@@ -3,7 +3,7 @@ detection package
 
 
 
-detection.apistats module
+detection.apistats
 -------------------------
 
 .. automodule:: detection.apistats
@@ -11,7 +11,7 @@ detection.apistats module
    :undoc-members:
    :show-inheritance:
 
-detection.malconv module
+detection.malconv
 ------------------------
 
 .. automodule:: detection.malconv
@@ -19,7 +19,7 @@ detection.malconv module
    :undoc-members:
    :show-inheritance:
 
-detection.strings module
+detection.strings
 ------------------------
 
 .. automodule:: detection.strings

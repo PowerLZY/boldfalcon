@@ -3,7 +3,7 @@ auxiliary package
 
 
 
-auxiliary.mitm module
+auxiliary.mitm
 ---------------------
 
 .. automodule:: auxiliary.mitm
@@ -11,7 +11,7 @@ auxiliary.mitm module
    :undoc-members:
    :show-inheritance:
 
-auxiliary.sniffer module
+auxiliary.sniffer
 ------------------------
 
 .. automodule:: auxiliary.sniffer
