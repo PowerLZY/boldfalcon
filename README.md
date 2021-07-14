@@ -1,39 +1,13 @@
 ### 毕方智能云沙箱
-
 毕方智能云沙箱(Bold-Falcon)是一个开源的自动化恶意软件分析系统。它用于自动运行和分析文件，并收集全面的分析结果，概述恶意软件在独立操作系统中运行时所做的工作。我们的工作是二次开发开源cuckoo沙箱，包括**更新项目结构，重写整个前端的用户交互和添加基于机器学习的检测模块**，使恶意软件分析系统可以**思考**。
-
-`说明文档` https://powerlzy.github.io/Bold-Falcon/
-
-`开发文档` https://boldfalcon.readthedocs.io
-
 #### 获取项目
 
 ```shell
 git clone https://github.com/PowerLZY/Bold-Falcon
 ```
-
 ```shell
 pip install Bold-Falcon
 ```
-
-#### 开源资料
-
-+ [cuckoo](https://github.com/cuckoosandbox/cuckoo) Cuckoo Sandbox is an automated dynamic malware analysis system
-+ [cuckoo-modified](https://github.com/spender-sandbox/cuckoo-modified) Modified edition of cuckoo
-+ [cuckooDroid](https://github.com/idanr1986/cuckoo-droid) CuckooDroid - Automated Android Malware Analysis with Cuckoo Sandbox.
-+ [docker-cuckoo](https://github.com/blacktop/docker-cuckoo) Cuckoo Sandbox Dockerfile
-+ [cuckooautoinstall](https://github.com/buguroo/cuckooautoinstall) Auto Installer Script for Cuckoo Sandbox
-+ [cuckooML](https://github.com/honeynet/cuckooml) CuckooML: Machine Learning for Cuckoo Sandbox
-+ [Panda-Sandbox](https://github.com/PowerLZY/Panda-Sandbox) Cuckoo python3 (Unfinished)
-+ [HaboMalHunter](https://github.com/Tencent/HaboMalHunter#readme_cn) HaboMalHunter is a sub-project of Habo Malware Analysis System
-
-#### 源码分析
-+ [cuckoo技术分析全景图](https://cloud.tencent.com/developer/article/1597020)
-+ [cuckoo沙箱源码分析上](https://bbs.pediy.com/thread-260038.htm)
-+ [cuckoo沙箱源码分析中](https://bbs.pediy.com/thread-260087.htm)
-+ [cuckoo沙箱源码分析后](https://bbs.pediy.com/thread-260252.htm)
-+ [腾讯哈勃Linux沙箱源码分析上](https://zhuanlan.zhihu.com/p/54756592)
-+ [腾讯哈勃Linux沙箱源码分析下](https://zhuanlan.zhihu.com/p/54756845)
 
 #### 项目结构更新
   - [x] 整理工程目录打包lib：（common，core），Modules（辅助功能、虚拟机、处理、签名、机器学习模型检测）
